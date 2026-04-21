@@ -1,0 +1,56 @@
+---
+interface Props {
+  year: string;
+  title: string;
+  description: string;
+  type: 'role' | 'award' | 'degree' | 'constraint' | 'future';
+}
+
+const { year, title, description, type } = Astro.props;
+---
+
+<div class:list={[
+  'relative pl-8 pb-8 border-l border-border',
+  {
+    'border-accent': type === 'role',
+    'border-teal': type === 'award', 
+    'border-yellow-500': type === 'degree',
+    'border-orange-500': type === 'constraint',
+    'border-cyan-400 shadow-cyan-400/50 shadow-lg': type === 'future'
+  }
+]}>
+  <!-- Timeline dot -->
+  <div class:list={[
+    'absolute -left-2 w-4 h-4 rounded-full border-2 border-bg',
+    {
+      'bg-accent': type === 'role',
+      'bg-teal': type === 'award',
+      'bg-yellow-500': type === 'degree', 
+      'bg-orange-500': type === 'constraint',
+      'bg-cyan-400 animate-pulse': type === 'future'
+    }
+  ]}></div>
+
+  <!-- Content -->
+  <div class="bg-surface rounded-lg p-4 border border-border">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="font-mono text-text-body text-sm">{year}</span>
+      <span class:list={[
+        'text-xs px-2 py-1 rounded-full',
+        {
+          'bg-accent/20 text-accent': type === 'role',
+          'bg-teal/20 text-teal': type === 'award',
+          'bg-yellow-500/20 text-yellow-500': type === 'degree',
+          'bg-orange-500/20 text-orange-500': type === 'constraint',
+          'bg-cyan-400/20 text-cyan-400': type === 'future'
+        }
+      ]}>
+        {type.charAt(0).toUpperCase() + type.slice(1)}
+      </span>
+    </div>
+    
+    <h3 class="text-text-heading font-semibold mb-2">{title}</h3>
+    <p class="text-text-body text-sm">{description}</p>
+  </div>
+</div>
+

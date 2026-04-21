@@ -1,0 +1,56 @@
+[
+  {
+    "id": "sonic-payroll-accuracy",
+    "title": "Payroll Accuracy Rate",
+    "before": "87%",
+    "after": "99.8%",
+    "context": "Sonic Drive-in franchise payroll processing",
+    "skillTag": "Payroll Operations",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "sonic-compliance-audits",
+    "title": "Compliance Audit Pass Rate",
+    "before": "72%",
+    "after": "100%",
+    "context": "Department of Labor compliance audits",
+    "skillTag": "Compliance Management",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "klw-onboarding-time",
+    "title": "Employee Onboarding Time",
+    "before": "14 days",
+    "after": "3 days",
+    "context": "New hire processing across all departments",
+    "skillTag": "Process Optimization",
+    "caseStudySlug": "klw"
+  },
+  {
+    "id": "klw-benefits-enrollment",
+    "title": "Benefits Enrollment Accuracy",
+    "before": "81%",
+    "after": "98.5%",
+    "context": "Health insurance and retirement plan enrollment",
+    "skillTag": "Benefits Administration",
+    "caseStudySlug": "klw"
+  },
+  {
+    "id": "grandlux-financial-close",
+    "title": "Monthly Financial Close Time",
+    "before": "12 days",
+    "after": "4 days",
+    "context": "Multi-location restaurant group financial reporting",
+    "skillTag": "Financial Operations",
+    "caseStudySlug": "grandlux"
+  },
+  {
+    "id": "grandlux-inventory-accuracy",
+    "title": "Inventory Accuracy Rate",
+    "before": "76%",
+    "after": "94.2%",
+    "context": "Food cost and inventory management system",
+    "skillTag": "Inventory Management",
+    "caseStudySlug": "grandlux"
+  }
+]

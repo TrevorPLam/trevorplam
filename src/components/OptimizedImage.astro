@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+	src: string | any;
+	alt: string;
+	width?: number;
+	height?: number;
+	loading?: 'eager' | 'lazy';
+	fetchpriority?: 'high' | 'auto' | 'low';
+	priority?: boolean;
+	class?: string;
+	layout?: 'constrained' | 'full-width' | 'fixed' | 'none';
+	format?: 'png' | 'jpg' | 'jpeg' | 'webp' | 'avif' | 'gif' | 'svg';
+	quality?: number | 'low' | 'mid' | 'high' | 'max';
+}
+
+const { 
+	src, 
+	alt, 
+	width, 
+	height, 
+	loading = 'lazy', 
+	fetchpriority = 'auto', 
+	priority = false, 
+	class: className = '', 
+	layout = 'constrained',
+	format,
+	quality
+} = Astro.props;
+
+// If priority is true, override loading and fetchpriority for LCP optimization
+const finalLoading = priority ? 'eager' : loading;
+const finalFetchpriority = priority ? 'high' : fetchpriority;
+---
+
+<Image 
+	src={src}
+	alt={alt}
+	width={width}
+	height={height}
+	loading={finalLoading}
+	fetchpriority={finalFetchpriority}
+	priority={priority}
+	class={className}
+	layout={layout}
+	format={format}
+	quality={quality}
+	decoding={priority ? 'sync' : 'async'}
+/>

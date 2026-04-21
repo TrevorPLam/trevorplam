@@ -1,0 +1,30 @@
+---
+import MetricCard from '../components/MetricCard.astro';
+import metrics from '../../data/metrics.json';
+---
+
+<section class="py-20 px-6 bg-surface/50" aria-labelledby="proof-points-heading">
+	<div class="max-w-6xl mx-auto">
+		<header class="text-center mb-16">
+			<h2 id="proof-points-heading" class="text-3xl lg:text-4xl font-bold text-text-heading mb-6">
+				Quantified Impact
+			</h2>
+			<p class="text-xl text-text-body max-w-3xl mx-auto">
+				Measurable improvements across payroll, compliance, operations, and financial controls.
+			</p>
+		</header>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			{metrics.map((metric) => (
+				<MetricCard
+					title={metric.title}
+					before={metric.before}
+					after={metric.after}
+					context={metric.context}
+					skillTag={metric.skillTag}
+					caseStudySlug={metric.caseStudySlug}
+				/>
+			))}
+		</div>
+	</div>
+</section>

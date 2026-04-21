@@ -1,0 +1,55 @@
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  testMatch: '**/*.spec.ts',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: [['html'], ['list']],
+  timeout: 30000,
+  expect: {
+    timeout: 10000,
+    // Visual regression settings
+    toHaveScreenshot: {
+      maxDiffPixels: 100,
+      threshold: 0.2,
+      animations: 'disabled'
+    },
+    toMatchSnapshot: {
+      maxDiffPixelRatio: 0.02
+    }
+  },
+  use: {
+    // Use built static files - start preview server before tests
+    baseURL: 'http://localhost:4321',
+    trace: 'on-first-retry',
+    colorScheme: 'dark',
+    actionTimeout: 15000,
+    navigationTimeout: 15000
+  },
+  projects: [
+    {
+      name: 'Desktop Chrome',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'Desktop Firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'Mobile Safari',
+      use: { ...devices['iPhone 13'] },
+    },
+  ],
+  // Add webServer to automatically start preview server
+  webServer: {
+    command: 'npm run preview',
+    port: 4321,
+    reuseExistingServer: !process.env.CI,
+    timeout: 120 * 1000,
+    stdout: 'ignore',
+    stderr: 'pipe'
+  },
+});

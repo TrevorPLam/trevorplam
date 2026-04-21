@@ -1,0 +1,107 @@
+{
+  "operations": [
+    {
+      "name": "Process Optimization",
+      "level": "Expert",
+      "description": "Redesigning workflows for efficiency and scalability"
+    },
+    {
+      "name": "Change Management", 
+      "level": "Expert",
+      "description": "Leading teams through operational transitions and system implementations"
+    },
+    {
+      "name": "Cross-Functional Leadership",
+      "level": "Expert", 
+      "description": "Coordinating multiple departments toward common operational goals"
+    },
+    {
+      "name": "Crisis Management",
+      "level": "Advanced",
+      "description": "Rapid response to operational failures and urgent business needs"
+    }
+  ],
+  "hr_payroll": [
+    {
+      "name": "Payroll Processing",
+      "level": "Expert",
+      "description": "Multi-state payroll compliance and processing for 500+ employees"
+    },
+    {
+      "name": "Benefits Administration",
+      "level": "Expert", 
+      "description": "Health insurance, retirement plans, and employee benefits management"
+    },
+    {
+      "name": "HRIS Implementation",
+      "level": "Advanced",
+      "description": "System deployment and optimization for human resources information systems"
+    },
+    {
+      "name": "Compliance Management",
+      "level": "Expert",
+      "description": "Department of Labor, wage and hour, and employment law compliance"
+    }
+  ],
+  "financial": [
+    {
+      "name": "Financial Reporting",
+      "level": "Advanced",
+      "description": "Monthly closes, financial statements, and management reporting"
+    },
+    {
+      "name": "Budget Management",
+      "level": "Advanced",
+      "description": "Departmental budgeting, forecasting, and variance analysis"
+    },
+    {
+      "name": "Inventory Management",
+      "level": "Expert",
+      "description": "Food cost control, inventory systems, and waste reduction"
+    },
+    {
+      "name": "Cost Analysis",
+      "level": "Advanced",
+      "description": "Operational cost analysis and margin improvement strategies"
+    }
+  ],
+  "technical": [
+    {
+      "name": "Information Architecture",
+      "level": "Expert",
+      "description": "Designing systems that make organizational knowledge visible and actionable"
+    },
+    {
+      "name": "Process Documentation",
+      "level": "Expert",
+      "description": "Creating standard operating procedures and training materials"
+    },
+    {
+      "name": "System Integration",
+      "level": "Advanced",
+      "description": "Connecting disparate systems for seamless data flow"
+    },
+    {
+      "name": "Data Analysis",
+      "level": "Advanced",
+      "description": "Using operational data to drive business decisions"
+    }
+  ],
+  "legal": [
+    {
+      "name": "Trust & Estate Administration",
+      "level": "Intermediate",
+      "description": "Basic trust administration and estate settlement procedures"
+    },
+    {
+      "name": "Legal Document Preparation",
+      "level": "Intermediate", 
+      "description": "Drafting legal documents and correspondence under attorney supervision"
+    },
+    {
+      "name": "Case Management",
+      "level": "Advanced",
+      "description": "Managing multiple legal matters and deadlines simultaneously"
+    }
+  ]
+}

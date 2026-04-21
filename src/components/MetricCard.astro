@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string;
+  before: string;
+  after: string;
+  context?: string;
+  skillTag?: string;
+  caseStudySlug?: string;
+}
+
+const { title, before, after, context, skillTag, caseStudySlug } = Astro.props;
+---
+
+<a href={`/cases/${caseStudySlug || '#'}`} 
+   class="block bg-surface border border-border rounded-lg p-6 hover:bg-accent/10 transition-colors"
+   aria-label={`${title}: improved from ${before} to ${after}`}
+>
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-text-heading text-lg font-semibold">{title}</h3>
+    {skillTag && (
+      <span class="inline-block bg-teal text-white text-xs px-2 py-1 rounded-full mb-2">
+        {skillTag}
+      </span>
+    )}
+  </div>
+  
+  <div class="flex items-baseline gap-4 mb-2">
+    <span class="font-mono text-text-body text-sm line-through opacity-60">{before}</span>
+    <span class="text-accent font-mono text-lg font-semibold">→</span>
+    <span class="font-mono text-text-heading text-sm">{after}</span>
+  </div>
+  
+  {context && (
+    <p class="text-text-body text-sm mt-2">{context}</p>
+  )}
+</a>

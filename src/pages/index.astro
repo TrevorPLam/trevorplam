@@ -1,17 +1,12 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../sections/Hero.astro';
+import StabilizerPattern from '../sections/StabilizerPattern.astro';
+import ProofPoints from '../sections/ProofPoints.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Trevor Lam - Chief of Staff Hub" description="Operations Integrator · Forensic Stabilizer">
+	<Hero />
+	<StabilizerPattern />
+	<ProofPoints />
+</BaseLayout>

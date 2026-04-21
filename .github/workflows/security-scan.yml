@@ -1,0 +1,231 @@
+name: Security Scan
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**/*'
+      - 'tests/**/*'
+      - 'package.json'
+      - 'package-lock.json'
+  push:
+    branches: [ main ]
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run Security Audit
+        run: |
+          echo "🔒 Running security audit..."
+          
+          # Audit for vulnerabilities (high severity and above)
+          npm audit --audit-level high --json > security-audit.json 2>/dev/null || true
+          
+          # Also run summary for display
+          npm audit --audit-level high || AUDIT_FAILED=$?
+          
+          if [ "${AUDIT_FAILED:-0}" -ne 0 ]; then
+            echo "⚠️ Security audit found high-severity vulnerabilities (non-blocking for PR)"
+          fi
+          
+          echo "✅ Security audit completed"
+          echo "::set-output name=audit_failed::${AUDIT_FAILED:-0}"
+        continue-on-error: true
+        
+      - name: Run Dependency License Check
+        run: |
+          echo "📜 Checking license compliance..."
+          
+          # Check for copyleft/proprietary licenses that might conflict
+          npx license-checker --json > license-check.json 2>/dev/null || true
+          
+          # Filter for problematic licenses (GPL, proprietary, etc.)
+          if [ -f license-check.json ]; then
+            cat license-check.json | npx json -a -g 'this.licenses && (this.licenses.includes("GPL") || this.licenses.includes(" proprietary") || this.licenses.includes("UNKNOWN"))' > license-violations.json || true
+            VIOLATIONS=$(cat license-violations.json | wc -l)
+            if [ "$VIOLATIONS" -gt 0 ]; then
+              echo "⚠️ Found $VIOLATIONS potential license issues"
+              cat license-violations.json
+            else
+              echo "✅ No problematic licenses found"
+            fi
+          fi
+          
+          echo "✅ License check completed"
+        continue-on-error: true
+        
+      - name: Run SAST Scan with ESLint Security
+        run: |
+          echo "🔍 Running static application security testing..."
+          
+          # Run ESLint with security rules (will fail on security issues)
+          npx eslint . --ext .ts,.js,.astro --format=json --max-warnings 0 > sast-report.json 2>/dev/null || SAST_EXIT=$?
+          
+          # Check for any security-related rules that fired
+          if [ -f sast-report.json ]; then
+            SECURITY_ISSUES=$(cat sast-report.json | npx json -a -g 'this.messages && this.messages.some(m => m.ruleId && (m.ruleId.includes("security") || m.ruleId.includes("no-eval") || m.ruleId.includes("no-inner-html")))' | wc -l)
+            if [ "$SECURITY_ISSUES" -gt 0 ]; then
+              echo "⚠️ Found $SECURITY_ISSUES potential security issues"
+              cat sast-report.json | npx json -a -g 'this.messages && this.messages.filter(m => m.ruleId && (m.ruleId.includes("security") || m.ruleId.includes("no-eval") || m.ruleId.includes("no-inner-html")))' 
+            fi
+          fi
+          
+          echo "✅ SAST scan completed"
+          echo "::set-output name=security_issues::${SECURITY_ISSUES:-0}"
+        continue-on-error: true
+        
+      - name: Check for Secrets with TruffleHog
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.repository.default_branch }}
+          head: HEAD
+          extra_args: --debug --only-verified
+        continue-on-error: true
+        
+      - name: Generate Security Report
+        if: always()
+        run: |
+          echo "📊 Generating security report..."
+          
+          # Initialize default values
+          AUDIT_COUNT=0
+          LICENSE_COUNT=0
+          SAST_COUNT=0
+          SECRETS_COUNT=0
+          
+          # Extract vulnerability count from audit
+          if [ -f security-audit.json ]; then
+            AUDIT_COUNT=$(cat security-audit.json 2>/dev/null | npx json 'metadata.vulnerabilities.total' 2>/dev/null || echo 0)
+          fi
+          
+          # Extract license violations
+          if [ -f license-violations.json ]; then
+            LICENSE_COUNT=$(cat license-violations.json 2>/dev/null | wc -l)
+          fi
+          
+          # Extract security issues from SAST
+          if [ -f sast-report.json ]; then
+            SAST_COUNT=$(cat sast-report.json 2>/dev/null | npx json -a 'this.messages.length' 2>/dev/null | awk '{sum+=$1} END {print sum}' || echo 0)
+          fi
+          
+          # Generate report
+          cat > security-report.json << EOF
+          {
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "audit": {
+              "vulnerabilities": ${AUDIT_COUNT},
+              "status": "$([ ${AUDIT_COUNT:-0} -eq 0 ] && echo 'clean' || echo 'issues-found')"
+            },
+            "license": {
+              "violations": ${LICENSE_COUNT},
+              "status": "$([ ${LICENSE_COUNT:-0} -eq 0 ] && echo 'clean' || echo 'review-needed')"
+            },
+            "sast": {
+              "issues": ${SAST_COUNT},
+              "status": "$([ ${SAST_COUNT:-0} -eq 0 ] && echo 'clean' || echo 'review-needed')"
+            },
+            "secrets": {
+              "status": "scanned"
+            },
+            "overall": "$([ ${AUDIT_COUNT:-0} -eq 0 ] && [ ${LICENSE_COUNT:-0} -eq 0 ] && [ ${SAST_COUNT:-0} -eq 0 ] && echo 'pass' || echo 'review')"
+          }
+          EOF
+          
+          echo "✅ Security report generated"
+          cat security-report.json
+          
+      - name: Upload Security Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-scan-results
+          path: |
+            security-audit.json
+            license-check.json
+            license-violations.json
+            sast-report.json
+            security-report.json
+          retention-days: 30
+          
+      - name: Comment PR with Results
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = {};
+            try {
+              report = JSON.parse(fs.readFileSync('./security-report.json', 'utf8'));
+            } catch (e) {
+              report = { overall: 'unknown', audit: {}, license: {}, sast: {}, secrets: {} };
+            }
+            
+            const overallEmoji = report.overall === 'pass' ? '✅' : '⚠️';
+            
+            let comment = `## ${overallEmoji} Security Scan Results\n\n`;
+            
+            // Audit Results
+            const auditEmoji = report.audit?.status === 'clean' ? '✅' : '🚨';
+            comment += `### ${auditEmoji} NPM Audit\n`;
+            if (report.audit?.vulnerabilities > 0) {
+              comment += `- **${report.audit.vulnerabilities}** vulnerabilities found (high severity or above)\n`;
+              comment += `- Run \`npm audit fix\` to address automatically fixable issues\n`;
+            } else {
+              comment += `- No high-severity vulnerabilities found\n`;
+            }
+            comment += '\n';
+            
+            // License Results
+            const licenseEmoji = report.license?.status === 'clean' ? '✅' : '📜';
+            comment += `### ${licenseEmoji} License Check\n`;
+            if (report.license?.violations > 0) {
+              comment += `- **${report.license.violations}** potential license issues found\n`;
+              comment += `- Review license-violations.json in artifacts\n`;
+            } else {
+              comment += `- No problematic licenses detected\n`;
+            }
+            comment += '\n';
+            
+            // SAST Results
+            const sastEmoji = report.sast?.status === 'clean' ? '✅' : '🔍';
+            comment += `### ${sastEmoji} Static Analysis\n`;
+            if (report.sast?.issues > 0) {
+              comment += `- **${report.sast.issues}** linting/code quality issues found\n`;
+            } else {
+              comment += `- No security-related code issues detected\n`;
+            }
+            comment += '\n';
+            
+            // Secrets
+            comment += `### 🔐 Secrets Scan\n`;
+            comment += `- Scan completed with TruffleHog\n`;
+            comment += `- Review workflow logs for any findings\n\n`;
+            
+            comment += '---\n';
+            comment += `*Security scan artifacts available for 30 days. Overall status: **${report.overall}***`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
