@@ -7,11 +7,11 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html'], ['list']],
+  reporter: [['html', { outputFolder: 'tests/reports/playwright-html' }], ['json', { outputFile: 'tests/reports/playwright-results.json' }]],
   timeout: 30000,
   expect: {
     timeout: 10000,
-    // Visual regression settings
+    // Visual regression settings with 2026 best practices
     toHaveScreenshot: {
       maxDiffPixels: 100,
       threshold: 0.2,

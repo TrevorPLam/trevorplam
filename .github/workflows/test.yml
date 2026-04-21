@@ -33,12 +33,38 @@ jobs:
     - name: Run unit tests with coverage
       run: npm test -- --coverage
       
+    - name: Check coverage thresholds
+      run: |
+        if [ ! -f "tests/reports/coverage/lcov.info" ]; then
+          echo "::error::Coverage report not found"
+          exit 1
+        fi
+        
+        echo "📊 Checking coverage thresholds..."
+        
+        # Run coverage with JSON output to check thresholds
+        npm test -- --coverage --reporter=json > tests/reports/coverage-results.json
+        
+        # Extract global coverage percentage (basic check)
+        COVERAGE_LINES=$(cat tests/reports/coverage-results.json | jq -r '.coverage.global.lines // 0' 2>/dev/null || echo "0")
+        
+        echo "Current line coverage: ${COVERAGE_LINES}%"
+        echo "Required minimum: 80%"
+        
+        if (( $(echo "$COVERAGE_LINES < 80" | bc -l) )); then
+          echo "::error::Coverage ${COVERAGE_LINES}% is below 80% threshold"
+          echo "Please add more tests to meet the minimum coverage requirement"
+          exit 1
+        fi
+        
+        echo "✅ Coverage thresholds passed"
+        
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./coverage/lcov.info
-        fail_ci_if_error: false
+        files: ./tests/reports/coverage/lcov.info
+        fail_ci_if_error: true
         
     - name: Build project
       run: npm run build
@@ -92,5 +118,5 @@ jobs:
       if: always()
       with:
         name: playwright-report
-        path: playwright-report/
+        path: tests/reports/
         retention-days: 30

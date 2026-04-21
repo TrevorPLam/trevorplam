@@ -858,7 +858,19 @@
 ---
 
 ### Task 14: Homepage - Remaining Sections (Fluidity, Method, Trajectory Teaser, CTA)
-- [ ] **Status:** `pending` | **ID:** T14
+- [x] **Status:** `completed` | **ID:** T14
+
+**Completion Note:**
+- **What was changed:** Created 4 new homepage sections and updated index.astro to include them in correct order
+- **Key files touched:** `src/sections/IndustryFluidity.astro`, `src/sections/TheMethod.astro`, `src/sections/TrajectoryTeaser.astro`, `src/sections/ConnectCTA.astro`, `src/pages/index.astro`
+- **Validation performed:** 
+  - `npm run build` completed successfully with no errors
+  - Dev server runs successfully at http://localhost:4321
+  - All 4 new sections render correctly on homepage with proper styling and accessibility
+  - Semantic HTML structure maintained with proper heading hierarchy (h2 for sections, h3 for subsections)
+  - All links functional: methodology link, trajectory link, LinkedIn profile, email contact
+  - Responsive design implemented across all breakpoints
+- **Follow-up tasks discovered:** None - Task 14 is complete and ready to proceed to Task 15
 
 #### Subtasks
 - [ ] **T14.1** Create `src/sections/IndustryFluidity.astro` with brief narrative paragraphs for each employer (Sonic, Grandlux, KLW)
@@ -902,7 +914,20 @@
 ---
 
 ### Task 15: Evidence Page with Toggle View
-- [ ] **Status:** `pending` | **ID:** T15
+- [x] **Status:** `completed` | **ID:** T15
+
+**Completion Note:**
+- **What was changed:** Created complete Evidence page with toggle functionality between Narrative and Dashboard views
+- **Key files touched:** `src/pages/evidence.astro`, `src/components/ToggleSwitch.astro`, `src/sections/NarrativeView.astro`, `src/sections/ForensicDashboard.astro`, `tests/e2e/evidence-toggle.spec.ts`
+- **Validation performed:** 
+  - `npm run build` completed successfully with no errors
+  - ToggleSwitch component implements proper ARIA switch semantics with `role="switch"`, `aria-checked`, and `aria-label`
+  - NarrativeView uses Content Layer API with `getCollection('caseStudies')` and `render()` for MDX
+  - ForensicDashboard displays MetricCard components in responsive grid from `/data/metrics.json`
+  - Toggle state management uses CSS `hidden` class and `aria-hidden` attributes
+  - Keyboard accessibility implemented with Space key support
+  - E2E test created for comprehensive toggle functionality testing
+- **Follow-up tasks discovered:** None - Task 15 is complete and ready for Task 16
 
 #### Subtasks
 - [ ] **T15.1** Create `src/pages/evidence.astro`
@@ -953,7 +978,20 @@
 ---
 
 ### Task 16: Case Study Pages (Dynamic Routes)
-- [ ] **Status:** `pending` | **ID:** T16
+- [x] **Status:** `completed` | **ID:** T16
+
+**Completion Note:**
+- **What was changed:** Created complete dynamic case study page system with Astro 6 Content Layer API
+- **Key files touched:** `src/pages/cases/[slug].astro`, `src/components/CaseStudyHeader.astro`, `src/components/InlineMetric.astro`
+- **Validation performed:** 
+  - `npm run build` completed successfully with all 3 case study pages generated: `/cases/sonic/`, `/cases/klw/`, `/cases/grandlux/`
+  - Dynamic route using `getStaticPaths()` and `getCollection('caseStudies')` working correctly
+  - MDX content rendering with `render(entry, { components: { InlineMetric, SkillTag } })` functional
+  - Previous/Next navigation implemented using array indexing on sorted collection
+  - PDF download placeholder button added with browser print functionality
+  - InlineMetric component created with Tailwind-only styling (avoids Astro 6 MDX bug)
+  - CaseStudyHeader component displays title and industry badge correctly
+- **Follow-up tasks discovered:** None - Task 16 is complete and ready for Task 17
 
 #### Subtasks
 - [ ] **T16.1** Create dynamic route `src/pages/cases/[slug].astro`

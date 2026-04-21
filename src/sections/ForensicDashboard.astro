@@ -1,0 +1,100 @@
+---
+import MetricCard from '../components/MetricCard.astro';
+import metrics from '../../data/metrics.json';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Group metrics by case study for better organization
+const metricsByCaseStudy = metrics.reduce((acc, metric) => {
+  const slug = metric.caseStudySlug || 'unknown';
+  if (!acc[slug]) {
+    acc[slug] = [];
+  }
+  acc[slug].push(metric);
+  return acc;
+}, {} as Record<string, typeof metrics>);
+
+// Sort case studies for consistent display
+const sortedCaseStudies = Object.keys(metricsByCaseStudy).sort((a, b) => {
+  const order = ['sonic', 'grandlux', 'klw'];
+  return order.indexOf(a) - order.indexOf(b);
+});
+---
+
+<section id="forensic-dashboard" class={`space-y-8 ${className}`} aria-hidden="true">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-text-heading mb-8">Performance Metrics</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        metrics.map((metric) => (
+          <MetricCard
+            title={metric.title}
+            before={metric.before}
+            after={metric.after}
+            context={metric.context}
+            skillTag={metric.skillTag}
+            caseStudySlug={metric.caseStudySlug}
+          />
+        ))
+      }
+    </div>
+    
+    <!-- Summary by Case Study -->
+    <div class="mt-12 space-y-8">
+      <h3 class="text-2xl font-semibold text-text-heading">Impact by Engagement</h3>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {
+          sortedCaseStudies.map((caseStudySlug) => {
+            const caseStudyMetrics = metricsByCaseStudy[caseStudySlug];
+            const firstMetric = caseStudyMetrics[0];
+            
+            // Determine case study name from first metric
+            let caseStudyName = 'Unknown Engagement';
+            if (caseStudySlug === 'sonic') caseStudyName = 'Sonic Drive-in';
+            else if (caseStudySlug === 'grandlux') caseStudyName = 'Grandlux Restaurants';
+            else if (caseStudySlug === 'klw') caseStudyName = 'KLW CPA-Payroll';
+            
+            return (
+              <div class="bg-surface border border-border rounded-lg p-6">
+                <h4 class="text-lg font-semibold text-text-heading mb-4">
+                  {caseStudyName}
+                </h4>
+                <div class="space-y-3">
+                  {caseStudyMetrics.map((metric) => (
+                    <div class="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
+                      <span class="text-text-body text-sm">{metric.title}</span>
+                      <div class="flex items-center gap-2">
+                        <span class="font-mono text-text-body text-sm line-through opacity-60">
+                          {metric.before}
+                        </span>
+                        <span class="text-accent font-mono">→</span>
+                        <span class="font-mono text-text-heading text-sm font-semibold">
+                          {metric.after}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <a 
+                  href={`/cases/${caseStudySlug}`}
+                  class="inline-flex items-center gap-2 mt-4 text-accent hover:text-accent/80 transition-colors"
+                >
+                  View Full Case Study
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>

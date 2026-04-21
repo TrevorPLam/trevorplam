@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  industry: string;
+}
+
+const { title, industry } = Astro.props;
+---
+
+<header class="mb-8 pb-6 border-b border-border">
+  <div class="flex items-center gap-4 mb-4">
+    <span class="bg-accent text-white text-sm px-3 py-1 rounded-full">
+      {industry}
+    </span>
+  </div>
+  <h1 class="text-4xl font-bold text-text-heading mb-2">
+    {title}
+  </h1>
+</header>

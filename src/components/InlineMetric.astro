@@ -1,0 +1,13 @@
+---
+interface Props {
+  value: string;
+  label?: string;
+}
+
+const { value, label } = Astro.props;
+---
+
+<!-- Active Astro 6 bug: <style> tags in MDX components are dropped. Use only Tailwind utility classes. -->
+<span class="font-mono text-accent font-semibold" aria-label={label ? `${label}: ${value}` : undefined}>
+  {value}
+</span>

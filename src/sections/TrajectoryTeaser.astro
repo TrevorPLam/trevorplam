@@ -1,0 +1,56 @@
+---
+import TimelineNode from '../components/TimelineNode.astro';
+import timeline from '../../data/timeline.json';
+---
+
+<section class="py-20 px-6" aria-labelledby="trajectory-heading">
+	<div class="max-w-6xl mx-auto">
+		<header class="text-center mb-16">
+			<h2 id="trajectory-heading" class="text-3xl lg:text-4xl font-bold text-text-heading mb-6">
+				Career Trajectory
+			</h2>
+			<p class="text-xl text-text-body max-w-3xl mx-auto">
+				A journey of continuous growth and operational excellence across diverse industries.
+			</p>
+		</header>
+
+		<!-- Horizontal Timeline -->
+		<div class="relative">
+			<!-- Timeline Line -->
+			<div class="absolute top-8 left-0 right-0 h-0.5 bg-border transform -translate-y-1/2"></div>
+			
+			<!-- Timeline Nodes -->
+			<div class="relative flex flex-wrap justify-between gap-8 md:gap-0">
+				<!-- Filter key nodes for teaser -->
+				{timeline
+					.filter(node => [2016, 2022, 2023, 2026, 2027].includes(node.year))
+					.map((node) => (
+						<div class="flex flex-col items-center text-center min-w-[120px] relative z-10">
+							<TimelineNode
+								year={node.year.toString()}
+								title={node.title}
+								description={node.description}
+								type={node.type as 'role' | 'award' | 'degree' | 'constraint' | 'future'}
+							/>
+						</div>
+					))}
+			</div>
+		</div>
+
+		<!-- Call to Action -->
+		<div class="text-center mt-16">
+			<p class="text-text-body mb-6">
+				Explore the complete journey through challenges, achievements, and future aspirations.
+			</p>
+			<a 
+				href="/trajectory" 
+				class="inline-flex items-center gap-2 px-6 py-3 bg-teal hover:bg-teal/90 text-white font-medium rounded-lg transition-colors duration-200 min-h-[44px] min-w-[44px]"
+			>
+				View Full Timeline
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+				</svg>
+			</a>
+		</div>
+	</div>
+</section>

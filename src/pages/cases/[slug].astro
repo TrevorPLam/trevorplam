@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyHeader from '../../components/CaseStudyHeader.astro';
+import InlineMetric from '../../components/InlineMetric.astro';
+import SkillTag from '../../components/SkillTag.astro';
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection('caseStudies');
+  
+  return caseStudies.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'caseStudies'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry, { 
+  components: { 
+    InlineMetric, 
+    SkillTag 
+  } 
+});
+
+// Get all case studies for navigation
+const allCaseStudies = await getCollection('caseStudies');
+const currentIndex = allCaseStudies.findIndex(study => study.id === entry.id);
+const previousCase = currentIndex > 0 ? allCaseStudies[currentIndex - 1] : null;
+const nextCase = currentIndex < allCaseStudies.length - 1 ? allCaseStudies[currentIndex + 1] : null;
+---
+
+<BaseLayout 
+  title={entry.data.title} 
+  description={`${entry.data.problem} ${entry.data.result}`}
+>
+  <article class="max-w-4xl mx-auto px-6 py-12">
+    <CaseStudyHeader 
+      title={entry.data.title}
+      industry={entry.data.industry}
+    />
+    
+    <div class="mb-8">
+      <a 
+        href="#" 
+        class="inline-flex items-center gap-2 bg-surface text-text-body px-4 py-2 rounded border border-border hover:bg-accent hover:text-white transition-colors"
+        onclick="window.print()"
+      >
+        Download as PDF
+      </a>
+    </div>
+
+    <Content />
+
+    <nav class="mt-16 pt-8 border-t border-border">
+      <div class="flex justify-between items-center">
+        {previousCase && (
+          <a 
+            href={`/cases/${previousCase.id}`}
+            class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors"
+          >
+            ← Previous: {previousCase.data.title}
+          </a>
+        )}
+        
+        <div class="flex-1"></div>
+        
+        {nextCase && (
+          <a 
+            href={`/cases/${nextCase.id}`}
+            class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors text-right"
+          >
+            Next: {nextCase.data.title} →
+          </a>
+        )}
+      </div>
+    </nav>
+  </article>
+</BaseLayout>

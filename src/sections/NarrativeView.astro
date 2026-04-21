@@ -1,0 +1,113 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+// Get all case studies from the content collection
+const caseStudies = await getCollection('caseStudies');
+
+// Sort case studies by industry for consistent ordering
+const sortedCaseStudies = caseStudies.sort((a, b) => {
+  const order = ['QSR', 'Salon', 'CPA-Payroll'];
+  return order.indexOf(a.data.industry) - order.indexOf(b.data.industry);
+});
+---
+
+<section id="narrative-view" class={`space-y-12 ${className}`} aria-hidden="false">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-text-heading mb-8">Case Studies</h2>
+    
+    <div class="space-y-16">
+      {
+        sortedCaseStudies.map(async (caseStudy) => {
+          const { Content } = await render(caseStudy);
+          return (
+            <article class="bg-surface border border-border rounded-lg p-8 scroll-mt-24" id={caseStudy.id}>
+              <header class="mb-6">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="inline-block bg-accent text-white text-sm px-3 py-1 rounded-full">
+                    {caseStudy.data.industry}
+                  </span>
+                  {caseStudy.data.metric && (
+                    <span class="inline-block bg-teal text-white text-sm px-3 py-1 rounded-full">
+                      {caseStudy.data.metric}
+                    </span>
+                  )}
+                </div>
+                <h3 class="text-2xl font-semibold text-text-heading mb-2">
+                  {caseStudy.data.title}
+                </h3>
+                <div class="flex flex-wrap gap-2 mt-3">
+                  {caseStudy.data.skills.map((skill) => (
+                    <span class="inline-block bg-border text-text-body text-xs px-2 py-1 rounded">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </header>
+              
+              <div class="prose prose-invert max-w-none">
+                <Content />
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .prose {
+    line-height: 1.625;
+    color: var(--color-text-body);
+  }
+  
+  .prose h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-heading);
+  }
+  
+  .prose h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-heading);
+  }
+  
+  .prose h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-heading);
+  }
+  
+  .prose p {
+    margin-bottom: 1rem;
+  }
+  
+  .prose ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+  }
+  
+  .prose li {
+    padding-left: 0.5rem;
+  }
+  
+  .prose strong {
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+</style>

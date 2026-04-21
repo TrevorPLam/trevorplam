@@ -1,6 +1,8 @@
 import eslintPluginAstro from 'eslint-plugin-astro';
 import typescriptParser from '@typescript-eslint/parser';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
+import secureCoding from 'eslint-plugin-secure-coding';
+import browserSecurity from 'eslint-plugin-browser-security';
 
 export default [
   // Global ignores
@@ -25,10 +27,14 @@ export default [
       }
     },
     plugins: {
-      '@typescript-eslint': typescriptPlugin
+      '@typescript-eslint': typescriptPlugin,
+      'secure-coding': secureCoding,
+      'browser-security': browserSecurity
     },
     rules: {
       ...typescriptPlugin.configs.recommended.rules,
+      ...secureCoding.configs.recommended.rules,
+      ...browserSecurity.configs.recommended.rules,
       // Testing-specific rules
       '@typescript-eslint/no-floating-promises': 'error',
       '@typescript-eslint/require-await': 'error',

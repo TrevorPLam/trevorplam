@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ToggleSwitch from '../components/ToggleSwitch.astro';
+import NarrativeView from '../sections/NarrativeView.astro';
+import ForensicDashboard from '../sections/ForensicDashboard.astro';
+---
+
+<BaseLayout 
+  title="Evidence - Trevor Lam" 
+  description="Quantified results and case studies demonstrating operational excellence across payroll, compliance, and financial operations."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header with Toggle -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold text-text-heading mb-4">
+        Evidence of Impact
+      </h1>
+      <p class="text-xl text-text-body mb-8 max-w-3xl mx-auto">
+        Explore the data behind the transformation. Toggle between narrative case studies and quantified performance metrics.
+      </p>
+      
+      <!-- Toggle Control -->
+      <div class="flex items-center justify-center gap-4 mb-8">
+        <span class="text-text-body font-medium" id="narrative-label">
+          Narrative
+        </span>
+        <ToggleSwitch 
+          label="Toggle between Narrative and Dashboard views"
+          checked={false}
+        />
+        <span class="text-text-body font-medium" id="dashboard-label">
+          Dashboard
+        </span>
+      </div>
+    </header>
+
+    <!-- Content Areas -->
+    <main>
+      <NarrativeView class="transition-opacity duration-300" />
+      <ForensicDashboard class="transition-opacity duration-300" />
+    </main>
+  </div>
+</BaseLayout>
+
+<script>
+  // Declare window interface extensions
+  declare global {
+    interface Window {
+      onToggleChange?: (checked: boolean) => void;
+      getToggleState?: () => boolean;
+      setToggleState?: (value: boolean) => void;
+    }
+  }
+
+  // Toggle functionality
+  let currentView = 'narrative'; // Start with narrative view
+  
+  const narrativeView = document.getElementById('narrative-view');
+  const forensicDashboard = document.getElementById('forensic-dashboard');
+  const narrativeLabel = document.getElementById('narrative-label');
+  const dashboardLabel = document.getElementById('dashboard-label');
+
+  function updateView(showDashboard: boolean) {
+    if (showDashboard) {
+      // Show Dashboard
+      narrativeView?.classList.add('hidden');
+      narrativeView?.setAttribute('aria-hidden', 'true');
+      forensicDashboard?.classList.remove('hidden');
+      forensicDashboard?.setAttribute('aria-hidden', 'false');
+      
+      narrativeLabel?.classList.remove('text-accent');
+      narrativeLabel?.classList.add('text-text-body');
+      dashboardLabel?.classList.remove('text-text-body');
+      dashboardLabel?.classList.add('text-accent');
+      
+      currentView = 'dashboard';
+    } else {
+      // Show Narrative
+      narrativeView?.classList.remove('hidden');
+      narrativeView?.setAttribute('aria-hidden', 'false');
+      forensicDashboard?.classList.add('hidden');
+      forensicDashboard?.setAttribute('aria-hidden', 'true');
+      
+      narrativeLabel?.classList.remove('text-text-body');
+      narrativeLabel?.classList.add('text-accent');
+      dashboardLabel?.classList.remove('text-accent');
+      dashboardLabel?.classList.add('text-text-body');
+      
+      currentView = 'narrative';
+    }
+    
+    // Update toggle state
+    if (typeof window !== 'undefined' && window.setToggleState) {
+      window.setToggleState(showDashboard);
+    }
+  }
+
+  // Initialize view (show narrative by default)
+  updateView(false);
+
+  // Set up toggle callback
+  if (typeof window !== 'undefined') {
+    window.onToggleChange = (isChecked: boolean) => {
+      updateView(isChecked);
+    };
+  }
+
+  // Handle keyboard navigation between views
+  document.addEventListener('keydown', (event: any) => {
+    if ((event.ctrlKey || event.metaKey) && event.key === 'Tab') {
+      event.preventDefault();
+      updateView(currentView === 'narrative');
+    }
+  });
+</script>
+
+<style>
+  /* Smooth transitions for view switching */
+  .transition-opacity {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Focus styles for toggle labels */
+  #narrative-label:focus,
+  #dashboard-label:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+</style>
