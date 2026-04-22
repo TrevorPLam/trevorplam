@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T12:38:47.252Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "32fa07e9-b703-4e09-999e-58e2a425ed36",
+        "email": "Beulah_Upton71@gmail.com",
+        "firstName": "Edison",
+        "lastName": "Altenwerth",
+        "role": "guest",
+        "status": "pending",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/36.jpg",
+        "createdAt": "2025-07-02T22:43:11.376Z",
+        "updatedAt": "2026-04-21T23:57:51.291Z",
+        "lastLoginAt": "2026-04-22T10:11:26.095Z",
+        "preferences": {
+          "theme": "dark",
+          "language": "en",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "96.33.173.161",
+          "userAgent": "Googlebot/2.1 (+http://www.google.com/bot.html)",
+          "location": {
+            "country": "Trinidad and Tobago",
+            "city": "Downey",
+            "timezone": "Africa/Djibouti"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "bc740d1a-5585-4c30-b606-f98b52e32e76"
+}

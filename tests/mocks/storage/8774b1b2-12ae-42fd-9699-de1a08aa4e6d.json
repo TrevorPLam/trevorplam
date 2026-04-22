@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T12:38:30.576Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "0a47ff24-f910-4c57-8685-313bf7a4282a",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-18T05:00:55.845Z",
+        "updatedAt": "2026-04-22T10:52:38.401Z",
+        "lastLoginAt": "2026-04-22T01:01:22.072Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "8774b1b2-12ae-42fd-9699-de1a08aa4e6d"
+}
