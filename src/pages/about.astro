@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Timeline from '../components/Timeline.astro';
+---
+
+<BaseLayout 
+  title="About Trevor" 
+  description="My career path from Sonic carhop to operations leader—and the principles that guide my work."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-16">
+      <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">
+        About Trevor
+      </h1>
+    </header>
+
+    <!-- Personal Narrative -->
+    <section class="mb-16" aria-labelledby="my-story-heading">
+      <div class="max-w-3xl mx-auto">
+        <h2 id="my-story-heading" class="text-3xl font-bold text-text-heading mb-8 text-center">
+          My Story
+        </h2>
+        
+        <div class="prose prose-invert max-w-none text-text-body leading-relaxed space-y-6">
+          <p class="text-lg">
+            I'm Trevor Lam. I help businesses scale their operations, optimize their financial systems, and build stronger teams. My career has been defined by one consistent thread: taking on greater responsibility and leaving every role more efficient, more profitable, and more organized than I found it.
+          </p>
+          
+          <p>
+            My path hasn't been linear, and that's my strength. I started in the fast-paced world of QSR at Sonic Drive-in, where I learned to manage P&Ls, lead large teams, and drive performance under pressure. That foundation in operational discipline translated seamlessly into managing a high-volume commission salon at Grandlux while completing my degree at UT Dallas. Most recently, I served as Integrator across three legally distinct financial services entities, managing payroll for 315+ clients and leading a complete digital transformation.
+          </p>
+          
+          <p>
+            I care about building work environments that are both efficient and fair. I believe that clear processes, transparent financial controls, and genuine investment in people are the bedrock of any sustainable business. My background in historical studies (BA, UT Dallas, GPA 3.73) reinforced my ability to analyze complex information, identify causal patterns, and build evidence-based arguments—skills I apply daily to operations and compliance.
+          </p>
+          
+          <p class="text-text-heading font-medium border-l-4 border-teal pl-4 my-6">
+            I'm currently seeking opportunities to apply my operational and financial expertise in a role where I can act as a trusted partner to leadership, whether as an Operations Manager, Chief of Staff, Integrator, or senior HR/Payroll specialist.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="mb-16" aria-labelledby="timeline-heading">
+      <h2 id="timeline-heading" class="sr-only">Interactive Timeline</h2>
+      <Timeline />
+    </section>
+
+    <!-- Constraint Period Explanation -->
+    <section class="bg-surface rounded-lg p-8 border border-border" aria-labelledby="constraint-heading">
+      <h2 id="constraint-heading" class="text-2xl font-bold text-text-heading mb-4">
+        Building Credentials for the Next Step
+      </h2>
+      <p class="text-text-body leading-relaxed">
+        April 2026 to March 2027 isn't a gap—it's time I'm using to document my case studies and 
+        formalize credentials for senior operations roles. The timeline is clear and the work is in progress.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

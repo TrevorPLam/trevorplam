@@ -57,13 +57,86 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </section>
 
-    <!-- Primary CTA -->
-    <section class="text-center mb-16">
-      <div class="max-w-md mx-auto">
-        <h2 class="text-2xl font-bold text-text-heading mb-6">
-          Ready to Discuss Opportunities?
+    <!-- Contact Form & Resume Download -->
+    <section class="mb-16">
+      <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl font-bold text-text-heading mb-6 text-center">
+          Send a Message
         </h2>
         
+        <!-- Contact Form -->
+        <form 
+          action="https://formspree.io/f/YOUR_FORM_ID" 
+          method="POST"
+          class="bg-surface border border-border rounded-lg p-8 mb-8"
+        >
+          <div class="space-y-6">
+            <div>
+              <label for="name" class="block text-text-heading font-medium mb-2">
+                Name <span class="text-accent">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required
+                class="w-full px-4 py-3 bg-bg border border-border rounded-lg text-text-body focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                placeholder="Your name"
+              />
+            </div>
+            
+            <div>
+              <label for="email" class="block text-text-heading font-medium mb-2">
+                Email <span class="text-accent">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required
+                class="w-full px-4 py-3 bg-bg border border-border rounded-lg text-text-body focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent"
+                placeholder="your@email.com"
+              />
+            </div>
+            
+            <div>
+              <label for="message" class="block text-text-heading font-medium mb-2">
+                Message <span class="text-accent">*</span>
+              </label>
+              <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                required
+                class="w-full px-4 py-3 bg-bg border border-border rounded-lg text-text-body focus:outline-none focus:ring-2 focus:ring-teal focus:border-transparent resize-vertical"
+                placeholder="Tell me about your organization and the opportunity..."
+              ></textarea>
+            </div>
+            
+            <button 
+              type="submit"
+              class="w-full bg-teal hover:bg-teal/90 text-white font-semibold py-4 px-6 rounded-lg min-h-[48px] transition-colors"
+            >
+              Send Message
+            </button>
+          </div>
+        </form>
+
+        <!-- Resume Download -->
+        <div class="text-center mb-8">
+          <a 
+            href="/TrevorLam-Resume-2026.pdf" 
+            download
+            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface hover:bg-surface/80 border-2 border-teal text-teal font-semibold rounded-lg transition-colors min-h-[48px]"
+            aria-label="Download Resume PDF"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Download Resume (PDF)
+          </a>
+        </div>
+
         <!-- LinkedIn CTA Button -->
         <div class="mb-6">
           <a 
@@ -80,7 +153,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </a>
         </div>
 
-        <!-- Email Link -->
+        <!-- Email Display -->
         <div class="text-center">
           <p class="text-text-body mb-2">Or send a direct message:</p>
           <a 
