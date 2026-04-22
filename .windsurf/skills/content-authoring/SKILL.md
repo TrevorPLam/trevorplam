@@ -277,6 +277,83 @@ import { MetricCard } from '@/components/MetricCard.astro'
 <MetricCard name="Revenue Growth" value="25%" unit="YoY" />
 ```
 
+## SEO and Structured Data
+
+### JSON-LD Structured Data
+
+Add JSON-LD structured data to help search engines better understand the content and improve visibility. Add a `<script type="application/ld+json">` block to the `BaseLayout.astro` that dynamically populates based on the page's content.
+
+#### Example JSON-LD for Person Schema
+
+```astro
+---
+// BaseLayout.astro
+const { title, description, image } = Astro.props
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://trevor-lam.com/#person",
+  "name": "Trevor Lam",
+  "url": "https://trevor-lam.com",
+  "image": image,
+  "sameAs": [
+    "https://linkedin.com/in/trevor-lam",
+    "https://github.com/trevor-lam"
+  ],
+  "jobTitle": "Operations Professional",
+  "description": description
+})}></script>
+```
+
+#### Example JSON-LD for WebSite Schema
+
+```astro
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://trevor-lam.com/#website",
+  "url": "https://trevor-lam.com",
+  "name": title,
+  "description": description,
+  "publisher": {
+    "@id": "https://trevor-lam.com/#person"
+  }
+})}></script>
+```
+
+#### Example JSON-LD for Article/Case Study
+
+```astro
+---
+// Case study page
+const { entry } = Astro.props
+const { data } = entry
+---
+
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": `https://trevor-lam.com/cases/${entry.slug}/#article`,
+  "headline": data.title,
+  "description": data.problem,
+  "datePublished": data.date,
+  "author": {
+    "@id": "https://trevor-lam.com/#person"
+  },
+  "publisher": {
+    "@id": "https://trevor-lam.com/#person"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://trevor-lam.com/cases/${entry.slug}/`
+  }
+})}></script>
+```
+
+**Important**: All schemas must link `@id` to `#person` and `#website` to establish the entity graph.
+
 ## Content Validation Loop
 
 1. Create or edit content file

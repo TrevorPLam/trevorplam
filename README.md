@@ -447,6 +447,10 @@ vercel --prod
 - **No COEP**: Intentionally omitted to avoid breaking third-party analytics
 - **Dependency Security**: npm overrides for `yaml@^2.8.3` and `tmp@^0.2.3`
 - **Linting**: ESLint plugins for browser security and secure coding
+- **CodeQL**: Static analysis for security vulnerabilities (XSS, injection)
+- **Secret Detection**: TruffleHog in CI pipeline
+
+For vulnerability reporting and security policy, see [SECURITY.md](./SECURITY.md).
 
 ## Contributing
 

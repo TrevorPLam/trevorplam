@@ -29,6 +29,100 @@ This skill provides guidance for optimizing performance in Astro 6 projects, foc
 - **INP (Interaction to Next Paint)**: <200ms
 - **CLS (Cumulative Layout Shift)**: <0.1
 
+### INP Optimization Techniques
+
+To achieve the INP budget of <200ms, implement the following strategies:
+
+#### Break Up Long Tasks
+
+Use `requestIdleCallback` or `setTimeout` to yield the main thread and prevent blocking interactions.
+
+```javascript
+// Break up long-running operations
+function processLargeDataset(data) {
+  const chunkSize = 1000
+  let index = 0
+
+  function processChunk() {
+    const end = Math.min(index + chunkSize, data.length)
+    for (let i = index; i < end; i++) {
+      // Process item
+    }
+    index = end
+
+    if (index < data.length) {
+      setTimeout(processChunk, 0) // Yield to main thread
+    }
+  }
+
+  processChunk()
+}
+```
+
+#### Optimize Event Handlers
+
+Debounce or throttle high-frequency events like `scroll` and `resize` to reduce main thread blocking.
+
+```javascript
+// Debounce scroll handler
+function debounce(func, wait) {
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
+    }
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
+
+window.addEventListener('scroll', debounce(handleScroll, 100))
+```
+
+#### Use Web Workers
+
+Offload non-UI calculations to a web worker to keep the main thread free for user interactions.
+
+```javascript
+// main.js
+const worker = new Worker('/workers/data-processor.js')
+
+worker.postMessage({ data: largeDataset })
+
+worker.onmessage = (e) => {
+  const result = e.data
+  // Update UI with processed result
+}
+```
+
+```javascript
+// workers/data-processor.js
+self.onmessage = (e) => {
+  const { data } = e.data
+  // Process data without blocking main thread
+  const result = processData(data)
+  self.postMessage(result)
+}
+```
+
+#### Identify Bottlenecks
+
+Use the **Performance** tab in Chrome DevTools to record and analyze long tasks during user interactions.
+
+1. Open Chrome DevTools (F12)
+2. Go to the **Performance** tab
+3. Click **Record** and perform user interactions
+4. Stop recording and analyze the timeline
+5. Look for red bars in the main thread (long tasks >50ms)
+6. Optimize the identified bottlenecks
+
+**Key metrics to monitor:**
+- Total blocking time (TBT)
+- Long tasks (>50ms)
+- Script evaluation time
+- Rendering time
+
 ### Lighthouse CI Requirements
 
 Lighthouse CI enforces scores ≥90 for:

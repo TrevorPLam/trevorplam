@@ -28,7 +28,10 @@ description: Tailwind CSS v4 styling standards and configuration
 
 - Add `class="dark"` to `<html>` element
 - Use CSS: `@custom-variant dark (&:where(.dark, .dark *))`
+- **Critical**: The `@custom-variant` selector must match the exact class or attribute used for dark mode. Since this project uses `class="dark"` on the `<html>` element, the selector `(&:where(.dark, .dark *))` is the precise match.
+
 - Example:
+
   ```css
   @custom-variant dark (&:where(.dark, .dark *));
   @media (prefers-color-scheme: dark) {
@@ -41,8 +44,8 @@ description: Tailwind CSS v4 styling standards and configuration
 ## Common Pitfalls
 
 | Pitfall | Prevention |
-|---------|-------------|
+| --------- | ------------- |
 | Creating tailwind.config.mjs | Use CSS-first config with @theme |
-| Using <style> in MDX components | Tailwind classes only (Astro 6 bug) |
-| Forgetting dark mode class | Add class="dark" to <html> |
+| Using `<style>` in MDX components | Tailwind classes only (Astro 6 bug) |
+| Forgetting dark mode class | Add class="dark" to `<html>` |
 | Using @astrojs/tailwind | Use @tailwindcss/vite plugin |

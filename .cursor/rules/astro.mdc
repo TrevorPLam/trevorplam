@@ -1,0 +1,176 @@
+---
+description: Astro 6 development patterns and best practices
+globs: ["*.astro", "*.mdx", "*.ts", "*.tsx"]
+alwaysApply: false
+---
+
+# Astro 6 Development Guidelines
+
+## Critical Constraints
+
+### Astro 6 Requirements
+- Use `@tailwindcss/vite` plugin in Vite, NOT `@astrojs/tailwind` integration
+- Use `ClientRouter` from `astro:transitions`, NOT `ViewTransitions`
+- Use Content Layer API: `getCollection()` from `astro:content`, NOT `Astro.glob()`
+- Configure in `src/content.config.ts`, NOT `src/content/config.ts`
+- For MDX rendering: use `await render(entry, { components })`, NOT `entry.render()`
+- Enable CSP via `security: { csp: { enabled: true } }` in astro.config.mjs
+- CSP auto-generates script hashes - NO `unsafe-inline` needed
+
+### Tailwind v4 Requirements
+- NO `tailwind.config.mjs` file - use CSS-first configuration
+- Add `@tailwindcss/vite` to Vite plugins in astro.config.mjs
+- Use `@theme` directive in CSS for theme customization
+- Use Tailwind utility classes ONLY - NO custom CSS in component `<style>` tags
+- NO inline styles except for dynamic values
+- **CRITICAL**: Do NOT use `<style>` tags in components imported into MDX (Astro 6 bug drops them)
+
+### Dark Mode
+- Add `class="dark"` to `<html>` element
+- Use CSS: `@custom-variant dark (&:where(.dark, .dark *));`
+- Example:
+  ```css
+  @custom-variant dark (&:where(.dark, .dark *));
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+    }
+  }
+  ```
+
+## Component Patterns
+
+### Astro Components
+```astro
+---
+// Good: Using getCollection from Content Layer API
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('caseStudies');
+---
+
+<!-- Good: Using ClientRouter for transitions -->
+<ClientRouter />
+```
+
+### MDX Components
+```astro
+---
+// Good: Using render() for MDX
+import { render } from 'astro:content';
+import MyComponent from './MyComponent.astro';
+
+const { entry } = Astro.props;
+const { Content } = await render(entry, { components: { MyComponent } });
+---
+
+<Content />
+```
+
+**BAD**: Do NOT use `<style>` tags in components imported into MDX files. Use Tailwind classes only.
+
+## Tailwind v4 Usage
+
+### CSS-First Configuration
+```css
+/* src/styles/global.css */
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: system-ui, sans-serif;
+  --color-primary: #3b82f6;
+}
+```
+
+### Component Styling
+```astro
+<!-- Good: Tailwind utility classes -->
+<div class="flex items-center gap-4 p-4 bg-white dark:bg-gray-900 rounded-lg">
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white">Title</h2>
+</div>
+
+<!-- BAD: Custom CSS in style tag (unless necessary for dynamic values) -->
+<style>
+  .custom { /* Avoid this for MDX-imported components */ }
+</style>
+```
+
+## Testing Requirements
+
+### Vitest (Unit/Component Tests)
+- Use `expect().toBeVisible()` and `expect().toHaveURL()` - NO `waitForTimeout()`
+- Test with web-first assertions
+- Use `describe()` and `it()` for test organization
+- Target: `tests/unit/` and `tests/components/`
+
+### Playwright (E2E/A11y Tests)
+- Use web-first assertions: `expect(page.locator()).toBeVisible()`
+- Accessibility: Zero axe-core violations required
+- Test keyboard navigation and screen reader compatibility
+- Target: `tests/e2e/` and `tests/a11y/`
+
+### Contract Tests
+- Use Pact for API contract testing
+- Target: `tests/contract/`
+
+## Data & Content Handling
+
+### Images
+- Place images in `/src/assets/`, NOT `/public/`
+- Use `OptimizedImage` component for all images
+- LCP images (headshot) need: `loading="eager"` and `fetchpriority="high"`
+- Other images: use default lazy loading
+
+### JSON Data
+- Import from `/data/` directory (metrics.json, skills.json, timeline.json)
+- NEVER hardcode metric values - use single source of truth
+
+### Content Collections
+- Case studies: `/src/content/cases/` - use `getCollection('caseStudies')`
+- Capabilities: `/src/content/capabilities/` - 5 capability categories
+- Learning logs: `/src/content/learning-logs/` - 6 entries with tagging
+- Projects: `/src/content/projects/` - 3 project showcases
+- Resources: `/src/content/resources/` - 8 playbooks, templates, guides
+
+## Security & Headers
+
+### CSP Configuration
+- Enable CSP in astro.config.mjs: `security: { csp: { enabled: true } }`
+- CSP auto-generates script hashes - NO `unsafe-inline` needed
+- NO COEP header (breaks third-party scripts like analytics)
+
+### Environment Variables
+- Use `import.meta.env` for environment variables
+- NEVER commit secrets to repository
+
+## Accessibility (WCAG 2.2 AA)
+
+- Skip to content link as first focusable element
+- Touch targets ≥44x44px for all interactive elements
+- Focus not obscured → `scroll-padding-top: 80px` on `:root`
+- Semantic HTML (`<header>`, `<nav>`, `<main>`, `<footer>`)
+- ARIA labels for icon-only buttons
+- Color contrast ≥4.5:1 (test with axe-core)
+
+## Common Pitfalls
+
+| Pitfall | Prevention |
+|---------|-------------|
+| Using `entry.render()` | Use `await render(entry, { components })` |
+| Using `Astro.glob()` | Use `getCollection()` from Content Layer API |
+| Wrong config file location | Use `src/content.config.ts` (not `src/content/config.ts`) |
+| Using `<ViewTransitions />` | Use `ClientRouter />` from `astro:transitions` |
+| Using `@astrojs/tailwind` | Use `@tailwindcss/vite` plugin |
+| Using `<style>` in MDX-imported components | Tailwind classes only (Astro 6 bug) |
+| Forgetting to lock Vite to v7 | `package.json` must have `vite@^7.0.0` |
+| Placing images in `/public/` | Place in `/src/assets/` for optimization |
+| Hardcoded waits in tests | `expect().toBeVisible()`, `expect().toHaveURL()` |
+| Missing `mainEntityOfPage` in JSON-LD | All schemas must link `@id` to `#person` and `#website` |
+
+## Content Tone Guidelines
+
+- Tone: Professional, confident, evidence-based
+- Avoid negative framing ("mess", "broken", "chaos") → use "initial state", "operational context", "friction points"
+- Metrics: All numbers from `/data/metrics.json` - never hardcoded
+- Case studies structure: "Initial State" → "What I Delivered" → "Outcome"
+- No placeholder text - final copy only

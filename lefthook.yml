@@ -1,0 +1,24 @@
+# Lefthook configuration for Git hooks
+# https://lefthook.dev/configuration/
+
+pre-commit:
+  parallel: true
+  commands:
+    spell-check:
+      run: npx cspell lint --no-progress
+      glob: "*.{md,mdx,ts,tsx,js,jsx,astro,json,yml,yaml}"
+    lint:
+      run: npm run lint
+      glob: "*.{js,ts,jsx,tsx,astro}"
+    type-check:
+      run: npm run check
+      glob: "*.{ts,tsx,astro}"
+    test-unit:
+      run: npm test
+      glob: "*.{ts,js}"
+      files: git diff --name-only HEAD~1
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit {1}

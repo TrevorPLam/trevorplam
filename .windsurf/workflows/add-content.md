@@ -204,36 +204,110 @@ git commit -m "feat: add [content-type] - [title]
 
 **Why this matters**: Frequent commits act as save points. If validation fails or issues arise, you can easily revert to this checkpoint without losing work. This follows Addy Osmani's "commit often and use version control as a safety net" principle.
 
-## Step 7: Validate Schema
+## Step 7: Pre-Commit Quality Automation (Husky & lint-staged)
+
+For automated quality checks before commits, consider integrating **Husky** and **lint-staged**. This runs linting, formatting, and type checking on staged files before a commit is finalized.
+
+### Installation
+
+```bash
+npm install --save-dev husky lint-staged
+npx husky init
+```
+
+### Configuration
+
+Add to `package.json`:
+
+```json
+{
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  }
+}
+```
+
+### Benefits
+
+- **Automated quality**: Catches lint errors and formatting issues before commit
+- **Fast**: Only runs on staged files, not the entire codebase
+- **Consistent**: Ensures all committed code meets quality standards
+- **Prevents CI failures**: Reduces failed builds due to linting issues
+
+### Optional: Add Type Check to Pre-Commit
+
+```json
+{
+  "lint-staged": {
+    "*.{ts,tsx,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "scripts": {
+    "pre-commit": "npm run check && npm run lint"
+  }
+}
+```
+
+Update `.husky/pre-commit`:
+
+```bash
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npx lint-staged
+npm run pre-commit
+```
+
+**Note**: This is optional but recommended for teams to maintain code quality standards.
+
+## Step 8: Validate Schema
 
 Run `npm run check` to validate the Zod schema in `src/content.config.ts`:
+
 ```bash
 npm run check
 ```
+
 // turbo
 
-## Step 8: Generate Tests
+## Step 9: Generate Tests
 
 Create appropriate tests for the new content:
 - Unit tests for data validation
 - Component tests if new components are created
 - E2E tests for page functionality
 
-## Step 9: Run Full Test Suite
+## Step 10: Run Full Test Suite
 
 Run the full test suite to ensure no regressions:
 ```bash
 npm run test:full
 ```
 
-## Step 10: Accessibility Check
+## Step 11: Accessibility Check
 
 Run accessibility tests to ensure WCAG 2.2 AA compliance:
+
 ```bash
 npm run test:a11y
 ```
 
-## Step 11: Build Verification
+## Step 12: Build Verification
 
 Build the site to verify the new content renders correctly:
 ```bash

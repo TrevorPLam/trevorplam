@@ -133,9 +133,68 @@ Verify security headers in `vercel.json` are configured:
 - `Cross-Origin-Resource-Policy`: same-site
 - `Permissions-Policy`: camera=(), microphone=(), geolocation=()
 
-## Step 9: CSP Validation
+## Step 9: robots.txt and Sitemap Verification
+
+Verify that `robots.txt` and `sitemap.xml` are generated correctly for SEO.
+
+### Check robots.txt
+
+After the build, verify `public/robots.txt` exists and contains appropriate directives:
+
+```bash
+cat public/robots.txt
+```
+
+Expected content example:
+
+```txt
+User-agent: *
+Allow: /
+Sitemap: https://trevor-lam.com/sitemap-index.xml
+```
+
+### Check Sitemap Generation
+
+Astro automatically generates sitemaps. Verify the sitemap is generated in the build output:
+
+```bash
+ls dist/sitemap*.xml
+```
+
+Test the sitemap URL:
+```bash
+curl https://trevor-lam.com/sitemap-index.xml
+```
+
+### Sitemap Configuration (astro.config.mjs)
+
+Ensure sitemap generation is enabled in `astro.config.mjs`:
+
+```javascript
+export default defineConfig({
+  site: 'https://trevor-lam.com',
+  integrations: [
+    sitemap()
+  ]
+})
+```
+
+### Verification Checklist
+
+- [ ] `robots.txt` exists in `public/` directory
+- [ ] `robots.txt` allows search engine crawling
+- [ ] `robots.txt` references the sitemap URL
+- [ ] `sitemap-index.xml` is generated in the build output
+- [ ] Sitemap contains all content pages (cases, capabilities, learning logs, projects, resources)
+- [ ] Sitemap URLs are absolute and correct
+- [ ] Sitemap is accessible at the production URL
+
+**Why this matters**: Proper robots.txt and sitemap configuration ensures search engines can discover and index your content effectively, improving SEO visibility.
+
+## Step 11: CSP Validation
 
 Ensure CSP is enabled in `astro.config.mjs`:
+
 ```javascript
 security: {
   csp: {
@@ -146,7 +205,7 @@ security: {
 
 This auto-generates script hashes and prevents `'unsafe-inline'`.
 
-## Step 10: Deploy to Vercel
+## Step 12: Deploy to Vercel
 
 Deploy the production build to Vercel:
 ```bash

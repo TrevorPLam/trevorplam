@@ -41,6 +41,58 @@ export default defineConfig({
 - **Hash-based approach**: Scripts are hashed at build time
 - **Stable in Astro 6**: Previously experimental, now stable
 
+### CSP Reporting and Monitoring
+
+#### Report-Only Mode for Initial Testing
+
+Before enforcing a strict CSP in production, deploy it first in Report-Only mode using the `Content-Security-Policy-Report-Only` header. This allows gathering violation reports without breaking functionality.
+
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; script-src 'self'; report-to csp-endpoint"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Modern Reporting with report-to Directive
+
+Use the modern `report-to` directive (preferred over deprecated `report-uri`) to collect violation reports from production.
+
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Reporting-Endpoints",
+          "value": "csp-endpoint=\"https://your-csp-reporting-endpoint.com/csp-reports\""
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; report-to csp-endpoint"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Benefits of CSP Reporting:**
+- Fine-tune policy based on real-world violations
+- Identify third-party script issues before enforcement
+- Monitor for XSS attempts in production
+- Gradual migration from Report-Only to enforced mode
+
 ### Common CSP Pitfalls
 
 - **Do not add 'unsafe-inline'**: CSP auto-generates hashes, inline scripts not needed
@@ -83,7 +135,7 @@ export default defineConfig({
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
+          "value": "camera=(), microphone=(), geolocation=(), payment=(), autoplay=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
         }
       ]
     }
@@ -99,7 +151,7 @@ export default defineConfig({
 - **Referrer-Policy**: Controls referrer information
 - **COOP**: Prevents cross-origin window access
 - **CORP**: Restricts cross-origin resource access
-- **Permissions-Policy**: Restricts browser features
+- **Permissions-Policy**: Restricts browser features with deny-by-default posture (camera, microphone, geolocation, payment, autoplay, usb, magnetometer, gyroscope, accelerometer all disabled)
 
 ### Critical: No COEP Header
 

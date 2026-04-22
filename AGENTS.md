@@ -63,6 +63,16 @@ This file gives AI coding agents project‑specific guidance for the Trevor Lam 
 - **JSON data** (metrics, skills, timeline) – import directly from `/data/` (e.g. `import metrics from '../../data/metrics.json'`)
 - **Images**: place in `/src/assets/` (not `/public/`). Use `OptimizedImage` component. LCP image (headshot) needs `loading="eager"` and `fetchpriority="high"`.
 
+### Content Collection Schemas
+
+Content collections are configured in `src/content.config.ts` with Zod v4 schemas for type safety:
+
+- **caseStudies**: title, description, date, tags, outcome, metrics
+- **capabilities**: name, description, kpi[], examples[]
+- **learningLogs**: title, date, tags[], content
+- **projects**: name, description, url, tech[], role, outcome
+- **resources**: title, type, description, url, difficulty
+
 ## Testing Requirements
 
 - **No `waitForTimeout()`** – use web‑first assertions (`expect().toBeVisible()`, `expect().toHaveURL()`)
@@ -128,3 +138,10 @@ The repository includes 40+ automation scripts in `scripts/` for self-managing o
 
 See `docs/powerhouse-scripts.md` for complete documentation.
 
+## AI Control Instructions
+
+For comprehensive global AI directives applicable to all AI tools (Cursor, Copilot, Claude), see `ai-control/ai-instructions.md`. This document provides tool-agnostic guidance for code style, testing standards, accessibility requirements, and project conventions.
+
+For tool-specific instructions:
+- Cursor: `.cursor/rules/astro.mdc`
+- Windsurf: `.windsurf/rules/`

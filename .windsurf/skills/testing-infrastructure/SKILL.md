@@ -64,6 +64,40 @@ npm run test:full           # Run full test suite
 - Uses happy-dom for DOM simulation
 - Coverage via @vitest/coverage-v8
 
+### Astro Container API for Component Testing
+
+When using Vitest to test Astro components, the **Container API** is the standard approach. This allows rendering of `.astro` components in a Vite environment.
+
+```typescript
+import { describe, it, expect } from 'vitest'
+import { getContainerRenderer } from 'astro/container'
+import MyComponent from '@/components/MyComponent.astro'
+
+const renderer = await getContainerRenderer()
+
+describe('MyComponent', () => {
+  it('should render correctly', async () => {
+    const { container } = await renderer.render(MyComponent, { prop: 'value' })
+    expect(container).toHaveTextContent('value')
+  })
+})
+```
+
+Your `vitest.config.ts` should utilize `getViteConfig()` from Astro for proper aliasing:
+
+```typescript
+import { defineConfig } from 'vitest/config'
+import astro from 'astro/config'
+
+export default defineConfig({
+  test: {
+    environment: 'happy-dom'
+  },
+  // Use Astro's Vite config for proper aliasing
+  ...astro.getViteConfig()
+})
+```
+
 ### Writing Unit Tests
 
 ```typescript
