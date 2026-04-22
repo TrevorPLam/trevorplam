@@ -8,28 +8,23 @@ import DashboardWidgets from '../components/DashboardWidgets.astro';
 ---
 
 <BaseLayout title="Dashboard - Trevor Lam" description="Professional operations knowledge base and performance metrics">
-	<div class="flex">
-		<SidebarNavigation />
-		<main class="flex-1 ml-64 p-6">
-			<div class="max-w-7xl mx-auto">
-				<header class="mb-8">
-					<h1 class="text-3xl font-bold text-text-heading mb-2">Dashboard</h1>
-					<p class="text-xl text-text-body">Operations Integrator · Forensic Stabilizer</p>
-				</header>
-				
-				<!-- Key Performance Indicators -->
-				<MetricsGrid />
-				
-				<!-- Advanced Dashboard Widgets -->
-				<DashboardWidgets />
-				
-				<!-- Recent Activity and Quick Actions -->
-				<div class="bottom-section" style="container-type: inline-size;">
-					<RecentActivity />
-					<QuickActions />
-				</div>
-			</div>
-		</main>
+	<div class="max-w-7xl mx-auto">
+		<header class="mb-8">
+			<h1 class="text-3xl font-bold text-text-heading mb-2">Dashboard</h1>
+			<p class="text-xl text-text-body">Operations Integrator · Forensic Stabilizer</p>
+		</header>
+		
+		<!-- Key Performance Indicators -->
+		<MetricsGrid />
+		
+		<!-- Advanced Dashboard Widgets -->
+		<DashboardWidgets />
+		
+		<!-- Recent Activity and Quick Actions -->
+		<div class="bottom-section" style="container-type: inline-size;">
+			<RecentActivity />
+			<QuickActions />
+		</div>
 	</div>
 </BaseLayout>
 

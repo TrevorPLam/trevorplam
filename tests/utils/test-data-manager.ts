@@ -23,10 +23,10 @@ export const CaseStudyDataSchema = z.object({
 });
 
 export const TimelineDataSchema = z.object({
-  year: z.number().min(2000).max(2030),
+  year: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
-  type: z.enum(['work', 'education', 'project', 'achievement'])
+  type: z.enum(['role', 'award', 'degree', 'constraint', 'future'])
 });
 
 export const SkillDataSchema = z.object({
@@ -269,10 +269,10 @@ export const TestDataFactories = {
    */
   timeline: new TestDataFactory<TimelineData>(
     {
-      year: 2024,
+      year: '2024',
       title: 'Test Timeline Event',
       description: 'A significant event in the test timeline',
-      type: 'project'
+      type: 'role'
     },
     TimelineDataSchema
   ),

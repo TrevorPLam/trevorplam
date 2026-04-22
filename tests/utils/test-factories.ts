@@ -43,7 +43,7 @@ export const TimelineNodeSchema = z.object({
   year: z.string(),
   title: z.string(),
   description: z.string(),
-  type: z.enum(['role', 'education', 'achievement'])
+  type: z.enum(['role', 'award', 'degree', 'constraint', 'future'])
 });
 
 export const OptimizedImageSchema = z.object({
@@ -58,6 +58,12 @@ export const NavigationSchema = z.object({
   isMobileMenuOpen: z.boolean()
 });
 
+export const KPICardSchema = z.object({
+  name: z.string(),
+  value: z.string(),
+  context: z.string()
+});
+
 export const FooterSchema = z.object({
   currentYear: z.number(),
   showContactInfo: z.boolean()
@@ -70,6 +76,7 @@ export type SkillTag = z.infer<typeof SkillTagSchema>;
 export type TimelineNode = z.infer<typeof TimelineNodeSchema>;
 export type OptimizedImage = z.infer<typeof OptimizedImageSchema>;
 export type Navigation = z.infer<typeof NavigationSchema>;
+export type KPICard = z.infer<typeof KPICardSchema>;
 export type Footer = z.infer<typeof FooterSchema>;
 
 /**
@@ -133,6 +140,12 @@ export const timelineNodeFactory = createFactory({
   description: 'Test description for unit testing',
   type: 'role' as const
 }).withValidation(TimelineNodeSchema);
+
+export const kpiCardFactory = createFactory({
+  name: 'Test KPI',
+  value: '100%',
+  context: 'Test context for unit testing'
+}).withValidation(KPICardSchema);
 
 export const optimizedImageFactory = createFactory({
   src: '/test-image.jpg',

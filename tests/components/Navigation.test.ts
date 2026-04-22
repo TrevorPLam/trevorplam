@@ -16,10 +16,13 @@ describe('SidebarNavigation Component', () => {
     const result = await renderComponent('SidebarNavigation');
     
     expect(result).toContain('Trevor Lam');
-    expect(result).toContain('Evidence');
-    expect(result).toContain('Trajectory');
-    expect(result).toContain('Methodology');
-    expect(result).toContain('Connect');
+    expect(result).toContain('Dashboard');
+    expect(result).toContain('Capabilities');
+    expect(result).toContain('Case Studies');
+    expect(result).toContain('Lab');
+    expect(result).toContain('Resources');
+    expect(result).toContain('Search');
+    expect(result).toContain('Archive');
   });
 
   test('renders desktop navigation by default', async () => {
@@ -44,10 +47,13 @@ describe('SidebarNavigation Component', () => {
     
     expect(result).toContain('sidebar-overlay');
     expect(result).toContain('fixed inset-0 bg-black/50 z-30 hidden md:hidden');
-    expect(result).toContain('Evidence');
-    expect(result).toContain('Trajectory');
-    expect(result).toContain('Methodology');
-    expect(result).toContain('Connect');
+    expect(result).toContain('Dashboard');
+    expect(result).toContain('Capabilities');
+    expect(result).toContain('Case Studies');
+    expect(result).toContain('Lab');
+    expect(result).toContain('Resources');
+    expect(result).toContain('Search');
+    expect(result).toContain('Archive');
   });
 
   test('has proper semantic structure', async () => {

@@ -21,10 +21,13 @@ describe('SidebarNavigation Component - Behavior Based Tests', () => {
     const result = await renderComponent('SidebarNavigation');
 
     // Test navigation links using semantic HTML structure
-    expect(result).toContain('Evidence');
-    expect(result).toContain('Trajectory');
-    expect(result).toContain('Methodology');
-    expect(result).toContain('Connect');
+    expect(result).toContain('Dashboard');
+    expect(result).toContain('Capabilities');
+    expect(result).toContain('Case Studies');
+    expect(result).toContain('Lab');
+    expect(result).toContain('Resources');
+    expect(result).toContain('Search');
+    expect(result).toContain('Archive');
   });
 
   test('mobile menu button meets accessibility standards', async () => {
@@ -54,10 +57,12 @@ describe('SidebarNavigation Component - Behavior Based Tests', () => {
 
     // Test that all navigation links have proper attributes
     expect(result).toContain('href="/"');
-    expect(result).toContain('href="/evidence"');
-    expect(result).toContain('href="/trajectory"');
-    expect(result).toContain('href="/methodology"');
-    expect(result).toContain('href="/connect"');
+    expect(result).toContain('href="/capabilities"');
+    expect(result).toContain('href="/cases"');
+    expect(result).toContain('href="/lab"');
+    expect(result).toContain('href="/resources"');
+    expect(result).toContain('href="/search"');
+    expect(result).toContain('href="/archive"');
 
     // Test hover states and transitions
     expect(result).toContain('hover:text-text-heading');

@@ -3,15 +3,16 @@ import { TestContainer, TestContainerFactory, withTestContainer } from './test-c
 
 /**
  * Creates a test container for Astro component testing
- * @deprecated Use TestContainerFactory.create() for better isolation
+ * Updated to use TestContainerFactory for better isolation
  */
 export const createTestContainer = async () => {
-  return await AstroContainer.create();
+  const { TestContainerFactory } = await import('./test-container');
+  return await TestContainerFactory.create();
 };
 
 /**
  * Renders a component with given props using a test container
- * @deprecated Use withTestContainer or TestContainer for better isolation
+ * Updated to use TestContainer for better isolation
  */
 export const renderComponent = async (Component: any, props: Record<string, any> = {}) => {
   // If Component is a string, return mock HTML for testing
@@ -20,7 +21,7 @@ export const renderComponent = async (Component: any, props: Record<string, any>
   }
   
   const container = await createTestContainer();
-  return container.renderToString(Component, { props });
+  return container.renderComponent(Component, props);
 };
 
 /**
@@ -38,10 +39,13 @@ const getMockComponentHTML = (componentName: string, props: Record<string, any> 
           </div>
           <nav class="flex-1 p-4 overflow-y-auto">
             <ul class="space-y-2">
-              <li><a href="/evidence" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Evidence</a></li>
-              <li><a href="/trajectory" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Trajectory</a></li>
-              <li><a href="/methodology" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Methodology</a></li>
-              <li><a href="/connect" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Connect</a></li>
+              <li><a href="/" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Dashboard</a></li>
+              <li><a href="/capabilities" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Capabilities</a></li>
+              <li><a href="/cases" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Case Studies</a></li>
+              <li><a href="/lab" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Lab</a></li>
+              <li><a href="/resources" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Resources</a></li>
+              <li><a href="/search" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Search</a></li>
+              <li><a href="/archive" class="flex items-center px-3 py-2 rounded-md transition-colors min-h-[44px]">Archive</a></li>
             </ul>
           </nav>
           <div class="md:hidden p-4 border-t border-border">
@@ -119,7 +123,7 @@ export const waitFor = (ms: number): Promise<void> => {
 
 /**
  * Creates a test context with common utilities
- * Provides a consistent interface for test setup
+ * Updated to use TestContainer for proper cleanup
  */
 export const createTestContext = async () => {
   const container = await createTestContainer();
@@ -127,27 +131,26 @@ export const createTestContext = async () => {
   return {
     container,
     render: (Component: any, props: Record<string, any> = {}) => 
-      container.renderToString(Component, { props }),
+      container.renderComponent(Component, props),
     cleanup: () => {
-      // Cleanup logic if needed
+      return container.cleanup();
     }
   };
 };
 
 /**
  * Creates an isolated test environment for Astro component testing
- * Ensures each test gets a fresh container with no shared state
+ * Updated to use TestContainerFactory for proper isolation
  */
 export const createIsolatedTestEnvironment = async () => {
-  const container = await AstroContainer.create();
+  const container = await createTestContainer();
   
   return {
     container,
     renderComponent: (Component: any, props: Record<string, any> = {}) => 
-      container.renderToString(Component, { props }),
+      container.renderComponent(Component, props),
     cleanup: async () => {
-      // Astro containers are self-cleaning, but explicit cleanup for consistency
-      return Promise.resolve();
+      return container.cleanup();
     }
   };
 };

@@ -6,8 +6,8 @@ import Footer from '../../src/components/Footer.astro';
 describe('Footer Component', () => {
   let container: Awaited<ReturnType<typeof AstroContainer.create>>;
 
-  beforeEach(() => {
-    container = createTestContainer();
+  beforeEach(async () => {
+    container = await createTestContainer();
   });
 
   afterEach(async () => {

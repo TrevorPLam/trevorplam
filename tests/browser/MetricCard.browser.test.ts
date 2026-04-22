@@ -1,15 +1,11 @@
 import { expect, test, describe } from 'vitest';
 import { page, userEvent } from 'vitest/browser';
-import { render } from '@testing-library/vue';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import MetricCard from '../../src/components/MetricCard.astro';
 import { metricCardFactory } from '../utils/test-factories';
 
 describe('MetricCard Browser Tests', () => {
   test('renders metric card correctly in real browser', async () => {
-    // Create a test container to render the Astro component
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     // Generate test data using factory
     const metricData = metricCardFactory.build({
       title: 'Cost Reduction',
@@ -20,20 +16,16 @@ describe('MetricCard Browser Tests', () => {
       caseStudySlug: 'sonic'
     });
 
-    // Render the component (this would need a custom renderer for Astro)
-    // For now, we'll test the DOM structure directly
-    container.innerHTML = `
-      <div class="metric-card">
-        <h3 class="font-mono text-lg">${metricData.title}</h3>
-        <div class="flex justify-between">
-          <span class="text-red-500">${metricData.before}</span>
-          <span class="text-green-500">${metricData.after}</span>
-        </div>
-        <p>${metricData.context}</p>
-        <span class="skill-tag">${metricData.skillTag}</span>
-        <a href="/cases/${metricData.caseStudySlug}">View Case Study</a>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    // Create a test container and insert rendered HTML
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     // Test DOM interactions in real browser
     const title = page.getByText('Cost Reduction');
@@ -57,9 +49,6 @@ describe('MetricCard Browser Tests', () => {
   });
 
   test('handles hover interactions correctly', async () => {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     const metricData = metricCardFactory.build({
       title: 'Revenue Growth',
       before: '$100K',
@@ -67,16 +56,15 @@ describe('MetricCard Browser Tests', () => {
       skillTag: 'Sales'
     });
 
-    container.innerHTML = `
-      <div class="metric-card hover:scale-105 transition-transform">
-        <h3 class="font-mono text-lg">${metricData.title}</h3>
-        <div class="flex justify-between">
-          <span class="text-red-500">${metricData.before}</span>
-          <span class="text-green-500">${metricData.after}</span>
-        </div>
-        <span class="skill-tag">${metricData.skillTag}</span>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     const card = container.querySelector('.metric-card') as HTMLElement;
     
@@ -91,9 +79,6 @@ describe('MetricCard Browser Tests', () => {
   });
 
   test('supports keyboard navigation', async () => {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     const metricData = metricCardFactory.build({
       title: 'Customer Satisfaction',
       before: '65%',
@@ -101,16 +86,15 @@ describe('MetricCard Browser Tests', () => {
       caseStudySlug: 'hubspot'
     });
 
-    container.innerHTML = `
-      <div class="metric-card" tabindex="0">
-        <h3 class="font-mono text-lg">${metricData.title}</h3>
-        <div class="flex justify-between">
-          <span class="text-red-500">${metricData.before}</span>
-          <span class="text-green-500">${metricData.after}</span>
-        </div>
-        <a href="/cases/${metricData.caseStudySlug}" class="case-study-link">View Details</a>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     const card = container.querySelector('.metric-card') as HTMLElement;
     const link = container.querySelector('.case-study-link') as HTMLElement;
@@ -131,9 +115,6 @@ describe('MetricCard Browser Tests', () => {
   });
 
   test('visual regression test - metric card appearance', async () => {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     const metricData = metricCardFactory.build({
       title: 'Visual Test',
       before: '$1M',
@@ -142,17 +123,15 @@ describe('MetricCard Browser Tests', () => {
       skillTag: 'Testing'
     });
 
-    container.innerHTML = `
-      <div class="metric-card bg-white p-6 rounded-lg shadow-lg">
-        <h3 class="font-mono text-xl text-gray-900">${metricData.title}</h3>
-        <div class="flex justify-between items-center my-4">
-          <span class="text-red-600 font-semibold">${metricData.before}</span>
-          <span class="text-green-600 font-semibold">${metricData.after}</span>
-        </div>
-        <p class="text-gray-600 mb-4">${metricData.context}</p>
-        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">${metricData.skillTag}</span>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     // Visual regression test
     const card = container.querySelector('.metric-card') as HTMLElement;
@@ -162,21 +141,17 @@ describe('MetricCard Browser Tests', () => {
   test('performance test - render time', async () => {
     const startTime = performance.now();
     
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
-    // Simulate component rendering
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
     const metricData = metricCardFactory.build();
     
-    container.innerHTML = `
-      <div class="metric-card">
-        <h3>${metricData.title}</h3>
-        <div class="flex">
-          <span>${metricData.before}</span>
-          <span>${metricData.after}</span>
-        </div>
-      </div>
-    `;
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
     
     const endTime = performance.now();
     const renderTime = endTime - startTime;
@@ -186,9 +161,6 @@ describe('MetricCard Browser Tests', () => {
   });
 
   test('accessibility test - screen reader compatibility', async () => {
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     const metricData = metricCardFactory.build({
       title: 'Accessibility Test',
       before: '50%',
@@ -196,16 +168,15 @@ describe('MetricCard Browser Tests', () => {
       context: 'Improved accessibility compliance'
     });
 
-    container.innerHTML = `
-      <div class="metric-card" role="article" aria-labelledby="metric-title">
-        <h3 id="metric-title" class="font-mono text-lg">${metricData.title}</h3>
-        <div class="metric-values" aria-label="Before and after values">
-          <span class="before-value" aria-label="Before: ${metricData.before}">${metricData.before}</span>
-          <span class="after-value" aria-label="After: ${metricData.after}">${metricData.after}</span>
-        </div>
-        <p class="metric-context">${metricData.context}</p>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     // Test ARIA attributes
     const card = container.querySelector('.metric-card') as HTMLElement;
@@ -223,24 +194,21 @@ describe('MetricCard Browser Tests', () => {
     // Set mobile viewport
     page.setViewportSize({ width: 375, height: 667 });
     
-    const container = document.createElement('div');
-    document.body.appendChild(container);
-    
     const metricData = metricCardFactory.build({
       title: 'Mobile Test',
       before: '$10K',
       after: '$25K'
     });
 
-    container.innerHTML = `
-      <div class="metric-card responsive">
-        <h3 class="font-mono text-lg md:text-xl">${metricData.title}</h3>
-        <div class="flex flex-col md:flex-row">
-          <span class="text-red-500">${metricData.before}</span>
-          <span class="text-green-500">${metricData.after}</span>
-        </div>
-      </div>
-    `;
+    // Render the Astro component using Astro Container
+    const astroContainer = await AstroContainer.create();
+    const renderedHTML = await astroContainer.renderToString(MetricCard, {
+      props: metricData
+    });
+
+    const container = document.createElement('div');
+    container.innerHTML = renderedHTML;
+    document.body.appendChild(container);
 
     const card = container.querySelector('.metric-card') as HTMLElement;
     
