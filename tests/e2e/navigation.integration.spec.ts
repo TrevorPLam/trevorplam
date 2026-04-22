@@ -1,6 +1,6 @@
-import { test, expect, describe } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
-describe('Navigation Integration Tests', () => {
+test.describe('Navigation Integration Tests', () => {
   test('mobile menu toggle functionality works correctly', async ({ page }) => {
     await page.goto('/');
     

@@ -4,13 +4,13 @@
  */
 
 export interface QualityMetrics {
-  codeCoverage: number;
-  testPassRate: number;
-  defectDensity: number;
-  performanceScore: number;
-  securityScore: number;
-  buildTime: number;
-  bundleSize: number;
+  codeCoverage?: number;
+  testPassRate?: number;
+  defectDensity?: number;
+  performanceScore?: number;
+  securityScore?: number;
+  buildTime?: number;
+  bundleSize?: number;
   timestamp: Date;
 }
 
@@ -69,7 +69,7 @@ export class QualityMonitor {
     const alerts: QualityAlert[] = [];
 
     // Code coverage check
-    if (metrics.codeCoverage < this.thresholds.codeCoverage) {
+    if (metrics.codeCoverage !== undefined && metrics.codeCoverage < this.thresholds.codeCoverage) {
       alerts.push({
         type: 'warning',
         message: `Code coverage ${metrics.codeCoverage}% below threshold ${this.thresholds.codeCoverage}%`,
@@ -80,7 +80,7 @@ export class QualityMonitor {
     }
 
     // Test pass rate check
-    if (metrics.testPassRate < this.thresholds.testPassRate) {
+    if (metrics.testPassRate !== undefined && metrics.testPassRate < this.thresholds.testPassRate) {
       alerts.push({
         type: 'error',
         message: `Test pass rate ${metrics.testPassRate}% below threshold ${this.thresholds.testPassRate}%`,
@@ -91,7 +91,7 @@ export class QualityMonitor {
     }
 
     // Defect density check
-    if (metrics.defectDensity > this.thresholds.defectDensity) {
+    if (metrics.defectDensity !== undefined && metrics.defectDensity > this.thresholds.defectDensity) {
       alerts.push({
         type: 'warning',
         message: `Defect density ${metrics.defectDensity} above threshold ${this.thresholds.defectDensity}`,
@@ -102,7 +102,7 @@ export class QualityMonitor {
     }
 
     // Performance score check
-    if (metrics.performanceScore < this.thresholds.performanceScore) {
+    if (metrics.performanceScore !== undefined && metrics.performanceScore < this.thresholds.performanceScore) {
       alerts.push({
         type: 'warning',
         message: `Performance score ${metrics.performanceScore} below threshold ${this.thresholds.performanceScore}`,
@@ -113,7 +113,7 @@ export class QualityMonitor {
     }
 
     // Security score check
-    if (metrics.securityScore < this.thresholds.securityScore) {
+    if (metrics.securityScore !== undefined && metrics.securityScore < this.thresholds.securityScore) {
       alerts.push({
         type: 'error',
         message: `Security score ${metrics.securityScore} below threshold ${this.thresholds.securityScore}`,
@@ -124,7 +124,7 @@ export class QualityMonitor {
     }
 
     // Build time check
-    if (metrics.buildTime > this.thresholds.buildTime) {
+    if (metrics.buildTime !== undefined && metrics.buildTime > this.thresholds.buildTime) {
       alerts.push({
         type: 'warning',
         message: `Build time ${metrics.buildTime}ms above threshold ${this.thresholds.buildTime}ms`,
@@ -135,7 +135,7 @@ export class QualityMonitor {
     }
 
     // Bundle size check
-    if (metrics.bundleSize > this.thresholds.bundleSize) {
+    if (metrics.bundleSize !== undefined && metrics.bundleSize > this.thresholds.bundleSize) {
       alerts.push({
         type: 'error',
         message: `Bundle size ${metrics.bundleSize} bytes above threshold ${this.thresholds.bundleSize} bytes`,
@@ -199,11 +199,11 @@ export class QualityMonitor {
     };
 
     const normalizedScores = {
-      codeCoverage: Math.min(metrics.codeCoverage / 100, 1),
-      testPassRate: metrics.testPassRate / 100,
-      defectDensity: Math.max(0, 1 - (metrics.defectDensity / 10)), // Inverse, lower is better
-      performanceScore: metrics.performanceScore / 100,
-      securityScore: metrics.securityScore / 100
+      codeCoverage: Math.min((metrics.codeCoverage ?? 0) / 100, 1),
+      testPassRate: (metrics.testPassRate ?? 0) / 100,
+      defectDensity: Math.max(0, 1 - ((metrics.defectDensity ?? 0) / 10)), // Inverse, lower is better
+      performanceScore: (metrics.performanceScore ?? 0) / 100,
+      securityScore: (metrics.securityScore ?? 0) / 100
     };
 
     const score = Object.entries(weights).reduce((total, [metric, weight]) => {
@@ -231,13 +231,13 @@ export class QualityMonitor {
 ## Overall Quality Score: ${qualityScore}/100
 
 ### Current Metrics
-- **Code Coverage**: ${latestMetrics.codeCoverage}%
-- **Test Pass Rate**: ${latestMetrics.testPassRate}%
-- **Defect Density**: ${latestMetrics.defectDensity}
-- **Performance Score**: ${latestMetrics.performanceScore}/100
-- **Security Score**: ${latestMetrics.securityScore}/100
-- **Build Time**: ${latestMetrics.buildTime}ms
-- **Bundle Size**: ${latestMetrics.bundleSize} bytes
+- **Code Coverage**: ${latestMetrics.codeCoverage ?? 0}%
+- **Test Pass Rate**: ${latestMetrics.testPassRate ?? 0}%
+- **Defect Density**: ${latestMetrics.defectDensity ?? 0}
+- **Performance Score**: ${latestMetrics.performanceScore ?? 0}/100
+- **Security Score**: ${latestMetrics.securityScore ?? 0}/100
+- **Build Time**: ${latestMetrics.buildTime ?? 0}ms
+- **Bundle Size**: ${latestMetrics.bundleSize ?? 0} bytes
 
 ### 24-Hour Trend
 ${trend.map((metric, index) => `
@@ -255,23 +255,23 @@ ${this.generateRecommendations(latestMetrics, qualityScore)}
   private static generateRecommendations(metrics: QualityMetrics, score: number): string {
     const recommendations: string[] = [];
 
-    if (metrics.codeCoverage < 80) {
+    if ((metrics.codeCoverage ?? 0) < 80) {
       recommendations.push('🔍 Increase test coverage to meet 80% threshold');
     }
 
-    if (metrics.testPassRate < 95) {
+    if ((metrics.testPassRate ?? 0) < 95) {
       recommendations.push('🧪 Address failing tests to improve pass rate');
     }
 
-    if (metrics.defectDensity > 1) {
+    if ((metrics.defectDensity ?? 0) > 1) {
       recommendations.push('🐛 Focus on reducing defect density through better testing');
     }
 
-    if (metrics.performanceScore < 90) {
+    if ((metrics.performanceScore ?? 0) < 90) {
       recommendations.push('⚡ Optimize build performance and reduce bundle size');
     }
 
-    if (metrics.securityScore < 95) {
+    if ((metrics.securityScore ?? 0) < 95) {
       recommendations.push('🔒 Address security vulnerabilities and compliance issues');
     }
 

@@ -28,7 +28,7 @@ import { ClientRouter } from 'astro:transitions';
               href="/evidence" 
               class="text-text-body hover:text-text-heading px-3 py-3 text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              Evidence
+              Impact
             </a>
           </li>
           <li>
@@ -36,7 +36,7 @@ import { ClientRouter } from 'astro:transitions';
               href="/trajectory" 
               class="text-text-body hover:text-text-heading px-3 py-3 text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              Trajectory
+              Journey
             </a>
           </li>
           <li>
@@ -44,7 +44,7 @@ import { ClientRouter } from 'astro:transitions';
               href="/methodology" 
               class="text-text-body hover:text-text-heading px-3 py-3 text-sm font-medium transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
-              Methodology
+              Approach
             </a>
           </li>
           <li>
@@ -108,19 +108,19 @@ import { ClientRouter } from 'astro:transitions';
         href="/evidence"
         class="text-text-body hover:text-text-heading block px-3 py-2 text-base font-medium min-h-[44px] flex items-center"
       >
-        Evidence
+        Impact
       </a>
       <a
         href="/trajectory"
         class="text-text-body hover:text-text-heading block px-3 py-2 text-base font-medium min-h-[44px] flex items-center"
       >
-        Trajectory
+        Journey
       </a>
       <a
         href="/methodology"
         class="text-text-body hover:text-text-heading block px-3 py-2 text-base font-medium min-h-[44px] flex items-center"
       >
-        Methodology
+        Approach
       </a>
       <a
         href="/connect"
@@ -171,11 +171,21 @@ import { ClientRouter } from 'astro:transitions';
   });
 
   // Close mobile menu on Escape key
-  document.addEventListener('keydown', (event) => {
+  function handleEscapeKey(event: KeyboardEvent) {
     if (event.key === 'Escape' && !mobileMenu?.classList.contains('hidden')) {
       toggleMobileMenu();
     }
-  });
+  }
+  document.addEventListener('keydown', handleEscapeKey);
+
+  // Cleanup event listeners before swap to prevent memory leaks
+  document.addEventListener('astro:before-swap', () => {
+    mobileMenuButton?.removeEventListener('click', toggleMobileMenu);
+    document.removeEventListener('keydown', handleEscapeKey);
+    mobileLinks?.forEach(link => {
+      link.removeEventListener('click', () => {});
+    });
+  }, { once: true });
 
   // Reinitialize mobile menu after ClientRouter navigation
   document.addEventListener('astro:page-load', () => {

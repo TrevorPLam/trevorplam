@@ -6,8 +6,8 @@ import Navigation from '../../src/components/Navigation.astro';
 describe('Navigation Component', () => {
   let container: Awaited<ReturnType<typeof AstroContainer.create>>;
 
-  beforeEach(() => {
-    container = createTestContainer();
+  beforeEach(async () => {
+    container = await createTestContainer();
   });
 
   afterEach(async () => {

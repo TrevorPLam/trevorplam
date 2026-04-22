@@ -1,6 +1,6 @@
 ---
 interface Props {
-  children: any;
+  children: unknown;
   fallback?: string;
 }
 
@@ -13,7 +13,7 @@ const { children, fallback = 'Something went wrong. Please refresh the page.' } 
     // Extend Window interface to include plausible
     declare global {
       interface Window {
-        plausible?: (event: string, options?: { props?: Record<string, any> }) => void;
+        plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
       }
     }
 
@@ -48,7 +48,7 @@ const { children, fallback = 'Something went wrong. Please refresh the page.' } 
         const originalPushState = history.pushState;
         const originalReplaceState = history.replaceState;
 
-        history.pushState = function(this: History, ...args: [any, string, string | URL | null | undefined]) {
+        history.pushState = function(this: History, ...args: [unknown, string, string | URL | null | undefined]) {
           try {
             return originalPushState.apply(this, args);
           } catch (error) {
@@ -56,7 +56,7 @@ const { children, fallback = 'Something went wrong. Please refresh the page.' } 
           }
         };
 
-        history.replaceState = function(this: History, ...args: [any, string, string | URL | null | undefined]) {
+        history.replaceState = function(this: History, ...args: [unknown, string, string | URL | null | undefined]) {
           try {
             return originalReplaceState.apply(this, args);
           } catch (error) {

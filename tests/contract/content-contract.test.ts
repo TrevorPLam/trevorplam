@@ -11,7 +11,7 @@ describe('Content Contract Tests', () => {
     provider: 'content-layer-api',
     dir: path.resolve(process.cwd(), 'tests', 'pacts'),
     spec: 4,
-    logLevel: process.env.LOG_LEVEL || 'INFO',
+    logLevel: (process.env.LOG_LEVEL as 'trace' | 'debug' | 'info' | 'warn' | 'error') || 'info',
   });
 
   beforeEach(async () => {
@@ -19,7 +19,7 @@ describe('Content Contract Tests', () => {
   });
 
   afterEach(async () => {
-    await provider.finalize();
+    // Pact V4 automatically handles cleanup after each interaction
   });
 
   describe('Case Studies Content Contract', () => {

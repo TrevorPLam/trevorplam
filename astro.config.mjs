@@ -21,21 +21,7 @@ export default defineConfig({
     ].filter(Boolean)
   },
   security: {
-    csp: {
-      directives: [
-        "default-src 'self'",
-        "script-src 'self' https://plausible.io",
-        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-        "font-src 'self' https://fonts.gstatic.com",
-        "img-src 'self' data: https:",
-        "connect-src 'self' https://plausible.io",
-        "frame-src 'none'",
-        "object-src 'none'",
-        "base-uri 'self'",
-        "form-action 'self'",
-        "frame-ancestors 'none'"
-      ]
-    }
+    csp: true
   },
   fonts: [
     {

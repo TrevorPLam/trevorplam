@@ -6,7 +6,7 @@ import ForensicDashboard from '../sections/ForensicDashboard.astro';
 ---
 
 <BaseLayout 
-  title="Evidence - Trevor Lam" 
+  title="Impact - Trevor Lam" 
   description="Quantified results and case studies demonstrating operational excellence across payroll, compliance, and financial operations."
 >
   <div class="max-w-6xl mx-auto px-4 py-8">
@@ -106,7 +106,7 @@ import ForensicDashboard from '../sections/ForensicDashboard.astro';
   }
 
   // Handle keyboard navigation between views
-  document.addEventListener('keydown', (event: any) => {
+  document.addEventListener('keydown', (event: KeyboardEvent) => {
     if ((event.ctrlKey || event.metaKey) && event.key === 'Tab') {
       event.preventDefault();
       updateView(currentView === 'narrative');

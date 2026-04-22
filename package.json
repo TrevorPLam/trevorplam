@@ -22,7 +22,7 @@
     "test:a11y:full": "playwright test tests/a11y/",
     "test:a11y:homepage": "playwright test tests/a11y/homepage-a11y.spec.ts --project=\"Desktop Chrome\"",
     "test:contract": "vitest run tests/contract/",
-    "test:contract:publish": "node -e \"const { execSync } = require('child_process'); execSync('npm run test:contract', { stdio: 'inherit' }); console.log('Contracts generated in tests/pacts/');\"",
+    "test:contract:publish": "node --input-type=module -e \"import { execSync } from 'child_process'; execSync('npm run test:contract', { stdio: 'inherit' }); console.log('Contracts generated in tests/pacts/');\"",
     "test:contract:verify": "vitest run tests/contract/ --reporter=verbose",
     "lighthouse": "lhci autorun",
     "lighthouse:healthcheck": "lhci healthcheck --fatal"
@@ -63,5 +63,9 @@
     "vite": "^7.3.2",
     "vitest": "^4.1.5",
     "zod": "^4.3.6"
+  },
+  "overrides": {
+    "yaml": "^2.8.3",
+    "tmp": "^0.2.3"
   }
 }

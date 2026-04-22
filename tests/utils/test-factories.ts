@@ -164,35 +164,39 @@ export const caseStudyFactory = createFactory({
 }).withValidation(CaseStudySchema);
 
 // Pre-configured case study variants for common test scenarios
-export const grandluxCaseStudyFactory = caseStudyFactory.extend({
+// Using separate createFactory calls instead of extend() to avoid type intersection issues with Zod schemas
+export const grandluxCaseStudyFactory = createFactory({
   slug: 'grandlux',
   title: 'Grandlux Restaurant Group Financial Operations',
+  content: 'Test content for unit testing',
   industry: 'Salon' as const,
   problem: 'Multi-location restaurant group was experiencing 12-day monthly financial close and 76% inventory accuracy',
   result: 'Reduced financial close to 4 days and achieved 94.2% inventory accuracy',
   skills: ['Financial Operations', 'Inventory Management', 'Cost Analysis', 'Process Optimization'],
   metric: 'Monthly Financial Close Time'
-});
+}).withValidation(CaseStudySchema);
 
-export const klwCaseStudyFactory = caseStudyFactory.extend({
+export const klwCaseStudyFactory = createFactory({
   slug: 'klw',
   title: 'KLW CPA Firm Operations',
+  content: 'Test content for unit testing',
   industry: 'CPA-Payroll' as const,
   problem: 'Manual payroll processing causing delays and errors',
   result: 'Automated payroll system with 99.9% accuracy',
   skills: ['Payroll Processing', 'Automation', 'Compliance'],
   metric: 'Payroll Processing Time'
-});
+}).withValidation(CaseStudySchema);
 
-export const sonicCaseStudyFactory = caseStudyFactory.extend({
+export const sonicCaseStudyFactory = createFactory({
   slug: 'sonic',
   title: 'Sonic QSR Digital Transformation',
+  content: 'Test content for unit testing',
   industry: 'QSR' as const,
   problem: 'Legacy systems causing operational inefficiencies',
   result: 'Digital platform implementation with 40% efficiency gain',
   skills: ['Digital Transformation', 'Process Optimization', 'System Integration'],
   metric: 'Operational Efficiency'
-});
+}).withValidation(CaseStudySchema);
 
 // Example usage of enhanced factories:
 // export const userFactory = createFactory({

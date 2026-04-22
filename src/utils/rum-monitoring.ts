@@ -3,13 +3,38 @@
  * Tracks user behavior, performance metrics, and engagement patterns
  */
 
+// Type definitions for Network Information API
+interface NetworkInformation {
+  effectiveType: string;
+  downlink: number;
+  rtt: number;
+  saveData: boolean;
+}
+
+interface NavigatorWithConnection extends Navigator {
+  connection?: NetworkInformation;
+  mozConnection?: NetworkInformation;
+  webkitConnection?: NetworkInformation;
+}
+
+// Type definition for Layout Shift entries
+interface LayoutShiftEntry extends PerformanceEntry {
+  hadRecentInput: boolean;
+  value: number;
+}
+
+// Type definition for First Input Delay entries
+interface FirstInputEntry extends PerformanceEntry {
+  processingStart: number;
+}
+
 interface RUMEvent {
   type: 'page_view' | 'click' | 'scroll' | 'form_submit' | 'navigation' | 'performance';
   timestamp: number;
   url: string;
   sessionId: string;
   userId?: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 }
 
 interface PerformanceMetrics {
@@ -101,8 +126,8 @@ class RUMMonitoring {
     this.sendEvent(event);
   }
 
-  private getConnectionInfo(): Record<string, any> {
-    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+  private getConnectionInfo(): Record<string, unknown> {
+    const connection = (navigator as NavigatorWithConnection).connection;
     
     if (connection) {
       return {
@@ -142,9 +167,10 @@ class RUMMonitoring {
         // First Input Delay
         const fidObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries();
-          entries.forEach((entry: any) => {
-            if (entry.processingStart) {
-              this.performanceMetrics.fid = entry.processingStart - entry.startTime;
+          entries.forEach((entry) => {
+            const firstInput = entry as FirstInputEntry;
+            if (firstInput.processingStart) {
+              this.performanceMetrics.fid = firstInput.processingStart - entry.startTime;
               
               this.sendEvent({
                 type: 'performance',
@@ -165,8 +191,9 @@ class RUMMonitoring {
         let clsValue = 0;
         const clsObserver = new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
-            if (!(entry as any).hadRecentInput) {
-              clsValue += (entry as any).value;
+            const layoutShift = entry as LayoutShiftEntry;
+            if (!layoutShift.hadRecentInput) {
+              clsValue += layoutShift.value;
             }
           }
           this.performanceMetrics.cls = clsValue;
@@ -184,8 +211,10 @@ class RUMMonitoring {
         
         if (navigation) {
           this.performanceMetrics.ttfb = navigation.responseStart - navigation.requestStart;
-          this.performanceMetrics.domInteractive = navigation.domInteractive - navigation.navigationStart;
-          this.performanceMetrics.loadComplete = navigation.loadEventEnd - navigation.navigationStart;
+          this.performanceMetrics.domInteractive =
+            (navigation.domInteractive ?? 0) - (navigation.startTime ?? 0);
+          this.performanceMetrics.loadComplete =
+            (navigation.loadEventEnd ?? 0) - (navigation.startTime ?? 0);
         }
       }, 0);
     });
@@ -217,7 +246,7 @@ class RUMMonitoring {
 
     // Track scroll depth
     let maxScroll = 0;
-    let scrollTimeout: NodeJS.Timeout;
+    let scrollTimeout: ReturnType<typeof setTimeout> | undefined;
     
     const trackScroll = () => {
       const scrollPercentage = Math.round(

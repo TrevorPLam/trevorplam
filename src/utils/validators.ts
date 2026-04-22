@@ -163,7 +163,8 @@ export function isInRange(value: number, min: number, max: number): boolean {
  * 
  * @since 1.0.0
  */
-export function all<T>(items: T[], predicate: (item: T) => boolean): boolean {
+export function all<T>(items: T[] | null | undefined, predicate: (item: T) => boolean): boolean {
+  if (!items || !Array.isArray(items)) return false;
   return items.every(predicate);
 }
 

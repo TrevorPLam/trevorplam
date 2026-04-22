@@ -214,23 +214,23 @@ class ErrorMonitoring {
 
   private determineSeverity(context: ErrorContext): ErrorReport['severity'] {
     const error = context.error instanceof Error ? context.error : new Error(context.error);
-    
+
     // Critical errors
-    if (error.message.includes('ChunkLoadError') || 
+    if (error.message.includes('ChunkLoadError') ||
         error.message.includes('Network error') ||
-        source === 'unhandled-promise') {
+        context.source === 'unhandled-promise') {
       return 'critical';
     }
     
     // High severity
     if (error.message.includes('TypeError') ||
         error.message.includes('ReferenceError') ||
-        source === 'javascript') {
+        context.source === 'javascript') {
       return 'high';
     }
     
     // Medium severity
-    if (source === 'network' || source === 'navigation') {
+    if (context.source === 'network' || context.source === 'navigation') {
       return 'medium';
     }
     

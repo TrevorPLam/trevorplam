@@ -33,7 +33,7 @@ export interface QualityInsight {
  * Implements intelligent test generation and analysis
  */
 export class AITestEnhancer {
-  private static testHistory = new Map<string, TestGeneration>();
+  private static testHistory = new Map<string, TestGeneration[]>();
   private static qualityInsights = new Map<string, QualityInsight[]>();
 
   /**
@@ -343,7 +343,7 @@ describe('${componentName} - ${scenario.name}', () => {
   private static calculateEstimatedCoverage(scenarios: TestScenario[]): number {
     // Simple heuristic based on scenario types and priorities
     let coverageScore = 0;
-    
+
     scenarios.forEach(scenario => {
       switch (scenario.priority) {
         case 'critical': coverageScore += 25; break;
@@ -352,9 +352,7 @@ describe('${componentName} - ${scenario.name}', () => {
         case 'low': coverageScore += 10; break;
       }
     });
-    
+
     return Math.min(95, coverageScore);
   }
-
-  private static testHistory = new Map<string, TestGeneration[]>();
 }

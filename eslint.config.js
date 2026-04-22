@@ -7,10 +7,8 @@ export default [
       'dist/',
       'node_modules/',
       '.astro/',
-      '*.config.js',
-      '*.config.mjs',
-      'lighthouserc.js',
-      '.eslintrc.security.js'
+      'tests/reports/',
+      '**/*.d.ts'
     ]
   },
   

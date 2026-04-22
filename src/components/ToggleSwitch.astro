@@ -26,7 +26,7 @@ const { label, checked: initialChecked = false } = Astro.props;
 
 <script>
   // Find the toggle button and initialize if found
-  const button = document.querySelector('[data-toggle-switch]');
+  const button = document.querySelector('[data-toggle-switch]') as HTMLButtonElement | null;
   if (button) {
     // Get initial state from data attribute
     const initialChecked = button.getAttribute('data-initial-checked') === 'true';
@@ -36,7 +36,7 @@ const { label, checked: initialChecked = false } = Astro.props;
     button.addEventListener('click', () => {
       isChecked = !isChecked;
       button.setAttribute('aria-checked', isChecked.toString());
-      
+
       // Update visual state
       const span = button.querySelector('span:last-child');
       if (span) {
@@ -56,10 +56,10 @@ const { label, checked: initialChecked = false } = Astro.props;
     });
 
     // Handle keyboard events (Space key)
-    button.addEventListener('keydown', (event: any) => {
+    button.addEventListener('keydown', (event) => {
       if (event.key === ' ' || event.key === 'Spacebar') {
         event.preventDefault();
-        (button as any).click();
+        button.click();
       }
     });
 

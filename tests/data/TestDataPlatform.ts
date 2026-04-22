@@ -69,7 +69,7 @@ export class TestDataPlatform {
       // Apply constraints if provided
       if (config.constraints) {
         Object.keys(config.constraints).forEach(key => {
-          if (config.constraints[key] !== undefined) {
+          if (config.constraints?.[key] !== undefined) {
             item[key] = config.constraints[key];
           }
         });
@@ -193,11 +193,11 @@ export class TestDataPlatform {
   /**
    * Generate test data scenarios for different test types
    */
-  static generateTestScenarios(scenarios: string[]): Record<string, any[]> {
+  static async generateTestScenarios(scenarios: string[]): Promise<Record<string, any[]>> {
     const result: Record<string, any[]> = {};
     
-    scenarios.forEach(scenario => {
-      result[scenario] = this.generateSyntheticData({
+    for (const scenario of scenarios) {
+      result[scenario] = await this.generateSyntheticData({
         type: scenario,
         count: 10,
         generators: ['faker'],
@@ -211,8 +211,8 @@ export class TestDataPlatform {
           }
         }
       });
-    });
-    
+    }
+
     return result;
   }
 
@@ -224,7 +224,10 @@ export class TestDataPlatform {
     dataTypes: string[]
   ): Promise<Record<string, any[]>> {
     const policy: TestDataPolicy = {
-      classification: environment === 'production' ? 'confidential' : 'internal',
+      classification: {
+        sensitivity: environment === 'production' ? 'confidential' : 'internal',
+        category: 'business'
+      },
       masking: environment === 'production',
       retention: environment === 'production' ? 30 : 90,
       compliance: environment === 'production' ? ['GDPR', 'CCPA'] : []
