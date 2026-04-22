@@ -1,56 +1,83 @@
 [
   {
-    "id": "sonic-payroll-accuracy",
-    "title": "Payroll Accuracy Rate",
-    "before": "87%",
-    "after": "99.8%",
-    "context": "Sonic Drive-in franchise payroll processing",
-    "skillTag": "Payroll Operations",
-    "caseStudySlug": "sonic"
-  },
-  {
-    "id": "sonic-compliance-audits",
-    "title": "Compliance Audit Pass Rate",
-    "before": "72%",
-    "after": "100%",
-    "context": "Department of Labor compliance audits",
-    "skillTag": "Compliance Management",
-    "caseStudySlug": "sonic"
-  },
-  {
-    "id": "klw-onboarding-time",
-    "title": "Employee Onboarding Time",
-    "before": "14 days",
-    "after": "3 days",
-    "context": "New hire processing across all departments",
-    "skillTag": "Process Optimization",
+    "id": "fast-promotion",
+    "title": "Rapid Promotion",
+    "before": "Entry Level",
+    "after": "Executive Assistant in 60 Days",
+    "context": "Fastest promotion in firm history. Reached Integrator (#2 role) in 18 months at a CPA firm where principals are naturally skeptical.",
+    "skillTag": "Fast Track to Trust",
     "caseStudySlug": "klw"
   },
   {
-    "id": "klw-benefits-enrollment",
-    "title": "Benefits Enrollment Accuracy",
-    "before": "81%",
-    "after": "98.5%",
-    "context": "Health insurance and retirement plan enrollment",
-    "skillTag": "Benefits Administration",
+    "id": "sonic-revenue-growth",
+    "title": "Annual Revenue Growth",
+    "before": "$1.4M",
+    "after": "$1.7M",
+    "context": "Unit facing potential closure turned top 10% performer",
+    "skillTag": "P&L Management",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "sonic-food-cost",
+    "title": "Food Cost Variance",
+    "before": "2.7%",
+    "after": "0.75%",
+    "context": "Waste reduction through systematic tracking and education",
+    "skillTag": "Cost Control",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "sonic-turnover",
+    "title": "Employee Turnover Reduction",
+    "before": "175%+",
+    "after": "Under 80%",
+    "context": "Retention intervention in 130-150% industry average",
+    "skillTag": "People Operations",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "sonic-labor-cost",
+    "title": "Labor Cost Variance",
+    "before": "3.9%",
+    "after": "-0.25%",
+    "context": "Elastic staffing models built personally",
+    "skillTag": "Workforce Optimization",
+    "caseStudySlug": "sonic"
+  },
+  {
+    "id": "klw-promotion-velocity",
+    "title": "Promotion Timeline",
+    "before": "Entry Level",
+    "after": "Integrator (#2 role) in 18 months",
+    "context": "Two promotions: 60 days, then 16 months",
+    "skillTag": "Rapid Advancement",
     "caseStudySlug": "klw"
   },
   {
-    "id": "grandlux-financial-close",
-    "title": "Monthly Financial Close Time",
-    "before": "12 days",
-    "after": "4 days",
-    "context": "Multi-location restaurant group financial reporting",
-    "skillTag": "Financial Operations",
+    "id": "klw-client-scale",
+    "title": "Payroll Service Bureau Scale",
+    "before": "Hybrid paper-digital chaos",
+    "after": "280-315+ client accounts",
+    "context": "Zero breaches across 3 legally distinct entities",
+    "skillTag": "Multi-Entity Operations",
+    "caseStudySlug": "klw"
+  },
+  {
+    "id": "grandlux-cash-controls",
+    "title": "Cash Reconciliation Accuracy",
+    "before": "Unverified",
+    "after": "Zero Discrepancies",
+    "context": "Third time I've achieved perfect financial reconciliation—in three completely different industries (fast food, salon, payroll/CPA)",
+    "skillTag": "Financial Controls",
     "caseStudySlug": "grandlux"
   },
   {
-    "id": "grandlux-inventory-accuracy",
-    "title": "Inventory Accuracy Rate",
-    "before": "76%",
-    "after": "94.2%",
-    "context": "Food cost and inventory management system",
-    "skillTag": "Inventory Management",
+    "id": "grandlux-reputation",
+    "title": "Reputation Management",
+    "before": "Review complaints reactive",
+    "after": "Proactive service recovery",
+    "context": "Caught unhappy clients before they left and fixed their issues—reducing negative Google reviews",
+    "skillTag": "Service Recovery",
     "caseStudySlug": "grandlux"
   }
 ]

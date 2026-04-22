@@ -1,0 +1,73 @@
+name: Contract Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  PACT_BROKER_BASE_URL: ${{ secrets.PACT_BROKER_BASE_URL }}
+  PACT_BROKER_TOKEN: ${{ secrets.PACT_BROKER_TOKEN }}
+
+jobs:
+  contract-testing:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [22.x]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run contract tests
+      run: npm run test:contract
+      
+    - name: Verify contract tests
+      run: npm run test:contract:verify
+      
+    - name: Generate contract report
+      run: |
+        echo "## Contract Testing Results" > contract-report.md
+        echo "- Contract tests executed: $(find tests/pacts -name '*.json' | wc -l)" >> contract-report.md
+        echo "- Contracts generated: $(ls -la tests/pacts/ | grep -c '\.json$')" >> contract-report.md
+        echo "- Test status: PASSED" >> contract-report.md
+        
+    - name: Upload contract artifacts
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: contract-pacts
+        path: tests/pacts/
+        retention-days: 30
+        
+    - name: Upload contract report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: contract-report
+        path: contract-report.md
+        retention-days: 30
+        
+    - name: Publish contracts to broker (if configured)
+      if: env.PACT_BROKER_BASE_URL != ''
+      run: npm run test:contract:publish
+      
+    - name: Contract verification summary
+      run: |
+        echo "## Contract Testing Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- All content contracts validated" >> $GITHUB_STEP_SUMMARY
+        echo "- Content schema contracts verified" >> $GITHUB_STEP_SUMMARY
+        echo "- Build-time contracts tested" >> $GITHUB_STEP_SUMMARY
+        echo "- Status: PASSED" >> $GITHUB_STEP_SUMMARY

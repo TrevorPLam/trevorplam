@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { grandluxCaseStudyFactory, klwCaseStudyFactory, sonicCaseStudyFactory } from '../utils/test-factories';
 
 /**
  * Visual Regression Tests
@@ -46,7 +47,12 @@ test.describe('Visual Regression - Homepage', () => {
 });
 
 test.describe('Visual Regression - Case Studies', () => {
-  const caseStudies = ['grandlux', 'klw', 'sonic'];
+  // Generate case study data using factories for deterministic, validated test data
+  const caseStudies = [
+    grandluxCaseStudyFactory.build().slug,
+    klwCaseStudyFactory.build().slug,
+    sonicCaseStudyFactory.build().slug
+  ];
 
   for (const caseStudy of caseStudies) {
     test(`${caseStudy} case study matches baseline`, async ({ page }) => {
@@ -94,8 +100,8 @@ test.describe('Visual Regression - Interactive States', () => {
     const navLink = page.getByRole('navigation').getByRole('link').first();
     await navLink.hover();
     
-    // Small delay to ensure hover state applies
-    await page.waitForTimeout(100);
+    // Wait for hover state to apply using CSS assertion
+    await expect(navLink).toHaveCSS('color', /rgb\(\d+, \d+, \d+\)/);
     
     const nav = page.getByRole('navigation');
     await expect(nav).toHaveScreenshot('navigation-hover-state.png');

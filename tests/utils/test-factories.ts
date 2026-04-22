@@ -1,18 +1,81 @@
 /**
  * Enhanced type-safe test factory interface with 2026 patterns
- * Provides consistent object creation for testing
+ * Provides consistent object creation for testing with runtime validation
  */
 export type Factory<T> = {
   build(overrides?: Partial<T>): T;
   buildList(count: number, overrides?: Partial<T>): T[];
   buildWithSequence(overrides?: Partial<T>, sequenceField?: keyof T): T;
   extend<U>(traits: U): Factory<T & U>;
+  withValidation<U>(schema: { parse: (data: unknown) => U }): Factory<T & U>;
 };
+
+import { z } from 'zod';
+
+/**
+ * Zod schemas for test data validation
+ */
+export const CaseStudySchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  content: z.string(),
+  industry: z.enum(['QSR', 'Salon', 'CPA-Payroll']),
+  problem: z.string(),
+  result: z.string(),
+  skills: z.array(z.string()),
+  metric: z.string()
+});
+
+export const MetricCardSchema = z.object({
+  title: z.string(),
+  before: z.string(),
+  after: z.string(),
+  context: z.string().optional(),
+  skillTag: z.string().optional(),
+  caseStudySlug: z.string().optional()
+});
+
+export const SkillTagSchema = z.object({
+  label: z.string()
+});
+
+export const TimelineNodeSchema = z.object({
+  year: z.string(),
+  title: z.string(),
+  description: z.string(),
+  type: z.enum(['role', 'education', 'achievement'])
+});
+
+export const OptimizedImageSchema = z.object({
+  src: z.string(),
+  alt: z.string(),
+  width: z.number().positive(),
+  height: z.number().positive()
+});
+
+export const NavigationSchema = z.object({
+  currentPath: z.string(),
+  isMobileMenuOpen: z.boolean()
+});
+
+export const FooterSchema = z.object({
+  currentYear: z.number(),
+  showContactInfo: z.boolean()
+});
+
+// Type exports
+export type CaseStudy = z.infer<typeof CaseStudySchema>;
+export type MetricCard = z.infer<typeof MetricCardSchema>;
+export type SkillTag = z.infer<typeof SkillTagSchema>;
+export type TimelineNode = z.infer<typeof TimelineNodeSchema>;
+export type OptimizedImage = z.infer<typeof OptimizedImageSchema>;
+export type Navigation = z.infer<typeof NavigationSchema>;
+export type Footer = z.infer<typeof FooterSchema>;
 
 /**
  * Creates a type-safe factory for building test objects
- * Enhanced with 2026 patterns: sequence generation and trait composition
- * Reduces hardcoded test data and improves maintainability
+ * Enhanced with 2026 patterns: sequence generation, trait composition, and Zod validation
+ * Reduces hardcoded test data and improves maintainability with runtime validation
  */
 export function createFactory<T>(defaults: T): Factory<T> {
   let sequenceCounter = 0;
@@ -40,11 +103,17 @@ export function createFactory<T>(defaults: T): Factory<T> {
     },
     
     // Compose traits for variant creation
-    extend: <U>(traits: U) => createFactory({ ...defaults, ...traits })
+    extend: <U>(traits: U) => createFactory({ ...defaults, ...traits }),
+    
+    // Add Zod validation to factory
+    withValidation: <U>(schema: { parse: (data: unknown) => U }) => {
+      const validatedDefaults = schema.parse(defaults);
+      return createFactory(validatedDefaults) as Factory<T & U>;
+    }
   };
 }
 
-// Component-specific factories
+// Component-specific factories with Zod validation
 export const metricCardFactory = createFactory({
   title: 'Test Metric',
   before: '$100K',
@@ -52,34 +121,77 @@ export const metricCardFactory = createFactory({
   context: 'Test context for unit testing',
   skillTag: 'Testing',
   caseStudySlug: 'test-case'
-});
+}).withValidation(MetricCardSchema);
 
 export const skillTagFactory = createFactory({
   label: 'Test Skill'
-});
+}).withValidation(SkillTagSchema);
 
 export const timelineNodeFactory = createFactory({
   year: '2021',
   title: 'Test Role',
   description: 'Test description for unit testing',
   type: 'role' as const
-});
+}).withValidation(TimelineNodeSchema);
 
 export const optimizedImageFactory = createFactory({
   src: '/test-image.jpg',
   alt: 'Test image description',
   width: 400,
   height: 300
-});
+}).withValidation(OptimizedImageSchema);
 
 export const navigationFactory = createFactory({
   currentPath: '/',
   isMobileMenuOpen: false
-});
+}).withValidation(NavigationSchema);
 
 export const footerFactory = createFactory({
   currentYear: new Date().getFullYear(),
   showContactInfo: true
+}).withValidation(FooterSchema);
+
+// Case study factory with deterministic seeding for test reproducibility
+export const caseStudyFactory = createFactory({
+  slug: 'test-case',
+  title: 'Test Case Study',
+  content: 'Test content for unit testing',
+  industry: 'QSR' as const,
+  problem: 'Test problem description',
+  result: 'Test result description',
+  skills: ['Testing', 'Validation'],
+  metric: 'Test Metric'
+}).withValidation(CaseStudySchema);
+
+// Pre-configured case study variants for common test scenarios
+export const grandluxCaseStudyFactory = caseStudyFactory.extend({
+  slug: 'grandlux',
+  title: 'Grandlux Restaurant Group Financial Operations',
+  industry: 'Salon' as const,
+  problem: 'Multi-location restaurant group was experiencing 12-day monthly financial close and 76% inventory accuracy',
+  result: 'Reduced financial close to 4 days and achieved 94.2% inventory accuracy',
+  skills: ['Financial Operations', 'Inventory Management', 'Cost Analysis', 'Process Optimization'],
+  metric: 'Monthly Financial Close Time'
+});
+
+export const klwCaseStudyFactory = caseStudyFactory.extend({
+  slug: 'klw',
+  title: 'KLW CPA Firm Operations',
+  industry: 'CPA-Payroll' as const,
+  problem: 'Manual payroll processing causing delays and errors',
+  result: 'Automated payroll system with 99.9% accuracy',
+  skills: ['Payroll Processing', 'Automation', 'Compliance'],
+  metric: 'Payroll Processing Time'
+});
+
+export const sonicCaseStudyFactory = caseStudyFactory.extend({
+  slug: 'sonic',
+  title: 'Sonic QSR Digital Transformation',
+  industry: 'QSR' as const,
+  problem: 'Legacy systems causing operational inefficiencies',
+  result: 'Digital platform implementation with 40% efficiency gain',
+  skills: ['Digital Transformation', 'Process Optimization', 'System Integration'],
+  metric: 'Operational Efficiency'
 });
 
 // Example usage of enhanced factories:

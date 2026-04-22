@@ -1,0 +1,47 @@
+---
+import TimelineNode from './TimelineNode.astro';
+import timeline from '../../data/timeline.json';
+---
+
+<!-- Horizontal scroll-snap timeline for desktop -->
+<div class="hidden md:block">
+  <div class="relative overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+    <div class="flex gap-8 px-4 py-8 min-w-max">
+      {timeline.map((node) => (
+        <div class="shrink-0 w-80 snap-start">
+          <TimelineNode
+            year={node.year.toString()}
+            title={node.title}
+            description={node.description}
+            type={node.type as 'role' | 'award' | 'degree' | 'constraint' | 'future'}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<!-- Vertical timeline for mobile -->
+<div class="md:hidden">
+  <div class="space-y-6 px-4 py-8">
+    {timeline.map((node) => (
+      <TimelineNode
+        year={node.year.toString()}
+        title={node.title}
+        description={node.description}
+        type={node.type as 'role' | 'award' | 'degree' | 'constraint' | 'future'}
+      />
+    ))}
+  </div>
+</div>
+
+<style>
+  /* Hide scrollbar for desktop but maintain scroll functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>

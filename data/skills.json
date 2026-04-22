@@ -13,12 +13,17 @@
     {
       "name": "Cross-Functional Leadership",
       "level": "Expert", 
-      "description": "Coordinating multiple departments toward common operational goals"
+      "description": "Coordinating multiple departments and locations toward common goals"
     },
     {
-      "name": "Crisis Management",
-      "level": "Advanced",
-      "description": "Rapid response to operational failures and urgent business needs"
+      "name": "Multi-Site Standards Deployment",
+      "level": "Expert",
+      "description": "Certified operational standards across 7 locations with pass/fail assessment authority"
+    },
+    {
+      "name": "Turnaround Operations",
+      "level": "Expert",
+      "description": "Transforming failing units to top 10% performance"
     }
   ],
   "hr_payroll": [
@@ -45,19 +50,19 @@
   ],
   "financial": [
     {
-      "name": "Financial Reporting",
-      "level": "Advanced",
-      "description": "Monthly closes, financial statements, and management reporting"
-    },
-    {
-      "name": "Budget Management",
-      "level": "Advanced",
-      "description": "Departmental budgeting, forecasting, and variance analysis"
-    },
-    {
-      "name": "Inventory Management",
+      "name": "P&L Management",
       "level": "Expert",
-      "description": "Food cost control, inventory systems, and waste reduction"
+      "description": "Full ownership of $1.4M to $1.7M unit, food cost 2.7% to 0.75%"
+    },
+    {
+      "name": "Perfect Financial Reconciliation",
+      "level": "Expert",
+      "description": "Zero errors across 3 industries: Sonic daily deposits, Grandlux end-of-day, KLW month-end close"
+    },
+    {
+      "name": "Multi-Entity Operations",
+      "level": "Advanced",
+      "description": "Managing 3 legally distinct firms simultaneously (KLW/Walton/Your Payroll)"
     },
     {
       "name": "Cost Analysis",
@@ -67,41 +72,41 @@
   ],
   "technical": [
     {
-      "name": "Information Architecture",
+      "name": "Information Systems Design",
       "level": "Expert",
-      "description": "Designing systems that make organizational knowledge visible and actionable"
+      "description": "Building systems that make organizational knowledge visible and actionable"
     },
     {
-      "name": "Process Documentation",
+      "name": "Paper-to-Digital Transition",
       "level": "Expert",
-      "description": "Creating standard operating procedures and training materials"
+      "description": "Led full recordkeeping migration across 3 entities (KLW)"
     },
     {
-      "name": "System Integration",
-      "level": "Advanced",
-      "description": "Connecting disparate systems for seamless data flow"
+      "name": "Curriculum & Instructional Design",
+      "level": "Expert",
+      "description": "AMLC Instructor - youngest and first Co-Manager selected in org history"
     },
     {
-      "name": "Data Analysis",
+      "name": "Payroll Service Bureau Operations",
       "level": "Advanced",
-      "description": "Using operational data to drive business decisions"
+      "description": "280-315+ client accounts across biweekly processing cycles"
     }
   ],
-  "legal": [
+  "credentials": [
     {
-      "name": "Trust & Estate Administration",
-      "level": "Intermediate",
-      "description": "Basic trust administration and estate settlement procedures"
+      "name": "Texas Notary Public",
+      "level": "Active",
+      "description": "Direct qualifier for Trust & Estate, Escrow, Title, Mortgage Processing roles"
     },
     {
-      "name": "Legal Document Preparation",
-      "level": "Intermediate", 
-      "description": "Drafting legal documents and correspondence under attorney supervision"
+      "name": "AMLC Course Instructor",
+      "level": "Certified",
+      "description": "Formal management curriculum delivery to classes of 30-50 students"
     },
     {
-      "name": "Case Management",
-      "level": "Advanced",
-      "description": "Managing multiple legal matters and deadlines simultaneously"
+      "name": "Traveling Trainer",
+      "level": "Certified",
+      "description": "Operational standards certification with pass/fail authority across 7 locations"
     }
   ]
 }

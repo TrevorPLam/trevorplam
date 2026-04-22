@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: '**/*.spec.ts',
+    command: 'npm run preview:test',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -23,7 +23,7 @@ export default defineConfig({
   },
   use: {
     // Use built static files - start preview server before tests
-    baseURL: 'http://localhost:4321',
+    baseURL: 'http://127.0.0.1:4173',
     trace: 'on-first-retry',
     colorScheme: 'dark',
     actionTimeout: 15000,
@@ -45,8 +45,8 @@ export default defineConfig({
   ],
   // Add webServer to automatically start preview server
   webServer: {
-    command: 'npm run preview',
-    port: 4321,
+    command: 'npm run preview -- --host 127.0.0.1 --port 4173 --strictPort',
+    port: 4173,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
     stdout: 'ignore',

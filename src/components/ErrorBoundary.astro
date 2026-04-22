@@ -1,0 +1,146 @@
+---
+interface Props {
+  children: any;
+  fallback?: string;
+}
+
+const { children, fallback = 'Something went wrong. Please refresh the page.' } = Astro.props;
+---
+
+<!-- Error Boundary Component -->
+<div id="error-boundary" class="error-boundary">
+  <script>
+    // Extend Window interface to include plausible
+    declare global {
+      interface Window {
+        plausible?: (event: string, options?: { props?: Record<string, any> }) => void;
+      }
+    }
+
+    class ErrorBoundary extends HTMLElement {
+      private originalContent: string;
+
+      constructor() {
+        super();
+        this.originalContent = this.innerHTML;
+        this.setupErrorHandling();
+      }
+
+      private setupErrorHandling(): void {
+        // Global error handler
+        window.addEventListener('error', (event: ErrorEvent) => {
+          this.handleError(event.error, event.filename, event.lineno, event.colno);
+        });
+
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', (event: PromiseRejectionEvent) => {
+          this.handleError(event.reason, 'unhandled promise', 0, 0);
+        });
+
+        // Astro client-side navigation errors
+        window.addEventListener('astro:after-preparation', () => {
+          this.setupNavigationErrorHandling();
+        });
+      }
+
+      private setupNavigationErrorHandling(): void {
+        // Intercept navigation errors
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+
+        history.pushState = function(this: History, ...args: [any, string, string | URL | null | undefined]) {
+          try {
+            return originalPushState.apply(this, args);
+          } catch (error) {
+            console.error('Navigation error:', error);
+          }
+        };
+
+        history.replaceState = function(this: History, ...args: [any, string, string | URL | null | undefined]) {
+          try {
+            return originalReplaceState.apply(this, args);
+          } catch (error) {
+            console.error('Navigation error:', error);
+          }
+        };
+      }
+
+      private handleError(error: unknown, source: string, line: number, column: number): void {
+        console.error('Error caught by boundary:', { error, source, line, column });
+
+        // Log to analytics (if available)
+        if (window.plausible) {
+          window.plausible('JavaScript Error', {
+            props: {
+              source: source,
+              line: line,
+              column: column,
+              message: error instanceof Error ? error.message : String(error)
+            }
+          });
+        }
+
+        // Show error fallback
+        this.innerHTML = `
+          <div class="error-fallback p-6 border border-red-200 rounded-lg bg-red-50 dark:bg-red-900/20 dark:border-red-800">
+            <h2 class="text-lg font-semibold text-red-800 dark:text-red-200 mb-2">
+              Something went wrong
+            </h2>
+            <p class="text-red-600 dark:text-red-300 mb-4">
+              ${this.getAttribute('data-fallback') || 'An unexpected error occurred. Please refresh the page and try again.'}
+            </p>
+            <button 
+              onclick="window.location.reload()" 
+              class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+            >
+              Refresh Page
+            </button>
+            <button 
+              onclick="this.parentElement.parentElement.parentElement.innerHTML = this.parentElement.parentElement.parentElement.getAttribute('data-original')"
+              class="ml-2 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        `;
+
+        // Store original content for recovery
+        this.setAttribute('data-original', this.originalContent);
+      }
+
+      // Method to reset error state
+      public reset(): void {
+        this.innerHTML = this.originalContent;
+        this.removeAttribute('data-original');
+      }
+    }
+
+    // Register the custom element
+    customElements.define('error-boundary', ErrorBoundary);
+  </script>
+
+  <!-- Content wrapper -->
+  <div data-fallback={fallback}>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .error-boundary {
+    /* Ensure the error boundary can contain its content */
+    display: contents;
+  }
+
+  .error-fallback {
+    /* Error fallback styling */
+    font-family: var(--font-sans);
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+
+  /* Accessibility improvements */
+  .error-fallback:focus-within {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+</style>

@@ -3,18 +3,29 @@ import OptimizedImage from '../components/OptimizedImage.astro';
 import headshot from '../assets/headshot.svg';
 ---
 
-<section class="min-h-screen flex items-center justify-center px-6 py-20" role="main">
+<section class="min-h-screen flex items-center justify-center px-6 py-20">
 	<div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 		<!-- Text Content -->
 		<header class="space-y-6">
-			<h1 class="text-5xl lg:text-6xl font-bold text-text-heading leading-tight">
-				Trevor Lam
-			</h1>
+			<div class="flex items-center gap-3">
+				<h1 class="text-5xl lg:text-6xl font-bold text-text-heading leading-tight">
+					Trevor Lam
+				</h1>
+				<span class="inline-flex items-center px-3 py-1 bg-teal/10 text-teal-text text-sm font-semibold rounded-full border border-teal/20">
+					17 Years
+				</span>
+			</div>
 			<p class="text-2xl lg:text-3xl text-text-body font-medium">
-				Operations Integrator · Forensic Stabilizer
+				Operations Leader · Multi-Industry Turnarounds · Active Texas Notary
 			</p>
 			<p class="text-lg text-text-body leading-relaxed max-w-lg">
 				I'm the person you call when the machine is breaking, the money is leaking, and the people are quitting.
+			</p>
+			<p class="text-base text-text-heading font-medium max-w-lg">
+				I took over a Sonic Drive-in facing closure and made it a top‑10% performer in 18 months.
+			</p>
+			<p class="text-sm text-text-muted italic max-w-lg">
+				I arrive, find the friction, and fix it before I'm asked.
 			</p>
 			<div class="flex flex-col sm:flex-row gap-4 pt-4">
 				<a 
@@ -24,10 +35,12 @@ import headshot from '../assets/headshot.svg';
 					View the Evidence
 				</a>
 				<a 
-					href="#" 
+					href="https://linkedin.com/in/trevor-lam" 
+					target="_blank"
+					rel="noopener noreferrer"
 					class="inline-flex items-center justify-center px-6 py-3 bg-surface hover:bg-surface/80 border border-border text-text-heading font-medium rounded-lg transition-colors duration-200 min-h-[44px] min-w-[44px]"
 				>
-					Download Resume
+					Connect on LinkedIn
 				</a>
 			</div>
 		</header>

@@ -1,44 +1,68 @@
 [
   {
     "year": 2008,
-    "title": "Career Foundation",
-    "description": "Began professional journey in administrative operations",
+    "title": "Career Foundation - Sonic Drive-in",
+    "description": "Carhop at Sonic Drive-in (D.L. Rogers Group) - beginning 12-year progression",
+    "type": "role"
+  },
+  {
+    "year": 2010,
+    "title": "Sonic: Crew Leader / Traveling Trainer",
+    "description": "First promotion. Certified operational standards across 7 locations with pass/fail authority",
+    "type": "role"
+  },
+  {
+    "year": 2012,
+    "title": "Sonic: Assistant Manager",
+    "description": "Concurrent with Crandall ISD substitute teaching (176 hours, 3-week math assignment)",
+    "type": "role"
+  },
+  {
+    "year": 2014,
+    "title": "Sonic: Co-Manager / AMLC Instructor",
+    "description": "Youngest and first Co-Manager selected as AMLC Instructor in org history",
     "type": "role"
   },
   {
     "year": 2016,
-    "title": "Sonic Drive-in Operations Manager",
-    "description": "Led multi-unit franchise operations, payroll processing for 500+ employees across 3 states",
+    "title": "Sonic: Operating Partner / General Manager",
+    "description": "Turnaround of unit facing closure. Rookie of the Year (2016), Turnaround Operator (2017), Culture of Respect (2018)",
     "type": "role"
   },
   {
-    "year": 2021,
-    "title": "Grandlux Restaurant Group",
-    "description": "Managed financial operations and inventory systems for multi-location restaurant group",
-    "type": "role"
+    "year": 2020,
+    "title": "Strategic Exit from Sonic",
+    "description": "Departed at peak performance (top 10% KPIs, 3 awards) to pursue degree. Declined Dallas partnership offer.",
+    "type": "milestone"
   },
   {
     "year": 2022,
-    "title": "BS Business Administration",
-    "description": "University of Texas at Dallas - Naveen Jindal School of Management",
+    "title": "BA Historical Studies - UT Dallas",
+    "description": "3.73 GPA. Methodological training in causality analysis - not a vocational default.",
     "type": "degree"
   },
   {
-    "year": 2023,
-    "title": "Kelly, Lombardi & Associates",
-    "description": "Payroll and HR operations for CPA firm serving small businesses",
+    "year": 2021,
+    "title": "Grandlux Nail Salon",
+    "description": "Store Manager (Nov 2021-Feb 2023). 17-technician commission floor. Zero cash discrepancies. Proactive reputation management.",
     "type": "role"
   },
   {
-    "year": 2026,
-    "title": "Strategic Fortification Phase",
-    "description": "Deliberate period to formalize credentials and case study documentation for next-tier operational leadership",
+    "year": 2023,
+    "title": "KLW Financial Group / Walton CPA / Your Payroll Dept",
+    "description": "Administrative Assistant -> Executive Assistant (60 days) -> Integrator (18 months). June 2023-June 2025. 315+ payroll accounts, 200 tax workflows.",
+    "type": "role"
+  },
+  {
+    "year": 2025,
+    "title": "Building Credentials for Next Step",
+    "description": "Documenting case studies and building credentials for senior operational leadership roles",
     "type": "constraint"
   },
   {
     "year": 2027,
-    "title": "Q1 2027: Full Deployment Ready",
-    "description": "Mobility & Record Clear. Ready for Chief of Staff and senior operational leadership roles",
+    "title": "Q1 2027: Ready for Senior Roles",
+    "description": "Available for Chief of Staff, COO, and senior operational leadership positions",
     "type": "future"
   }
 ]

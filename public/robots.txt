@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://trevor-lam.com/sitemap-index.xml

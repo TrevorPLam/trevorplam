@@ -38,8 +38,8 @@ const { year, title, description, type } = Astro.props;
       <span class:list={[
         'text-xs px-2 py-1 rounded-full',
         {
-          'bg-accent/20 text-accent': type === 'role',
-          'bg-teal/20 text-teal': type === 'award',
+          'bg-accent/20 text-accent-text': type === 'role',
+          'bg-teal/20 text-teal-text': type === 'award',
           'bg-yellow-500/20 text-yellow-500': type === 'degree',
           'bg-orange-500/20 text-orange-500': type === 'constraint',
           'bg-cyan-400/20 text-cyan-400': type === 'future'

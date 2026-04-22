@@ -57,3 +57,8 @@ playwright-report/
 # Temporary files
 *.tmp
 *.temp
+
+# Temporary test directories
+.lighthouseci/
+.stryker-tmp/
+static_analysis_semgrep_*/

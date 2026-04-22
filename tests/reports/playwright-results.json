@@ -2,7 +2,7 @@
   "config": {
     "configFile": "C:\\Users\\trevo\\trevorplam\\playwright.config.ts",
     "rootDir": "C:/Users/trevo/trevorplam/tests",
-    "forbidOnly": false,
+    "forbidOnly": true,
     "fullyParallel": true,
     "globalSetup": null,
     "globalTeardown": null,
@@ -11,16 +11,16 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 6
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "projects": [
       {
         "outputDir": "C:/Users/trevo/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 0,
+        "retries": 2,
         "metadata": {
-          "actualWorkers": 6
+          "actualWorkers": 1
         },
         "id": "Desktop Chrome",
         "name": "Desktop Chrome",
@@ -34,9 +34,9 @@
       {
         "outputDir": "C:/Users/trevo/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 0,
+        "retries": 2,
         "metadata": {
-          "actualWorkers": 6
+          "actualWorkers": 1
         },
         "id": "Desktop Firefox",
         "name": "Desktop Firefox",
@@ -50,9 +50,9 @@
       {
         "outputDir": "C:/Users/trevo/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 0,
+        "retries": 2,
         "metadata": {
-          "actualWorkers": 6
+          "actualWorkers": 1
         },
         "id": "Mobile Safari",
         "name": "Mobile Safari",
@@ -88,11 +88,11 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.59.1",
-    "workers": 6,
+    "workers": 1,
     "webServer": {
-      "command": "npm run preview",
-      "port": 4321,
-      "reuseExistingServer": true,
+      "command": "npm run preview -- --host 127.0.0.1 --port 4173 --strictPort",
+      "port": 4173,
+      "reuseExistingServer": false,
       "timeout": 120000,
       "stdout": "ignore",
       "stderr": "pipe"
@@ -100,405 +100,98 @@
   },
   "suites": [
     {
-      "title": "e2e\\evidence-toggle.spec.ts",
-      "file": "e2e/evidence-toggle.spec.ts",
+      "title": "a11y\\homepage-a11y.spec.ts",
+      "file": "a11y/homepage-a11y.spec.ts",
       "column": 0,
       "line": 0,
-      "specs": [
+      "specs": [],
+      "suites": [
         {
-          "title": "evidence page toggle functionality",
-          "ok": false,
-          "tags": [],
-          "tests": [
+          "title": "Accessibility Tests",
+          "file": "a11y/homepage-a11y.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Desktop Chrome",
-              "projectName": "Desktop Chrome",
-              "results": [
+              "title": "homepage has no a11y violations",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "workerIndex": 0,
-                  "parallelIndex": 0,
-                  "status": "failed",
-                  "duration": 2606,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 45,
-                      "line": 50
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 45,
-                        "line": 50
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n\n\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.685Z",
+                  "timeout": 30000,
                   "annotations": [],
-                  "attachments": [
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
                     {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-toggle-functionality-Desktop-Chrome\\error-context.md"
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3081,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T00:21:02.515Z",
+                      "annotations": [],
+                      "attachments": []
                     }
                   ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 45,
-                    "line": 50
-                  }
+                  "status": "expected"
                 }
               ],
-              "status": "unexpected"
-            }
-          ],
-          "id": "b4540610aacc3e31fb19-a92e788a50c63fd7d2d6",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 3,
-          "column": 1
-        },
-        {
-          "title": "evidence page accessibility",
-          "ok": false,
-          "tags": [],
-          "tests": [
+              "id": "a0716c2274a608042582-dd7b8368b9648e0b3845",
+              "file": "a11y/homepage-a11y.spec.ts",
+              "line": 5,
+              "column": 3
+            },
             {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Desktop Chrome",
-              "projectName": "Desktop Chrome",
-              "results": [
+              "title": "homepage has no WCAG AA violations",
+              "ok": true,
+              "tags": [],
+              "tests": [
                 {
-                  "workerIndex": 1,
-                  "parallelIndex": 1,
-                  "status": "failed",
-                  "duration": 2006,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 20,
-                      "line": 64
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 20,
-                        "line": 64
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.700Z",
+                  "timeout": 30000,
                   "annotations": [],
-                  "attachments": [
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
                     {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-accessibility-Desktop-Chrome\\error-context.md"
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1961,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T00:21:06.127Z",
+                      "annotations": [],
+                      "attachments": []
                     }
                   ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 20,
-                    "line": 64
-                  }
+                  "status": "expected"
                 }
               ],
-              "status": "unexpected"
+              "id": "a0716c2274a608042582-91e30d598ca8d0c7eef8",
+              "file": "a11y/homepage-a11y.spec.ts",
+              "line": 12,
+              "column": 3
             }
-          ],
-          "id": "b4540610aacc3e31fb19-69911288e1b4b9f50326",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 59,
-          "column": 1
-        },
-        {
-          "title": "evidence page toggle functionality",
-          "ok": false,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Desktop Firefox",
-              "projectName": "Desktop Firefox",
-              "results": [
-                {
-                  "workerIndex": 2,
-                  "parallelIndex": 2,
-                  "status": "failed",
-                  "duration": 6496,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 45,
-                      "line": 50
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 45,
-                        "line": 50
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n\n\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.684Z",
-                  "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-toggle-functionality-Desktop-Firefox\\error-context.md"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 45,
-                    "line": 50
-                  }
-                }
-              ],
-              "status": "unexpected"
-            }
-          ],
-          "id": "b4540610aacc3e31fb19-82828cc357fbba8e7abb",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 3,
-          "column": 1
-        },
-        {
-          "title": "evidence page accessibility",
-          "ok": false,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Desktop Firefox",
-              "projectName": "Desktop Firefox",
-              "results": [
-                {
-                  "workerIndex": 3,
-                  "parallelIndex": 3,
-                  "status": "failed",
-                  "duration": 4656,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 20,
-                      "line": 64
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 20,
-                        "line": 64
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.702Z",
-                  "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-accessibility-Desktop-Firefox\\error-context.md"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 20,
-                    "line": 64
-                  }
-                }
-              ],
-              "status": "unexpected"
-            }
-          ],
-          "id": "b4540610aacc3e31fb19-59c6419ebc2582944c5f",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 59,
-          "column": 1
-        },
-        {
-          "title": "evidence page toggle functionality",
-          "ok": false,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Mobile Safari",
-              "projectName": "Mobile Safari",
-              "results": [
-                {
-                  "workerIndex": 4,
-                  "parallelIndex": 4,
-                  "status": "failed",
-                  "duration": 4002,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 45,
-                      "line": 50
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 45,
-                        "line": 50
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#narrative-view').locator('h2')\nExpected substring: \u001b[32m\"Case Studies\"\u001b[39m\nError: strict mode violation: locator('#narrative-view').locator('h2') resolved to 19 elements:\n    1) <h2 data-astro-cid-k6zeopi4=\"\" class=\"text-3xl font-bold text-text-heading mb-8\">Case Studies</h2> aka getByText('Case Studies', { exact: true })\n    2) <h2 id=\"the-situation\">The Situation</h2> aka locator('#sonic').getByText('The Situation')\n    3) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#sonic').getByText('What Was Inherited')\n    4) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#sonic').getByText('The Methodology')\n    5) <h2 id=\"the-outcome\">The Outcome</h2> aka locator('#sonic').getByText('The Outcome')\n    6) <h2 id=\"skills-demonstrated\">Skills Demonstrated</h2> aka locator('#sonic').getByText('Skills Demonstrated')\n    7) <h2 id=\"what-this-role-proved\">What This Role Proved</h2> aka locator('#sonic').getByText('What This Role Proved')\n    8) <h2 id=\"the-situation\">The Situation</h2> aka locator('#grandlux').getByText('The Situation')\n    9) <h2 id=\"what-was-inherited\">What Was Inherited</h2> aka locator('#grandlux').getByText('What Was Inherited')\n    10) <h2 id=\"the-methodology\">The Methodology</h2> aka locator('#grandlux').getByText('The Methodology')\n    ...\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('#narrative-view').locator('h2')\u001b[22m\n\n\n\u001b[0m \u001b[90m 48 |\u001b[39m\n \u001b[90m 49 |\u001b[39m   \u001b[90m// Test that content is properly structured\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 50 |\u001b[39m   \u001b[36mawait\u001b[39m expect(narrativeView\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Case Studies'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 51 |\u001b[39m   \u001b[36mawait\u001b[39m expect(forensicDashboard\u001b[33m.\u001b[39mlocator(\u001b[32m'h2'\u001b[39m))\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Performance Metrics'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 52 |\u001b[39m\n \u001b[90m 53 |\u001b[39m   \u001b[90m// Test that MetricCard links work in Dashboard view\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:50:45\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.719Z",
-                  "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-toggle-functionality-Mobile-Safari\\error-context.md"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 45,
-                    "line": 50
-                  }
-                }
-              ],
-              "status": "unexpected"
-            }
-          ],
-          "id": "b4540610aacc3e31fb19-26dba642b09d3cf52c33",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 3,
-          "column": 1
-        },
-        {
-          "title": "evidence page accessibility",
-          "ok": false,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 30000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "Mobile Safari",
-              "projectName": "Mobile Safari",
-              "results": [
-                {
-                  "workerIndex": 5,
-                  "parallelIndex": 5,
-                  "status": "failed",
-                  "duration": 3232,
-                  "error": {
-                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n",
-                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20",
-                    "location": {
-                      "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                      "column": 20,
-                      "line": 64
-                    },
-                    "snippet": "\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m"
-                  },
-                  "errors": [
-                    {
-                      "location": {
-                        "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                        "column": 20,
-                        "line": 64
-                      },
-                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('h1')\nExpected: visible\nError: strict mode violation: locator('h1') resolved to 4 elements:\n    1) <h1 data-astro-cid-dkfertb6=\"\" class=\"text-4xl font-bold text-text-heading mb-4\">↵Evidence of Impact↵</h1> aka getByRole('heading', { name: 'Evidence of Impact' })\n    2) <h1 id=\"sonic-drive-in-payroll-operations-stabilization\">Sonic Drive-in: Payroll Operations Stabilization</h1> aka getByRole('heading', { name: 'Sonic Drive-in: Payroll' })\n    3) <h1 id=\"grandlux-restaurant-group-financial-operations-transformation\">Grandlux Restaurant Group: Financial Operations T…</h1> aka getByRole('heading', { name: 'Grandlux Restaurant Group:' })\n    4) <h1 id=\"kelly-lombardi--associates-hr-operations-transformation\">Kelly, Lombardi & Associates: HR Operations Trans…</h1> aka getByRole('heading', { name: 'Kelly, Lombardi & Associates: HR Operations Transformation' })\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\n\n\u001b[0m \u001b[90m 62 |\u001b[39m   \u001b[90m// Check for proper heading structure\u001b[39m\n \u001b[90m 63 |\u001b[39m   \u001b[36mconst\u001b[39m h1 \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 64 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 65 |\u001b[39m   \u001b[36mawait\u001b[39m expect(h1)\u001b[33m.\u001b[39mtoContainText(\u001b[32m'Evidence of Impact'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 66 |\u001b[39m\n \u001b[90m 67 |\u001b[39m   \u001b[90m// Check ARIA switch is properly configured\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts:64:20\u001b[22m"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2026-04-21T22:37:41.703Z",
-                  "annotations": [],
-                  "attachments": [
-                    {
-                      "name": "error-context",
-                      "contentType": "text/markdown",
-                      "path": "C:\\Users\\trevo\\trevorplam\\test-results\\e2e-evidence-toggle-evidence-page-accessibility-Mobile-Safari\\error-context.md"
-                    }
-                  ],
-                  "errorLocation": {
-                    "file": "C:\\Users\\trevo\\trevorplam\\tests\\e2e\\evidence-toggle.spec.ts",
-                    "column": 20,
-                    "line": 64
-                  }
-                }
-              ],
-              "status": "unexpected"
-            }
-          ],
-          "id": "b4540610aacc3e31fb19-0eda54ecf8217ff3582e",
-          "file": "e2e/evidence-toggle.spec.ts",
-          "line": 59,
-          "column": 1
+          ]
         }
       ]
     }
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-21T22:37:38.513Z",
-    "duration": 13110.688,
-    "expected": 0,
+    "startTime": "2026-04-22T00:20:58.543Z",
+    "duration": 343941.309,
+    "expected": 2,
     "skipped": 0,
-    "unexpected": 6,
+    "unexpected": 0,
     "flaky": 0
   }
 }

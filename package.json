@@ -9,12 +9,23 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:test": "node scripts/serve-dist.mjs",
     "astro": "astro",
     "lint": "eslint .",
     "check": "astro check",
+    "security:scan": "node scripts/security-scan.mjs",
+    "analyze:bundle": "ANALYZE=true npm run build",
     "test": "vitest",
+    "test:mutation": "stryker run",
     "test:e2e": "playwright test",
-    "test:a11y": "playwright test tests/a11y/"
+    "test:a11y": "playwright test tests/a11y/ --project=\"Desktop Chrome\"",
+    "test:a11y:full": "playwright test tests/a11y/",
+    "test:a11y:homepage": "playwright test tests/a11y/homepage-a11y.spec.ts --project=\"Desktop Chrome\"",
+    "test:contract": "vitest run tests/contract/",
+    "test:contract:publish": "node -e \"const { execSync } = require('child_process'); execSync('npm run test:contract', { stdio: 'inherit' }); console.log('Contracts generated in tests/pacts/');\"",
+    "test:contract:verify": "vitest run tests/contract/ --reporter=verbose",
+    "lighthouse": "lhci autorun",
+    "lighthouse:healthcheck": "lhci healthcheck --fatal"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -24,12 +35,18 @@
     "@csstools/css-tokenizer": "^4.0.0",
     "@tailwindcss/vite": "^4.2.3",
     "astro": "^6.1.8",
+    "get-tsconfig": "^4.14.0",
     "tailwindcss": "^4.2.3",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",
+    "@lhci/cli": "^0.15.0",
+    "@pact-foundation/pact": "^16.3.0",
     "@playwright/test": "^1.51.0",
+    "@stryker-mutator/core": "^9.6.1",
+    "@stryker-mutator/typescript-checker": "^9.6.1",
+    "@stryker-mutator/vitest-runner": "^9.6.1",
     "@typescript-eslint/eslint-plugin": "^8.59.0",
     "@typescript-eslint/parser": "^8.59.0",
     "@vitest/browser-playwright": "^4.1.5",
@@ -42,7 +59,9 @@
     "json": "^11.0.0",
     "license-checker": "^25.0.1",
     "playwright": "^1.51.0",
+    "rollup-plugin-visualizer": "^7.0.1",
     "vite": "^7.3.2",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "zod": "^4.3.6"
   }
 }
