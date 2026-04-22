@@ -4,6 +4,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SidebarNavigation from '../../components/SidebarNavigation.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import KPICard from '../../components/KPICard.astro';
+import { 
+  calculateTrend, 
+  formatMetricValue, 
+  getTrendIcon, 
+  getTrendColor,
+  calculatePercentageChange 
+} from '../../utils/metrics';
 
 export async function getStaticPaths() {
   const capabilities = await getCollection('capabilities');
@@ -15,11 +22,49 @@ export async function getStaticPaths() {
 
 const { capability } = Astro.props;
 const { Content } = await render(capability);
+
+// BreadcrumbList schema for this capability
+const breadcrumbJsonLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://trevor-lam.com/'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Capabilities',
+      item: 'https://trevor-lam.com/capabilities'
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: capability.data.title,
+      item: `https://trevor-lam.com/capabilities/${capability.data.slug}`
+    }
+  ]
+};
+
+const pageJsonLd = {
+  '@type': 'Article',
+  '@id': `https://trevor-lam.com/capabilities/${capability.data.slug}#article`,
+  headline: capability.data.title,
+  description: capability.data.philosophy,
+  author: { '@id': 'https://trevor-lam.com/#person' },
+  mainEntityOfPage: `https://trevor-lam.com/capabilities/${capability.data.slug}`,
+  about: capability.data.industries.join(', '),
+  dateModified: capability.data.lastUpdated?.toISOString(),
+  datePublished: capability.data.lastUpdated?.toISOString()
+};
 ---
 
 <BaseLayout 
   title={`${capability.data.title} - Capabilities - Trevor Lam`}
-  description={`${capability.data.philosophie} - Core capabilities and expertise in ${capability.data.title}.`}
+  description={`${capability.data.philosophy} - Core capabilities and expertise in ${capability.data.title}.`}
+  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
 >
   <div class="flex">
     <SidebarNavigation />
@@ -28,7 +73,7 @@ const { Content } = await render(capability);
       <article class="max-w-4xl mx-auto">
         <header class="mb-8">
           <h1 class="text-4xl font-bold text-text-heading mb-4">{capability.data.title}</h1>
-          <p class="text-xl text-text-body leading-relaxed">{capability.data.philosophie}</p>
+          <p class="text-xl text-text-body leading-relaxed">{capability.data.philosophy}</p>
           <div class="mt-4 flex items-center gap-4 text-sm text-text-body/70">
             <time datetime={capability.data.lastUpdated.toISOString()}>
               Updated: {capability.data.lastUpdated.toLocaleDateString('en-US', { 
@@ -52,17 +97,67 @@ const { Content } = await render(capability);
           </div>
         </header>
 
-        <section class="mb-12">
-          <h4 class="text-sm font-semibold text-text-heading mb-2">Key Metrics</h4>
-          <div class="grid grid-cols-2 gap-2">
-            {capability.data.kpis.slice(0, 4).map((kpi: any) => (
-              <div class="text-xs p-2 bg-surface/50 rounded border border-border">
-                <div class="font-medium text-text-body/80">{kpi.name}</div>
-                <div class="font-bold text-text-heading">{kpi.value}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {capability.data.kpis && capability.data.kpis.length > 0 && (
+          <section class="mb-12">
+            <h4 class="text-sm font-semibold text-text-heading mb-2">Key Performance Indicators</h4>
+            <div class="metrics-grid-container" style="container-type: inline-size;">
+              {capability.data.kpis.slice(0, 6).map((kpi: any) => (
+                <div class="kpi-card">
+                  <div class="kpi-header">
+                    <h5 class="kpi-title">{kpi.name}</h5>
+                  </div>
+                  <div class="kpi-value">{kpi.value}</div>
+                  <p class="kpi-context">{kpi.context}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {capability.data.metrics && capability.data.metrics.length > 0 && (
+          <section class="mb-12">
+            <h4 class="text-lg font-semibold text-text-heading mb-6">Performance Metrics</h4>
+            <div class="metrics-grid-container" style="container-type: inline-size;">
+              {capability.data.metrics.map((metric: any) => (
+                <div class="metric-card">
+                  <div class="metric-header">
+                    <h5 class="metric-title">{metric.title}</h5>
+                    {metric.trend && (
+                      <div class="metric-trend">
+                        <span class={`trend-icon ${getTrendColor(metric.trend)}`}>
+                          {getTrendIcon(metric.trend)}
+                        </span>
+                        {metric.previousValue && (
+                          <span class={`trend-value ${getTrendColor(metric.trend)}`}>
+                            {calculatePercentageChange(metric.value, metric.previousValue)}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div class="metric-content">
+                    <div class="metric-values">
+                      {metric.previousValue && (
+                        <span class="previous-value">{formatMetricValue(metric.previousValue, metric.type)}</span>
+                      )}
+                      <span class="current-value">{formatMetricValue(metric.value, metric.type)}</span>
+                    </div>
+                    
+                    <p class="metric-context">{metric.context}</p>
+                    
+                    {metric.targetValue && (
+                      <div class="metric-target">
+                        <span class="target-label">Target:</span>
+                        <span class="target-value">{formatMetricValue(metric.targetValue, metric.type)}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
 
         <section class="prose prose-lg max-w-none">
           <Content />
@@ -92,3 +187,104 @@ const { Content } = await render(capability);
     </main>
   </div>
 </BaseLayout>
+
+<style>
+  .metrics-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .kpi-card, .metric-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.2s ease;
+  }
+  
+  .kpi-card:hover, .metric-card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .kpi-header, .metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .kpi-title, .metric-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  
+  .kpi-value, .current-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: 0.5rem;
+  }
+  
+  .kpi-context, .metric-context {
+    font-size: 0.75rem;
+    color: var(--color-text-body);
+    line-height: 1.4;
+  }
+  
+  .metric-trend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .trend-icon {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .trend-value {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .previous-value {
+    font-size: 0.875rem;
+    color: var(--color-text-body);
+    opacity: 0.7;
+    text-decoration: line-through;
+    margin-right: 0.5rem;
+  }
+  
+  .metric-target {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .target-label {
+    font-size: 0.75rem;
+    color: var(--color-text-body);
+    margin-right: 0.5rem;
+  }
+  
+  .target-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-accent);
+  }
+  
+  /* Container queries for responsive behavior */
+  @container (min-width: 400px) {
+    .metrics-grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @container (min-width: 700px) {
+    .metrics-grid-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

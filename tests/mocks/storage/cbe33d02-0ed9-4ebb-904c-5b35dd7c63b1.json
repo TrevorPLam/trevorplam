@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T06:00:19.415Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "d9d99a8c-707c-4bec-b6fb-7e5ff13e5431",
+        "email": "Ralph_Terry83@hotmail.com",
+        "firstName": "Kelsie",
+        "lastName": "Terry",
+        "role": "user",
+        "status": "pending",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/87.jpg",
+        "createdAt": "2025-04-22T15:20:23.060Z",
+        "updatedAt": "2026-04-21T13:19:06.905Z",
+        "lastLoginAt": "2026-04-21T06:41:49.837Z",
+        "preferences": {
+          "theme": "dark",
+          "language": "en",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "72.50.164.252",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/104.0",
+          "location": {
+            "country": "Kuwait",
+            "city": "Port Rickyhaven",
+            "timezone": "Europe/Paris"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "cbe33d02-0ed9-4ebb-904c-5b35dd7c63b1"
+}

@@ -1,0 +1,105 @@
+---
+interface Props {
+  value: number;
+  previousValue?: number;
+  format?: 'percentage' | 'number' | 'currency';
+  showArrow?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  trend?: 'up' | 'down' | 'neutral';
+}
+
+const { 
+  value, 
+  previousValue, 
+  format = 'number', 
+  showArrow = true,
+  size = 'md',
+  trend
+} = Astro.props;
+
+// Calculate trend if not explicitly provided
+const calculatedTrend = trend || (previousValue !== undefined 
+  ? (value > previousValue ? 'up' : value < previousValue ? 'down' : 'neutral')
+  : 'neutral'
+);
+
+const sizeClasses = {
+  sm: 'text-xs',
+  md: 'text-sm',
+  lg: 'text-base'
+};
+
+const trendColors = {
+  up: 'text-success',
+  down: 'text-error',
+  neutral: 'text-muted'
+};
+
+const trendBgColors = {
+  up: 'bg-success/10',
+  down: 'bg-error/10',
+  neutral: 'bg-muted/10'
+};
+
+const trendArrows = {
+  up: '↗',
+  down: '↘',
+  neutral: '→'
+};
+
+function formatValue(val: number, fmt: string): string {
+  switch (fmt) {
+    case 'percentage':
+      return `${val.toFixed(1)}%`;
+    case 'currency':
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(val);
+    case 'number':
+    default:
+      return new Intl.NumberFormat('en-US').format(val);
+  }
+}
+
+const percentageChange = previousValue !== undefined 
+  ? ((value - previousValue) / previousValue * 100)
+  : 0;
+---
+
+<div class={[
+  'trend-indicator inline-flex items-center gap-1 px-2 py-1 rounded-full font-medium',
+  sizeClasses[size],
+  trendColors[calculatedTrend],
+  trendBgColors[calculatedTrend]
+].join(' ')}>
+  
+  {showArrow && (
+    <span class="trend-arrow" aria-hidden="true">
+      {trendArrows[calculatedTrend]}
+    </span>
+  )}
+  
+  <span class="trend-value">
+    {formatValue(value, format)}
+  </span>
+  
+  {previousValue !== undefined && (
+    <span class="trend-change text-xs opacity-75">
+      ({percentageChange > 0 ? '+' : ''}{percentageChange.toFixed(1)}%)
+    </span>
+  )}
+</div>
+
+<style>
+  .trend-indicator {
+    transition: all var(--duration-200) var(--ease-out);
+  }
+  
+  .trend-indicator:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+</style>

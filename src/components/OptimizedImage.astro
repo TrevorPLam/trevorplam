@@ -13,28 +13,33 @@ interface Props {
 	layout?: 'constrained' | 'full-width' | 'fixed' | 'none';
 	format?: 'png' | 'jpg' | 'jpeg' | 'webp' | 'avif' | 'gif' | 'svg';
 	quality?: number | 'low' | 'mid' | 'high' | 'max';
+	sizes?: string;
 }
 
-const { 
-	src, 
-	alt, 
-	width, 
-	height, 
-	loading = 'lazy', 
-	fetchpriority = 'auto', 
-	priority = false, 
-	class: className = '', 
+const {
+	src,
+	alt,
+	width,
+	height,
+	loading = 'lazy',
+	fetchpriority = 'auto',
+	priority = false,
+	class: className = '',
 	layout = 'constrained',
 	format,
-	quality
+	quality,
+	sizes = '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
 } = Astro.props;
 
 // If priority is true, override loading and fetchpriority for LCP optimization
 const finalLoading = priority ? 'eager' : loading;
 const finalFetchpriority = priority ? 'high' : fetchpriority;
+
+// Responsive widths for srcset generation (Astro Image optimization)
+const widths = priority ? [400, 800, 1200] : undefined;
 ---
 
-<Image 
+<Image
 	src={src}
 	alt={alt}
 	width={width}
@@ -47,4 +52,6 @@ const finalFetchpriority = priority ? 'high' : fetchpriority;
 	format={format}
 	quality={quality}
 	decoding={priority ? 'sync' : 'async'}
+	sizes={sizes}
+	widths={widths}
 />

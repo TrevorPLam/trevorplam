@@ -89,17 +89,20 @@ const finalJsonLd = jsonLd
 		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
 
-		<!-- Analytics: Plausible (Privacy-First) -->
+		<!-- Resource Hints for Third-Party Domains -->
 		<link rel="dns-prefetch" href="https://plausible.io" />
+		<link rel="preconnect" href="https://plausible.io" crossorigin />
+
+		<!-- Analytics: Plausible (Privacy-First) - Deferred for performance -->
 		<script defer data-domain="trevor-lam.com" src="https://plausible.io/js/script.js"></script>
 
-		<!-- Error Monitoring -->
-		<script>
+		<!-- Error Monitoring - Deferred to not block rendering -->
+		<script defer>
 			import '../utils/error-monitoring';
 		</script>
 
-		<!-- Real User Monitoring -->
-		<script>
+		<!-- Real User Monitoring - Deferred to not block rendering -->
+		<script defer>
 			import '../utils/rum-monitoring';
 		</script>
 

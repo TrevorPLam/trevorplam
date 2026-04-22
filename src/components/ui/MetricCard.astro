@@ -1,0 +1,119 @@
+---
+interface Props {
+  title: string;
+  value: string;
+  previousValue?: string;
+  trend?: 'up' | 'down' | 'neutral';
+  context?: string;
+  icon?: string;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'default' | 'elevated' | 'bordered';
+  container?: boolean;
+}
+
+const { 
+  title, 
+  value, 
+  previousValue, 
+  trend = 'neutral', 
+  context, 
+  icon, 
+  size = 'md',
+  variant = 'default',
+  container = true
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'p-3 text-sm',
+  md: 'p-4 text-base',
+  lg: 'p-6 text-lg'
+};
+
+const variantClasses = {
+  default: 'bg-surface border border-border',
+  elevated: 'bg-surface-elevated shadow-md border-0',
+  bordered: 'bg-surface border-2 border-border'
+};
+
+const trendColors = {
+  up: 'text-success',
+  down: 'text-error',
+  neutral: 'text-muted'
+};
+
+const trendIcons = {
+  up: '↑',
+  down: '↓',
+  neutral: '→'
+};
+---
+
+<div class={[
+  'metric-card rounded-lg transition-all duration-200 hover:shadow-lg',
+  sizeClasses[size],
+  variantClasses[variant],
+  container && 'container'
+].filter(Boolean).join(' ')} 
+     style={container ? 'container-type: inline-size;' : ''}>
+  
+  <div class="flex items-start justify-between mb-3">
+    <div class="flex-1">
+      <h3 class="font-medium text-text-muted text-xs uppercase tracking-wide mb-1">{title}</h3>
+      <div class="flex items-baseline gap-2">
+        <span class="font-mono font-semibold text-text-heading text-xl">{value}</span>
+        {previousValue && (
+          <span class="font-mono text-text-muted text-sm line-through opacity-60">{previousValue}</span>
+        )}
+      </div>
+    </div>
+    {icon && (
+      <div class="text-text-muted opacity-60 text-lg">
+        {icon}
+      </div>
+    )}
+  </div>
+  
+  {trend !== 'neutral' && (
+    <div class="flex items-center gap-1 text-sm">
+      <span class={trendColors[trend]}>{trendIcons[trend]}</span>
+      <span class={trendColors[trend]}>
+        {trend === 'up' ? 'Improved' : trend === 'down' ? 'Declined' : 'No change'}
+      </span>
+    </div>
+  )}
+  
+  {context && (
+    <p class="text-text-body text-sm mt-2 leading-relaxed">{context}</p>
+  )}
+</div>
+
+<style>
+  .metric-card {
+    container-type: inline-size;
+  }
+  
+  /* Container queries for responsive sizing */
+  @container (max-width: 200px) {
+    .metric-card {
+      padding: var(--spacing-2);
+    }
+    .metric-card h3 {
+      font-size: 0.75rem;
+    }
+    .metric-card .text-xl {
+      font-size: 1rem;
+    }
+  }
+  
+  @container (max-width: 150px) {
+    .metric-card {
+      padding: var(--spacing-1);
+    }
+    .metric-card h3 {
+      font-size: 0.625rem;
+    }
+    .metric-card .text-xl {
+      font-size: 0.875rem;
+    }
+  }
+</style>

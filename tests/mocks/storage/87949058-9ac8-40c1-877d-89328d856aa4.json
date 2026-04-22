@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T06:00:31.052Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "e87bb899-4e57-4aa3-a2d5-dc4f7c6d8863",
+        "email": "Furman.Yost75@yahoo.com",
+        "firstName": "Raymundo",
+        "lastName": "McCullough",
+        "role": "guest",
+        "status": "inactive",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/63.jpg",
+        "createdAt": "2025-06-08T18:36:07.938Z",
+        "updatedAt": "2026-04-21T14:30:02.817Z",
+        "lastLoginAt": "2026-04-21T21:15:05.077Z",
+        "preferences": {
+          "theme": "auto",
+          "language": "en",
+          "notifications": true
+        },
+        "metadata": {
+          "ipAddress": "55.52.66.121",
+          "userAgent": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_15_7) AppleWebKit/575.47.21 (KHTML, like Gecko) Chrome/73.2.13.17 Safari/601.80.68",
+          "location": {
+            "country": "Cook Islands",
+            "city": "Predovicbury",
+            "timezone": "Europe/Skopje"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "87949058-9ac8-40c1-877d-89328d856aa4"
+}

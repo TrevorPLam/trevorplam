@@ -1,71 +1,216 @@
 ---
 import metricsData from '../../data/metrics.json';
+import type { Metric, MetricType } from '../utils/metrics';
+import { 
+  calculateTrend, 
+  formatMetricValue, 
+  getTrendIcon, 
+  getTrendColor,
+  calculatePercentageChange 
+} from '../utils/metrics';
+
+// Convert legacy metrics data to new metric structure
+const convertLegacyMetric = (legacy: any): Metric => ({
+  id: legacy.id,
+  title: legacy.title,
+  type: inferMetricType(legacy.before, legacy.after),
+  value: legacy.after,
+  previousValue: legacy.before,
+  context: legacy.context,
+  category: inferCategory(legacy.skillTag),
+  trend: calculateTrend(legacy.after, legacy.before),
+  caseStudySlug: legacy.caseStudySlug,
+  skillTag: legacy.skillTag,
+  description: legacy.context,
+});
+
+function inferMetricType(before: string, after: string): MetricType {
+  // Check for currency
+  if (before.includes('$') || after.includes('$')) return 'currency';
+  
+  // Check for percentage
+  if (before.includes('%') || after.includes('%')) return 'percentage';
+  
+  // Check for time-based metrics
+  if (before.toLowerCase().includes('day') || after.toLowerCase().includes('day')) return 'time';
+  
+  // Default to number
+  return 'number';
+}
+
+function inferCategory(skillTag?: string): string {
+  if (!skillTag) return 'general';
+  
+  if (skillTag.toLowerCase().includes('cost')) return 'financial';
+  if (skillTag.toLowerCase().includes('revenue')) return 'financial';
+  if (skillTag.toLowerCase().includes('people')) return 'operational';
+  if (skillTag.toLowerCase().includes('growth')) return 'performance';
+  
+  return 'general';
+}
 
 // Select top 6 most impactful metrics for dashboard display
-const topMetrics = metricsData.slice(0, 6);
-
-function getMetricColor(context: string): string {
-  if (context.toLowerCase().includes('growth') || context.toLowerCase().includes('increase')) {
-    return 'text-green-600';
-  }
-  if (context.toLowerCase().includes('reduction') || context.toLowerCase().includes('decrease')) {
-    return 'text-blue-600';
-  }
-  if (context.toLowerCase().includes('zero') || context.toLowerCase().includes('perfect')) {
-    return 'text-emerald-600';
-  }
-  return 'text-text-heading';
-}
-
-function formatMetricValue(before: string, after: string): string {
-  // Check if these are numerical values
-  const beforeNum = parseFloat(before.replace(/[^0-9.-]/g, ''));
-  const afterNum = parseFloat(after.replace(/[^0-9.-]/g, ''));
-  
-  if (!isNaN(beforeNum) && !isNaN(afterNum)) {
-    // Calculate percentage change
-    const change = ((afterNum - beforeNum) / beforeNum * 100).toFixed(1);
-    const changeNum = parseFloat(change);
-    
-    if (changeNum > 0) {
-      return `+${change}%`;
-    } else if (changeNum < 0) {
-      return `${change}%`;
-    }
-    return `${change}%`;
-  }
-  
-  return after;
-}
+const topMetrics = metricsData.slice(0, 6).map(convertLegacyMetric);
 ---
 
 <section class="mb-8">
   <h2 class="text-2xl font-bold text-text-heading mb-6">Key Performance Indicators</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div class="metrics-grid-container" style="container-type: inline-size;">
     {topMetrics.map((metric) => (
-      <div class="bg-surface border border-border rounded-lg p-6 hover:shadow-lg transition-shadow duration-200">
-        <div class="flex items-start justify-between mb-4">
-          <h3 class="text-lg font-semibold text-text-heading">{metric.title}</h3>
-          <span class={`text-sm font-medium ${getMetricColor(metric.context)}`}>
-            {formatMetricValue(metric.before, metric.after)}
-          </span>
-        </div>
-        
-        <div class="space-y-2">
-          <div class="flex items-baseline space-x-2">
-            <span class="text-sm text-text-body/70 line-through">{metric.before}</span>
-            <span class="text-xl font-bold text-text-heading">{metric.after}</span>
-          </div>
-          
-          <p class="text-sm text-text-body/80 leading-relaxed">{metric.context}</p>
-          
-          <div class="pt-2 border-t border-border/50">
-            <span class="inline-block px-2 py-1 text-xs font-medium bg-accent/20 text-accent-text rounded">
-              {metric.skillTag}
+      <div class="metric-card">
+        <div class="metric-header">
+          <h3 class="metric-title">{metric.title}</h3>
+          <div class="metric-trend">
+            <span class={`trend-icon ${getTrendColor(metric.trend)}`}>
+              {getTrendIcon(metric.trend)}
+            </span>
+            <span class={`trend-value ${getTrendColor(metric.trend)}`}>
+              {metric.previousValue && metric.value ? calculatePercentageChange(metric.value, metric.previousValue) : ''}
             </span>
           </div>
+        </div>
+        
+        <div class="metric-content">
+          <div class="metric-values">
+            {metric.previousValue && (
+              <span class="previous-value">{formatMetricValue(metric.previousValue, metric.type)}</span>
+            )}
+            <span class="current-value">{formatMetricValue(metric.value, metric.type)}</span>
+          </div>
+          
+          <p class="metric-context">{metric.context}</p>
+          
+          {metric.skillTag && (
+            <div class="metric-tag">
+              <span class="tag">{metric.skillTag}</span>
+            </div>
+          )}
         </div>
       </div>
     ))}
   </div>
 </section>
+
+<style>
+  .metrics-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .metric-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .metric-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .metric-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  
+  .metric-trend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+  }
+  
+  .trend-icon {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .trend-value {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .metric-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .metric-values {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  
+  .previous-value {
+    font-size: 0.875rem;
+    color: var(--color-text-body);
+    opacity: 0.7;
+    text-decoration: line-through;
+  }
+  
+  .current-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-heading);
+  }
+  
+  .metric-context {
+    font-size: 0.875rem;
+    color: var(--color-text-body);
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+  
+  .metric-tag {
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--color-border);
+    opacity: 0.5;
+  }
+  
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--color-accent);
+    color: var(--color-accent-text);
+    border-radius: 0.25rem;
+  }
+  
+  /* Container queries for responsive behavior */
+  @container (min-width: 400px) {
+    .metric-header {
+      flex-direction: row;
+      align-items: center;
+    }
+    
+    .metric-trend {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+  
+  @container (min-width: 600px) {
+    .metrics-grid-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @container (min-width: 900px) {
+    .metrics-grid-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

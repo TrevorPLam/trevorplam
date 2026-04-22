@@ -1,0 +1,53 @@
+{
+  "category": "Operations Management",
+  "skills": [
+    {
+      "name": "Process Optimization",
+      "level": "expert",
+      "yearsExperience": 12,
+      "certifications": ["Six Sigma Black Belt", "Lean Manufacturing", "ISO 9001 Lead Auditor"]
+    },
+    {
+      "name": "Supply Chain Management",
+      "level": "expert",
+      "yearsExperience": 10,
+      "certifications": ["CSCP", "CPIM", "CPSM"]
+    },
+    {
+      "name": "Quality Management",
+      "level": "advanced",
+      "yearsExperience": 8,
+      "certifications": ["ASQ Quality Manager", "ISO 9001 Internal Auditor"]
+    },
+    {
+      "name": "Inventory Management",
+      "level": "advanced",
+      "yearsExperience": 7,
+      "certifications": ["APICS CPIM"]
+    },
+    {
+      "name": "Vendor Management",
+      "level": "expert",
+      "yearsExperience": 9,
+      "certifications": ["CPSM", "CIPS Level 4"]
+    },
+    {
+      "name": "Continuous Improvement",
+      "level": "expert",
+      "yearsExperience": 11,
+      "certifications": ["Six Sigma Black Belt", "Lean Sensei"]
+    },
+    {
+      "name": "Project Management",
+      "level": "advanced",
+      "yearsExperience": 6,
+      "certifications": ["PMP", "Agile Certified Practitioner"]
+    },
+    {
+      "name": "Risk Management",
+      "level": "intermediate",
+      "yearsExperience": 4,
+      "certifications": ["PMI-RMP"]
+    }
+  ]
+}

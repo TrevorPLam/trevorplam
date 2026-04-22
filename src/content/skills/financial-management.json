@@ -1,0 +1,47 @@
+{
+  "category": "Financial Management",
+  "skills": [
+    {
+      "name": "Financial Planning & Analysis",
+      "level": "expert",
+      "yearsExperience": 8,
+      "certifications": ["CFA Level II", "FP&A", "Financial Modeling"]
+    },
+    {
+      "name": "Budgeting & Forecasting",
+      "level": "expert",
+      "yearsExperience": 7,
+      "certifications": ["FP&A", "Budget Analyst Professional"]
+    },
+    {
+      "name": "Financial Controls",
+      "level": "advanced",
+      "yearsExperience": 6,
+      "certifications": ["CPA", "Internal Auditor"]
+    },
+    {
+      "name": "Cost Accounting",
+      "level": "advanced",
+      "yearsExperience": 5,
+      "certifications": ["CMA", "Cost Analyst"]
+    },
+    {
+      "name": "Cash Flow Management",
+      "level": "expert",
+      "yearsExperience": 9,
+      "certifications": ["Treasury Professional", "Cash Manager"]
+    },
+    {
+      "name": "Financial Reporting",
+      "level": "advanced",
+      "yearsExperience": 6,
+      "certifications": ["SEC Reporting", "GAAP Specialist"]
+    },
+    {
+      "name": "Tax Compliance",
+      "level": "intermediate",
+      "yearsExperience": 3,
+      "certifications": ["Enrolled Agent", "Tax Compliance Professional"]
+    }
+  ]
+}

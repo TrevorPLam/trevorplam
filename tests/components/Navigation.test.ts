@@ -1,10 +1,8 @@
-import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { expect, test, describe, beforeEach, afterEach } from 'vitest';
 import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
-import Navigation from '../../src/components/Navigation.astro';
 
-describe('Navigation Component', () => {
-  let container: Awaited<ReturnType<typeof AstroContainer.create>>;
+describe('SidebarNavigation Component', () => {
+  let container: any;
 
   beforeEach(async () => {
     container = await createTestContainer();
@@ -15,10 +13,9 @@ describe('Navigation Component', () => {
   });
 
   test('renders site title and navigation links', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
     expect(result).toContain('Trevor Lam');
-    expect(result).toContain('Home');
     expect(result).toContain('Evidence');
     expect(result).toContain('Trajectory');
     expect(result).toContain('Methodology');
@@ -26,31 +23,27 @@ describe('Navigation Component', () => {
   });
 
   test('renders desktop navigation by default', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
-    expect(result).toContain('hidden md:block');
-    expect(result).not.toContain('md:hidden');
-    expect(result).toContain('flex space-x-8');
+    expect(result).toContain('fixed left-0 top-0 h-full w-64');
+    expect(result).toContain('md:translate-x-0');
+    expect(result).toContain('-translate-x-full');
   });
 
   test('renders mobile menu button by default', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
     expect(result).toContain('md:hidden');
-    expect(result).toContain('mobile-menu-button');
-    expect(result).toContain('aria-expanded="false"');
-    expect(result).toContain('aria-label="Toggle navigation menu"');
-    expect(result).toContain('hamburger-icon');
-    expect(result).toContain('close-icon');
-    expect(result).toContain('class="hidden"'); // Close icon hidden by default
+    expect(result).toContain('close-sidebar-btn');
+    expect(result).toContain('aria-label="Close navigation"');
+    expect(result).toContain('Close Menu');
   });
 
   test('renders mobile menu links (hidden by default)', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
-    expect(result).toContain('mobile-menu');
-    expect(result).toContain('class="hidden"'); // Menu hidden by default
-    expect(result).toContain('Home');
+    expect(result).toContain('sidebar-overlay');
+    expect(result).toContain('fixed inset-0 bg-black/50 z-30 hidden md:hidden');
     expect(result).toContain('Evidence');
     expect(result).toContain('Trajectory');
     expect(result).toContain('Methodology');
@@ -58,43 +51,44 @@ describe('Navigation Component', () => {
   });
 
   test('has proper semantic structure', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
-    expect(result).toContain('<nav');
+    expect(result).toContain('<aside');
     expect(result).toContain('role="navigation"');
-    expect(result).toContain('sticky top-0 z-50');
-    expect(result).toContain('max-w-7xl mx-auto');
+    expect(result).toContain('fixed left-0 top-0 h-full w-64');
+    expect(result).toContain('z-40');
   });
 
   test('has accessibility attributes', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
     // Check for proper ARIA attributes
-    expect(result).toContain('aria-label="Toggle navigation menu"');
-    expect(result).toContain('min-h-[44px] min-w-[44px]"'); // Touch target size
-    expect(result).toContain('flex items-center justify-center"');
+    expect(result).toContain('aria-label="Main navigation"');
+    expect(result).toContain('min-h-[44px]'); // Touch target size
+    expect(result).toContain('flex items-center');
   });
 
   test('has responsive design classes', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
-    expect(result).toContain('max-w-7xl');
-    expect(result).toContain('mx-auto');
-    expect(result).toContain('px-4');
-    expect(result).toContain('sm:px-6');
-    expect(result).toContain('lg:px-8');
+    expect(result).toContain('w-64');
+    expect(result).toContain('p-4');
+    expect(result).toContain('overflow-y-auto');
   });
 
   test('includes ClientRouter for transitions', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
-    expect(result).toContain('<ClientRouter />');
+    // SidebarNavigation doesn't use ClientRouter - it's a sidebar navigation
+    expect(result).toContain('sidebar');
+    expect(result).toContain('transform transition-transform');
   });
 
   test('has proper hover states', async () => {
-    const result = await renderComponent(Navigation);
+    const result = await renderComponent('SidebarNavigation');
     
     expect(result).toContain('hover:text-text-heading');
     expect(result).toContain('transition-colors');
+    expect(result).toContain('hover:bg-accent/20');
   });
 });

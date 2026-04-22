@@ -1,0 +1,230 @@
+---
+interface Props {
+  data: Array<Record<string, any>>;
+  columns: Array<{
+    key: string;
+    label: string;
+    format?: 'text' | 'number' | 'currency' | 'percentage' | 'date';
+    align?: 'left' | 'center' | 'right';
+    width?: string;
+  }>;
+  sortable?: boolean;
+  searchable?: boolean;
+  container?: boolean;
+}
+
+const { 
+  data, 
+  columns, 
+  sortable = false,
+  searchable = false,
+  container = true
+} = Astro.props;
+
+const alignClasses = {
+  left: 'text-left',
+  center: 'text-center',
+  right: 'text-right'
+};
+
+function formatCell(value: any, format: string): string {
+  if (value === null || value === undefined) return '-';
+  
+  switch (format) {
+    case 'number':
+      return new Intl.NumberFormat('en-US').format(Number(value));
+    case 'currency':
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(Number(value));
+    case 'percentage':
+      return `${Number(value).toFixed(1)}%`;
+    case 'date':
+      return new Date(value).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    case 'text':
+    default:
+      return String(value);
+  }
+}
+---
+
+<div class={[
+  'comparison-table-wrapper',
+  container && 'container'
+].filter(Boolean).join(' ')}
+     style={container ? 'container-type: inline-size;' : ''}>
+  
+  {searchable && (
+    <div class="search-container mb-4">
+      <input 
+        type="search" 
+        placeholder="Search table..."
+        class="w-full px-3 py-2 bg-surface border border-border rounded-md text-text-body placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+        data-table-search
+      />
+    </div>
+  )}
+  
+  <div class="comparison-table-container overflow-x-auto border border-border rounded-lg">
+    <table class="comparison-table w-full" data-sortable={sortable}>
+      <thead class="bg-surface-elevated">
+        <tr>
+          {columns.map((col) => (
+            <th 
+              class={[
+                'px-4 py-3 font-medium text-text-heading text-sm uppercase tracking-wide border-b border-border',
+                alignClasses[col.align || 'left']
+              ].join(' ')}
+              style={col.width ? `width: ${col.width}` : ''}
+              data-sortable={sortable ? col.key : undefined}
+            >
+              <div class="flex items-center gap-2">
+                {col.label}
+                {sortable && (
+                  <button 
+                    class="sort-button text-text-muted hover:text-text-heading transition-colors"
+                    data-sort={col.key}
+                    aria-label={`Sort by ${col.label}`}
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        {data.map((row, index) => (
+          <tr class={[
+            'hover:bg-surface-accent transition-colors',
+            index % 2 === 0 ? 'bg-surface' : 'bg-surface-elevated'
+          ].join(' ')}>
+            {columns.map((col) => (
+              <td class={[
+                'px-4 py-3 text-text-body text-sm',
+                alignClasses[col.align || 'left']
+              ].join(' ')}>
+                {formatCell(row[col.key], col.format || 'text')}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  
+  {data.length === 0 && (
+    <div class="text-center py-8 text-text-muted">
+      <div class="text-lg mb-2">No data available</div>
+      <div class="text-sm">Try adjusting your search or filters</div>
+    </div>
+  )}
+</div>
+
+<style>
+  .comparison-table-wrapper {
+    container-type: inline-size;
+  }
+  
+  /* Container queries for responsive tables */
+  @container (max-width: 600px) {
+    .comparison-table th,
+    .comparison-table td {
+      padding: var(--spacing-2) var(--spacing-1);
+      font-size: 0.75rem;
+    }
+  }
+  
+  @container (max-width: 400px) {
+    .comparison-table th,
+    .comparison-table td {
+      padding: var(--spacing-1);
+      font-size: 0.625rem;
+    }
+    
+    .sort-button {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  
+  /* Sort animations */
+  .sort-button {
+    transition: transform var(--duration-150) var(--ease-out);
+  }
+  
+  .sort-button.sorted-asc {
+    transform: rotate(180deg);
+  }
+  
+  .sort-button.sorted-desc {
+    transform: rotate(0deg);
+  }
+</style>
+
+<script>
+  // Enhanced table functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const tables = document.querySelectorAll('[data-sortable="true"]');
+    
+    tables.forEach(table => {
+      const searchInput = table.parentElement?.querySelector('[data-table-search]') as HTMLInputElement;
+      const rows = Array.from(table.querySelectorAll('tbody tr')) as HTMLTableRowElement[];
+      
+      // Search functionality
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const target = e.target as HTMLInputElement;
+          const searchTerm = target.value.toLowerCase();
+          
+          rows.forEach(row => {
+            const text = row.textContent?.toLowerCase() || '';
+            if (row.style) {
+              row.style.display = text.includes(searchTerm) ? '' : 'none';
+            }
+          });
+        });
+      }
+      
+      // Sort functionality
+      const sortButtons = table.querySelectorAll('[data-sort]');
+      sortButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const sortKey = button.getAttribute('data-sort');
+          if (!sortKey) return;
+          
+          const isAsc = button.classList.contains('sorted-asc');
+          
+          // Update button states
+          sortButtons.forEach(btn => {
+            btn.classList.remove('sorted-asc', 'sorted-desc');
+          });
+          
+          button.classList.add(isAsc ? 'sorted-desc' : 'sorted-asc');
+          
+          // Sort rows
+          const sortedRows = rows.sort((a, b) => {
+            const aVal = a.querySelector(`td[data-key="${sortKey}"]`)?.textContent || '';
+            const bVal = b.querySelector(`td[data-key="${sortKey}"]`)?.textContent || '';
+            
+            return isAsc 
+              ? aVal.localeCompare(bVal)
+              : bVal.localeCompare(aVal);
+          });
+          
+          // Reorder DOM
+          const tbody = table.querySelector('tbody');
+          sortedRows.forEach(row => tbody?.appendChild(row));
+        });
+      });
+    });
+  });
+</script>

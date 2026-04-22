@@ -1,0 +1,74 @@
+---
+interface Props {
+  date: Date;
+  format?: 'short' | 'medium' | 'long' | 'relative';
+  showIcon?: boolean;
+  className?: string;
+}
+
+const { date, format = 'medium', showIcon = true, className = '' } = Astro.props;
+
+function formatDate(date: Date, formatType: string): string {
+  const options: Intl.DateTimeFormatOptions = {};
+  
+  switch (formatType) {
+    case 'short':
+      options.month = 'short';
+      options.day = 'numeric';
+      options.year = 'numeric';
+      break;
+    case 'medium':
+      options.year = 'numeric';
+      options.month = 'long';
+      options.day = 'numeric';
+      break;
+    case 'long':
+      options.year = 'numeric';
+      options.month = 'long';
+      options.day = 'numeric';
+      options.hour = '2-digit';
+      options.minute = '2-digit';
+      break;
+    case 'relative':
+      // For relative dates, we'll use a simple implementation
+      const now = new Date();
+      const diffMs = now.getTime() - date.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 0) return 'Today';
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 7) return `${diffDays} days ago`;
+      if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+      if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+      return `${Math.floor(diffDays / 365)} years ago`;
+  }
+  
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
+const formattedDate = formatDate(date, format);
+const isoDate = date.toISOString();
+---
+
+<time 
+  datetime={isoDate} 
+  class={`timestamp ${className}`}
+  title={`${format !== 'relative' ? formattedDate : formatDate(date, 'medium')}`}
+>
+  {showIcon && (
+    <svg class="w-4 h-4 inline mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+  )}
+  <span>{formattedDate}</span>
+</time>
+
+<style>
+  .timestamp {
+    @apply text-sm text-text-muted flex items-center;
+  }
+  
+  .timestamp:hover {
+    @apply text-text-body;
+  }
+</style>

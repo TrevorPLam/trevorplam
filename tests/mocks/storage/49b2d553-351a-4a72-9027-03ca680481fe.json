@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T06:00:07.804Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "b3416b8b-de34-4b92-9300-84d1704b84d1",
+        "email": "Sage.Greenholt@yahoo.com",
+        "firstName": "Vernon",
+        "lastName": "Wyman",
+        "role": "user",
+        "status": "pending",
+        "avatar": "https://avatars.githubusercontent.com/u/50106569",
+        "createdAt": "2025-08-03T05:10:20.185Z",
+        "updatedAt": "2026-04-21T09:53:56.073Z",
+        "lastLoginAt": "2026-04-21T16:46:22.597Z",
+        "preferences": {
+          "theme": "dark",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "75.235.26.63",
+          "userAgent": "Googlebot/2.1 (+http://www.google.com/bot.html)",
+          "location": {
+            "country": "Uzbekistan",
+            "city": "Port Melisa",
+            "timezone": "Asia/Hebron"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "49b2d553-351a-4a72-9027-03ca680481fe"
+}

@@ -22,8 +22,9 @@ export default defineConfig({
   },
   
   // MCP (Model Context Protocol) Configuration for AI Integration
-  globalSetup: './tests/ai/mcp-global-setup.ts',
-  globalTeardown: './tests/ai/mcp-global-teardown.ts',
+  // NOTE: Temporarily disabled due to Playwright API changes
+  // globalSetup: './tests/ai/mcp-global-setup.ts',
+  // globalTeardown: './tests/ai/mcp-global-teardown.ts',
   use: {
     // Use built static files - start preview server before tests
     baseURL: 'http://127.0.0.1:4173',

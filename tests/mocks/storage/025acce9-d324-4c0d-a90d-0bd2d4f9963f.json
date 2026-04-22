@@ -7,7 +7,7 @@
     {
       "version": "1.0.0",
       "createdAt": "2026-04-22T04:23:46.128Z",
-      "description": "User API response mock (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0)",
+      "description": "User API response mock (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0) (DEPRECATED: Replaced by v1.1.0)",
       "changes": [
         "Initial version"
       ],
@@ -178,6 +178,111 @@
       },
       "version": "1.0.4",
       "createdAt": "2026-04-22T04:24:45.784Z"
+    },
+    {
+      "description": "Added phone number field",
+      "changes": [
+        "Added phone number to user schema"
+      ],
+      "schema": {
+        "id": "9b4fd158-88d3-4f66-a709-8c469dbe4663",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-17T20:46:11.397Z",
+        "updatedAt": "2026-04-22T02:37:53.953Z",
+        "lastLoginAt": "2026-04-21T16:46:37.624Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        },
+        "phone": "+1234567890"
+      },
+      "version": "1.0.5",
+      "createdAt": "2026-04-22T06:00:07.851Z"
+    },
+    {
+      "description": "Added phone number field",
+      "changes": [
+        "Added phone number to user schema"
+      ],
+      "schema": {
+        "id": "9b4fd158-88d3-4f66-a709-8c469dbe4663",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-17T20:46:11.397Z",
+        "updatedAt": "2026-04-22T02:37:53.953Z",
+        "lastLoginAt": "2026-04-21T16:46:37.624Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        },
+        "phone": "+1234567890"
+      },
+      "version": "1.0.6",
+      "createdAt": "2026-04-22T06:00:13.699Z"
+    },
+    {
+      "description": "Added phone number field",
+      "changes": [
+        "Added phone number to user schema"
+      ],
+      "schema": {
+        "id": "9b4fd158-88d3-4f66-a709-8c469dbe4663",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-17T20:46:11.397Z",
+        "updatedAt": "2026-04-22T02:37:53.953Z",
+        "lastLoginAt": "2026-04-21T16:46:37.624Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        },
+        "phone": "+1234567890"
+      },
+      "version": "1.0.7",
+      "createdAt": "2026-04-22T06:00:19.439Z"
     }
   ],
   "metadata": {

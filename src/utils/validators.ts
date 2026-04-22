@@ -131,7 +131,9 @@ export function isNonEmptyString(value: unknown): value is string {
  * @since 1.0.0
  */
 export function isInRange(value: number, min: number, max: number): boolean {
-  return value >= min && value <= max;
+  const actualMin = Math.min(min, max);
+  const actualMax = Math.max(min, max);
+  return value >= actualMin && value <= actualMax;
 }
 
 /**

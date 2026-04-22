@@ -11,7 +11,18 @@ const caseStudies = defineCollection({
     skills: z.array(z.string()),
     metric: z.string().optional(),
     lastUpdated: z.coerce.date(),
-    relatedCases: z.array(z.string()).default([])
+    relatedCases: z.array(z.string()).default([]),
+    metrics: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+      type: z.enum(['percentage', 'currency', 'number', 'ratio', 'time', 'count']),
+      value: z.string(),
+      previousValue: z.string().optional(),
+      context: z.string(),
+      category: z.string(),
+      trend: z.enum(['up', 'down', 'neutral', 'positive', 'negative']).optional(),
+      targetValue: z.string().optional()
+    })).optional()
   })
 });
 
@@ -20,7 +31,7 @@ const capabilities = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
-    philosophie: z.string(),
+    philosophy: z.string(),
     kpis: z.array(z.object({
       name: z.string(),
       value: z.string(),
@@ -28,7 +39,18 @@ const capabilities = defineCollection({
     })),
     industries: z.array(z.string()),
     relatedCases: z.array(z.string()),
-    lastUpdated: z.coerce.date()
+    lastUpdated: z.coerce.date(),
+    metrics: z.array(z.object({
+      id: z.string(),
+      title: z.string(),
+      type: z.enum(['percentage', 'currency', 'number', 'ratio', 'time', 'count']),
+      value: z.string(),
+      previousValue: z.string().optional(),
+      context: z.string(),
+      category: z.string(),
+      trend: z.enum(['up', 'down', 'neutral', 'positive', 'negative']).optional(),
+      targetValue: z.string().optional()
+    })).optional()
   })
 });
 
@@ -53,7 +75,8 @@ const projects = defineCollection({
     startDate: z.date(),
     endDate: z.date().optional(),
     technologies: z.array(z.string()),
-    tags: z.array(z.string())
+    tags: z.array(z.string()),
+    lastUpdated: z.coerce.date()
   })
 });
 

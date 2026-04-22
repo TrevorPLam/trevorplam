@@ -1,0 +1,383 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import type { CollectionEntry } from 'astro:content';
+
+// Get all content collections
+const caseStudies = await getCollection('caseStudies');
+const capabilities = await getCollection('capabilities');
+const learningLogs = await getCollection('learningLogs');
+const projects = await getCollection('projects');
+const resources = await getCollection('resources');
+
+// Combine all content for chronological display
+const allContent = [
+  ...caseStudies.map(item => ({ ...item, type: 'caseStudy', typeName: 'Case Study' })),
+  ...capabilities.map(item => ({ ...item, type: 'capability', typeName: 'Capability' })),
+  ...learningLogs.map(item => ({ ...item, type: 'learningLog', typeName: 'Learning Log' })),
+  ...projects.map(item => ({ ...item, type: 'project', typeName: 'Project' })),
+  ...resources.map(item => ({ ...item, type: 'resource', typeName: 'Resource' }))
+].sort((a, b) => {
+  const dateA = a.data.lastUpdated || a.data.date || new Date(0);
+  const dateB = b.data.lastUpdated || b.data.date || new Date(0);
+  return dateB.getTime() - dateA.getTime(); // Most recent first
+});
+
+// Site changelog data
+const changelog = [
+  {
+    date: new Date('2026-04-15'),
+    type: 'feature',
+    title: 'Archive and Trust Cues Implementation',
+    description: 'Added comprehensive archive page with chronological content index and enhanced trust cues throughout the site.',
+    impact: ['navigation', 'content', 'trust']
+  },
+  {
+    date: new Date('2026-04-10'),
+    type: 'feature', 
+    title: 'Resources Section Complete',
+    description: 'Implemented full resources section with playbooks, templates, and skills matrix.',
+    impact: ['content', 'navigation']
+  },
+  {
+    date: new Date('2026-04-05'),
+    type: 'feature',
+    title: 'Lab Section Development',
+    description: 'Added lab section with learning logs, projects showcase, and tech stack page.',
+    impact: ['content', 'navigation']
+  },
+  {
+    date: new Date('2026-03-28'),
+    type: 'feature',
+    title: 'Enhanced Case Studies',
+    description: 'Implemented PDF generation for case studies with trust cues and verification badges.',
+    impact: ['content', 'features']
+  },
+  {
+    date: new Date('2026-03-20'),
+    type: 'feature',
+    title: 'Search Functionality',
+    description: 'Added site-wide search with Pagefind integration and keyboard shortcuts.',
+    impact: ['navigation', 'ux']
+  }
+];
+
+// BreadcrumbList schema for archive page
+const breadcrumbJsonLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://trevor-lam.com/'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Archive',
+      item: 'https://trevor-lam.com/archive'
+    }
+  ]
+};
+
+const pageJsonLd = {
+  '@type': 'CollectionPage',
+  '@id': 'https://trevor-lam.com/archive#collection',
+  headline: 'Archive - Trevor Lam',
+  description: 'Complete chronological archive of all content including case studies, capabilities, learning logs, projects, and resources.',
+  author: { '@id': 'https://trevor-lam.com/#person' },
+  mainEntityOfPage: 'https://trevor-lam.com/archive'
+};
+---
+
+<BaseLayout 
+  title="Archive - Trevor Lam" 
+  description="Complete chronological archive of all content including case studies, capabilities, learning logs, projects, and resources."
+  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
+>
+  <div class="flex">
+    <div class="flex-1 ml-64">
+      <div class="max-w-6xl mx-auto px-6 py-12">
+        <Breadcrumbs />
+        
+        <header class="mb-12">
+          <h1 class="text-4xl font-bold text-text-heading mb-4">Archive</h1>
+          <p class="text-xl text-text-body">
+            Complete chronological index of all content across the site. 
+            Explore by content type or browse the latest updates.
+          </p>
+        </header>
+
+        <!-- Content Type Filters -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6">Browse by Type</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <a 
+              href="#case-studies" 
+              class="block p-6 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors text-center"
+            >
+              <div class="text-2xl font-bold mb-2">{caseStudies.length}</div>
+              <div class="text-sm">Case Studies</div>
+            </a>
+            <a 
+              href="#capabilities" 
+              class="block p-6 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors text-center"
+            >
+              <div class="text-2xl font-bold mb-2">{capabilities.length}</div>
+              <div class="text-sm">Capabilities</div>
+            </a>
+            <a 
+              href="#learning-logs" 
+              class="block p-6 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors text-center"
+            >
+              <div class="text-2xl font-bold mb-2">{learningLogs.length}</div>
+              <div class="text-sm">Learning Logs</div>
+            </a>
+            <a 
+              href="#projects" 
+              class="block p-6 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors text-center"
+            >
+              <div class="text-2xl font-bold mb-2">{projects.length}</div>
+              <div class="text-sm">Projects</div>
+            </a>
+            <a 
+              href="#resources" 
+              class="block p-6 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors text-center"
+            >
+              <div class="text-2xl font-bold mb-2">{resources.length}</div>
+              <div class="text-sm">Resources</div>
+            </a>
+          </div>
+        </section>
+
+        <!-- Recent Content -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6">Recent Updates</h2>
+          <div class="space-y-4">
+            {allContent.slice(0, 10).map((item) => (
+              <article class="p-4 border border-border rounded-lg hover:bg-surface transition-colors">
+                <div class="flex items-start justify-between">
+                  <div class="flex-1">
+                    <span class="inline-block px-2 py-1 text-xs font-medium bg-accent text-white rounded mb-2">
+                      {item.typeName}
+                    </span>
+                    <h3 class="text-lg font-semibold mb-2">
+                      <a 
+                        href={`/${item.type === 'caseStudy' ? 'cases' : 
+                               item.type === 'capability' ? 'capabilities' : 
+                               item.type === 'learningLog' ? 'lab/learning-log' : 
+                               item.type === 'project' ? 'lab/projects' : 'resources'}/${item.id}`}
+                        class="hover:text-accent transition-colors"
+                      >
+                        {item.data.title}
+                      </a>
+                    </h3>
+                    {item.data.excerpt && (
+                      <p class="text-text-muted text-sm mb-2">{item.data.excerpt}</p>
+                    )}
+                    {item.data.description && (
+                      <p class="text-text-muted text-sm mb-2">{item.data.description}</p>
+                    )}
+                  </div>
+                  <div class="text-sm text-text-muted ml-4">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.lastUpdated || item.data.date)}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <!-- Site Changelog -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-semibold mb-6">Site Changelog</h2>
+          <div class="space-y-6">
+            {changelog.map((entry, index) => (
+              <div class="border-l-4 border-accent pl-6">
+                <div class="flex items-center gap-3 mb-2">
+                  <time class="text-sm font-medium text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    }).format(entry.date)}
+                  </time>
+                  <span class={`px-2 py-1 text-xs font-medium rounded ${
+                    entry.type === 'feature' ? 'bg-green-100 text-green-800' : 
+                    entry.type === 'improvement' ? 'bg-blue-100 text-blue-800' : 
+                    'bg-gray-100 text-gray-800'
+                  }`}>
+                    {entry.type}
+                  </span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">{entry.title}</h3>
+                <p class="text-text-body mb-3">{entry.description}</p>
+                <div class="flex flex-wrap gap-2">
+                  {entry.impact.map(tag => (
+                    <span class="px-2 py-1 text-xs bg-surface border border-border rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Full Content Index by Type -->
+        <section id="full-archive" class="space-y-12">
+          <h2 class="text-2xl font-semibold mb-6">Full Archive</h2>
+          
+          <div id="case-studies" class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Case Studies</h3>
+            <div class="space-y-3">
+              {caseStudies.map(item => (
+                <div class="flex items-center justify-between p-3 border border-border rounded">
+                  <div>
+                    <a 
+                      href={`/cases/${item.id}`}
+                      class="font-medium hover:text-accent transition-colors"
+                    >
+                      {item.data.title}
+                    </a>
+                    <span class="text-sm text-text-muted ml-3">{item.data.industry}</span>
+                  </div>
+                  <time class="text-sm text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.lastUpdated)}
+                  </time>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div id="capabilities" class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Capabilities</h3>
+            <div class="space-y-3">
+              {capabilities.map(item => (
+                <div class="flex items-center justify-between p-3 border border-border rounded">
+                  <div>
+                    <a 
+                      href={`/capabilities/${item.data.slug}`}
+                      class="font-medium hover:text-accent transition-colors"
+                    >
+                      {item.data.title}
+                    </a>
+                  </div>
+                  <time class="text-sm text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.lastUpdated)}
+                  </time>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div id="learning-logs" class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Learning Logs</h3>
+            <div class="space-y-3">
+              {learningLogs.map(item => (
+                <div class="flex items-center justify-between p-3 border border-border rounded">
+                  <div>
+                    <a 
+                      href={`/lab/learning-log/${item.id}`}
+                      class="font-medium hover:text-accent transition-colors"
+                    >
+                      {item.data.title}
+                    </a>
+                    <div class="flex gap-2 mt-1">
+                      {item.data.tags.map(tag => (
+                        <span class="text-xs px-2 py-1 bg-surface border border-border rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <time class="text-sm text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.lastUpdated)}
+                  </time>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div id="projects" class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Projects</h3>
+            <div class="space-y-3">
+              {projects.map(item => (
+                <div class="flex items-center justify-between p-3 border border-border rounded">
+                  <div>
+                    <a 
+                      href={`/lab/projects/${item.data.slug}`}
+                      class="font-medium hover:text-accent transition-colors"
+                    >
+                      {item.data.title}
+                    </a>
+                    <span class={`ml-3 text-xs px-2 py-1 rounded ${
+                      item.data.status === 'active' ? 'bg-green-100 text-green-800' :
+                      item.data.status === 'completed' ? 'bg-blue-100 text-blue-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {item.data.status}
+                    </span>
+                  </div>
+                  <time class="text-sm text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.startDate)}
+                  </time>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div id="resources" class="mb-8">
+            <h3 class="text-xl font-semibold mb-4">Resources</h3>
+            <div class="space-y-3">
+              {resources.map(item => (
+                <div class="flex items-center justify-between p-3 border border-border rounded">
+                  <div>
+                    <a 
+                      href={`/resources/${item.data.slug}`}
+                      class="font-medium hover:text-accent transition-colors"
+                    >
+                      {item.data.title}
+                    </a>
+                    <span class="ml-3 text-xs px-2 py-1 bg-surface border border-border rounded">
+                      {item.data.type}
+                    </span>
+                  </div>
+                  <time class="text-sm text-text-muted">
+                    {new Intl.DateTimeFormat('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }).format(item.data.lastUpdated)}
+                  </time>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

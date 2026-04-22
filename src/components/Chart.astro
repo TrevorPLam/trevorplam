@@ -1,0 +1,168 @@
+---
+import type { ChartConfig, ChartData } from '../utils/metrics';
+
+interface Props {
+  config: ChartConfig;
+  width?: number;
+  height?: number;
+  className?: string;
+  id?: string;
+}
+
+const { config, width = 400, height = 300, className = '', id = `chart-${Math.random().toString(36).substr(2, 9)}` } = Astro.props;
+
+// Generate unique canvas ID
+const canvasId = `canvas-${id}`;
+
+// Client-side only chart rendering
+---
+<div 
+  class={`chart-container ${className}`}
+  style={`width: ${width}px; height: ${height}px;`}
+  id={id}
+>
+  <canvas id={canvasId}></canvas>
+</div>
+
+<script define:vars={{ config, canvasId }}>
+  import Chart from 'chart.js/auto';
+  import { createTooltipLabel, formatTickValue, createAccessibilityPlugin } from '../utils/chart-utils';
+
+  // Initialize chart with INP optimization - break up long tasks
+  function initializeChart() {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Default options for accessibility and performance
+    const defaultOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: config.options?.plugins?.legend?.display ?? true,
+          position: config.options?.plugins?.legend?.position ?? 'top',
+          labels: {
+            color: 'var(--color-text-heading)',
+            font: {
+              size: 12,
+              family: 'system-ui, -apple-system, sans-serif'
+            }
+          }
+        },
+        tooltip: {
+          enabled: config.options?.plugins?.tooltip?.enabled ?? true,
+          backgroundColor: 'var(--color-surface)',
+          titleColor: 'var(--color-text-heading)',
+          bodyColor: 'var(--color-text-body)',
+          borderColor: 'var(--color-border)',
+          borderWidth: 1,
+          padding: 12,
+          displayColors: true,
+          callbacks: {
+            label: createTooltipLabel
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            color: 'var(--color-border)',
+            drawBorder: false
+          },
+          ticks: {
+            color: 'var(--color-text-body)'
+          }
+        },
+        y: {
+          beginAtZero: config.options?.scales?.y?.beginAtZero ?? true,
+          grid: {
+            color: 'var(--color-border)',
+            drawBorder: false
+          },
+          ticks: {
+            color: 'var(--color-text-body)',
+            callback: formatTickValue
+          }
+        }
+      },
+      animation: {
+        duration: 750,
+        easing: 'easeInOutQuart'
+      }
+    };
+    
+    // Merge with user-provided options
+    const finalOptions = {
+      ...defaultOptions,
+      ...config.options,
+      plugins: {
+        ...defaultOptions.plugins,
+        ...config.options?.plugins
+      },
+      scales: {
+        ...defaultOptions.scales,
+        ...config.options?.scales
+      }
+    };
+    
+    // Create chart with accessibility support
+    new Chart(ctx, {
+      type: config.type,
+      data: config.data,
+      options: finalOptions,
+      plugins: [createAccessibilityPlugin(canvasId, config)]
+    });
+  }
+
+  // INP optimization: Use requestIdleCallback to defer non-critical chart initialization
+  // Falls back to setTimeout for browsers without requestIdleCallback support
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => initializeChart(), { timeout: 2000 });
+  } else {
+    setTimeout(initializeChart, 100);
+  }
+</script>
+
+<style>
+  .chart-container {
+    position: relative;
+    margin: 1rem 0;
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .chart-container {
+      filter: brightness(0.9) contrast(1.1);
+    }
+  }
+  
+  /* Container queries for responsive charts */
+  @container (max-width: 400px) {
+    .chart-container {
+      width: 100% !important;
+      height: 250px !important;
+    }
+  }
+  
+  @container (min-width: 600px) {
+    .chart-container {
+      width: 100% !important;
+      height: 350px !important;
+    }
+  }
+</style>

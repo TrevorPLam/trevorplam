@@ -1,0 +1,47 @@
+{
+  "category": "Leadership Management",
+  "skills": [
+    {
+      "name": "Team Leadership",
+      "level": "expert",
+      "yearsExperience": 10,
+      "certifications": ["Leadership Excellence", "Executive Coaching"]
+    },
+    {
+      "name": "Change Management",
+      "level": "advanced",
+      "yearsExperience": 7,
+      "certifications": ["Prosci ADKAR", "Change Management Professional"]
+    },
+    {
+      "name": "Strategic Planning",
+      "level": "advanced",
+      "yearsExperience": 6,
+      "certifications": ["Strategic Planning Professional", "Business Strategy"]
+    },
+    {
+      "name": "Performance Management",
+      "level": "expert",
+      "yearsExperience": 8,
+      "certifications": ["SHRM-SCP", "Performance Management Specialist"]
+    },
+    {
+      "name": "Conflict Resolution",
+      "level": "advanced",
+      "yearsExperience": 5,
+      "certifications": ["Mediation Certified", "Workplace Conflict Resolution"]
+    },
+    {
+      "name": "Talent Development",
+      "level": "intermediate",
+      "yearsExperience": 4,
+      "certifications": ["ATD Certified Professional", "Coaching Certification"]
+    },
+    {
+      "name": "Communication & Influence",
+      "level": "expert",
+      "yearsExperience": 9,
+      "certifications": ["Advanced Communication", "Executive Presence"]
+    }
+  ]
+}

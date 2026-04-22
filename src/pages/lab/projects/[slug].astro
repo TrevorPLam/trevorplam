@@ -20,11 +20,55 @@ const allProjects = await getCollection('projects');
 const relatedProjects = allProjects
   .filter(p => p.id !== project.id && p.data.technologies.some(tech => project.data.technologies.includes(tech)))
   .slice(0, 3);
+
+// BreadcrumbList schema for this project
+const breadcrumbJsonLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://trevor-lam.com/'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Lab',
+      item: 'https://trevor-lam.com/lab'
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Projects',
+      item: 'https://trevor-lam.com/lab/projects'
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: project.data.title,
+      item: `https://trevor-lam.com/lab/projects/${project.data.slug}`
+    }
+  ]
+};
+
+const pageJsonLd = {
+  '@type': 'Article',
+  '@id': `https://trevor-lam.com/lab/projects/${project.data.slug}#article`,
+  headline: project.data.title,
+  description: project.data.description,
+  author: { '@id': 'https://trevor-lam.com/#person' },
+  mainEntityOfPage: `https://trevor-lam.com/lab/projects/${project.data.slug}`,
+  about: project.data.technologies.join(', '),
+  dateModified: project.data.lastUpdated?.toISOString(),
+  datePublished: project.data.startDate?.toISOString()
+};
 ---
 
 <BaseLayout 
   title={project.data.title}
   description={project.data.description}
+  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
 >
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Breadcrumb -->

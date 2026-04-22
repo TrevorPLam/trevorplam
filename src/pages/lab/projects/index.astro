@@ -1,0 +1,256 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SidebarNavigation from '../../../components/SidebarNavigation.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+// Get all projects
+const projects = await getCollection('projects');
+
+// Sort by start date (newest first)
+const sortedProjects = projects.sort((a, b) => 
+  b.data.startDate.valueOf() - a.data.startDate.valueOf()
+);
+
+// Get unique technologies for filtering
+const allTechnologies = [...new Set(projects.flatMap(project => project.data.technologies))];
+const selectedTech = Astro.url.searchParams.get('tech') as string | null;
+const filteredProjects = selectedTech 
+  ? sortedProjects.filter(project => project.data.technologies.includes(selectedTech))
+  : sortedProjects;
+
+// Get status filter
+const selectedStatus = Astro.url.searchParams.get('status') as 'active' | 'completed' | 'paused' | null;
+const statusFilteredProjects = selectedStatus
+  ? filteredProjects.filter(project => project.data.status === selectedStatus)
+  : filteredProjects;
+
+// Group projects by status for stats
+const activeProjects = sortedProjects.filter(p => p.data.status === 'active');
+const completedProjects = sortedProjects.filter(p => p.data.status === 'completed');
+const pausedProjects = sortedProjects.filter(p => p.data.status === 'paused');
+---
+
+<BaseLayout 
+  title="Projects - Trevor Lam"
+  description="Work in progress and completed experiments. From systems optimization to tool development."
+>
+  <div class="flex">
+    <SidebarNavigation />
+    <main class="flex-1 ml-64 p-6">
+      <Breadcrumbs />
+      
+      <div class="max-w-6xl mx-auto">
+        <header class="mb-8">
+          <h1 class="text-3xl font-bold text-text-heading mb-2">Projects</h1>
+          <p class="text-text-body">Work in progress and completed experiments. From systems optimization to tool development.</p>
+        </header>
+
+        <!-- Filters -->
+        <section class="mb-8">
+          <h2 class="text-lg font-semibold text-text-heading mb-4">Filter Projects</h2>
+          
+          <!-- Status Filter -->
+          <div class="mb-6">
+            <h3 class="text-sm font-medium text-text-heading mb-3">Status</h3>
+            <div class="flex flex-wrap gap-2">
+              <a 
+                href="/lab/projects"
+                class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                  !selectedStatus 
+                    ? 'bg-accent text-accent-text border-accent' 
+                    : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                }`}
+              >
+                All Projects
+              </a>
+              <a 
+                href="/lab/projects?status=active"
+                class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                  selectedStatus === 'active' 
+                    ? 'bg-green-100 text-green-800 border-green-200' 
+                    : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                }`}
+              >
+                Active ({activeProjects.length})
+              </a>
+              <a 
+                href="/lab/projects?status=completed"
+                class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                  selectedStatus === 'completed' 
+                    ? 'bg-blue-100 text-blue-800 border-blue-200' 
+                    : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                }`}
+              >
+                Completed ({completedProjects.length})
+              </a>
+              {pausedProjects.length > 0 && (
+                <a 
+                  href="/lab/projects?status=paused"
+                  class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                    selectedStatus === 'paused' 
+                      ? 'bg-gray-100 text-gray-800 border-gray-200' 
+                      : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                  }`}
+                >
+                  Paused ({pausedProjects.length})
+                </a>
+              )}
+            </div>
+          </div>
+
+          <!-- Technology Filter -->
+          {allTechnologies.length > 0 && (
+            <div>
+              <h3 class="text-sm font-medium text-text-heading mb-3">Technologies</h3>
+              <div class="flex flex-wrap gap-2">
+                <a 
+                  href="/lab/projects"
+                  class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                    !selectedTech 
+                      ? 'bg-accent text-accent-text border-accent' 
+                      : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                  }`}
+                >
+                  All Tech
+                </a>
+                {allTechnologies.map((tech) => (
+                  <a 
+                    href={`/lab/projects?tech=${encodeURIComponent(tech)}`}
+                    class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                      selectedTech === tech 
+                        ? 'bg-accent text-accent-text border-accent' 
+                        : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                    }`}
+                  >
+                    {tech}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
+
+        <!-- Projects Grid -->
+        {statusFilteredProjects.length > 0 ? (
+          <section>
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {statusFilteredProjects.map((project) => (
+                <article class="bg-surface border border-border rounded-lg p-6 hover:bg-accent/5 transition-colors">
+                  <div class="flex items-center justify-between mb-3">
+                    <span class={`text-xs px-2 py-1 rounded-full font-medium ${
+                      project.data.status === 'active' 
+                        ? 'bg-green-100 text-green-800 border border-green-200' 
+                        : project.data.status === 'completed'
+                        ? 'bg-blue-100 text-blue-800 border border-blue-200'
+                        : 'bg-gray-100 text-gray-800 border border-gray-200'
+                    }`}>
+                      {project.data.status.charAt(0).toUpperCase() + project.data.status.slice(1)}
+                    </span>
+                    <time class="text-xs text-text-body/70" datetime={project.data.startDate.toISOString()}>
+                      {project.data.startDate.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short' 
+                      })}
+                    </time>
+                  </div>
+                  
+                  <h3 class="text-lg font-semibold text-text-heading mb-2">
+                    <a href={`/lab/projects/${project.data.slug}`} class="hover:text-accent transition-colors">
+                      {project.data.title}
+                    </a>
+                  </h3>
+                  
+                  <p class="text-text-body text-sm leading-relaxed mb-4">{project.data.description}</p>
+                  
+                  <div class="flex flex-wrap gap-1 mb-4">
+                    {project.data.technologies.slice(0, 4).map((tech) => (
+                      <a 
+                        href={`/lab/projects?tech=${encodeURIComponent(tech)}`}
+                        class="text-xs px-2 py-1 bg-border text-text-body rounded hover:bg-accent/10 transition-colors"
+                      >
+                        {tech}
+                      </a>
+                    ))}
+                    {project.data.technologies.length > 4 && (
+                      <span class="text-xs px-2 py-1 bg-border text-text-body rounded">
+                        +{project.data.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div class="flex items-center justify-between">
+                    <a 
+                      href={`/lab/projects/${project.data.slug}`}
+                      class="text-accent hover:text-accent/80 font-medium text-sm transition-colors"
+                    >
+                      View project →
+                    </a>
+                    <div class="text-xs text-text-body/70">
+                      {project.data.endDate 
+                        ? `Completed ${project.data.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
+                        : `Started ${project.data.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`
+                      }
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section class="text-center py-16">
+            <div class="max-w-2xl mx-auto">
+              <h2 class="text-2xl font-bold text-text-heading mb-4">
+                No projects found
+              </h2>
+              <p class="text-text-body mb-8">
+                {selectedStatus || selectedTech 
+                  ? `No projects found matching your filters. Try adjusting your criteria or view all projects.`
+                  : "No projects have been published yet. Check back soon to see my latest experimental work and development projects."
+                }
+              </p>
+              {(selectedStatus || selectedTech) && (
+                <a 
+                  href="/lab/projects"
+                  class="inline-flex items-center gap-2 bg-accent text-accent-text rounded-lg hover:bg-accent/90 transition-colors"
+                >
+                  Clear Filters
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        <!-- Stats -->
+        {projects.length > 0 && (
+          <section class="mt-16 bg-surface/50 border border-border rounded-lg p-8">
+            <h2 class="text-xl font-bold text-text-heading mb-6 text-center">
+              Project Stats
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{activeProjects.length}</div>
+                <div class="text-sm text-text-body">Active</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{completedProjects.length}</div>
+                <div class="text-sm text-text-body">Completed</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{pausedProjects.length}</div>
+                <div class="text-sm text-text-body">Paused</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{allTechnologies.length}</div>
+                <div class="text-sm text-text-body">Technologies</div>
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
+    </main>
+  </div>
+</BaseLayout>

@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T06:00:13.682Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "7a1feb7a-b5e6-4c5c-a96d-80660a2c75b3",
+        "email": "Larue.Gibson43@yahoo.com",
+        "firstName": "Lyla",
+        "lastName": "Hamill",
+        "role": "user",
+        "status": "inactive",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/91.jpg",
+        "createdAt": "2025-09-05T20:06:47.970Z",
+        "updatedAt": "2026-04-21T14:56:30.900Z",
+        "lastLoginAt": "2026-04-21T19:38:21.077Z",
+        "preferences": {
+          "theme": "light",
+          "language": "de",
+          "notifications": true
+        },
+        "metadata": {
+          "ipAddress": "225e:7044:55bd:ee3b:8ad4:5da8:56db:addb",
+          "userAgent": "Googlebot/2.1 (+http://www.google.com/bot.html)",
+          "location": {
+            "country": "Micronesia",
+            "city": "Lake Idellboro",
+            "timezone": "America/Yellowknife"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "b05c46cd-ad35-4d48-a884-ac1ccc448964"
+}

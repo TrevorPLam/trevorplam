@@ -1,0 +1,370 @@
+---
+import metricsData from '../../data/metrics.json';
+import type { ChartConfig } from '../utils/metrics';
+import Chart from './Chart.astro';
+import { 
+  calculateTrend, 
+  formatMetricValue, 
+  getTrendIcon, 
+  getTrendColor,
+  calculatePercentageChange,
+  inferMetricType,
+  inferCategory
+} from '../utils/metrics';
+
+// Convert legacy metrics to new structure
+const convertLegacyMetric = (legacy: any) => ({
+  id: legacy.id,
+  title: legacy.title,
+  type: inferMetricType(legacy.before, legacy.after),
+  value: legacy.after,
+  previousValue: legacy.before,
+  context: legacy.context,
+  category: inferCategory(legacy.skillTag),
+  trend: calculateTrend(legacy.after, legacy.before),
+  caseStudySlug: legacy.caseStudySlug,
+  skillTag: legacy.skillTag,
+  description: legacy.context,
+});
+
+const allMetrics = metricsData.map(convertLegacyMetric);
+
+// Create chart data for performance trends
+const performanceChartData: ChartConfig = {
+  type: 'line',
+  title: 'Performance Trends',
+  description: 'Key performance indicators over time',
+  data: {
+    labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024'],
+    datasets: [
+      {
+        label: 'Revenue Growth',
+        data: [1200000, 1350000, 1400000, 1550000, 1700000],
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        borderColor: 'rgba(59, 130, 246, 1)',
+        borderWidth: 2,
+        fill: true,
+      },
+      {
+        label: 'Cost Efficiency',
+        data: [85, 88, 92, 94, 96],
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        borderColor: 'rgba(16, 185, 129, 1)',
+        borderWidth: 2,
+        fill: true,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top'
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+};
+
+// Create category breakdown chart
+const categoryBreakdownData: ChartConfig = {
+  type: 'doughnut',
+  title: 'Impact by Category',
+  description: 'Distribution of improvements across different areas',
+  data: {
+    labels: ['Financial', 'Operational', 'People', 'Customer', 'Systems'],
+    datasets: [
+      {
+        label: 'Impact Score',
+        data: [35, 28, 20, 12, 5],
+        backgroundColor: [
+          'rgba(59, 130, 246, 0.8)',
+          'rgba(16, 185, 129, 0.8)',
+          'rgba(251, 146, 60, 0.8)',
+          'rgba(147, 51, 234, 0.8)',
+          'rgba(107, 114, 128, 0.8)',
+        ],
+        borderWidth: 0,
+        fill: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right'
+      }
+    }
+  }
+};
+
+// Group metrics by category
+const metricsByCategory = allMetrics.reduce((acc, metric) => {
+  const category = metric.category;
+  if (!acc[category]) {
+    acc[category] = [];
+  }
+  acc[category].push(metric);
+  return acc;
+}, {} as Record<string, typeof allMetrics>);
+
+// Calculate summary stats
+const summaryStats = {
+  totalMetrics: allMetrics.length,
+  averageImprovement: allMetrics.reduce((sum, metric) => {
+    if (metric.previousValue && metric.value) {
+      const prev = parseFloat(metric.previousValue.replace(/[^0-9.-]/g, ''));
+      const curr = parseFloat(metric.value.replace(/[^0-9.-]/g, ''));
+      if (!isNaN(prev) && !isNaN(curr) && prev > 0) {
+        return sum + ((curr - prev) / prev * 100);
+      }
+    }
+    return sum;
+  }, 0) / allMetrics.filter(m => m.previousValue).length,
+  topCategories: Object.entries(metricsByCategory)
+    .map(([category, metrics]) => ({ category, count: metrics.length }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 3)
+};
+---
+<section class="dashboard-widgets space-y-8">
+  <!-- Summary Stats -->
+  <div class="summary-section" style="container-type: inline-size;">
+    <h2 class="section-title">Performance Overview</h2>
+    <div class="summary-grid">
+      <div class="stat-card">
+        <div class="stat-value">{summaryStats.totalMetrics}</div>
+        <div class="stat-label">Total Metrics</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{summaryStats.averageImprovement.toFixed(1)}%</div>
+        <div class="stat-label">Avg Improvement</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{summaryStats.topCategories[0]?.count || 0}</div>
+        <div class="stat-label">Top Category</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance Trends Chart -->
+  <div class="chart-section" style="container-type: inline-size;">
+    <h2 class="section-title">Performance Trends</h2>
+    <div class="chart-container">
+      <Chart config={performanceChartData} width={800} height={400} />
+    </div>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div class="chart-section" style="container-type: inline-size;">
+    <h2 class="section-title">Impact by Category</h2>
+    <div class="chart-container">
+      <Chart config={categoryBreakdownData} width={400} height={400} />
+    </div>
+  </div>
+
+  <!-- Top Categories -->
+  <div class="categories-section" style="container-type: inline-size;">
+    <h2 class="section-title">Top Impact Areas</h2>
+    <div class="categories-grid">
+      {summaryStats.topCategories.map(({ category, count }) => (
+        <div class="category-card">
+          <h3 class="category-name">{category}</h3>
+          <div class="category-metrics">
+            {metricsByCategory[category].slice(0, 3).map((metric) => (
+              <div class="category-metric">
+                <div class="metric-header">
+                  <span class="metric-title">{metric.title}</span>
+                  <span class={`metric-trend ${getTrendColor(metric.trend)}`}>
+                    {getTrendIcon(metric.trend)}
+                  </span>
+                </div>
+                <div class="metric-value">{formatMetricValue(metric.value, metric.type)}</div>
+              </div>
+            ))}
+          </div>
+          <div class="category-count">{count} metrics</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .dashboard-widgets {
+    width: 100%;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .summary-section {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .stat-card {
+    text-align: center;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-body);
+    font-weight: 500;
+  }
+  
+  .chart-section {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .categories-section {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .category-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .category-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .category-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .category-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    background: var(--color-surface);
+    border-radius: 0.25rem;
+  }
+  
+  .metric-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .metric-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-body);
+  }
+  
+  .metric-trend {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  .metric-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-heading);
+  }
+  
+  .category-count {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--color-text-body);
+    opacity: 0.8;
+    margin-top: 0.5rem;
+  }
+  
+  /* Container queries for responsive behavior */
+  @container (min-width: 500px) {
+    .summary-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @container (min-width: 700px) {
+    .categories-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @container (min-width: 900px) {
+    .categories-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @container (max-width: 600px) {
+    .chart-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  }
+</style>

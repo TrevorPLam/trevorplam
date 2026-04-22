@@ -12,8 +12,20 @@ export default getViteConfig({
     maxConcurrency: process.env.CI ? 4 : undefined,
     maxWorkers: process.env.CI ? 4 : undefined,
     include: ['**/*.test.ts', '**/*.spec.ts'],
-    exclude: ['node_modules/', 'dist/', 'tests/e2e/**', 'tests/a11y/**', 'tests/browser/**', 'tests/visual/**', '**/*.browser.{test,spec}.ts'],
+    exclude: [
+      'node_modules/', 
+      'dist/', 
+      'tests/e2e/**', 
+      'tests/a11y/**', 
+      'tests/browser/**', 
+      'tests/visual/**', 
+      '**/*.browser.{test,spec}.ts',
+      'src/**/*.astro' // Exclude Astro components from direct parsing
+    ],
     setupFiles: ['./tests/setup.ts'],
+    deps: {
+      inline: ['vitest/globals'] // Inline vitest globals to avoid import issues
+    },
     bail: 1,
     fileParallelism: true,
     projects: [

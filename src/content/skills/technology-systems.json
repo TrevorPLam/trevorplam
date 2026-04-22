@@ -1,0 +1,47 @@
+{
+  "category": "Technology & Systems",
+  "skills": [
+    {
+      "name": "ERP Systems Implementation",
+      "level": "expert",
+      "yearsExperience": 8,
+      "certifications": ["SAP Certified Consultant", "NetSuite Administrator", "Oracle EBS"]
+    },
+    {
+      "name": "Business Intelligence & Analytics",
+      "level": "advanced",
+      "yearsExperience": 6,
+      "certifications": ["Tableau Desktop Specialist", "Power BI Professional", "Google Analytics"]
+    },
+    {
+      "name": "Process Automation",
+      "level": "expert",
+      "yearsExperience": 7,
+      "certifications": ["UiPath Advanced RPA", "Automation Anywhere Certified", "Zapier Expert"]
+    },
+    {
+      "name": "Database Management",
+      "level": "advanced",
+      "yearsExperience": 5,
+      "certifications": ["SQL Server Certified", "Oracle Database Administrator"]
+    },
+    {
+      "name": "Cloud Computing",
+      "level": "intermediate",
+      "yearsExperience": 3,
+      "certifications": ["AWS Solutions Architect", "Azure Fundamentals"]
+    },
+    {
+      "name": "Cybersecurity Fundamentals",
+      "level": "intermediate",
+      "yearsExperience": 3,
+      "certifications": ["CompTIA Security+", "CISSP Associate"]
+    },
+    {
+      "name": "API Integration",
+      "level": "advanced",
+      "yearsExperience": 4,
+      "certifications": ["REST API Design", "Postman Certified Professional"]
+    }
+  ]
+}

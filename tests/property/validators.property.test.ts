@@ -262,17 +262,23 @@ describe('Property-Based Tests - Validators', () => {
 
     test('empty arrays return false', () => {
       fc.assert(
-        fc.property(fc.func(fc.boolean()), (predicate) => {
-          return !all([], predicate);
-        })
+        fc.property(
+          fc.func(fc.boolean()),
+          (predicate) => {
+            return !all([], predicate);
+          }
+        )
       );
     });
 
     test('null/undefined arrays return false', () => {
       fc.assert(
-        fc.property(fc.func(fc.boolean()), (predicate) => {
-          return !all(null, predicate) && !all(undefined, predicate);
-        })
+        fc.property(
+          fc.func(fc.boolean()),
+          (predicate) => {
+            return !all(null, predicate) && !all(undefined, predicate);
+          }
+        )
       );
     });
 
@@ -384,10 +390,14 @@ describe('Property-Based Tests - Validators', () => {
   describe('hasRequiredKeys', () => {
     test('always returns boolean', () => {
       fc.assert(
-        fc.property(fc.record(fc.anything()), fc.array(fc.string()), (obj, keys) => {
-          const result = hasRequiredKeys(obj, keys as (keyof typeof obj)[]);
-          return typeof result === 'boolean';
-        })
+        fc.property(
+          fc.record(fc.string(), fc.anything()),
+          fc.array(fc.string()),
+          (obj, keys) => {
+            const result = hasRequiredKeys(obj, keys as (keyof typeof obj)[]);
+            return typeof result === 'boolean';
+          }
+        )
       );
     });
 
@@ -436,7 +446,7 @@ describe('Property-Based Tests - Validators', () => {
 
     test('empty required keys array returns true', () => {
       fc.assert(
-        fc.property(fc.record(fc.anything()), (obj) => {
+        fc.property(fc.record(fc.string(), fc.anything()), (obj) => {
           return hasRequiredKeys(obj, []);
         })
       );
@@ -451,7 +461,7 @@ describe('Property-Based Tests - Validators', () => {
               profile: fc.record({
                 name: fc.string(),
                 settings: fc.record({
-                  theme: fc.constantFrom('light', 'dark'),
+                  theme: fc.oneof(['light', 'dark']),
                   notifications: fc.boolean()
                 })
               })

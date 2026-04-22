@@ -20,8 +20,8 @@ vi.mock('../../src/components/Footer.astro', () => ({
   default: 'Footer'
 }));
 
-vi.mock('../../src/components/Navigation.astro', () => ({
-  default: 'Navigation'
+vi.mock('../../src/components/SidebarNavigation.astro', () => ({
+  default: 'SidebarNavigation'
 }));
 
 vi.mock('../../src/components/SkillTag.astro', () => ({
@@ -34,6 +34,18 @@ vi.mock('../../src/components/TimelineNode.astro', () => ({
 
 vi.mock('../../src/components/OptimizedImage.astro', () => ({
   default: 'OptimizedImage'
+}));
+
+vi.mock('../../src/components/KPICard.astro', () => ({
+  default: 'KPICard'
+}));
+
+vi.mock('../../src/components/InlineMetric.astro', () => ({
+  default: 'InlineMetric'
+}));
+
+vi.mock('../../src/components/Timeline.astro', () => ({
+  default: 'Timeline'
 }));
 
 // Global test timeout

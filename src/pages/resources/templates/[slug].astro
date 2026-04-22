@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import SidebarNavigation from '../../../components/SidebarNavigation.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+export async function getStaticPaths() {
+  const resources = await getCollection('resources');
+  const templates = resources.filter(r => r.data.type === 'template');
+  return templates.map((template) => ({
+    params: { slug: template.data.slug },
+    props: { template },
+  }));
+}
+
+type Props = { template: CollectionEntry<'resources'> };
+
+const { template } = Astro.props;
+const { Content } = await render(template);
+
+// BreadcrumbList schema for this template
+const breadcrumbJsonLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://trevor-lam.com/'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Resources',
+      item: 'https://trevor-lam.com/resources'
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Templates',
+      item: 'https://trevor-lam.com/resources/templates'
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: template.data.title,
+      item: `https://trevor-lam.com/resources/templates/${template.data.slug}`
+    }
+  ]
+};
+
+const pageJsonLd = {
+  '@type': 'Article',
+  '@id': `https://trevor-lam.com/resources/templates/${template.data.slug}#article`,
+  headline: template.data.title,
+  description: template.data.description,
+  author: { '@id': 'https://trevor-lam.com/#person' },
+  mainEntityOfPage: `https://trevor-lam.com/resources/templates/${template.data.slug}`,
+  about: `${template.data.type} for ${template.data.audience}`,
+  dateModified: template.data.lastUpdated?.toISOString(),
+  datePublished: template.data.lastUpdated?.toISOString()
+};
+---
+
+<BaseLayout 
+  title={`${template.data.title} - Templates - Resources - Trevor Lam`}
+  description={`${template.data.description} - Downloadable template for ${template.data.audience}.`}
+  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
+>
+  <div class="flex">
+    <SidebarNavigation />
+    <main class="flex-1 ml-64 p-6">
+      <Breadcrumbs />
+      <article class="max-w-4xl mx-auto">
+        <header class="mb-8">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-sm px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded font-medium">
+              Template
+            </span>
+            <time class="text-sm text-text-body/70" datetime={template.data.lastUpdated.toISOString()}>
+              Updated: {template.data.lastUpdated.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </time>
+            {template.data.gated && (
+              <span class="text-sm px-3 py-1 bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 rounded font-medium">
+                Gated Content
+              </span>
+            )}
+          </div>
+          <h1 class="text-4xl font-bold text-text-heading mb-4">{template.data.title}</h1>
+          <p class="text-xl text-text-body leading-relaxed mb-4">{template.data.description}</p>
+          <div class="text-sm text-text-body/70">
+            <strong>Audience:</strong> {template.data.audience}
+          </div>
+        </header>
+
+        {template.data.gated ? (
+          <section class="bg-surface/50 border border-border rounded-lg p-8 text-center mb-8">
+            <div class="max-w-2xl mx-auto">
+              <h2 class="text-2xl font-bold text-text-heading mb-4">
+                Premium Template
+              </h2>
+              <p class="text-text-body mb-6">
+                This template contains proprietary formats and detailed implementation guidance. 
+                Available to clients and partners working directly with me.
+              </p>
+              <div class="flex justify-center gap-4">
+                <a 
+                  href="/connect" 
+                  class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+                >
+                  Request Access
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section class="prose prose-lg max-w-none">
+            <Content />
+          </section>
+        )}
+
+        <!-- Download Section -->
+        {template.data.downloadUrl && !template.data.gated && (
+          <section class="mt-12 pt-8 border-t border-border">
+            <h2 class="text-2xl font-semibold mb-6 text-text-heading">Download This Template</h2>
+            <div class="bg-surface/50 border border-border rounded-lg p-6">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="font-semibold text-text-heading mb-2">Ready-to-use File</h3>
+                  <p class="text-text-body text-sm">
+                    Download this template for immediate use in your projects and workflows.
+                  </p>
+                </div>
+                <a 
+                  href={template.data.downloadUrl}
+                  download
+                  class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-6 py-3 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+                >
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Download Template
+                </a>
+              </div>
+            </div>
+          </section>
+        )}
+
+        <!-- Related Resources -->
+        <section class="mt-12 pt-8 border-t border-border">
+          <h2 class="text-2xl font-semibold mb-6 text-text-heading">More Resources</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a 
+              href="/resources/playbooks" 
+              class="block p-4 bg-surface border border-border rounded-lg hover:bg-accent/10 transition-colors"
+            >
+              <h3 class="font-medium text-text-heading mb-2">
+                Playbooks
+              </h3>
+              <p class="text-sm text-text-body">Step-by-step guides for operational challenges</p>
+            </a>
+            <a 
+              href="/resources/skills-matrix" 
+              class="block p-4 bg-surface border border-border rounded-lg hover:bg-accent/10 transition-colors"
+            >
+              <h3 class="font-medium text-text-heading mb-2">
+                Skills Matrix
+              </h3>
+              <p class="text-sm text-text-body">Comprehensive overview of capabilities</p>
+            </a>
+            <a 
+              href="/capabilities" 
+              class="block p-4 bg-surface border border-border rounded-lg hover:bg-accent/10 transition-colors"
+            >
+              <h3 class="font-medium text-text-heading mb-2">
+                Capabilities
+              </h3>
+              <p class="text-sm text-text-body">Deep dive into core competencies</p>
+            </a>
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
+</BaseLayout>

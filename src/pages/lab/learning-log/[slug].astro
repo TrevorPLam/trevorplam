@@ -20,11 +20,55 @@ const allPosts = await getCollection('learningLogs');
 const relatedPosts = allPosts
   .filter(p => p.id !== post.id && p.data.tags.some(tag => post.data.tags.includes(tag)))
   .slice(0, 3);
+
+// BreadcrumbList schema for this learning log
+const breadcrumbJsonLd = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Home',
+      item: 'https://trevor-lam.com/'
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Lab',
+      item: 'https://trevor-lam.com/lab'
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Learning Log',
+      item: 'https://trevor-lam.com/lab/learning-log'
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
+      name: post.data.title,
+      item: `https://trevor-lam.com/lab/learning-log/${post.id}`
+    }
+  ]
+};
+
+const pageJsonLd = {
+  '@type': 'Article',
+  '@id': `https://trevor-lam.com/lab/learning-log/${post.id}#article`,
+  headline: post.data.title,
+  description: post.data.excerpt,
+  author: { '@id': 'https://trevor-lam.com/#person' },
+  mainEntityOfPage: `https://trevor-lam.com/lab/learning-log/${post.id}`,
+  about: post.data.tags.join(', '),
+  dateModified: post.data.lastUpdated?.toISOString(),
+  datePublished: post.data.date?.toISOString()
+};
 ---
 
 <BaseLayout 
   title={post.data.title}
   description={post.data.excerpt}
+  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
 >
   <div class="max-w-4xl mx-auto px-4 py-8">
     <!-- Breadcrumb -->
@@ -111,7 +155,7 @@ const relatedPosts = allPosts
             Part of my public learning journey where I document insights, experiments, and reflections.
           </div>
           <div class="flex items-center gap-4 text-sm text-text-muted">
-            <span>~{Math.round(post.body.split(' ').length / 200)} min read</span>
+            <span>~{Math.round((Content as any).toString().split(' ').length / 200)} min read</span>
             <span>Filed under {post.data.tags.length} topics</span>
           </div>
         </div>

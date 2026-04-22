@@ -19,12 +19,39 @@ export default defineConfig({
         brotliSize: true,
       }) : null
     ].filter(Boolean),
-    // 2026: Enhanced build optimization
+    // 2026: Enhanced build optimization for Core Web Vitals
     build: {
       target: 'es2022', // Modern browser targeting
       minify: 'esbuild', // Faster minification
-      sourcemap: process.env.NODE_ENV === 'development'
+      sourcemap: process.env.NODE_ENV === 'development',
+      cssMinify: true
+    },
+    css: {
+      // Enable CSS code splitting for better performance
+      devSourcemap: false
     }
+  },
+  // Prefetch links for instant navigation
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover'
+  },
+  // Image optimization settings
+  image: {
+    // Use Sharp for image processing (faster than default)
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    },
+    // Default format for optimized images
+    defaultFormat: 'webp',
+    // Quality settings
+    defaultQuality: 80
+  },
+  // Redirects for removed obsolete pages
+  redirect: {
+    '/about': '/capabilities',
+    '/approach': '/cases',
+    '/impact': '/lab'
   },
     // security: {
   //   csp: true

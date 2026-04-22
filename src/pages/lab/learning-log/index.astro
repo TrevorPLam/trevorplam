@@ -1,0 +1,186 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SidebarNavigation from '../../../components/SidebarNavigation.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+
+// Get all learning logs
+const learningLogs = await getCollection('learningLogs');
+
+// Sort by date (newest first)
+const sortedLearningLogs = learningLogs.sort((a, b) => 
+  b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Group by tags for filtering
+const allTags = [...new Set(learningLogs.flatMap(log => log.data.tags))];
+const selectedTag = Astro.url.searchParams.get('tag') as 'AI' | 'Leadership' | 'QSR' | 'Dev-Log' | 'Ops-Systems' | null;
+const filteredLogs = selectedTag 
+  ? sortedLearningLogs.filter(log => log.data.tags.includes(selectedTag))
+  : sortedLearningLogs;
+---
+
+<BaseLayout 
+  title="Learning Logs - Trevor Lam"
+  description="Essays, tutorials, and notes showing how I think in motion. Tagged by theme and always current."
+>
+  <div class="flex">
+    <SidebarNavigation />
+    <main class="flex-1 ml-64 p-6">
+      <Breadcrumbs />
+      
+      <div class="max-w-6xl mx-auto">
+        <header class="mb-8">
+          <h1 class="text-3xl font-bold text-text-heading mb-2">Learning Logs</h1>
+          <p class="text-text-body">Essays, tutorials, and notes showing how I think in motion. Tagged by theme and always current.</p>
+        </header>
+
+        <!-- Tag Filter -->
+        {allTags.length > 0 && (
+          <section class="mb-8">
+            <h2 class="text-lg font-semibold text-text-heading mb-4">Filter by Topic</h2>
+            <div class="flex flex-wrap gap-2">
+              <a 
+                href="/lab/learning-log"
+                class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                  !selectedTag 
+                    ? 'bg-accent text-accent-text border-accent' 
+                    : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                }`}
+              >
+                All Topics
+              </a>
+              {allTags.map((tag: string) => (
+                <a 
+                  href={`/lab/learning-log?tag=${encodeURIComponent(tag)}`}
+                  class={`text-sm px-3 py-1 rounded-full border transition-colors ${
+                    selectedTag === tag 
+                      ? 'bg-accent text-accent-text border-accent' 
+                      : 'bg-surface text-text-body border-border hover:bg-accent/10'
+                  }`}
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Learning Logs Grid -->
+        {filteredLogs.length > 0 ? (
+          <section>
+            <div class="grid gap-6">
+              {filteredLogs.map((log) => (
+                <article class="bg-surface border border-border rounded-lg p-6 hover:bg-accent/5 transition-colors">
+                  <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                      <time class="text-sm text-text-body/70 mb-2 block" datetime={log.data.date.toISOString()}>
+                        {log.data.date.toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </time>
+                      {log.data.lastUpdated > log.data.date && (
+                        <span class="text-xs text-accent bg-accent/10 px-2 py-1 rounded ml-2">
+                          Updated
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <h3 class="text-xl font-semibold text-text-heading mb-3">
+                    <a href={`/lab/learning-log/${log.id}`} class="hover:text-accent transition-colors">
+                      {log.data.title}
+                    </a>
+                  </h3>
+                  
+                  <p class="text-text-body leading-relaxed mb-4">{log.data.excerpt}</p>
+                  
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    {log.data.tags.map((tag) => (
+                      <a 
+                        href={`/lab/learning-log?tag=${encodeURIComponent(tag)}`}
+                        class="text-xs px-2 py-1 bg-accent/10 text-accent-text rounded border border-accent/20 hover:bg-accent/20 transition-colors"
+                      >
+                        {tag}
+                      </a>
+                    ))}
+                  </div>
+                  
+                  <div class="flex items-center justify-between">
+                    <a 
+                      href={`/lab/learning-log/${log.id}`}
+                      class="text-accent hover:text-accent/80 font-medium text-sm transition-colors"
+                    >
+                      Read full log →
+                    </a>
+                    <span class="text-sm text-text-body/70">
+                      ~{Math.round((log.body || '').split(' ').length / 200)} min read
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : (
+          <section class="text-center py-16">
+            <div class="max-w-2xl mx-auto">
+              <h2 class="text-2xl font-bold text-text-heading mb-4">
+                No learning logs found
+              </h2>
+              <p class="text-text-body mb-8">
+                {selectedTag 
+                  ? `No learning logs found for the topic "${selectedTag}". Try selecting a different topic or view all posts.`
+                  : "No learning logs have been published yet. Check back soon to see my latest insights and experiments."
+                }
+              </p>
+              {selectedTag && (
+                <a 
+                  href="/lab/learning-log"
+                  class="inline-flex items-center gap-2 bg-accent text-accent-text rounded-lg hover:bg-accent/90 transition-colors"
+                >
+                  View All Topics
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </section>
+        )}
+
+        <!-- Stats -->
+        {learningLogs.length > 0 && (
+          <section class="mt-16 bg-surface/50 border border-border rounded-lg p-8">
+            <h2 class="text-xl font-bold text-text-heading mb-6 text-center">
+              Learning Log Stats
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{learningLogs.length}</div>
+                <div class="text-sm text-text-body">Total Posts</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">{allTags.length}</div>
+                <div class="text-sm text-text-body">Topics</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">
+                  {Math.round(learningLogs.reduce((sum, log) => sum + (log.body || '').split(' ').length, 0) / learningLogs.length)}
+                </div>
+                <div class="text-sm text-text-body">Avg Words</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-accent mb-2">
+                  {new Date(learningLogs[0]?.data.date).getFullYear() || '—'}
+                </div>
+                <div class="text-sm text-text-body">Latest Year</div>
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
+    </main>
+  </div>
+</BaseLayout>
