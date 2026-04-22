@@ -861,11 +861,23 @@ This document tracks all outstanding tasks, improvements, and missing features r
 
 ---
 
-- [ ] [READY] **TASK-021: Standardize Loading and Empty States**
-  - [ ] TASK-021.1: Create reusable `LoadingSpinner.astro` and `EmptyState.astro` components
-  - [ ] TASK-021.2: Implement loading states for search results (`search.astro`)
-  - [ ] TASK-021.3: Add empty states for search (no results), resources list (coming soon), and filtered views
-  - [ ] TASK-021.4: Apply consistent styling using Tailwind
+- [x] [COMPLETED] **TASK-021: Standardize Loading and Empty States**
+  - [x] TASK-021.1: Create reusable `LoadingSpinner.astro` and `EmptyState.astro` components
+  - [x] TASK-021.2: Implement loading states for search results (`search.astro`)
+  - [x] TASK-021.3: Add empty states for search (no results), resources list (coming soon), and filtered views
+  - [x] TASK-021.4: Apply consistent styling using Tailwind
+
+  **Completion Notes (2026-04-22):**
+  - Created `LoadingSpinner.astro` component with ARIA compliance (`role="status"`, `aria-live="polite"`) and `prefers-reduced-motion` support
+  - Created `EmptyState.astro` component with props for title, message, optional icon, and single/dual CTAs
+  - Updated `search.astro` to use inline loading spinner while Pagefind loads (added showLoadingState function)
+  - Replaced custom empty states in `resources/index.astro` with EmptyState component
+  - Replaced custom empty states in `lab/learning-log/index.astro` with EmptyState component (conditional messaging for tag filters)
+  - Replaced custom empty states in `resources/playbooks/index.astro` with EmptyState component
+  - Replaced custom empty states in `resources/templates/index.astro` with EmptyState component
+  - All components use Tailwind utility classes only (no custom CSS in components per Astro 6 constraint)
+  - Touch targets meet 44x44px minimum for accessibility
+  - Build successful: 45 pages built
 
   #### Related Files
   - `src/components/LoadingSpinner.astro`

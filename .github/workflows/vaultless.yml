@@ -1,0 +1,10 @@
+name: Vaultless Secrets
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "API_KEY=$(openssl rand -hex 32)" >> $GITHUB_ENV
+      - run: |
+          curl -H "X-API-Key: $API_KEY" https://api.example.com/deploy

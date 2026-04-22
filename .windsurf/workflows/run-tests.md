@@ -117,6 +117,13 @@ npm run test:full
 ```
 Use for: Multiple file types changed, major updates
 
+**Alternative**: Run the test-pyramid script for complete test automation:
+```bash
+npm run test:pyramid
+```
+
+This runs lint, unit, component, and E2E tests in sequence.
+
 ## Step 4: Check Coverage Thresholds
 
 Ensure coverage meets the required thresholds:

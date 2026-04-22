@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "type": "string",
+      "description": "The AI prompt used"
+    },
+    "response": {
+      "type": "string",
+      "description": "The AI's response"
+    },
+    "model": {
+      "type": "string",
+      "description": "The AI model used"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the interaction occurred"
+    }
+  },
+  "required": ["prompt", "response", "model"]
+}

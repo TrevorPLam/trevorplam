@@ -170,6 +170,13 @@ Verify no secrets are committed:
 git grep -i "password\|secret\|api_key\|token" -- ':!package-lock.json' -- ':!node_modules/'
 ```
 
+**Alternative**: Run the env:audit script to validate environment variables:
+```bash
+npm run env:audit
+```
+
+This checks for missing or empty environment variables against `.env.example`.
+
 Ensure:
 - No API keys in code
 - No database credentials

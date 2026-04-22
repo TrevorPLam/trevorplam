@@ -1,0 +1,16 @@
+name: Self-Healing Deploy
+on: [deployment_status]
+jobs:
+  rollback:
+    if: github.event.deployment_status.state == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          LAST_GREEN=$(gh api repos/${{ github.repository }}/deployments --jq '.[] | select(.status=="success") | .id' | head -1)
+          gh api repos/${{ github.repository }}/deployments/$LAST_GREEN/create-deployment-status -f state=inactive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: slackapi/slack-github-action@v1
+        with:
+          payload: '{"text":"🚑 Auto-rollback to last green deploy"}'

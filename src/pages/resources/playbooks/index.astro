@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Pagination from '../../../components/Pagination.astro';
+import EmptyState from '../../../components/EmptyState.astro';
 
 // Get all playbook resources
 const resources = await getCollection('resources');
@@ -124,34 +125,14 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}?page=${currentPage + 1}` 
         />
       </section>
     ) : (
-      <section class="text-center py-16">
-        <div class="max-w-2xl mx-auto">
-          <h2 class="text-2xl font-bold text-text-heading mb-4">
-            Playbooks Coming Soon
-          </h2>
-          <p class="text-text-body mb-8">
-            I'm currently developing comprehensive playbooks for operational excellence. 
-            These will include step-by-step guides for process optimization, team scaling, and systems implementation.
-          </p>
-          <div class="flex justify-center gap-4">
-            <a 
-              href="/connect" 
-              class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-            >
-              Get Notified
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </a>
-            <a 
-              href="/resources" 
-              class="inline-flex items-center gap-2 border border-border text-text-heading hover:bg-surface font-medium px-6 py-3 rounded-lg transition-colors"
-            >
-              View All Resources
-            </a>
-          </div>
-        </div>
-      </section>
+      <EmptyState
+        title="Playbooks Coming Soon"
+        message="I'm currently developing comprehensive playbooks for operational excellence. These will include step-by-step guides for process optimization, team scaling, and systems implementation."
+        ctaText="Get Notified"
+        ctaHref="/connect"
+        secondaryCtaText="View All Resources"
+        secondaryCtaHref="/resources"
+      />
     )}
 
     <!-- Navigation -->

@@ -58,7 +58,11 @@ Run type checking and linting before building:
 npm run check
 npm run lint
 ```
-// turbo
+
+**Alternative**: Run the quality-gate script for all-in-one validation:
+```bash
+npm run quality-gate
+```
 
 Fix any errors before proceeding with the build.
 

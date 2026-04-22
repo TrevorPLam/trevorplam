@@ -70,19 +70,18 @@ jobs:
           echo "✅ License check completed"
         continue-on-error: true
         
-      - name: Run SAST Scan with ESLint Security
+      - name: Run SAST Scan with Biome Security
         run: |
           echo "🔍 Running static application security testing..."
           
-          # Run ESLint with security rules (will fail on security issues)
-          npx eslint . --ext .ts,.js,.astro --format=json --max-warnings 0 > sast-report.json 2>/dev/null || SAST_EXIT=$?
+          # Run Biome with security rules (will fail on security issues)
+          npx @biomejs/biome check . --diagnostic-level=error --only=security --json > sast-report.json 2>/dev/null || SAST_EXIT=$?
           
-          # Check for any security-related rules that fired
+          # Check for any security-related diagnostics
           if [ -f sast-report.json ]; then
-            SECURITY_ISSUES=$(cat sast-report.json | npx json -a -g 'this.messages && this.messages.some(m => m.ruleId && (m.ruleId.includes("security") || m.ruleId.includes("no-eval") || m.ruleId.includes("no-inner-html")))' | wc -l)
+            SECURITY_ISSUES=$(cat sast-report.json | npx json -a 'this.diagnostics.length' 2>/dev/null || echo 0)
             if [ "$SECURITY_ISSUES" -gt 0 ]; then
               echo "⚠️ Found $SECURITY_ISSUES potential security issues"
-              cat sast-report.json | npx json -a -g 'this.messages && this.messages.filter(m => m.ruleId && (m.ruleId.includes("security") || m.ruleId.includes("no-eval") || m.ruleId.includes("no-inner-html")))' 
             fi
           fi
           

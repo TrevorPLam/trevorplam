@@ -4,6 +4,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SidebarNavigation from '../../../components/SidebarNavigation.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Pagination from '../../../components/Pagination.astro';
+import EmptyState from '../../../components/EmptyState.astro';
 
 // Get all learning logs
 const learningLogs = await getCollection('learningLogs');
@@ -142,30 +143,15 @@ const nextUrl = currentPage < totalPages ? `${baseUrl}&page=${currentPage + 1}` 
             />
           </section>
         ) : (
-          <section class="text-center py-16">
-            <div class="max-w-2xl mx-auto">
-              <h2 class="text-2xl font-bold text-text-heading mb-4">
-                No learning logs found
-              </h2>
-              <p class="text-text-body mb-8">
-                {selectedTag 
-                  ? `No learning logs found for the topic "${selectedTag}". Try selecting a different topic or view all posts.`
-                  : "No learning logs have been published yet. Check back soon to see my latest insights and experiments."
-                }
-              </p>
-              {selectedTag && (
-                <a 
-                  href="/lab/learning-log"
-                  class="inline-flex items-center gap-2 bg-accent text-accent-text rounded-lg hover:bg-accent/90 transition-colors"
-                >
-                  View All Topics
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
-              )}
-            </div>
-          </section>
+          <EmptyState
+            title="No learning logs found"
+            message={selectedTag 
+              ? `No learning logs found for the topic "${selectedTag}". Try selecting a different topic or view all posts.`
+              : "No learning logs have been published yet. Check back soon to see my latest insights and experiments."
+            }
+            ctaText={selectedTag ? "View All Topics" : undefined}
+            ctaHref={selectedTag ? "/lab/learning-log" : undefined}
+          />
         )}
 
         <!-- Stats -->

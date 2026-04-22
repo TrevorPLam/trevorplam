@@ -1,0 +1,17 @@
+{
+  "project": {
+    "summary": "Personal portfolio site for operations / Chief of Staff / HR-payroll roles",
+    "techStack": "Astro 6, Tailwind CSS v4, TypeScript, MDX"
+  },
+  "conventions": {
+    "summary": "Use Content Layer API, ClientRouter, CSP enabled, strict TypeScript",
+    "testing": "Vitest for unit tests, Playwright for E2E and accessibility"
+  },
+  "aiRules": {
+    "summary": "See AGENTS.md for complete AI instructions and project-specific guidance"
+  },
+  "content": {
+    "summary": "Case studies, capabilities, learning logs, projects, resources in /src/content/",
+    "data": "Metrics, skills, timeline in /data/ directory"
+  }
+}

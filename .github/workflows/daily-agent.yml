@@ -1,0 +1,13 @@
+name: Daily AI Report
+on:
+  schedule:
+    - cron: '0 9 * * 1-5'
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/agentic@v1
+        with:
+          goal: "Analyze recent activity, test coverage, vulnerabilities, AI drift. Create issue with summary."
+          engine: claude-code

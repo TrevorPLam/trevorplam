@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import EmptyState from '../../components/EmptyState.astro';
 
 // Get resources and skills for display
 const resources = await getCollection('resources');
@@ -186,34 +187,14 @@ const recentResources = sortedResources.slice(0, 6);
 
     <!-- Empty State -->
     {resources.length === 0 && skills.length === 0 && (
-      <section class="text-center py-16">
-        <div class="max-w-2xl mx-auto">
-          <h2 class="text-2xl font-bold text-text-heading mb-4">
-            Building the Resource Library
-          </h2>
-          <p class="text-text-body mb-8">
-            I'm currently curating and creating practical resources for operations professionals. 
-            Soon this will be filled with playbooks, templates, and tools drawn from real-world experience.
-          </p>
-          <div class="flex justify-center gap-4">
-            <a 
-              href="/connect" 
-              class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-            >
-              Get Notified
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </a>
-            <a 
-              href="/capabilities" 
-              class="inline-flex items-center gap-2 border border-border text-text-heading hover:bg-surface font-medium px-6 py-3 rounded-lg transition-colors"
-            >
-              View Capabilities
-            </a>
-          </div>
-        </div>
-      </section>
+      <EmptyState
+        title="Building the Resource Library"
+        message="I'm currently curating and creating practical resources for operations professionals. Soon this will be filled with playbooks, templates, and tools drawn from real-world experience."
+        ctaText="Get Notified"
+        ctaHref="/connect"
+        secondaryCtaText="View Capabilities"
+        secondaryCtaHref="/capabilities"
+      />
     )}
 
     <!-- Trust Cues -->

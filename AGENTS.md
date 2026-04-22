@@ -114,3 +114,17 @@ This file gives AI coding agents project‑specific guidance for the Trevor Lam 
 | Missing `mainEntityOfPage` in JSON‑LD | All schemas must link `@id` to `#person` and `#website` |
 | Forgetting `color-scheme: dark` on `:root` | Required for proper dark mode styling |
 
+## Powerhouse Scripts
+
+The repository includes 40+ automation scripts in `scripts/` for self-managing operations:
+
+- **Foundation**: `bootstrap`, `quality-gate`, `test-pyramid`, `doctor`, `sync`
+- **AI-Native**: `ai:validate`, `ai:context`, `ai:compress`, `ai:brief` (in `scripts/ai/`)
+- **Monorepo**: `mookme:init`, `turbo:pipeline`, `swarm` (in `scripts/monorepo/`)
+- **DevOps**: `bash-nuke`, `timewarp`, `simulate`, `gitops` (in `scripts/ops/`)
+- **Health**: `env:audit`, `pulse`, `cycle-hunter` (in `scripts/health/`)
+- **Reporting**: `standup`, `pr:describe`, `oracle`
+- **Security**: `backup`, self-healing workflows (`.github/workflows/`)
+
+See `docs/powerhouse-scripts.md` for complete documentation.
+

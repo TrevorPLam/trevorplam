@@ -154,6 +154,19 @@ trevorplam/
 |   |-- serve-dist.mjs               # Distribution server
 |   |-- test-orchestrator.mjs        # Test orchestration
 |   |-- timing-collector.mjs         # Test timing collection
+|   |-- bootstrap.sh                # One-command environment setup
+|   |-- quality-gate.sh              # All-in-one local CI
+|   |-- test-pyramid.sh              # Complete test automation
+|   |-- doctor.sh                   # Prerequisite validator
+|   |-- sync.sh                     # Pull & rebuild without headaches
+|   |-- ai/                         # AI-native scripts (validate, context, compress)
+|   |-- monorepo/                   # Monorepo scripts (mookme, turbo, swarm)
+|   |-- ops/                        # DevOps tools (bash-nuke, timewarp, simulate, gitops)
+|   |-- health/                     # Health scripts (env-audit, pulse, cycle-hunter)
+|   |-- standup.sh                  # Daily standup summary
+|   |-- pr-description.sh           # Auto-generate PR body
+|   |-- backup.sh                   # Pre-migration database snapshot
+|   |-- bash-oracle.sh              # Instant one-liner lookup
 |-- monitoring/            # Performance monitoring configuration
 |-- docker/                # Docker configuration for testing
 |-- .github/workflows/     # CI/CD pipelines

@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SearchBar from '../components/SearchBar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SidebarNavigation from '../components/SidebarNavigation.astro';
+import LoadingSpinner from '../components/LoadingSpinner.astro';
 
 // Get query parameter from URL
 const query = Astro.url.searchParams.get('q') || '';
@@ -237,6 +238,9 @@ const typeCounts = allContent.reduce((acc, item) => {
       const searchContainer = document.getElementById('search');
 
       try {
+        // Show loading state while Pagefind loads
+        showLoadingState(searchContainer);
+
         // Load Pagefind script dynamically
         const script = document.createElement('script');
         script.src = '/pagefind/pagefind.js';
@@ -293,6 +297,20 @@ const typeCounts = allContent.reduce((acc, item) => {
           <a href="/search" class="text-accent hover:underline">
             Clear search and browse all content
           </a>
+        </div>
+      `;
+    }
+  }
+
+  function showLoadingState(container) {
+    if (container) {
+      container.innerHTML = `
+        <div class="flex flex-col items-center justify-center p-8">
+          <svg class="animate-spin w-8 h-8 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <p class="mt-4 text-sm text-text-body">Loading search...</p>
         </div>
       `;
     }
