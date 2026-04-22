@@ -1,0 +1,92 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.1",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T04:23:45.974Z",
+      "description": "User API response mock (DEPRECATED: Replaced by v1.1.0)",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "5808500b-a19c-477d-b9ff-97248f4f88dd",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-17T20:46:11.243Z",
+        "updatedAt": "2026-04-22T02:37:53.799Z",
+        "lastLoginAt": "2026-04-21T16:46:37.470Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        }
+      },
+      "deprecated": true
+    },
+    {
+      "description": "Added phone number field",
+      "changes": [
+        "Added phone number to user schema"
+      ],
+      "schema": {
+        "id": "5808500b-a19c-477d-b9ff-97248f4f88dd",
+        "email": "Marvin_OConner71@hotmail.com",
+        "firstName": "Stella",
+        "lastName": "Aufderhar",
+        "role": "guest",
+        "status": "suspended",
+        "avatar": "https://avatars.githubusercontent.com/u/68235638",
+        "createdAt": "2025-10-17T20:46:11.243Z",
+        "updatedAt": "2026-04-22T02:37:53.799Z",
+        "lastLoginAt": "2026-04-21T16:46:37.470Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "952a:a0ff:a90d:b36d:833d:6c99:df61:4ecf",
+          "userAgent": "FakerBot/5.10.0",
+          "location": {
+            "country": "Guinea",
+            "city": "Leilachester",
+            "timezone": "Europe/Samara"
+          }
+        },
+        "phone": "+1234567890"
+      },
+      "version": "1.0.1",
+      "createdAt": "2026-04-22T04:23:46.073Z"
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "c51ffd64-7b7b-4ce9-aaac-d03b9f9f7d4b"
+}

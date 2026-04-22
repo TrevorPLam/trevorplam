@@ -33,21 +33,29 @@ describe('isValidEmail', () => {
 });
 
 describe('isValidUrl', () => {
-  test('returns true for valid URLs', () => {
+  test('returns true for valid URLs with allowed protocols', () => {
     expect(isValidUrl('https://example.com')).toBe(true);
     expect(isValidUrl('http://localhost:3000')).toBe(true);
     expect(isValidUrl('https://example.com/path?query=1')).toBe(true);
+    expect(isValidUrl('ftp://example.com')).toBe(true);
+    expect(isValidUrl('mailto:user@example.com')).toBe(true);
   });
 
   test('returns false for invalid URLs', () => {
     expect(isValidUrl('')).toBe(false);
     expect(isValidUrl('not-a-url')).toBe(false);
-    expect(isValidUrl('ftp://example.com')).toBe(true); // ftp is valid
-    expect(isValidUrl('javascript:alert(1)')).toBe(true); // protocol-relative is valid
+    expect(isValidUrl('//example.com')).toBe(false); // needs protocol
   });
 
-  test('handles protocol-relative URLs', () => {
-    expect(isValidUrl('//example.com')).toBe(false); // needs protocol
+  test('blocks dangerous protocols', () => {
+    expect(isValidUrl('javascript:alert(1)')).toBe(false);
+    expect(isValidUrl('data:text/html,<script>alert(1)</script>')).toBe(false);
+    expect(isValidUrl('vbscript:msgbox(1)')).toBe(false);
+  });
+
+  test('respects custom allowedProtocols list', () => {
+    expect(isValidUrl('ftp://example.com', ['https:', 'http:'])).toBe(false);
+    expect(isValidUrl('https://example.com', ['https:'])).toBe(true);
   });
 });
 

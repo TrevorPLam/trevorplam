@@ -1,0 +1,50 @@
+[
+  {
+    "testFile": "tests/unit/utils.test.ts",
+    "duration": 250,
+    "category": "unit",
+    "timestamp": "2026-04-22T04:41:33.943Z",
+    "environment": "local",
+    "metadata": {
+      "transformTime": 10,
+      "setupTime": 5,
+      "importTime": 20,
+      "testExecutionTime": 215,
+      "environmentTime": 0,
+      "flakinessScore": 0,
+      "passRate": 1
+    }
+  },
+  {
+    "testFile": "tests/components/MetricCard.test.ts",
+    "duration": 450,
+    "category": "components",
+    "timestamp": "2026-04-22T04:41:33.944Z",
+    "environment": "local",
+    "metadata": {
+      "transformTime": 15,
+      "setupTime": 8,
+      "importTime": 35,
+      "testExecutionTime": 392,
+      "environmentTime": 0,
+      "flakinessScore": 0.05,
+      "passRate": 0.95
+    }
+  },
+  {
+    "testFile": "tests/integration/api.test.ts",
+    "duration": 1200,
+    "category": "integration",
+    "timestamp": "2026-04-22T04:41:33.944Z",
+    "environment": "local",
+    "metadata": {
+      "transformTime": 25,
+      "setupTime": 12,
+      "importTime": 80,
+      "testExecutionTime": 1083,
+      "environmentTime": 0,
+      "flakinessScore": 0.1,
+      "passRate": 0.9
+    }
+  }
+]

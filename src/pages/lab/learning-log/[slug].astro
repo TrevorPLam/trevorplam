@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('learningLogs');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+type Props = { post: CollectionEntry<'learningLogs'> };
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+
+// Get related posts based on tags
+const allPosts = await getCollection('learningLogs');
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id && p.data.tags.some(tag => post.data.tags.includes(tag)))
+  .slice(0, 3);
+---
+
+<BaseLayout 
+  title={post.data.title}
+  description={post.data.excerpt}
+>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2 text-sm text-text-muted">
+        <li>
+          <a href="/" class="hover:text-text-heading">Home</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li>
+          <a href="/lab" class="hover:text-text-heading">Lab</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li>
+          <a href="/lab/learning-log" class="hover:text-text-heading">Learning Logs</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li class="text-text-heading" aria-current="page">
+          {post.data.title}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="mb-12">
+      <div class="flex items-center gap-4 mb-6">
+        <time 
+          class="text-sm text-text-muted" 
+          datetime={post.data.date.toISOString()}
+        >
+          {post.data.date.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}
+        </time>
+        {post.data.lastUpdated > post.data.date && (
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-teal bg-teal/10 px-2 py-1 rounded">
+              Updated
+            </span>
+            <time 
+              class="text-xs text-text-muted" 
+              datetime={post.data.lastUpdated.toISOString()}
+            >
+              {post.data.lastUpdated.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric',
+                year: 'numeric'
+              })}
+            </time>
+          </div>
+        )}
+      </div>
+      
+      <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">
+        {post.data.title}
+      </h1>
+      
+      <p class="text-xl text-text-body mb-8 max-w-3xl">
+        {post.data.excerpt}
+      </p>
+      
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2 mb-8">
+        {post.data.tags.map((tag) => (
+          <span class="text-sm bg-surface border border-border px-3 py-1 rounded text-text-muted">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- Trust Cues -->
+      <div class="bg-surface/50 border border-border rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-text-muted">
+            <span class="font-medium text-text-heading">Learning Log:</span> 
+            Part of my public learning journey where I document insights, experiments, and reflections.
+          </div>
+          <div class="flex items-center gap-4 text-sm text-text-muted">
+            <span>~{Math.round(post.body.split(' ').length / 200)} min read</span>
+            <span>Filed under {post.data.tags.length} topics</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Table of Contents -->
+    {headings.length > 2 && (
+      <aside class="mb-12" aria-label="Table of contents">
+        <h2 class="text-lg font-semibold text-text-heading mb-4">Table of Contents</h2>
+        <nav class="bg-surface border border-border rounded-lg p-6">
+          <ol class="space-y-2">
+            {headings.map((heading) => (
+              <li>
+                <a 
+                  href={`#${heading.slug}`}
+                  class={`block hover:text-teal transition-colors ${
+                    heading.depth === 2 ? 'font-medium' : 'pl-4 text-sm'
+                  }`}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
+    )}
+
+    <!-- Article Content -->
+    <article class="prose prose-lg max-w-none mb-16">
+      <div class="bg-surface border border-border rounded-lg p-8">
+        <Content />
+      </div>
+    </article>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="mb-16" aria-labelledby="related-heading">
+        <h2 id="related-heading" class="text-2xl font-bold text-text-heading mb-8">
+          Related Learning Logs
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedPosts.map((relatedPost) => (
+            <article class="bg-surface border border-border rounded-lg p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <time class="text-sm text-text-muted" datetime={relatedPost.data.date.toISOString()}>
+                  {relatedPost.data.date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </time>
+                {relatedPost.data.lastUpdated > relatedPost.data.date && (
+                  <span class="text-xs text-teal bg-teal/10 px-2 py-1 rounded">
+                    Updated
+                  </span>
+                )}
+              </div>
+              <h3 class="text-lg font-semibold text-text-heading mb-3">
+                <a href={`/lab/learning-log/${relatedPost.id}`} class="hover:text-teal transition-colors">
+                  {relatedPost.data.title}
+                </a>
+              </h3>
+              <p class="text-text-body text-sm mb-4 line-clamp-3">
+                {relatedPost.data.excerpt}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {relatedPost.data.tags.map((tag) => (
+                  <span class="text-xs bg-surface/50 border border-border px-2 py-1 rounded text-text-muted">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Navigation -->
+    <nav class="mb-16" aria-label="Learning log navigation">
+      <div class="flex justify-between items-center bg-surface border border-border rounded-lg p-6">
+        <a 
+          href="/lab/learning-log" 
+          class="inline-flex items-center gap-2 text-text-body hover:text-text-heading transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Learning Logs
+        </a>
+        
+        <a 
+          href="/lab" 
+          class="inline-flex items-center gap-2 text-text-body hover:text-text-heading transition-colors"
+        >
+          Lab Overview
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- CTA -->
+    <section class="text-center">
+      <h2 class="text-2xl font-bold text-text-heading mb-4">
+        Found this useful?
+      </h2>
+      <p class="text-text-body mb-8 max-w-2xl mx-auto">
+        I'm always learning and documenting my process. If you found insights here that resonate 
+        with your operational challenges, let's connect.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a 
+          href="/connect" 
+          class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-8 py-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+        >
+          Let's Connect
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <a 
+          href="/lab" 
+          class="inline-flex items-center gap-2 border border-border text-text-heading hover:bg-surface font-medium px-8 py-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+        >
+          Explore More
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .prose {
+    color: var(--color-text-body);
+    line-height: 1.7;
+  }
+  
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+    color: var(--color-text-heading);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  .prose h1 { font-size: 2.25rem; }
+  .prose h2 { font-size: 1.875rem; }
+  .prose h3 { font-size: 1.5rem; }
+  .prose h4 { font-size: 1.25rem; }
+  
+  .prose p {
+    margin-bottom: 1.5rem;
+  }
+  
+  .prose a {
+    color: var(--color-teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  
+  .prose a:hover {
+    color: var(--color-teal-text);
+  }
+  
+  .prose ul, .prose ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose blockquote {
+    border-left: 4px solid var(--color-teal);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-text-body);
+    opacity: 0.8;
+  }
+  
+  .prose code {
+    background-color: var(--color-surface);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--color-teal-text);
+  }
+  
+  .prose pre {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .prose pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

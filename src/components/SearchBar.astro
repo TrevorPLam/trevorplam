@@ -1,0 +1,139 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all content collections for search indexing
+const allCapabilities = await getCollection('capabilities');
+const allLearningLogs = await getCollection('learning-logs');
+const allProjects = await getCollection('projects');
+const allResources = await getCollection('resources');
+
+// Combine all content for search
+const allContent = [
+  ...allCapabilities.map(item => ({ ...item, type: 'capability', slug: item.data.slug || item.id })),
+  ...allLearningLogs.map(item => ({ ...item, type: 'learning-log', slug: item.id })),
+  ...allProjects.map(item => ({ ...item, type: 'project', slug: item.data.slug || item.id })),
+  ...allResources.map(item => ({ ...item, type: 'resource', slug: item.data.slug || item.id }))
+];
+
+interface SearchResult {
+  title: string;
+  href: string;
+  type: string;
+  excerpt?: string;
+}
+
+function searchContent(query: string): SearchResult[] {
+  if (!query || query.length < 2) return [];
+  
+  const searchTerm = query.toLowerCase();
+  
+  return allContent
+    .filter(item => {
+      const title = item.data.title?.toLowerCase() || '';
+      const excerpt = item.data.excerpt?.toLowerCase() || '';
+      const content = item.data.description?.toLowerCase() || '';
+      
+      return title.includes(searchTerm) || excerpt.includes(searchTerm) || content.includes(searchTerm);
+    })
+    .map(item => ({
+      title: item.data.title,
+      href: `/${item.collection}/${item.slug}`,
+      type: item.type,
+      excerpt: item.data.excerpt
+    }))
+    .slice(0, 8); // Limit results
+}
+---
+
+<div class="relative" x-data="{ 
+  query: '', 
+  results: [],
+  open: false,
+  search() { 
+    this.results = this.query.length >= 2 ? 
+      ${JSON.stringify(searchContent('X'))}.map(result => ({...result, title: result.title.toLowerCase().includes(this.query.toLowerCase()) ? result.title : result.title})).filter(r => r.title.toLowerCase().includes(this.query.toLowerCase()) || r.excerpt?.toLowerCase().includes(this.query.toLowerCase())) : [];
+    this.open = this.query.length >= 2 && this.results.length > 0;
+  }
+}">
+  <!-- Search Input -->
+  <div class="relative">
+    <input
+      type="search"
+      placeholder="Search..."
+      x-model="query"
+      @input="search()"
+      @focus="search()"
+      @keydown.escape="open = false; query = ''"
+      class="w-full px-4 py-2 pl-10 bg-surface border border-border rounded-md text-text-heading placeholder-text-body/50 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent min-h-[44px]"
+      aria-label="Search site content"
+    />
+    
+    <!-- Search Icon -->
+    <svg 
+      class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-body/50" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+    </svg>
+  </div>
+
+  <!-- Search Results Dropdown -->
+  <div 
+    x-show="open" 
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 transform scale-95"
+    x-transition:enter-end="opacity-100 transform scale-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 transform scale-100"
+    x-transition:leave-end="opacity-0 transform scale-95"
+    @click.away="open = false"
+    class="absolute top-full left-0 right-0 mt-1 bg-surface border border-border rounded-md shadow-lg z-50 max-h-80 overflow-y-auto"
+  >
+    <div class="p-2">
+      <template x-for="result in results" :key="result.href">
+        <a 
+          :href="result.href"
+          class="flex items-start px-3 py-2 rounded-md hover:bg-accent/20 transition-colors min-h-[44px]"
+          @click="open = false; query = ''"
+        >
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <span class="text-text-heading font-medium" x-text="result.title"></span>
+              <span class="text-xs text-text-body/50 bg-accent/20 px-2 py-1 rounded" x-text="result.type"></span>
+            </div>
+            <template x-if="result.excerpt">
+              <p class="text-sm text-text-body/70 mt-1 line-clamp-2" x-text="result.excerpt"></p>
+            </template>
+          </div>
+        </a>
+      </template>
+      
+      <div x-show="results.length === 0 && query.length >= 2" class="text-center py-4 text-text-body/50">
+        No results found
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Alpine.js will be loaded via CDN or included in the build
+  // For now, we'll provide a fallback implementation
+  if (typeof window.Alpine === 'undefined') {
+    // Simple fallback search without Alpine.js
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInputs = document.querySelectorAll('input[type="search"]');
+      searchInputs.forEach(input => {
+        input.addEventListener('input', (e) => {
+          const query = (e.target as HTMLInputElement).value;
+          // Basic search implementation without dropdown for now
+          if (query.length >= 2) {
+            console.log('Search query:', query);
+            // Could implement basic search navigation here
+          }
+        });
+      });
+    });
+  }
+</script>

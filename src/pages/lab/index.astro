@@ -1,0 +1,283 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import LinkCard from '../../components/LinkCard.astro';
+
+// Get learning logs and projects for display
+const learningLogs = await getCollection('learningLogs');
+const projects = await getCollection('projects');
+
+// Sort by date (newest first)
+const sortedLearningLogs = learningLogs.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const sortedProjects = projects.sort((a, b) => 
+  new Date(b.data.startDate).getTime() - new Date(a.data.startDate).getTime()
+);
+
+// Get recent items for overview
+const recentLearningLogs = sortedLearningLogs.slice(0, 3);
+const recentProjects = sortedProjects.slice(0, 3);
+---
+
+<BaseLayout 
+  title="Lab - Trevor Lam" 
+  description="Active thinking, work in progress, and learning experiments from my operations and systems work."
+>
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-16">
+      <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">
+        Lab
+      </h1>
+      <p class="text-xl text-text-body mb-8 max-w-3xl mx-auto">
+        Active thinking, work in progress, and learning experiments from my operations and systems work. 
+        This is where I build, test, and learn in public.
+      </p>
+      <div class="flex justify-center gap-4 text-sm text-text-muted">
+        <span class="bg-surface border border-border rounded px-3 py-1">
+          {learningLogs.length} Learning Logs
+        </span>
+        <span class="bg-surface border border-border rounded px-3 py-1">
+          {projects.length} Active Projects
+        </span>
+      </div>
+    </header>
+
+    <!-- Quick Navigation -->
+    <nav class="mb-16" aria-label="Lab sections">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a 
+          href="/lab/learning-log" 
+          class="block bg-surface border border-border rounded-lg p-6 hover:border-teal transition-colors"
+        >
+          <h3 class="text-lg font-semibold text-text-heading mb-2">Learning Logs</h3>
+          <p class="text-text-body text-sm mb-4">
+            Essays, tutorials, and notes showing how I think in motion. Tagged by theme and always current.
+          </p>
+          <div class="flex items-center text-teal text-sm font-medium">
+            View All Logs
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </a>
+
+        <a 
+          href="/lab/projects" 
+          class="block bg-surface border border-border rounded-lg p-6 hover:border-teal transition-colors"
+        >
+          <h3 class="text-lg font-semibold text-text-heading mb-2">Projects</h3>
+          <p class="text-text-body text-sm mb-4">
+            Work in progress and completed experiments. From systems optimization to tool development.
+          </p>
+          <div class="flex items-center text-teal text-sm font-medium">
+            View All Projects
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </a>
+
+        <a 
+          href="/lab/tech-stack" 
+          class="block bg-surface border border-border rounded-lg p-6 hover:border-teal transition-colors"
+        >
+          <h3 class="text-lg font-semibold text-text-heading mb-2">Tech Stack</h3>
+          <p class="text-text-body text-sm mb-4">
+            Tools, technologies, and systems I use to build and optimize operations. Always evolving.
+          </p>
+          <div class="flex items-center text-teal text-sm font-medium">
+            View Stack Details
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Recent Learning Logs -->
+    {recentLearningLogs.length > 0 && (
+      <section class="mb-16" aria-labelledby="recent-logs-heading">
+        <h2 id="recent-logs-heading" class="text-2xl font-bold text-text-heading mb-8">
+          Recent Learning Logs
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recentLearningLogs.map((log) => (
+            <article class="bg-surface border border-border rounded-lg p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <time class="text-sm text-text-muted" datetime={log.data.date.toISOString()}>
+                  {log.data.date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                  })}
+                </time>
+                {log.data.lastUpdated > log.data.date && (
+                  <span class="text-xs text-teal bg-teal/10 px-2 py-1 rounded">
+                    Updated
+                  </span>
+                )}
+              </div>
+              <h3 class="text-lg font-semibold text-text-heading mb-3">
+                <a href={`/lab/learning-log/${log.slug}`} class="hover:text-teal transition-colors">
+                  {log.data.title}
+                </a>
+              </h3>
+              <p class="text-text-body text-sm mb-4 line-clamp-3">
+                {log.data.excerpt}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {log.data.tags.map((tag) => (
+                  <span class="text-xs bg-surface/50 border border-border px-2 py-1 rounded text-text-muted">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+        {learningLogs.length > 3 && (
+          <div class="text-center mt-8">
+            <a 
+              href="/lab/learning-log" 
+              class="inline-flex items-center gap-2 text-teal hover:text-teal/80 font-medium"
+            >
+              View All {learningLogs.length} Learning Logs
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Recent Projects -->
+    {recentProjects.length > 0 && (
+      <section class="mb-16" aria-labelledby="recent-projects-heading">
+        <h2 id="recent-projects-heading" class="text-2xl font-bold text-text-heading mb-8">
+          Recent Projects
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {recentProjects.map((project) => (
+            <article class="bg-surface border border-border rounded-lg p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class={`text-xs px-2 py-1 rounded font-medium ${
+                  project.data.status === 'active' 
+                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    : project.data.status === 'completed'
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+                }`}>
+                  {project.data.status.charAt(0).toUpperCase() + project.data.status.slice(1)}
+                </span>
+                <time class="text-sm text-text-muted" datetime={project.data.startDate.toISOString()}>
+                  {project.data.startDate.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'short' 
+                  })}
+                </time>
+              </div>
+              <h3 class="text-lg font-semibold text-text-heading mb-3">
+                <a href={`/lab/projects/${project.slug}`} class="hover:text-teal transition-colors">
+                  {project.data.title}
+                </a>
+              </h3>
+              <p class="text-text-body text-sm mb-4 line-clamp-3">
+                {project.data.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {project.data.technologies.slice(0, 3).map((tech) => (
+                  <span class="text-xs bg-surface/50 border border-border px-2 py-1 rounded text-text-muted">
+                    {tech}
+                  </span>
+                ))}
+                {project.data.technologies.length > 3 && (
+                  <span class="text-xs text-text-muted">
+                    +{project.data.technologies.length - 3} more
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+        {projects.length > 3 && (
+          <div class="text-center mt-8">
+            <a 
+              href="/lab/projects" 
+              class="inline-flex items-center gap-2 text-teal hover:text-teal/80 font-medium"
+            >
+              View All {projects.length} Projects
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- Empty State -->
+    {learningLogs.length === 0 && projects.length === 0 && (
+      <section class="text-center py-16">
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-2xl font-bold text-text-heading mb-4">
+            Building in Public
+          </h2>
+          <p class="text-text-body mb-8">
+            I'm currently setting up my Lab space. Soon this will be filled with learning logs, 
+            active projects, and experiments from my operations work. Check back soon to see 
+            how I think through problems and build solutions.
+          </p>
+          <div class="flex justify-center gap-4">
+            <a 
+              href="/connect" 
+              class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+            >
+              Get Notified
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+            <a 
+              href="/capabilities" 
+              class="inline-flex items-center gap-2 border border-border text-text-heading hover:bg-surface font-medium px-6 py-3 rounded-lg transition-colors"
+            >
+              View My Work
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Trust Cues -->
+    <section class="bg-surface/50 border border-border rounded-lg p-8 mt-16">
+      <h2 class="text-xl font-bold text-text-heading mb-6 text-center">
+        Why I Share My Learning Process
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="font-semibold text-teal mb-3">Builds Trust</h3>
+          <p class="text-text-body text-sm">
+            Showing my thinking process demonstrates expertise and builds confidence in my approach to complex operational challenges.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-teal mb-3">Living Knowledge Base</h3>
+          <p class="text-text-body text-sm">
+            This becomes a searchable record of solutions and patterns that I can reference and improve over time.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-teal mb-3">Continuous Growth</h3>
+          <p class="text-text-body text-sm">
+            Public learning keeps me accountable and ensures I'm always developing new skills and insights.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

@@ -70,6 +70,9 @@ export function formatDate(date: Date | string, options?: Intl.DateTimeFormatOpt
  */
 export function getRelativeTime(date: Date | string): string {
   const d = typeof date === 'string' ? new Date(date) : date;
+  // Handle invalid dates
+  if (isNaN(d.getTime())) return formatDate(new Date());
+  
   const now = new Date();
   const diffMs = now.getTime() - d.getTime();
   const diffSecs = Math.round(diffMs / 1000);
@@ -106,6 +109,8 @@ export function getRelativeTime(date: Date | string): string {
  */
 export function isPast(date: Date | string): boolean {
   const d = typeof date === 'string' ? new Date(date) : date;
+  // Handle invalid dates
+  if (isNaN(d.getTime())) return false;
   return d.getTime() < Date.now();
 }
 
@@ -130,6 +135,8 @@ export function isPast(date: Date | string): boolean {
  */
 export function isFuture(date: Date | string): boolean {
   const d = typeof date === 'string' ? new Date(date) : date;
+  // Handle invalid dates
+  if (isNaN(d.getTime())) return false;
   return d.getTime() > Date.now();
 }
 

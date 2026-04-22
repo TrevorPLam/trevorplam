@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T04:23:47.480Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "8fbf609b-600f-41d2-a899-3f08084d1a2c",
+        "email": "Dante_Trantow72@gmail.com",
+        "firstName": "Francisco",
+        "lastName": "Weber",
+        "role": "moderator",
+        "status": "pending",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/10.jpg",
+        "createdAt": "2026-01-07T02:34:08.296Z",
+        "updatedAt": "2026-04-22T02:24:54.113Z",
+        "lastLoginAt": "2026-04-21T23:40:56.453Z",
+        "preferences": {
+          "theme": "light",
+          "language": "es",
+          "notifications": true
+        },
+        "metadata": {
+          "ipAddress": "108.200.173.111",
+          "userAgent": "FakerBot/6.15.16",
+          "location": {
+            "country": "Guinea-Bissau",
+            "city": "Kozeycester",
+            "timezone": "America/Bogota"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "fb6cce32-4d17-4c2d-aa74-348806c297f3"
+}

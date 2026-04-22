@@ -32,9 +32,13 @@ class ErrorMonitoring {
   }
 
   private initialize() {
-    // Check debug mode
-    this.isDebugMode = localStorage.getItem('debug-mode') === 'true' || 
-                     new URLSearchParams(window.location.search).has('debug');
+    // Check debug mode — wrap in try/catch for browsers with storage blocked
+    try {
+      this.isDebugMode = localStorage.getItem('debug-mode') === 'true' || 
+                       new URLSearchParams(window.location.search).has('debug');
+    } catch {
+      this.isDebugMode = new URLSearchParams(window.location.search).has('debug');
+    }
 
     // Setup global error handlers
     this.setupGlobalErrorHandlers();
@@ -340,12 +344,20 @@ class ErrorMonitoring {
 
   public enableDebugMode(): void {
     this.isDebugMode = true;
-    localStorage.setItem('debug-mode', 'true');
+    try {
+      localStorage.setItem('debug-mode', 'true');
+    } catch {
+      // Storage unavailable — debug mode active for this session only
+    }
   }
 
   public disableDebugMode(): void {
     this.isDebugMode = false;
-    localStorage.removeItem('debug-mode');
+    try {
+      localStorage.removeItem('debug-mode');
+    } catch {
+      // Storage unavailable
+    }
   }
 }
 

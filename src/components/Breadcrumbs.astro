@@ -1,0 +1,81 @@
+---
+import { navigationConfig } from '../config/navigation';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+function getBreadcrumbs(path: string): Array<{ name: string; href: string }> {
+  const breadcrumbs: Array<{ name: string; href: string }> = [];
+  
+  // Add home
+  breadcrumbs.push({ name: 'Dashboard', href: '/' });
+  
+  if (path === '/') return breadcrumbs;
+  
+  const pathSegments = path.split('/').filter(Boolean);
+  let currentHref = '';
+  
+  for (const segment of pathSegments) {
+    currentHref += `/${segment}`;
+    
+    // Find matching navigation item
+    let foundName = segment;
+    for (const item of navigationConfig.main) {
+      if (item.href === currentHref) {
+        foundName = item.name;
+        break;
+      }
+      if (item.children) {
+        const child = item.children.find(child => child.href === currentHref);
+        if (child) {
+          foundName = child.name;
+          break;
+        }
+      }
+    }
+    
+    // Convert kebab-case to Title Case for dynamic routes
+    if (foundName === segment) {
+      foundName = segment
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+    
+    breadcrumbs.push({ name: foundName, href: currentHref });
+  }
+  
+  return breadcrumbs;
+}
+
+const breadcrumbs = getBreadcrumbs(currentPath);
+---
+
+<nav aria-label="Breadcrumb" class="py-2">
+  <ol class="flex items-center space-x-2 text-sm text-text-body/70">
+    {breadcrumbs.map((breadcrumb, index) => (
+      <li class="flex items-center">
+        {index > 0 && (
+          <svg class="w-4 h-4 mx-2 text-text-body/50" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        )}
+        {index === breadcrumbs.length - 1 ? (
+          <span class="text-text-heading font-medium" aria-current="page">
+            {breadcrumb.name}
+          </span>
+        ) : (
+          <a 
+            href={breadcrumb.href} 
+            class="hover:text-text-heading transition-colors min-h-[44px] min-w-[44px] flex items-center"
+          >
+            {breadcrumb.name}
+          </a>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>

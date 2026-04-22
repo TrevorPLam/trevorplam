@@ -1,0 +1,64 @@
+{
+  "generated": "2026-04-22T04:41:33.968Z",
+  "summary": {
+    "totalTests": 3,
+    "passingTests": 2,
+    "failingTests": 1,
+    "avgDuration": 633.3333333333334,
+    "totalDuration": 1900,
+    "passRate": 0.6666666666666666,
+    "healthScore": 95,
+    "activeAlerts": 1,
+    "lastUpdated": "2026-04-22T04:41:33.968Z"
+  },
+  "categoryAnalysis": [
+    {
+      "category": "unit",
+      "testCount": 1,
+      "avgDuration": 250,
+      "maxDuration": 250,
+      "minDuration": 250,
+      "threshold": {
+        "warning": 5000,
+        "critical": 10000
+      },
+      "warningCount": 0,
+      "criticalCount": 0,
+      "healthScore": 100
+    },
+    {
+      "category": "components",
+      "testCount": 1,
+      "avgDuration": 450,
+      "maxDuration": 450,
+      "minDuration": 450,
+      "threshold": {
+        "warning": 10000,
+        "critical": 20000
+      },
+      "warningCount": 0,
+      "criticalCount": 0,
+      "healthScore": 100
+    },
+    {
+      "category": "integration",
+      "testCount": 1,
+      "avgDuration": 1200,
+      "maxDuration": 1200,
+      "minDuration": 1200,
+      "threshold": {
+        "warning": 30000,
+        "critical": 60000
+      },
+      "warningCount": 0,
+      "criticalCount": 0,
+      "healthScore": 100
+    }
+  ],
+  "regressionAnalysis": {
+    "totalRegressions": 0,
+    "criticalRegressions": 0
+  },
+  "trends": [],
+  "recommendations": []
+}

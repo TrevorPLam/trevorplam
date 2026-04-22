@@ -1,0 +1,87 @@
+---
+import timelineData from '../../data/timeline.json';
+
+// Get the 5 most recent timeline entries
+const recentActivity = timelineData
+  .filter(item => item.type === 'role' || item.type === 'degree')
+  .slice(-5)
+  .reverse();
+
+function getActivityIcon(type: string): string {
+  switch (type) {
+    case 'role':
+      return 'briefcase';
+    case 'degree':
+      return 'graduation-cap';
+    case 'constraint':
+      return 'target';
+    case 'future':
+      return 'rocket';
+    default:
+      return 'circle';
+  }
+}
+
+function getActivityColor(type: string): string {
+  switch (type) {
+    case 'role':
+      return 'bg-blue-100 text-blue-600 border-blue-200';
+    case 'degree':
+      return 'bg-emerald-100 text-emerald-600 border-emerald-200';
+    case 'constraint':
+      return 'bg-amber-100 text-amber-600 border-amber-200';
+    case 'future':
+      return 'bg-purple-100 text-purple-600 border-purple-200';
+    default:
+      return 'bg-surface text-text-heading border-border';
+  }
+}
+---
+
+<section class="mb-8">
+  <h2 class="text-2xl font-bold text-text-heading mb-6">Recent Activity</h2>
+  <div class="bg-surface border border-border rounded-lg p-6">
+    <div class="space-y-4">
+      {recentActivity.map((item, index) => (
+        <div class="flex items-start space-x-4 pb-4 border-b border-border/50 last:border-b-0 last:pb-0">
+          <div class={`shrink-0 w-10 h-10 rounded-full border ${getActivityColor(item.type)} flex items-center justify-center`}>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              {item.type === 'role' && (
+                <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.952 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+              )}
+              {item.type === 'degree' && (
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+              )}
+              {item.type === 'constraint' && (
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              )}
+              {item.type === 'future' && (
+                <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              )}
+            </svg>
+          </div>
+          
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center space-x-2 mb-1">
+              <h3 class="text-lg font-medium text-text-heading">{item.title}</h3>
+              <span class="text-sm font-medium text-accent">{item.year}</span>
+            </div>
+            <p class="text-sm text-text-body/80 leading-relaxed">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-6 pt-4 border-t border-border/50">
+      <a 
+        href="/lab/learning-log" 
+        class="inline-flex items-center text-sm font-medium text-accent hover:text-accent/80 transition-colors"
+      >
+        View Full Timeline
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

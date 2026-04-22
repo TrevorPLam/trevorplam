@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T04:23:46.099Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "c38ecc14-c265-476e-872c-5fa8f7d0c2c1",
+        "email": "Blair_Harris@yahoo.com",
+        "firstName": "Michele",
+        "lastName": "Armstrong",
+        "role": "user",
+        "status": "suspended",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/16.jpg",
+        "createdAt": "2026-03-31T08:51:49.605Z",
+        "updatedAt": "2026-04-22T03:19:35.883Z",
+        "lastLoginAt": "2026-04-22T03:56:00.262Z",
+        "preferences": {
+          "theme": "light",
+          "language": "fr",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "253.69.116.132",
+          "userAgent": "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_15_7) AppleWebKit/583.72.56 (KHTML, like Gecko) Chrome/95.1.5.8 Safari/540.75.34",
+          "location": {
+            "country": "Yemen",
+            "city": "Vista",
+            "timezone": "Australia/Melbourne"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "ac498363-9174-4207-b241-b080a508ce26"
+}

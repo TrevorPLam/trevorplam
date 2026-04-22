@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
 import { Font } from 'astro:assets';
-import Navigation from '../components/Navigation.astro';
+import { ClientRouter } from 'astro:transitions';
+import SidebarNavigation from '../components/SidebarNavigation.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SearchBar from '../components/SearchBar.astro';
 import Footer from '../components/Footer.astro';
 import ErrorBoundary from '../components/ErrorBoundary.astro';
 
@@ -91,24 +94,55 @@ const finalJsonLd = jsonLd
 		<script defer data-domain="trevor-lam.com" src="https://plausible.io/js/script.js"></script>
 
 		<!-- Error Monitoring -->
-		<script type="module" src="/src/utils/error-monitoring.ts"></script>
+		<script>
+			import '../utils/error-monitoring';
+		</script>
 
 		<!-- Real User Monitoring -->
-		<script type="module" src="/src/utils/rum-monitoring.ts"></script>
+		<script>
+			import '../utils/rum-monitoring';
+		</script>
 
+		<ClientRouter />
 		<Font cssVariable="--font-sans" preload />
 		<Font cssVariable="--font-mono" />
 	</head>
 	<body class="bg-bg text-text-body">
-		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-surface text-text-heading px-4 py-2 rounded border border-border">
+		<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-surface text-text-heading px-4 py-2 rounded border border-border z-50">
 			Skip to Content
 		</a>
-		<header>
-			<Navigation />
-		</header>
+		
+		<!-- Mobile Menu Button -->
+		<div class="md:hidden fixed top-4 left-4 z-50">
+			<button
+				type="button"
+				class="bg-surface border border-border rounded-md p-2 text-text-body hover:text-text-heading min-h-[44px] min-w-[44px] flex items-center justify-center"
+				aria-label="Open navigation menu"
+				aria-expanded="false"
+				id="mobile-menu-button"
+				@click="window.openSidebar()"
+			>
+				<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+			</button>
+		</div>
+
+		<!-- Search Bar (Top Right) -->
+		<div class="fixed top-4 right-4 z-40 w-64 max-w-[calc(100vw-8rem)]">
+			<SearchBar />
+		</div>
+
+		<SidebarNavigation />
+		
 		<ErrorBoundary>
-		<main id="main-content">
-			<slot />
+		<main id="main-content" class="ml-0 md:ml-64 pt-16 md:pt-0">
+			<div class="max-w-6xl mx-auto p-6">
+				<Breadcrumbs />
+				<div class="mt-4">
+					<slot />
+				</div>
+			</div>
 		</main>
 	</ErrorBoundary>
 		<footer aria-label="Site footer">

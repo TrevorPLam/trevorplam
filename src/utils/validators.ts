@@ -70,10 +70,10 @@ export function isValidEmail(email: string): boolean {
  * 
  * @since 1.0.0
  */
-export function isValidUrl(url: string): boolean {
+export function isValidUrl(url: string, allowedProtocols: string[] = ['https:', 'http:', 'mailto:', 'ftp:']): boolean {
   try {
-    new URL(url);
-    return true;
+    const parsed = new URL(url);
+    return allowedProtocols.includes(parsed.protocol);
   } catch {
     return false;
   }

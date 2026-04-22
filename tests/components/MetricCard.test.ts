@@ -2,9 +2,11 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { expect, test, describe } from 'vitest';
 import MetricCard from '../../src/components/MetricCard.astro';
 import { metricCardFactory } from '../utils/test-factories';
+import { TestDataManager, TestDataFactories } from '../utils/test-data-manager';
 
 describe('MetricCard Component', () => {
   test('renders metric card with all props', async () => {
+    // Use fresh container per test for proper isolation
     const container = await AstroContainer.create();
     
     // Generate test data using factory for runtime validation and consistency
@@ -72,5 +74,33 @@ describe('MetricCard Component', () => {
     expect(result).toContain('<a href="/cases/test-case"');
     // Use the actual generated title for aria-label assertion
     expect(result).toContain(`aria-label="${metricData.title}: improved from 50% to 75%"`);
+  });
+
+  test('renders with isolated data manager', async () => {
+    // Use fresh container per test for proper isolation
+    const container = await AstroContainer.create();
+    
+    // Create isolated test data with automatic cleanup
+    const { data: metricData, cleanup } = await TestDataManager.createIsolatedDataSet(
+      TestDataFactories.metric
+    );
+    
+    try {
+      const result = await container.renderToString(MetricCard, metricData);
+
+      // Test that isolated data renders correctly
+      expect(result).toContain(metricData.title);
+      expect(result).toContain(metricData.before);
+      expect(result).toContain(metricData.after);
+      if (metricData.context) {
+        expect(result).toContain(metricData.context);
+      }
+      if (metricData.skillTag) {
+        expect(result).toContain(metricData.skillTag);
+      }
+    } finally {
+      // Ensure cleanup is called
+      await cleanup();
+    }
   });
 });

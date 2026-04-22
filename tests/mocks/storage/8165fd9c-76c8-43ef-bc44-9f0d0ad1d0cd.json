@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T04:24:45.761Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "162f2594-ac60-40f7-8a1a-e04077f2803c",
+        "email": "Jaylen.Maggio-Shields@hotmail.com",
+        "firstName": "Susana",
+        "lastName": "Turcotte",
+        "role": "admin",
+        "status": "active",
+        "avatar": "https://avatars.githubusercontent.com/u/94204502",
+        "createdAt": "2025-11-23T21:06:28.508Z",
+        "updatedAt": "2026-04-21T05:39:34.868Z",
+        "lastLoginAt": "2026-04-21T05:36:58.817Z",
+        "preferences": {
+          "theme": "light",
+          "language": "es",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "c782:3ad5:f70a:976d:7e2d:c1d4:bb0d:d1b3",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/542.56.40 (KHTML, like Gecko) Version/16.1 Safari/577.74.88",
+          "location": {
+            "country": "Guinea-Bissau",
+            "city": "New Kaci",
+            "timezone": "Africa/Niamey"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "8165fd9c-76c8-43ef-bc44-9f0d0ad1d0cd"
+}

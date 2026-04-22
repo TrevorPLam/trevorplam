@@ -1,10 +1,9 @@
 ---
 interface Props {
-  children: unknown;
   fallback?: string;
 }
 
-const { children, fallback = 'Something went wrong. Please refresh the page.' } = Astro.props;
+const { fallback = 'Something went wrong. Please refresh the page.' } = Astro.props;
 ---
 
 <!-- Error Boundary Component -->

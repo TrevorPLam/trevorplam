@@ -1,9 +1,9 @@
 {
   "config": {
-    "configFile": "C:\\Users\\trevo\\trevorplam\\playwright.config.ts",
-    "rootDir": "C:/Users/trevo/trevorplam/tests",
-    "forbidOnly": true,
-    "fullyParallel": true,
+    "configFile": "C:\\Users\\trevo\\Desktop\\trevorplam\\playwright.config.ts",
+    "rootDir": "C:/Users/trevo/Desktop/trevorplam/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
     "globalSetup": null,
     "globalTeardown": null,
     "globalTimeout": 0,
@@ -16,61 +16,59 @@
     "preserveOutput": "always",
     "projects": [
       {
-        "outputDir": "C:/Users/trevo/trevorplam/test-results",
+        "outputDir": "C:/Users/trevo/Desktop/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "Desktop Chrome",
         "name": "Desktop Chrome",
-        "testDir": "C:/Users/trevo/trevorplam/tests",
+        "testDir": "C:/Users/trevo/Desktop/trevorplam/tests",
         "testIgnore": [],
         "testMatch": [
-          "**/*.spec.ts"
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 30000
+        "timeout": 10000
       },
       {
-        "outputDir": "C:/Users/trevo/trevorplam/test-results",
+        "outputDir": "C:/Users/trevo/Desktop/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "Desktop Firefox",
         "name": "Desktop Firefox",
-        "testDir": "C:/Users/trevo/trevorplam/tests",
+        "testDir": "C:/Users/trevo/Desktop/trevorplam/tests",
         "testIgnore": [],
         "testMatch": [
-          "**/*.spec.ts"
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 30000
+        "timeout": 10000
       },
       {
-        "outputDir": "C:/Users/trevo/trevorplam/test-results",
+        "outputDir": "C:/Users/trevo/Desktop/trevorplam/test-results",
         "repeatEach": 1,
-        "retries": 2,
+        "retries": 0,
         "metadata": {
           "actualWorkers": 1
         },
         "id": "Mobile Safari",
         "name": "Mobile Safari",
-        "testDir": "C:/Users/trevo/trevorplam/tests",
+        "testDir": "C:/Users/trevo/Desktop/trevorplam/tests",
         "testIgnore": [],
         "testMatch": [
-          "**/*.spec.ts"
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 30000
+        "timeout": 10000
       }
     ],
     "quiet": false,
     "reporter": [
       [
-        "html",
-        {
-          "outputFolder": "tests/reports/playwright-html"
-        }
+        "list",
+        null
       ],
       [
         "json",
@@ -85,40 +83,40 @@
     },
     "shard": null,
     "tags": [],
-    "updateSnapshots": "missing",
+    "updateSnapshots": "changed",
     "updateSourceMethod": "patch",
     "version": "1.59.1",
     "workers": 1,
     "webServer": {
       "command": "npm run preview -- --host 127.0.0.1 --port 4173 --strictPort",
       "port": 4173,
-      "reuseExistingServer": false,
-      "timeout": 120000,
-      "stdout": "ignore",
+      "reuseExistingServer": true,
+      "timeout": 30000,
+      "stdout": "pipe",
       "stderr": "pipe"
     }
   },
   "suites": [
     {
-      "title": "a11y\\homepage-a11y.spec.ts",
-      "file": "a11y/homepage-a11y.spec.ts",
+      "title": "e2e\\visual-regression.spec.ts",
+      "file": "e2e/visual-regression.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Accessibility Tests",
-          "file": "a11y/homepage-a11y.spec.ts",
-          "line": 4,
+          "title": "Visual Regression - Homepage",
+          "file": "e2e/visual-regression.spec.ts",
+          "line": 16,
           "column": 6,
           "specs": [
             {
-              "title": "homepage has no a11y violations",
-              "ok": true,
+              "title": "homepage matches baseline",
+              "ok": false,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 30000,
+                  "timeout": 10000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "Desktop Chrome",
@@ -127,47 +125,77 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 3081,
-                      "errors": [],
+                      "status": "failed",
+                      "duration": 5353,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n\n    at C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts:21:16",
+                        "location": {
+                          "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                          "column": 16,
+                          "line": 21
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 19 |\u001b[39m     \n \u001b[90m 20 |\u001b[39m     \u001b[90m// Wait for critical content to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[role=\"navigation\"]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m     \n \u001b[90m 24 |\u001b[39m     \u001b[90m// Capture full page screenshot\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                            "column": 16,
+                            "line": 21
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 19 |\u001b[39m     \n \u001b[90m 20 |\u001b[39m     \u001b[90m// Wait for critical content to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[role=\"navigation\"]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m     \n \u001b[90m 24 |\u001b[39m     \u001b[90m// Capture full page screenshot\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts:21:16\u001b[22m"
+                        }
+                      ],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-22T00:21:02.515Z",
+                      "startTime": "2026-04-22T03:26:46.977Z",
                       "annotations": [],
-                      "attachments": []
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-d41d9-e-homepage-matches-baseline-Desktop-Chrome\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                        "column": 16,
+                        "line": 21
+                      }
                     }
                   ],
-                  "status": "expected"
+                  "status": "unexpected"
                 }
               ],
-              "id": "a0716c2274a608042582-dd7b8368b9648e0b3845",
-              "file": "a11y/homepage-a11y.spec.ts",
-              "line": 5,
+              "id": "96c0a41bd2d5f4162bf1-d881a964383f5d120916",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 17,
               "column": 3
             },
             {
-              "title": "homepage has no WCAG AA violations",
+              "title": "hero section matches baseline",
               "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 30000,
+                  "timeout": 10000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "Desktop Chrome",
                   "projectName": "Desktop Chrome",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 1,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1961,
+                      "duration": 376,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-04-22T00:21:06.127Z",
+                      "startTime": "2026-04-22T03:26:53.323Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -175,9 +203,1279 @@
                   "status": "expected"
                 }
               ],
-              "id": "a0716c2274a608042582-91e30d598ca8d0c7eef8",
-              "file": "a11y/homepage-a11y.spec.ts",
-              "line": 12,
+              "id": "96c0a41bd2d5f4162bf1-0ff5c1a249efd9955bd8",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 30,
+              "column": 3
+            },
+            {
+              "title": "navigation matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 370,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:53.818Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-446836e41f0a8c200ca7",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 39,
+              "column": 3
+            },
+            {
+              "title": "homepage matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 6370,
+                      "error": {
+                        "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n",
+                        "stack": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n\n    at C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts:21:16",
+                        "location": {
+                          "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                          "column": 16,
+                          "line": 21
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 19 |\u001b[39m     \n \u001b[90m 20 |\u001b[39m     \u001b[90m// Wait for critical content to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[role=\"navigation\"]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m     \n \u001b[90m 24 |\u001b[39m     \u001b[90m// Capture full page screenshot\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                            "column": 16,
+                            "line": 21
+                          },
+                          "message": "TimeoutError: page.waitForSelector: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[role=\"navigation\"]') to be visible\u001b[22m\n\n\n\u001b[0m \u001b[90m 19 |\u001b[39m     \n \u001b[90m 20 |\u001b[39m     \u001b[90m// Wait for critical content to load\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 21 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForSelector(\u001b[32m'[role=\"navigation\"]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 22 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 23 |\u001b[39m     \n \u001b[90m 24 |\u001b[39m     \u001b[90m// Capture full page screenshot\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts:21:16\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:03.447Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-d41d9-e-homepage-matches-baseline-Desktop-Firefox\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Users\\trevo\\Desktop\\trevorplam\\tests\\e2e\\visual-regression.spec.ts",
+                        "column": 16,
+                        "line": 21
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-27edfb1371f9bdc91d4a",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "hero section matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1492,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:11.826Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-5aa6e59469e8acb84763",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 30,
+              "column": 3
+            },
+            {
+              "title": "navigation matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 634,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:13.890Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-8a986762da4bb011674c",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 39,
+              "column": 3
+            },
+            {
+              "title": "homepage matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=15516\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=15516\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=15516] <kill>\u001b[22m\n\u001b[2m  - [pid=15516] <will force kill>\u001b[22m\n\u001b[2m  - [pid=15516] taskkill stderr: ERROR: The process \"15516\" not found.\u001b[22m\n\u001b[2m  - [pid=15516] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=15516] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=15516\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=15516\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=15516] <kill>\u001b[22m\n\u001b[2m  - [pid=15516] <will force kill>\u001b[22m\n\u001b[2m  - [pid=15516] taskkill stderr: ERROR: The process \"15516\" not found.\u001b[22m\n\u001b[2m  - [pid=15516] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=15516] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=15516\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=15516\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=15516] <kill>\u001b[22m\n\u001b[2m  - [pid=15516] <will force kill>\u001b[22m\n\u001b[2m  - [pid=15516] taskkill stderr: ERROR: The process \"15516\" not found.\u001b[22m\n\u001b[2m  - [pid=15516] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=15516] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=15516] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:25.538Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-d41d9-e-homepage-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-fe1ddf794a55043c7561",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "hero section matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=6652\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=6652\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=6652] <kill>\u001b[22m\n\u001b[2m  - [pid=6652] <will force kill>\u001b[22m\n\u001b[2m  - [pid=6652] taskkill stderr: ERROR: The process \"6652\" not found.\u001b[22m\n\u001b[2m  - [pid=6652] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=6652] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=6652\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=6652\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=6652] <kill>\u001b[22m\n\u001b[2m  - [pid=6652] <will force kill>\u001b[22m\n\u001b[2m  - [pid=6652] taskkill stderr: ERROR: The process \"6652\" not found.\u001b[22m\n\u001b[2m  - [pid=6652] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=6652] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=6652\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=6652\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=6652] <kill>\u001b[22m\n\u001b[2m  - [pid=6652] <will force kill>\u001b[22m\n\u001b[2m  - [pid=6652] taskkill stderr: ERROR: The process \"6652\" not found.\u001b[22m\n\u001b[2m  - [pid=6652] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=6652] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=6652] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:26.618Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-256af-ro-section-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-e97ca3677704578083c4",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 30,
+              "column": 3
+            },
+            {
+              "title": "navigation matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21716\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21716\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21716] <kill>\u001b[22m\n\u001b[2m  - [pid=21716] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21716] taskkill stderr: ERROR: The process \"21716\" not found.\u001b[22m\n\u001b[2m  - [pid=21716] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21716] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21716\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21716\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21716] <kill>\u001b[22m\n\u001b[2m  - [pid=21716] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21716] taskkill stderr: ERROR: The process \"21716\" not found.\u001b[22m\n\u001b[2m  - [pid=21716] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21716] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21716\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21716\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21716] <kill>\u001b[22m\n\u001b[2m  - [pid=21716] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21716] taskkill stderr: ERROR: The process \"21716\" not found.\u001b[22m\n\u001b[2m  - [pid=21716] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21716] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21716] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:27.687Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-99d9c-navigation-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-59087bf5cc165935663b",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 39,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Visual Regression - Case Studies",
+          "file": "e2e/visual-regression.spec.ts",
+          "line": 49,
+          "column": 6,
+          "specs": [
+            {
+              "title": "grandlux case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1145,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:54.199Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-9db5c3deebfed02dba03",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "klw case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1121,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:55.355Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-5e19417fbf5e46360449",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "sonic case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1217,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:56.488Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-657a5ddaae896915288d",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "grandlux case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1357,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:14.535Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-fb7a2fbcfe62db3072e8",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "klw case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1303,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:15.906Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-3e63a4b4f4d5980626f8",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "sonic case study matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1323,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:17.219Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-bc582d4120bbb768c2a1",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "grandlux case study matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=23028\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=23028\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=23028] <kill>\u001b[22m\n\u001b[2m  - [pid=23028] <will force kill>\u001b[22m\n\u001b[2m  - [pid=23028] taskkill stderr: ERROR: The process \"23028\" not found.\u001b[22m\n\u001b[2m  - [pid=23028] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=23028] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=23028\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=23028\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=23028] <kill>\u001b[22m\n\u001b[2m  - [pid=23028] <will force kill>\u001b[22m\n\u001b[2m  - [pid=23028] taskkill stderr: ERROR: The process \"23028\" not found.\u001b[22m\n\u001b[2m  - [pid=23028] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=23028] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=23028\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=23028\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=23028] <kill>\u001b[22m\n\u001b[2m  - [pid=23028] <will force kill>\u001b[22m\n\u001b[2m  - [pid=23028] taskkill stderr: ERROR: The process \"23028\" not found.\u001b[22m\n\u001b[2m  - [pid=23028] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=23028] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=23028] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:28.746Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-37c1d-case-study-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-ae4272ac9fcfb906b487",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "klw case study matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20360\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20360\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20360] <kill>\u001b[22m\n\u001b[2m  - [pid=20360] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20360] taskkill stderr: ERROR: The process \"20360\" not found.\u001b[22m\n\u001b[2m  - [pid=20360] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20360] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20360\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20360\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20360] <kill>\u001b[22m\n\u001b[2m  - [pid=20360] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20360] taskkill stderr: ERROR: The process \"20360\" not found.\u001b[22m\n\u001b[2m  - [pid=20360] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20360] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20360\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20360\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20360] <kill>\u001b[22m\n\u001b[2m  - [pid=20360] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20360] taskkill stderr: ERROR: The process \"20360\" not found.\u001b[22m\n\u001b[2m  - [pid=20360] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20360] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20360] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:29.788Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-3c162-case-study-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-4a73b3036dd7a100612f",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            },
+            {
+              "title": "sonic case study matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 9,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21140\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21140\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21140] <kill>\u001b[22m\n\u001b[2m  - [pid=21140] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21140] taskkill stderr: ERROR: The process \"21140\" not found.\u001b[22m\n\u001b[2m  - [pid=21140] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21140] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21140\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21140\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21140] <kill>\u001b[22m\n\u001b[2m  - [pid=21140] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21140] taskkill stderr: ERROR: The process \"21140\" not found.\u001b[22m\n\u001b[2m  - [pid=21140] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21140] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=21140\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=21140\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=21140] <kill>\u001b[22m\n\u001b[2m  - [pid=21140] <will force kill>\u001b[22m\n\u001b[2m  - [pid=21140] taskkill stderr: ERROR: The process \"21140\" not found.\u001b[22m\n\u001b[2m  - [pid=21140] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=21140] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=21140] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:30.968Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-e1004-case-study-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-b47925ba4a5fc7aeaf9a",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 58,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "Visual Regression - Responsive States",
+          "file": "e2e/visual-regression.spec.ts",
+          "line": 72,
+          "column": 6,
+          "specs": [
+            {
+              "title": "mobile viewport matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1256,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:57.717Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-9de4a129861eef676a86",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 73,
+              "column": 3
+            },
+            {
+              "title": "tablet viewport matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1321,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:26:58.984Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-0ad04bd4810628ef2cee",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 84,
+              "column": 3
+            },
+            {
+              "title": "mobile viewport matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1328,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:18.554Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-7b08b6bc6a07f8742560",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 73,
+              "column": 3
+            },
+            {
+              "title": "tablet viewport matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1417,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:19.892Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-2ac9084916014d702312",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 84,
+              "column": 3
+            },
+            {
+              "title": "mobile viewport matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20328\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20328\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20328] <kill>\u001b[22m\n\u001b[2m  - [pid=20328] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20328] taskkill stderr: ERROR: The process \"20328\" not found.\u001b[22m\n\u001b[2m  - [pid=20328] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20328] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20328\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20328\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20328] <kill>\u001b[22m\n\u001b[2m  - [pid=20328] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20328] taskkill stderr: ERROR: The process \"20328\" not found.\u001b[22m\n\u001b[2m  - [pid=20328] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20328] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=20328\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=20328\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=20328] <kill>\u001b[22m\n\u001b[2m  - [pid=20328] <will force kill>\u001b[22m\n\u001b[2m  - [pid=20328] taskkill stderr: ERROR: The process \"20328\" not found.\u001b[22m\n\u001b[2m  - [pid=20328] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=20328] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=20328] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:32.104Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-9811f-e-viewport-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-3443d8732f7516735170",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 73,
+              "column": 3
+            },
+            {
+              "title": "tablet viewport matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 11,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=12576\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=12576\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=12576] <kill>\u001b[22m\n\u001b[2m  - [pid=12576] <will force kill>\u001b[22m\n\u001b[2m  - [pid=12576] taskkill stderr: ERROR: The process \"12576\" not found.\u001b[22m\n\u001b[2m  - [pid=12576] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=12576] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=12576\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=12576\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=12576] <kill>\u001b[22m\n\u001b[2m  - [pid=12576] <will force kill>\u001b[22m\n\u001b[2m  - [pid=12576] taskkill stderr: ERROR: The process \"12576\" not found.\u001b[22m\n\u001b[2m  - [pid=12576] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=12576] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=12576\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=12576\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=12576] <kill>\u001b[22m\n\u001b[2m  - [pid=12576] <will force kill>\u001b[22m\n\u001b[2m  - [pid=12576] taskkill stderr: ERROR: The process \"12576\" not found.\u001b[22m\n\u001b[2m  - [pid=12576] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=12576] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=12576] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:33.179Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-0fe7d-t-viewport-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-2e9777f88da3558e0555",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 84,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Visual Regression - Interactive States",
+          "file": "e2e/visual-regression.spec.ts",
+          "line": 96,
+          "column": 6,
+          "specs": [
+            {
+              "title": "navigation hover state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 373,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:00.315Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-7bb8ac83b316ac76c14f",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "button focus state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 333,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:00.698Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-743a0ded00642edf21be",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 110,
+              "column": 3
+            },
+            {
+              "title": "navigation hover state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 556,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:21.321Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-cceb302d7979fcb9971d",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "button focus state",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 507,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:21.887Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-37136fee9efeb64621f5",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 110,
+              "column": 3
+            },
+            {
+              "title": "navigation hover state",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=756\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=756\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=756] <kill>\u001b[22m\n\u001b[2m  - [pid=756] <will force kill>\u001b[22m\n\u001b[2m  - [pid=756] taskkill stderr: ERROR: The process \"756\" not found.\u001b[22m\n\u001b[2m  - [pid=756] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=756] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=756\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=756\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=756] <kill>\u001b[22m\n\u001b[2m  - [pid=756] <will force kill>\u001b[22m\n\u001b[2m  - [pid=756] taskkill stderr: ERROR: The process \"756\" not found.\u001b[22m\n\u001b[2m  - [pid=756] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=756] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=756\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=756\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=756] <kill>\u001b[22m\n\u001b[2m  - [pid=756] <will force kill>\u001b[22m\n\u001b[2m  - [pid=756] taskkill stderr: ERROR: The process \"756\" not found.\u001b[22m\n\u001b[2m  - [pid=756] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=756] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=756] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:34.254Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-287c0-ates-navigation-hover-state-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-99b43508b2dbf67242ef",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "button focus state",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=13520\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=13520\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=13520] <kill>\u001b[22m\n\u001b[2m  - [pid=13520] <will force kill>\u001b[22m\n\u001b[2m  - [pid=13520] taskkill stderr: ERROR: The process \"13520\" not found.\u001b[22m\n\u001b[2m  - [pid=13520] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=13520] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=13520\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=13520\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=13520] <kill>\u001b[22m\n\u001b[2m  - [pid=13520] <will force kill>\u001b[22m\n\u001b[2m  - [pid=13520] taskkill stderr: ERROR: The process \"13520\" not found.\u001b[22m\n\u001b[2m  - [pid=13520] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=13520] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=13520\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=13520\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=13520] <kill>\u001b[22m\n\u001b[2m  - [pid=13520] <will force kill>\u001b[22m\n\u001b[2m  - [pid=13520] taskkill stderr: ERROR: The process \"13520\" not found.\u001b[22m\n\u001b[2m  - [pid=13520] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=13520] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=13520] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:35.318Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-2f96e-e-States-button-focus-state-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-48bfd0925fae625c48e3",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 110,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Visual Regression - Dark Mode",
+          "file": "e2e/visual-regression.spec.ts",
+          "line": 120,
+          "column": 6,
+          "specs": [
+            {
+              "title": "homepage in dark mode matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1484,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:01.042Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-87b56258af0bf5302da0",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "homepage in dark mode matches baseline",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Firefox",
+                  "projectName": "Desktop Firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1523,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:22.405Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-97ecb7497979050855b0",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 121,
+              "column": 3
+            },
+            {
+              "title": "homepage in dark mode matches baseline",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 10000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Mobile Safari",
+                  "projectName": "Mobile Safari",
+                  "results": [
+                    {
+                      "workerIndex": 14,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2,
+                      "error": {
+                        "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=18052\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=18052\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=18052] <kill>\u001b[22m\n\u001b[2m  - [pid=18052] <will force kill>\u001b[22m\n\u001b[2m  - [pid=18052] taskkill stderr: ERROR: The process \"18052\" not found.\u001b[22m\n\u001b[2m  - [pid=18052] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=18052] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close end>\u001b[22m\n",
+                        "stack": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=18052\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=18052\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=18052] <kill>\u001b[22m\n\u001b[2m  - [pid=18052] <will force kill>\u001b[22m\n\u001b[2m  - [pid=18052] taskkill stderr: ERROR: The process \"18052\" not found.\u001b[22m\n\u001b[2m  - [pid=18052] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=18052] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close end>\u001b[22m\n"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: browserType.launch: Target page, context or browser has been closed\nBrowser logs:\n\n<launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\n<launched> pid=18052\nCall log:\n\u001b[2m  - <launching> C:\\Users\\trevo\\AppData\\Local\\ms-playwright\\webkit-2272\\Playwright.exe --inspector-pipe --disable-accelerated-compositing --headless --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=18052\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close start>\u001b[22m\n\u001b[2m  - [pid=18052] <kill>\u001b[22m\n\u001b[2m  - [pid=18052] <will force kill>\u001b[22m\n\u001b[2m  - [pid=18052] taskkill stderr: ERROR: The process \"18052\" not found.\u001b[22m\n\u001b[2m  - [pid=18052] <process did exit: exitCode=3236495362, signal=null>\u001b[22m\n\u001b[2m  - [pid=18052] starting temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] finished temporary directories cleanup\u001b[22m\n\u001b[2m  - [pid=18052] <gracefully close end>\u001b[22m\n"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-04-22T03:27:36.390Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Users\\trevo\\Desktop\\trevorplam\\test-results\\e2e-visual-regression-Visu-a7802--dark-mode-matches-baseline-Mobile-Safari\\error-context.md"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96c0a41bd2d5f4162bf1-f37aa66db096f0bb2125",
+              "file": "e2e/visual-regression.spec.ts",
+              "line": 121,
               "column": 3
             }
           ]
@@ -187,11 +1485,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-22T00:20:58.543Z",
-    "duration": 343941.309,
-    "expected": 2,
+    "startTime": "2026-04-22T03:26:44.079Z",
+    "duration": 52701.935000000005,
+    "expected": 20,
     "skipped": 0,
-    "unexpected": 0,
+    "unexpected": 13,
     "flaky": 0
   }
 }

@@ -1,20 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../sections/Hero.astro';
-import StabilizerPattern from '../sections/StabilizerPattern.astro';
-import ProofPoints from '../sections/ProofPoints.astro';
-import IndustryFluidity from '../sections/IndustryFluidity.astro';
-import TheMethod from '../sections/TheMethod.astro';
-import TrajectoryTeaser from '../sections/TrajectoryTeaser.astro';
-import ConnectCTA from '../sections/ConnectCTA.astro';
+import MetricsGrid from '../components/MetricsGrid.astro';
+import RecentActivity from '../components/RecentActivity.astro';
+import QuickActions from '../components/QuickActions.astro';
 ---
 
-<BaseLayout title="Trevor Lam - Chief of Staff Hub" description="Operations Integrator · Forensic Stabilizer">
-	<Hero />
-	<StabilizerPattern />
-	<ProofPoints />
-	<IndustryFluidity />
-	<TheMethod />
-	<TrajectoryTeaser />
-	<ConnectCTA />
+<BaseLayout title="Dashboard - Trevor Lam" description="Professional operations knowledge base and performance metrics">
+	<div class="max-w-6xl mx-auto">
+		<header class="mb-8">
+			<h1 class="text-3xl font-bold text-text-heading mb-2">Dashboard</h1>
+			<p class="text-xl text-text-body">Operations Integrator · Forensic Stabilizer</p>
+		</header>
+		
+		<MetricsGrid />
+		<RecentActivity />
+		<QuickActions />
+	</div>
 </BaseLayout>

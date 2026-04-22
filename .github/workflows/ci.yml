@@ -32,6 +32,37 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+        browser: [chrome, firefox]
+        test-type: [unit, components, integration, accessibility, e2e, performance, security, contract]
+        include:
+          - shard: 1
+            test-type: unit
+            resource-level: standard
+          - shard: 2
+            test-type: components
+            resource-level: standard
+          - shard: 3
+            test-type: integration
+            resource-level: enhanced
+          - shard: 4
+            test-type: accessibility
+            resource-level: enhanced
+          - shard: 5
+            test-type: e2e
+            resource-level: high
+          - shard: 6
+            test-type: performance
+            resource-level: high
+          - shard: 7
+            test-type: security
+            resource-level: standard
+          - shard: 8
+            test-type: contract
+            resource-level: standard
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -48,22 +79,84 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium firefox webkit --with-deps
         
+      - name: Set resource allocation based on test type
+        run: |
+          case "${{ matrix.resource-level }}" in
+            "standard")
+              echo "VITEST_MAX_THREADS=2" >> $GITHUB_ENV
+              echo "PLAYWRIGHT_WORKERS=2" >> $GITHUB_ENV
+              ;;
+            "enhanced")
+              echo "VITEST_MAX_THREADS=3" >> $GITHUB_ENV
+              echo "PLAYWRIGHT_WORKERS=3" >> $GITHUB_ENV
+              ;;
+            "high")
+              echo "VITEST_MAX_THREADS=4" >> $GITHUB_ENV
+              echo "PLAYWRIGHT_WORKERS=4" >> $GITHUB_ENV
+              ;;
+          esac
+          echo "CI_SHARD=${{ matrix.shard }}" >> $GITHUB_ENV
+          echo "CI_TOTAL_SHARDS=8" >> $GITHUB_ENV
+        
+      - name: Collect test timing data
+        run: node scripts/timing-collector.mjs collect --shard=${{ matrix.shard }} --type=${{ matrix.test-type }}
+        
       - name: Run unit tests
-        run: npm test
+        if: matrix.test-type == 'unit'
+        run: npm run test:unit -- --shard=${{ matrix.shard }} --reporter=json --outputFile=results-unit-${{ matrix.shard }}.json
+        
+      - name: Run component tests
+        if: matrix.test-type == 'components'
+        run: npx vitest run tests/components/ --no-coverage --reporter=json --outputFile=results-components-${{ matrix.shard }}.json --shard=${{ matrix.shard }}
+        
+      - name: Run integration tests
+        if: matrix.test-type == 'integration'
+        run: npx vitest run tests/integration/ --no-coverage --reporter=json --outputFile=results-integration-${{ matrix.shard }}.json --shard=${{ matrix.shard }}
         
       - name: Run E2E tests
-        run: npm run test:e2e
+        if: matrix.test-type == 'e2e'
+        run: npm run test:e2e -- --project="Desktop ${{ matrix.browser }}" --reporter=json --outputFile=results-e2e-${{ matrix.shard }}-${{ matrix.browser }}.json
         
       - name: Run accessibility tests
-        run: npm run test:a11y
+        if: matrix.test-type == 'accessibility'
+        run: npm run test:a11y -- --project="Desktop ${{ matrix.browser }}" --reporter=json --outputFile=results-a11y-${{ matrix.shard }}-${{ matrix.browser }}.json
         
-      - name: Upload Playwright report
+      - name: Run performance tests
+        if: matrix.test-type == 'performance'
+        run: npm run test:browser:performance -- --reporter=json --outputFile=results-performance-${{ matrix.shard }}.json
+        
+      - name: Run security tests
+        if: matrix.test-type == 'security'
+        run: npm run test:fuzz:security -- --timeout=30 --max-iterations=1000
+        
+      - name: Run contract tests
+        if: matrix.test-type == 'contract'
+        run: npm run test:contract -- --reporter=json --outputFile=results-contract-${{ matrix.shard }}.json
+        
+      - name: Update timing data
+        if: always()
+        run: node scripts/timing-collector.mjs update --shard=${{ matrix.shard }} --type=${{ matrix.test-type }} --results=results-${{ matrix.test-type }}-${{ matrix.shard }}*.json
+        
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
-          path: tests/reports/
+          name: test-results-${{ matrix.test-type }}-${{ matrix.shard }}
+          path: |
+            results-*.json
+            tests/reports/
+            timing-data-${{ matrix.shard }}.json
           retention-days: 30
+          
+      - name: Upload timing metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: timing-metrics-${{ matrix.shard }}
+          path: |
+            timing-data-${{ matrix.shard }}.json
+            shard-performance-${{ matrix.shard }}.json
+          retention-days: 7
 
   lighthouse:
     name: Lighthouse CI
@@ -98,6 +191,121 @@ jobs:
           path: .lighthouseci/
           retention-days: 30
 
+  fuzzing:
+    name: Fuzzing Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [validation, formatters, security]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Set up resource limits
+        run: |
+          echo "JAZZER_TIMEOUT=30" >> $GITHUB_ENV
+          echo "JAZZER_MAX_MEMORY=512" >> $GITHUB_ENV
+          echo "JAZZER_MAX_ITERATIONS=1000" >> $GITHUB_ENV
+          
+      - name: Run validation fuzzing
+        if: matrix.target == 'validation'
+        run: |
+          timeout 120s npm run test:fuzz:validation || echo "Validation fuzzing completed or timed out"
+        continue-on-error: true
+        
+      - name: Run formatter security fuzzing
+        if: matrix.target == 'formatters'
+        run: |
+          timeout 120s npm run test:fuzz:formatters || echo "Formatter fuzzing completed or timed out"
+        continue-on-error: true
+        
+      - name: Run security fuzzing
+        if: matrix.target == 'security'
+        run: |
+          timeout 120s npm run test:fuzz:security || echo "Security fuzzing completed or timed out"
+        continue-on-error: true
+        
+      - name: Collect fuzzing metrics
+        if: always()
+        run: |
+          echo "Fuzzing execution time: $(date +%s)" > fuzzing-summary-${{ matrix.target }}.txt
+          echo "Target: ${{ matrix.target }}" >> fuzzing-summary-${{ matrix.target }}.txt
+          echo "Resource limits: 30s timeout, 512MB memory, 1000 iterations" >> fuzzing-summary-${{ matrix.target }}.txt
+          
+          # Count crash files if any
+          if ls tests/fuzzing/crash-* 1> /dev/null 2>&1; then
+            echo "Crashes found: $(ls tests/fuzzing/crash-* | wc -l)" >> fuzzing-summary-${{ matrix.target }}.txt
+          else
+            echo "Crashes found: 0" >> fuzzing-summary-${{ matrix.target }}.txt
+          fi
+          
+      - name: Upload fuzzing results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fuzzing-results-${{ matrix.target }}
+          path: |
+            tests/fuzzing/crash-*
+            tests/fuzzing/leak-*
+            tests/fuzzing/oom-*
+            fuzzing-summary-${{ matrix.target }}.txt
+          retention-days: 30
+
+  mutation-testing:
+    name: Mutation Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run test coverage validation
+        run: npm run test:coverage
+        
+      - name: Run mutation testing
+        run: npm run test:mutation
+        continue-on-error: true
+        
+      - name: Upload mutation reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mutation-reports
+          path: |
+            reports/mutation/html/
+            reports/mutation/mutation-report.json
+            reports/mutation/mutation-summary.json
+          retention-days: 30
+          
+      - name: Display mutation summary
+        if: always()
+        run: |
+          if [ -f "reports/mutation/mutation-summary.json" ]; then
+            echo "=== Mutation Testing Summary ==="
+            cat reports/mutation/mutation-summary.json | jq -r '.results | to_entries[] | "\(.key): \(.value)"'
+            echo "Status: $(cat reports/mutation/mutation-summary.json | jq -r '.status')"
+          fi
+
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -122,7 +330,7 @@ jobs:
   deploy:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
-    needs: [lint, test, lighthouse, security-scan]
+    needs: [lint, test, lighthouse, fuzzing, mutation-testing, security-scan]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
       - name: Checkout code

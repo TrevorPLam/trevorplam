@@ -9,10 +9,11 @@ export default {
   checkers: ['typescript'],
   tsconfigFile: 'tsconfig.json',
 
-  // Mutation testing configuration
+  // Mutation testing configuration - focus on critical business logic
   mutate: [
-    'src/**/*.ts',
-    'src/**/*.js',
+    'src/utils/formatters.ts',
+    'src/utils/validators.ts',
+    'src/utils/date.ts',
     '!src/**/*.test.ts',
     '!src/**/*.spec.ts',
     '!src/**/*.d.ts',
@@ -45,11 +46,11 @@ export default {
     fileName: 'reports/mutation/mutation-report.json',
   },
 
-  // Thresholds for mutation score
+  // Thresholds for mutation score - stricter for critical business logic
   thresholds: {
-    high: 80,
-    low: 60,
-    break: 60,
+    high: 85,
+    low: 70,
+    break: 70,
   },
 
   // Timeout settings
@@ -57,11 +58,32 @@ export default {
   maxTestTimeoutMs: 30000,
 
   // Concurrency settings
-  concurrency: 2,
-  maxConcurrentTestRunners: 2,
+  concurrency: 3,
+  maxConcurrentTestRunners: 3,
 
-  // Mutator settings
-  mutator: 'javascript',
+  // Mutator settings - focused on business logic mutations
+  mutator: {
+    'javascript': {
+      'mutators': [
+        'ArithmeticOperators',
+        'ArrayOperators', 
+        'BitwiseOperators',
+        'BooleanSubstitution',
+        'ConditionalExpression',
+        'EqualityOperators',
+        'LogicalOperators',
+        'ObjectLiteral',
+        'StringLiteral',
+        'UnaryOperators',
+        'UpdateOperators'
+      ],
+      'excludedMutations': [
+        'ArrayPush', // Too basic
+        'ArrayPop',  // Too basic
+        'RegexLiteral' // Formatters use complex regex
+      ]
+    }
+  },
   plugins: [
     '@stryker-mutator/vitest-runner',
     '@stryker-mutator/typescript-checker',

@@ -2,6 +2,7 @@ import { Pact } from '@pact-foundation/pact';
 import { Matchers } from '@pact-foundation/pact';
 import path from 'path';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { DynamicScenarioOrchestrator, CaseStudyScenarioGenerator } from './dynamic-scenario-generator';
 
 const { eachLike, string, regex } = Matchers;
 
@@ -28,12 +29,12 @@ describe('Content Contract Tests', () => {
         id: string('grandlux'),
         slug: string('grandlux'),
         data: {
-          title: string('Grandlux QSR Digital Transformation'),
-          industry: regex('QSR|Salon|CPA-Payroll', 'QSR'),
-          problem: string('Grandlux needed to modernize their digital ordering system'),
-          result: string('Increased online orders by 45% and reduced wait times'),
-          skills: eachLike('Digital Strategy'),
-          metric: string('45% increase in online orders')
+          title: string('Grandlux Nail Salon Operations'),
+          industry: regex('QSR|Salon|CPA-Payroll', 'Salon'),
+          problem: string('High-volume cash environment with 17 commission-based technicians required precise reconciliation'),
+          result: string('Zero cash discrepancies and proactive reputation management through service recovery'),
+          skills: eachLike('Financial Controls'),
+          metric: string('Zero Discrepancies')
         }
       };
 
@@ -54,12 +55,12 @@ describe('Content Contract Tests', () => {
             id: 'grandlux',
             slug: 'grandlux',
             data: {
-              title: 'Grandlux QSR Digital Transformation',
-              industry: 'QSR',
-              problem: 'Grandlux needed to modernize their digital ordering system',
-              result: 'Increased online orders by 45% and reduced wait times',
-              skills: ['Digital Strategy'],
-              metric: '45% increase in online orders'
+              title: 'Grandlux Nail Salon Operations',
+              industry: 'Salon',
+              problem: 'High-volume cash environment with 17 commission-based technicians required precise reconciliation',
+              result: 'Zero cash discrepancies and proactive reputation management through service recovery',
+              skills: ['Financial Controls'],
+              metric: 'Zero Discrepancies'
             }
           }];
           
@@ -87,12 +88,12 @@ describe('Content Contract Tests', () => {
         id: string('grandlux'),
         slug: string('grandlux'),
         data: {
-          title: string('Grandlux QSR Digital Transformation'),
-          industry: regex('QSR|Salon|CPA-Payroll', 'QSR'),
-          problem: string('Grandlux needed to modernize their digital ordering system'),
-          result: string('Increased online orders by 45% and reduced wait times'),
-          skills: eachLike('Digital Strategy'),
-          metric: string('45% increase in online orders')
+          title: string('Grandlux Nail Salon Operations'),
+          industry: regex('QSR|Salon|CPA-Payroll', 'Salon'),
+          problem: string('High-volume cash environment with 17 commission-based technicians required precise reconciliation'),
+          result: string('Zero cash discrepancies and proactive reputation management through service recovery'),
+          skills: eachLike('Financial Controls'),
+          metric: string('Zero Discrepancies')
         }
       };
 
@@ -112,19 +113,19 @@ describe('Content Contract Tests', () => {
             id: 'grandlux',
             slug: 'grandlux',
             data: {
-              title: 'Grandlux QSR Digital Transformation',
-              industry: 'QSR',
-              problem: 'Grandlux needed to modernize their digital ordering system',
-              result: 'Increased online orders by 45% and reduced wait times',
-              skills: ['Digital Strategy'],
-              metric: '45% increase in online orders'
+              title: 'Grandlux Nail Salon Operations',
+              industry: 'Salon',
+              problem: 'High-volume cash environment with 17 commission-based technicians required precise reconciliation',
+              result: 'Zero cash discrepancies and proactive reputation management through service recovery',
+              skills: ['Financial Controls'],
+              metric: 'Zero Discrepancies'
             }
           };
           
           expect(mockData).toBeDefined();
           expect(mockData.id).toBe('grandlux');
-          expect(mockData.data.industry).toBe('QSR');
-          expect(mockData.data.skills).toContain('Digital Strategy');
+          expect(mockData.data.industry).toBe('Salon');
+          expect(mockData.data.skills).toContain('Financial Controls');
           
           return mockData;
         });
@@ -307,6 +308,135 @@ describe('Content Contract Tests', () => {
           
           return mockData;
         });
+    });
+  });
+
+  describe('Dynamic Scenario Generation', () => {
+    it('generates realistic case study scenarios', async () => {
+      const scenarios = CaseStudyScenarioGenerator.generateScenarios(3);
+      
+      expect(scenarios).toHaveLength(3);
+      expect(scenarios[0]).toMatchObject({
+        name: expect.any(String),
+        description: expect.any(String),
+        priority: expect.stringMatching(/critical|high|medium|low/),
+        tags: expect.any(Array),
+        data: expect.any(Object),
+        generatedAt: expect.any(String)
+      });
+    });
+
+    it('generates scenarios with valid contract structure', async () => {
+      const scenarios = CaseStudyScenarioGenerator.generateScenarios(1);
+      const scenario = scenarios[0];
+      
+      await provider
+        .addInteraction()
+        .given('dynamic case study scenarios are available')
+        .uponReceiving('a request for dynamic case studies')
+        .withRequest('GET', '/api/content/case-studies/dynamic')
+        .willRespondWith(200, (builder) => {
+          builder.headers({
+            'Content-Type': 'application/json'
+          });
+          builder.jsonBody(eachLike(scenario.data));
+        })
+        .executeTest(async (mockserver) => {
+          const mockData = [scenario.data];
+          
+          expect(mockData).toBeDefined();
+          expect(Array.isArray(mockData)).toBe(true);
+          expect(mockData[0]).toMatchObject({
+            id: expect.any(String),
+            slug: expect.any(String),
+            data: {
+              title: expect.any(String),
+              industry: expect.stringMatching(/QSR|Salon|CPA-Payroll|E-commerce|Healthcare|FinTech|EdTech|RealEstate|Logistics|Manufacturing/),
+              problem: expect.any(String),
+              result: expect.any(String),
+              skills: expect.any(Array),
+              metric: expect.any(String)
+            }
+          });
+          
+          return mockData;
+        });
+    });
+
+    it('generates comprehensive dynamic scenarios', async () => {
+      const allScenarios = DynamicScenarioOrchestrator.generateAllScenarios();
+      
+      expect(allScenarios).toMatchObject({
+        caseStudies: expect.any(Array),
+        metrics: expect.any(Array),
+        timeline: expect.any(Array),
+        edgeCases: expect.any(Array)
+      });
+      
+      // Verify each scenario type has valid structure
+      expect(allScenarios.caseStudies[0]).toMatchObject({
+        name: expect.any(String),
+        data: expect.any(Object),
+        priority: expect.stringMatching(/critical|high|medium|low/)
+      });
+      
+      expect(allScenarios.metrics[0]).toMatchObject({
+        name: expect.any(String),
+        data: expect.any(Object),
+        priority: expect.stringMatching(/critical|high|medium|low/)
+      });
+      
+      expect(allScenarios.timeline[0]).toMatchObject({
+        name: expect.any(String),
+        data: expect.any(Object),
+        priority: expect.stringMatching(/critical|high|medium|low/)
+      });
+    });
+
+    it('filters scenarios by priority correctly', async () => {
+      const criticalScenarios = DynamicScenarioOrchestrator.generateScenariosByPriority('critical');
+      const highScenarios = DynamicScenarioOrchestrator.generateScenariosByPriority('high');
+      
+      criticalScenarios.forEach(scenario => {
+        expect(scenario.priority).toBe('critical');
+      });
+      
+      highScenarios.forEach(scenario => {
+        expect(scenario.priority).toBe('high');
+      });
+    });
+
+    it('exports scenarios for Pact testing with proper structure', async () => {
+      const pactExport = DynamicScenarioOrchestrator.exportForPact();
+      
+      expect(pactExport).toMatchObject({
+        caseStudyTemplate: expect.any(Object),
+        dynamicCaseStudies: expect.any(Array),
+        dynamicMetrics: expect.any(Array),
+        dynamicTimeline: expect.any(Array),
+        edgeCases: expect.any(Array),
+        metadata: expect.objectContaining({
+          generatedAt: expect.any(String),
+          totalScenarios: expect.any(Number),
+          generators: expect.any(Array)
+        })
+      });
+    });
+
+    it('handles edge cases in dynamic generation', async () => {
+      const edgeCases = CaseStudyScenarioGenerator.generateEdgeCases();
+      
+      expect(edgeCases).toHaveLength(2);
+      
+      // Test empty skills edge case
+      const emptySkillsCase = edgeCases.find(s => s.name.includes('Empty Skills'));
+      expect(emptySkillsCase).toBeDefined();
+      expect(emptySkillsCase?.data.data.skills).toBeDefined();
+      
+      // Test maximum length edge case
+      const maxLengthCase = edgeCases.find(s => s.name.includes('Maximum Length'));
+      expect(maxLengthCase).toBeDefined();
+      expect(maxLengthCase?.data.data.title.length).toBeGreaterThan(50);
     });
   });
 });

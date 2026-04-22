@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+type Props = { project: CollectionEntry<'projects'> };
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+// Get related projects based on technologies
+const allProjects = await getCollection('projects');
+const relatedProjects = allProjects
+  .filter(p => p.id !== project.id && p.data.technologies.some(tech => project.data.technologies.includes(tech)))
+  .slice(0, 3);
+---
+
+<BaseLayout 
+  title={project.data.title}
+  description={project.data.description}
+>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2 text-sm text-text-body">
+        <li>
+          <a href="/" class="hover:text-text-heading">Home</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li>
+          <a href="/lab" class="hover:text-text-heading">Lab</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li>
+          <a href="/lab/projects" class="hover:text-text-heading">Projects</a>
+        </li>
+        <li>
+          <span class="mx-2">/</span>
+        </li>
+        <li class="text-text-heading" aria-current="page">
+          {project.data.title}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Project Header -->
+    <header class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <span class={`text-sm px-3 py-1 rounded font-medium ${
+          project.data.status === 'active' 
+            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+            : project.data.status === 'completed'
+            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+            : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+        }`}>
+          {project.data.status.charAt(0).toUpperCase() + project.data.status.slice(1)}
+        </span>
+        <div class="flex items-center gap-4 text-sm text-text-body">
+          <span>Started {project.data.startDate.toLocaleDateString('en-US', { 
+            month: 'long', 
+            year: 'numeric' 
+          })}</span>
+          {project.data.endDate && (
+            <span>Completed {project.data.endDate.toLocaleDateString('en-US', { 
+              month: 'long', 
+              year: 'numeric' 
+            })}</span>
+          )}
+        </div>
+      </div>
+      
+      <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">
+        {project.data.title}
+      </h1>
+      
+      <p class="text-xl text-text-body mb-8 max-w-3xl">
+        {project.data.description}
+      </p>
+      
+      <!-- Technologies -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold text-text-heading mb-4">Technologies & Tools</h3>
+        <div class="flex flex-wrap gap-2">
+          {project.data.technologies.map((tech) => (
+            <span class="text-sm bg-surface border border-border px-3 py-1 rounded text-text-body">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Tags -->
+      {project.data.tags.length > 0 && (
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold text-text-heading mb-4">Tags</h3>
+          <div class="flex flex-wrap gap-2">
+            {project.data.tags.map((tag) => (
+              <span class="text-sm bg-surface border border-border px-3 py-1 rounded text-text-body">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <!-- Trust Cues -->
+      <div class="bg-surface/50 border border-border rounded-lg p-6">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-text-body">
+            <span class="font-medium text-text-heading">Lab Project:</span> 
+            Part of my experimental work where I build, test, and iterate on solutions to operational challenges.
+          </div>
+          <div class="flex items-center gap-4 text-sm text-text-body">
+            <span>{project.data.technologies.length} technologies</span>
+            <span>{project.data.tags.length} tags</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Project Content -->
+    <article class="mb-16">
+      <div class="bg-surface border border-border rounded-lg p-8">
+        <Content />
+      </div>
+    </article>
+
+    <!-- Related Projects -->
+    {relatedProjects.length > 0 && (
+      <section class="mb-16" aria-labelledby="related-heading">
+        <h2 id="related-heading" class="text-2xl font-bold text-text-heading mb-8">
+          Related Projects
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedProjects.map((relatedProject) => (
+            <article class="bg-surface border border-border rounded-lg p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class={`text-xs px-2 py-1 rounded font-medium ${
+                  relatedProject.data.status === 'active' 
+                    ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
+                    : relatedProject.data.status === 'completed'
+                    ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400'
+                    : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+                }`}>
+                  {relatedProject.data.status.charAt(0).toUpperCase() + relatedProject.data.status.slice(1)}
+                </span>
+                <time class="text-sm text-text-body" datetime={relatedProject.data.startDate.toISOString()}>
+                  {relatedProject.data.startDate.toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    year: 'numeric'
+                  })}
+                </time>
+              </div>
+              <h3 class="text-lg font-semibold text-text-heading mb-3">
+                <a href={`/lab/projects/${relatedProject.id}`} class="hover:text-teal transition-colors">
+                  {relatedProject.data.title}
+                </a>
+              </h3>
+              <p class="text-text-body text-sm mb-4 line-clamp-3">
+                {relatedProject.data.description}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {relatedProject.data.technologies.slice(0, 3).map((tech) => (
+                  <span class="text-xs bg-surface/50 border border-border px-2 py-1 rounded text-text-body">
+                    {tech}
+                  </span>
+                ))}
+                {relatedProject.data.technologies.length > 3 && (
+                  <span class="text-xs text-text-body">
+                    +{relatedProject.data.technologies.length - 3} more
+                  </span>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Navigation -->
+    <nav class="mb-16" aria-label="Project navigation">
+      <div class="flex justify-between items-center bg-surface border border-border rounded-lg p-6">
+        <a 
+          href="/lab/projects" 
+          class="inline-flex items-center gap-2 text-text-body hover:text-text-heading transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Back to Projects
+        </a>
+        
+        <a 
+          href="/lab" 
+          class="inline-flex items-center gap-2 text-text-body hover:text-text-heading transition-colors"
+        >
+          Lab Overview
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <!-- CTA -->
+    <section class="text-center">
+      <h2 class="text-2xl font-bold text-text-heading mb-4">
+        Interested in this project?
+      </h2>
+      <p class="text-text-body mb-8 max-w-2xl mx-auto">
+        I'm always open to discussing my experimental work and how these approaches might 
+        apply to real-world operational challenges.
+      </p>
+      <div class="flex justify-center gap-4">
+        <a 
+          href="/connect" 
+          class="inline-flex items-center gap-2 bg-teal hover:bg-teal/90 text-white font-medium px-8 py-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+        >
+          Let's Connect
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <a 
+          href="/lab" 
+          class="inline-flex items-center gap-2 border border-border text-text-heading hover:bg-surface font-medium px-8 py-4 rounded-lg transition-colors min-h-[44px] min-w-[44px]"
+        >
+          Explore More
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

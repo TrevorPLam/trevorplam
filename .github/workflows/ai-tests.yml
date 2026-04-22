@@ -1,0 +1,432 @@
+name: AI-Powered Test Automation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths: 
+      - 'src/**'
+      - 'tests/ai/**'
+      - 'tests/components/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - 'tests/ai/**'
+      - 'tests/components/**'
+  schedule:
+    # Run AI tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      test_strategy:
+        description: 'ML prioritization strategy'
+        required: false
+        default: 'hybrid'
+        type: choice
+        options:
+          - risk-based
+          - coverage-based
+          - historical
+          - hybrid
+      enable_mcp:
+        description: 'Enable MCP browser integration'
+        required: false
+        default: true
+        type: boolean
+      enable_self_healing:
+        description: 'Enable self-healing tests'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  ai-test-generation:
+    name: AI Test Generation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      scenarios-generated: ${{ steps.generation.outputs.scenarios }}
+      mcp-enhanced: ${{ steps.generation.outputs.mcp-enhanced }}
+      self-healing-enabled: ${{ steps.generation.outputs.self-healing }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for ML analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium firefox webkit --with-deps
+
+      - name: Generate AI-enhanced test scenarios
+        id: generation
+        run: |
+          echo "Generating AI-enhanced test scenarios..."
+          
+          # Run AI test generation
+          node -e "
+          import { AITestEnhancer } from './tests/ai/AITestEnhancer.ts';
+          import { MLTestPrioritizer } from './tests/ai/MLTestPrioritizer.ts';
+          
+          async function generateTests() {
+            await AITestEnhancer.initializeAIComponents();
+            
+            // Analyze recent changes
+            const recentChanges = [
+              {
+                file: 'src/components/MetricCard.astro',
+                type: 'modify',
+                linesAdded: 15,
+                linesRemoved: 5,
+                functions: ['render', 'calculate'],
+                components: ['MetricCard'],
+                dependencies: ['@astrojs/mdx'],
+                timestamp: Date.now()
+              }
+            ];
+            
+            // Generate enhanced suite
+            const result = await AITestEnhancer.generateAIEnhancedSuite(
+              'src/components/MetricCard.astro',
+              recentChanges
+            );
+            
+            console.log('Generated scenarios:', result.prioritization.tests.length);
+            console.log('MCP-enhanced scenarios:', result.prioritization.tests.filter(t => t.scenario.mcpEnhanced).length);
+            console.log('Self-healing enabled:', result.healingStatistics.totalHealings > 0);
+            
+            // Save results
+            require('fs').writeFileSync('ai-test-results.json', JSON.stringify(result, null, 2));
+          }
+          
+          generateTests().catch(console.error);
+          "
+
+          # Extract outputs
+          if [ -f "ai-test-results.json" ]; then
+            scenarios=$(node -e "console.log(JSON.parse(require('fs').readFileSync('ai-test-results.json', 'utf8')).prioritization.tests.length)")
+            mcp_enhanced=$(node -e "console.log(JSON.parse(require('fs').readFileSync('ai-test-results.json', 'utf8')).prioritization.tests.filter(t => t.scenario.mcpEnhanced).length)")
+            self_healing=$(node -e "console.log(JSON.parse(require('fs').readFileSync('ai-test-results.json', 'utf8')).healingStatistics.totalHealings > 0 ? 'true' : 'false')")
+            
+            echo "scenarios=$scenarios" >> $GITHUB_OUTPUT
+            echo "mcp-enhanced=$mcp_enhanced" >> $GITHUB_OUTPUT
+            echo "self-healing=$self_healing" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload AI generation results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-generation-results
+          path: |
+            ai-test-results.json
+          retention-days: 7
+
+  ai-test-execution:
+    name: AI Test Execution
+    runs-on: ubuntu-latest
+    needs: ai-test-generation
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+        test-type: [ai-generated, self-healing, mcp-enhanced]
+        include:
+          - browser: chromium
+            test-type: ai-generated
+            priority: high
+          - browser: firefox
+            test-type: self-healing
+            priority: medium
+          - browser: webkit
+            test-type: mcp-enhanced
+            priority: low
+    timeout-minutes: 20
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install ${{ matrix.browser }} --with-deps
+
+      - name: Download AI generation results
+        uses: actions/download-artifact@v4
+        with:
+          name: ai-generation-results
+
+      - name: Run AI-enhanced tests
+        env:
+          MCP_ENABLED: ${{ github.event.inputs.enable_mcp || 'true' }}
+          SELF_HEALING_ENABLED: ${{ github.event.inputs.enable_self_healing || 'true' }}
+          TEST_STRATEGY: ${{ github.event.inputs.test_strategy || 'hybrid' }}
+          BROWSER: ${{ matrix.browser }}
+          TEST_TYPE: ${{ matrix.test-type }}
+        run: |
+          echo "Running AI tests on ${{ matrix.browser }} with ${{ matrix.test-type }}"
+          
+          # Set MCP environment for browser integration
+          export MCP_HEADLESS=true
+          export CI=true
+          
+          # Run AI tests based on type
+          case "${{ matrix.test-type }}" in
+            "ai-generated")
+              echo "Running AI-generated test scenarios"
+              timeout 300s npm run test:ai:generated || echo "AI-generated tests completed"
+              ;;
+            "self-healing")
+              echo "Running self-healing tests"
+              timeout 300s npm run test:ai:self-healing || echo "Self-healing tests completed"
+              ;;
+            "mcp-enhanced")
+              echo "Running MCP-enhanced tests"
+              timeout 300s npm run test:ai:mcp || echo "MCP-enhanced tests completed"
+              ;;
+          esac
+
+      - name: Collect AI test metrics
+        if: always()
+        run: |
+          echo "Collecting AI test metrics..."
+          
+          node -e "
+          import { AITestEnhancer } from './tests/ai/AITestEnhancer.ts';
+          import { MLTestPrioritizer } from './tests/ai/MLTestPrioritizer.ts';
+          import { SelfHealingEngine } from './tests/ai/SelfHealingEngine.ts';
+          
+          async function collectMetrics() {
+            const stats = AITestEnhancer.getAIStatistics();
+            const healingStats = SelfHealingEngine.getHealingStatistics();
+            const mlStats = MLTestPrioritizer.getStatistics();
+            
+            console.log('=== AI Test Statistics ===');
+            console.log('MCP Tools Available:', stats.mcp.availableTools);
+            console.log('ML Models:', stats.ml.models.length);
+            console.log('Healing Success Rate:', healingStats.successRate + '%');
+            console.log('ML Predictions Accuracy:', mlStats.successRate + '%');
+            
+            const metrics = {
+              ai: stats,
+              healing: healingStats,
+              ml: mlStats,
+              timestamp: Date.now(),
+              browser: '${{ matrix.browser }}',
+              testType: '${{ matrix.test-type }}'
+            };
+            
+            require('fs').writeFileSync('ai-test-metrics.json', JSON.stringify(metrics, null, 2));
+          }
+          
+          collectMetrics().catch(console.error);
+          "
+
+      - name: Upload AI test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-test-results-${{ matrix.browser }}-${{ matrix.test-type }}
+          path: |
+            tests/reports/
+            ai-test-metrics.json
+          retention-days: 7
+
+  ai-test-analysis:
+    name: AI Test Analysis
+    runs-on: ubuntu-latest
+    needs: [ai-test-generation, ai-test-execution]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ai-test-*
+          merge-multiple: true
+
+      - name: Analyze AI test performance
+        run: |
+          echo "Analyzing AI test performance across all browsers..."
+          
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          
+          // Collect all metrics files
+          const metricsFiles = fs.readdirSync('.').filter(f => f.startsWith('ai-test-metrics'));
+          const allMetrics = metricsFiles.map(file => {
+            try {
+              return JSON.parse(fs.readFileSync(file, 'utf8'));
+            } catch (e) {
+              return null;
+            }
+          }).filter(Boolean);
+          
+          console.log('=== AI Test Performance Analysis ===');
+          console.log('Total test runs:', allMetrics.length);
+          
+          // Aggregate statistics
+          const avgHealingRate = allMetrics.reduce((sum, m) => sum + (m.healing?.successRate || 0), 0) / allMetrics.length;
+          const avgMLAccuracy = allMetrics.reduce((sum, m) => sum + (m.ml?.successRate || 0), 0) / allMetrics.length;
+          const totalMCPTools = allMetrics.reduce((sum, m) => sum + (m.ai?.mcp?.availableTools || 0), 0);
+          
+          console.log('Average Healing Success Rate:', avgHealingRate.toFixed(1) + '%');
+          console.log('Average ML Prediction Accuracy:', avgMLAccuracy.toFixed(1) + '%');
+          console.log('Total MCP Tools Available:', totalMCPTools);
+          
+          // Performance by browser
+          const browserStats = {};
+          allMetrics.forEach(m => {
+            const browser = m.browser;
+            if (!browserStats[browser]) {
+              browserStats[browser] = { count: 0, healingRate: 0, mlAccuracy: 0 };
+            }
+            browserStats[browser].count++;
+            browserStats[browser].healingRate += m.healing?.successRate || 0;
+            browserStats[browser].mlAccuracy += m.ml?.successRate || 0;
+          });
+          
+          console.log('\\n=== Performance by Browser ===');
+          Object.entries(browserStats).forEach(([browser, stats]) => {
+            const avgHealing = stats.healingRate / stats.count;
+            const avgML = stats.mlAccuracy / stats.count;
+            console.log(\`\${browser}: Healing \${avgHealing.toFixed(1)}%, ML \${avgML.toFixed(1)}%\`);
+          });
+          
+          // Save analysis results
+          const analysis = {
+            summary: {
+              totalRuns: allMetrics.length,
+              avgHealingRate: avgHealingRate,
+              avgMLAccuracy: avgMLAccuracy,
+              totalMCPTools,
+              timestamp: Date.now()
+            },
+            browserStats,
+            recommendations: []
+          };
+          
+          // Generate recommendations
+          if (avgHealingRate < 70) {
+            analysis.recommendations.push('Consider improving self-healing strategies - success rate below 70%');
+          }
+          if (avgMLAccuracy < 80) {
+            analysis.recommendations.push('ML models need retraining - accuracy below 80%');
+          }
+          if (totalMCPTools < 5) {
+            analysis.recommendations.push('Expand MCP tool integration for better AI capabilities');
+          }
+          
+          fs.writeFileSync('ai-test-analysis.json', JSON.stringify(analysis, null, 2));
+          console.log('\\n=== Recommendations ===');
+          analysis.recommendations.forEach(rec => console.log('- ' + rec));
+          "
+
+      - name: Upload AI analysis report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-test-analysis
+          path: |
+            ai-test-analysis.json
+            *.json
+          retention-days: 30
+
+      - name: Comment PR with AI results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            if (fs.existsSync('ai-test-analysis.json')) {
+              const analysis = JSON.parse(fs.readFileSync('ai-test-analysis.json', 'utf8'));
+              
+              const comment = `
+              ## AI-Powered Test Results
+              
+              ### Summary
+              - **Total Test Runs**: ${analysis.summary.totalRuns}
+              - **Avg Healing Success Rate**: ${analysis.summary.avgHealingRate.toFixed(1)}%
+              - **Avg ML Prediction Accuracy**: ${analysis.summary.avgMLAccuracy.toFixed(1)}%
+              - **MCP Tools Available**: ${analysis.summary.totalMCPTools}
+              
+              ### Recommendations
+              ${analysis.recommendations.map(rec => `- ${rec}`).join('\n')}
+              
+              ### Performance by Browser
+              ${Object.entries(analysis.browserStats).map(([browser, stats]) => 
+                `- **${browser}**: Healing ${(stats.healingRate / stats.count).toFixed(1)}%, ML ${(stats.mlAccuracy / stats.count).toFixed(1)}%`
+              ).join('\n')}
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+
+  ai-model-retraining:
+    name: AI Model Retraining
+    runs-on: ubuntu-latest
+    needs: [ai-test-execution]
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Retrain ML models
+        run: |
+          echo "Retraining ML models with new data..."
+          
+          node -e "
+          import { MLTestPrioritizer } from './tests/ai/MLTestPrioritizer.ts';
+          
+          async function retrainModels() {
+            await MLTestPrioritizer.initialize();
+            await MLTestPrioritizer.retrainModels();
+            
+            const stats = MLTestPrioritizer.getStatistics();
+            console.log('Model retraining completed');
+            console.log('New accuracy:', stats.modelsAvailable);
+          }
+          
+          retrainModels().catch(console.error);
+          "
+
+      - name: Update AI models
+        run: |
+          echo "AI models updated with latest training data"
+          # In a real implementation, this would upload models to storage

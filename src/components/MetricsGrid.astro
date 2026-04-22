@@ -1,0 +1,71 @@
+---
+import metricsData from '../../data/metrics.json';
+
+// Select top 6 most impactful metrics for dashboard display
+const topMetrics = metricsData.slice(0, 6);
+
+function getMetricColor(context: string): string {
+  if (context.toLowerCase().includes('growth') || context.toLowerCase().includes('increase')) {
+    return 'text-green-600';
+  }
+  if (context.toLowerCase().includes('reduction') || context.toLowerCase().includes('decrease')) {
+    return 'text-blue-600';
+  }
+  if (context.toLowerCase().includes('zero') || context.toLowerCase().includes('perfect')) {
+    return 'text-emerald-600';
+  }
+  return 'text-text-heading';
+}
+
+function formatMetricValue(before: string, after: string): string {
+  // Check if these are numerical values
+  const beforeNum = parseFloat(before.replace(/[^0-9.-]/g, ''));
+  const afterNum = parseFloat(after.replace(/[^0-9.-]/g, ''));
+  
+  if (!isNaN(beforeNum) && !isNaN(afterNum)) {
+    // Calculate percentage change
+    const change = ((afterNum - beforeNum) / beforeNum * 100).toFixed(1);
+    const changeNum = parseFloat(change);
+    
+    if (changeNum > 0) {
+      return `+${change}%`;
+    } else if (changeNum < 0) {
+      return `${change}%`;
+    }
+    return `${change}%`;
+  }
+  
+  return after;
+}
+---
+
+<section class="mb-8">
+  <h2 class="text-2xl font-bold text-text-heading mb-6">Key Performance Indicators</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {topMetrics.map((metric) => (
+      <div class="bg-surface border border-border rounded-lg p-6 hover:shadow-lg transition-shadow duration-200">
+        <div class="flex items-start justify-between mb-4">
+          <h3 class="text-lg font-semibold text-text-heading">{metric.title}</h3>
+          <span class={`text-sm font-medium ${getMetricColor(metric.context)}`}>
+            {formatMetricValue(metric.before, metric.after)}
+          </span>
+        </div>
+        
+        <div class="space-y-2">
+          <div class="flex items-baseline space-x-2">
+            <span class="text-sm text-text-body/70 line-through">{metric.before}</span>
+            <span class="text-xl font-bold text-text-heading">{metric.after}</span>
+          </div>
+          
+          <p class="text-sm text-text-body/80 leading-relaxed">{metric.context}</p>
+          
+          <div class="pt-2 border-t border-border/50">
+            <span class="inline-block px-2 py-1 text-xs font-medium bg-accent/20 text-accent-text rounded">
+              {metric.skillTag}
+            </span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

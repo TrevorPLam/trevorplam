@@ -399,15 +399,19 @@ class RUMMonitoring {
   }
 
   private storeEvent(event: RUMEvent): void {
-    const events = JSON.parse(localStorage.getItem('rum_events') || '[]');
-    events.push(event);
-    
-    // Keep only last 100 events
-    if (events.length > 100) {
-      events.splice(0, events.length - 100);
+    try {
+      const events = JSON.parse(localStorage.getItem('rum_events') || '[]');
+      events.push(event);
+      
+      // Keep only last 100 events
+      if (events.length > 100) {
+        events.splice(0, events.length - 100);
+      }
+      
+      localStorage.setItem('rum_events', JSON.stringify(events));
+    } catch {
+      // Storage unavailable — skip local debug storage
     }
-    
-    localStorage.setItem('rum_events', JSON.stringify(events));
   }
 
   private isProduction(): boolean {
@@ -417,8 +421,12 @@ class RUMMonitoring {
   }
 
   private isDebugMode(): boolean {
-    return localStorage.getItem('rum-debug') === 'true' || 
-           new URLSearchParams(window.location.search).has('rum-debug');
+    try {
+      return localStorage.getItem('rum-debug') === 'true' || 
+             new URLSearchParams(window.location.search).has('rum-debug');
+    } catch {
+      return new URLSearchParams(window.location.search).has('rum-debug');
+    }
   }
 
   // Public API
