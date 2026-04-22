@@ -1,0 +1,146 @@
+/* Print-specific styles for case study PDF generation */
+
+@page {
+  size: A4;
+  margin: 2cm;
+  
+  @top-center {
+    content: "Trevor Lam - Case Study";
+    font-size: 10pt;
+    color: #666;
+  }
+  
+  @bottom-center {
+    content: "Page " counter(page) " of " counter(pages);
+    font-size: 10pt;
+    color: #666;
+  }
+}
+
+/* Hide navigation and interactive elements */
+nav,
+.sidebar,
+.search-bar,
+.breadcrumbs,
+.trust-cues .download-pdf,
+button,
+a[onclick*="print()"] {
+  display: none !important;
+}
+
+/* Ensure proper text contrast */
+body {
+  color: #000;
+  background: #fff;
+}
+
+/* Optimize headings */
+h1, h2, h3, h4, h5, h6 {
+  page-break-after: avoid;
+  page-break-inside: avoid;
+  color: #000;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+h1 {
+  font-size: 24pt;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 18pt;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.3em;
+}
+
+h3 {
+  font-size: 16pt;
+}
+
+/* Optimize paragraphs and lists */
+p, ul, ol, li {
+  page-break-inside: avoid;
+  orphans: 2;
+  widows: 2;
+  line-height: 1.4;
+  margin-bottom: 0.8em;
+}
+
+/* Optimize code blocks */
+pre, code {
+  page-break-inside: avoid;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 0.5em;
+  font-family: 'Courier New', monospace;
+  font-size: 10pt;
+}
+
+/* Optimize tables */
+table {
+  page-break-inside: avoid;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+th, td {
+  border: 1px solid #000;
+  padding: 0.5em;
+  text-align: left;
+}
+
+th {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Optimize images */
+img {
+  max-width: 100%;
+  height: auto;
+  page-break-inside: avoid;
+  page-break-before: auto;
+  page-break-after: auto;
+}
+
+/* Show trust cues but make them print-friendly */
+.trust-cues {
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  padding: 1em;
+  margin: 1em 0;
+}
+
+/* Ensure proper print layout */
+article {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Print-specific typography */
+body {
+  font-family: 'Georgia', serif;
+  font-size: 12pt;
+  line-height: 1.4;
+  color: #000;
+}
+
+/* Links should show URLs */
+a[href]:after {
+  content: " (" attr(href) ")";
+  font-size: 9pt;
+  color: #666;
+}
+
+a[href^="#"]:after {
+  content: "";
+}
+
+/* Hide interactive elements */
+.trust-cues a[href$=".pdf"]:after {
+  content: "";
+}

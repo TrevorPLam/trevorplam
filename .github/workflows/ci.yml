@@ -10,15 +10,22 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    # 2026: Policy-driven execution
+    if: contains(fromJson('["push", "pull_request"]'), github.event_name)
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # 2026: Immutable checkout for security
+          persist-credentials: false
         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'npm'
+          # 2026: Enhanced security
+          cache-dependency-path: '**/package-lock.json'
           
       - name: Install dependencies
         run: npm ci

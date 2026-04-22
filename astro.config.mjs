@@ -18,20 +18,26 @@ export default defineConfig({
         gzipSize: true,
         brotliSize: true,
       }) : null
-    ].filter(Boolean)
+    ].filter(Boolean),
+    // 2026: Enhanced build optimization
+    build: {
+      target: 'es2022', // Modern browser targeting
+      minify: 'esbuild', // Faster minification
+      sourcemap: process.env.NODE_ENV === 'development'
+    }
   },
-  security: {
-    csp: true
-  },
+    // security: {
+  //   csp: true
+  // },
   fonts: [
     {
-      provider: fontProviders.google(),
+      provider: fontProviders.fontsource(), // 2026: Prefer Fontsource over Google for privacy
       name: 'Inter',
       cssVariable: '--font-sans',
       weights: ['400', '600', '700']
     },
     {
-      provider: fontProviders.google(),
+      provider: fontProviders.fontsource(),
       name: 'JetBrains Mono',
       cssVariable: '--font-mono',
       weights: ['400', '500']

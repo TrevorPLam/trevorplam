@@ -29,7 +29,8 @@ export default getViteConfig({
         isolate: true, 
         include: ['tests/components/**'],
         testTimeout: 5000,
-        hookTimeout: 5000
+        hookTimeout: 5000,
+        environment: 'browser' // Override for real browser testing
       },
       { 
         name: 'integration', 

@@ -1,8 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ToggleSwitch from '../components/ToggleSwitch.astro';
-import NarrativeView from '../sections/NarrativeView.astro';
-import ForensicDashboard from '../sections/ForensicDashboard.astro';
 ---
 
 <BaseLayout 
@@ -19,111 +16,24 @@ import ForensicDashboard from '../sections/ForensicDashboard.astro';
         Quantified results and narrative case studies demonstrating operational excellence across three industries.
       </p>
       
-      <!-- Toggle Control -->
-      <div class="flex items-center justify-center gap-4 mb-8">
-        <span class="text-text-body font-medium" id="narrative-label">
-          Case Studies
-        </span>
-        <ToggleSwitch 
-          label="Toggle between Case Studies and Performance Dashboard views"
-          checked={false}
-        />
-        <span class="text-text-body font-medium" id="dashboard-label">
-          Performance Dashboard
-        </span>
+      <!-- Page Content -->
+      <div class="text-center">
+        <p class="text-text-body max-w-3xl mx-auto">
+          Impact page content is being updated. Please check back later for complete case studies and performance metrics.
+        </p>
       </div>
     </header>
 
     <!-- Content Areas -->
     <main>
-      <NarrativeView class="transition-opacity duration-300" />
-      <ForensicDashboard class="transition-opacity duration-300" />
+      <div class="text-center py-12">
+        <h2 class="text-2xl font-semibold text-text-heading mb-4">
+          Impact Page
+        </h2>
+        <p class="text-text-body max-w-3xl mx-auto">
+          This page is being updated. Please check back later for the complete impact and case studies showcase.
+        </p>
+      </div>
     </main>
   </div>
 </BaseLayout>
-
-<script>
-  // Declare window interface extensions
-  declare global {
-    interface Window {
-      onToggleChange?: (checked: boolean) => void;
-      getToggleState?: () => boolean;
-      setToggleState?: (value: boolean) => void;
-    }
-  }
-
-  // Toggle functionality
-  let currentView = 'narrative'; // Start with narrative view
-  
-  const narrativeView = document.getElementById('narrative-view');
-  const forensicDashboard = document.getElementById('forensic-dashboard');
-  const narrativeLabel = document.getElementById('narrative-label');
-  const dashboardLabel = document.getElementById('dashboard-label');
-
-  function updateView(showDashboard: boolean) {
-    if (showDashboard) {
-      // Show Dashboard
-      narrativeView?.classList.add('hidden');
-      narrativeView?.setAttribute('aria-hidden', 'true');
-      forensicDashboard?.classList.remove('hidden');
-      forensicDashboard?.setAttribute('aria-hidden', 'false');
-      
-      narrativeLabel?.classList.remove('text-accent');
-      narrativeLabel?.classList.add('text-text-body');
-      dashboardLabel?.classList.remove('text-text-body');
-      dashboardLabel?.classList.add('text-accent');
-      
-      currentView = 'dashboard';
-    } else {
-      // Show Narrative
-      narrativeView?.classList.remove('hidden');
-      narrativeView?.setAttribute('aria-hidden', 'false');
-      forensicDashboard?.classList.add('hidden');
-      forensicDashboard?.setAttribute('aria-hidden', 'true');
-      
-      narrativeLabel?.classList.remove('text-text-body');
-      narrativeLabel?.classList.add('text-accent');
-      dashboardLabel?.classList.remove('text-accent');
-      dashboardLabel?.classList.add('text-text-body');
-      
-      currentView = 'narrative';
-    }
-    
-    // Update toggle state
-    if (typeof window !== 'undefined' && window.setToggleState) {
-      window.setToggleState(showDashboard);
-    }
-  }
-
-  // Initialize view (show narrative by default)
-  updateView(false);
-
-  // Set up toggle callback
-  if (typeof window !== 'undefined') {
-    window.onToggleChange = (isChecked: boolean) => {
-      updateView(isChecked);
-    };
-  }
-
-  // Handle keyboard navigation between views
-  document.addEventListener('keydown', (event: KeyboardEvent) => {
-    if ((event.ctrlKey || event.metaKey) && event.key === 'Tab') {
-      event.preventDefault();
-      updateView(currentView === 'narrative');
-    }
-  });
-</script>
-
-<style>
-  /* Smooth transitions for view switching */
-  .transition-opacity {
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  /* Focus styles for toggle labels */
-  #narrative-label:focus,
-  #dashboard-label:focus {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-</style>

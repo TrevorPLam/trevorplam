@@ -5,6 +5,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseStudyHeader from '../../components/CaseStudyHeader.astro';
 import InlineMetric from '../../components/InlineMetric.astro';
 import SkillTag from '../../components/SkillTag.astro';
+import TrustCues from '../../components/TrustCues.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   const caseStudies = await getCollection('caseStudies');
@@ -20,18 +22,19 @@ interface Props {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry, { 
-  components: { 
-    InlineMetric, 
-    SkillTag 
-  } 
-});
+const { Content } = await render(entry);
 
 // Get all case studies for navigation
 const allCaseStudies = await getCollection('caseStudies');
 const currentIndex = allCaseStudies.findIndex(study => study.id === entry.id);
 const previousCase = currentIndex > 0 ? allCaseStudies[currentIndex - 1] : null;
 const nextCase = currentIndex < allCaseStudies.length - 1 ? allCaseStudies[currentIndex + 1] : null;
+
+// Get related capabilities for this case study
+const capabilities = await getCollection('capabilities');
+const relatedCapabilities = capabilities.filter(cap => 
+  entry.data.relatedCases.includes(cap.data.slug)
+);
 
 // BreadcrumbList schema for this case study
 const breadcrumbJsonLd = {
@@ -46,12 +49,18 @@ const breadcrumbJsonLd = {
     {
       '@type': 'ListItem',
       position: 2,
-      name: 'Impact',
-      item: 'https://trevor-lam.com/impact'
+      name: 'Case Studies',
+      item: 'https://trevor-lam.com/cases'
     },
     {
       '@type': 'ListItem',
       position: 3,
+      name: entry.data.industry,
+      item: `https://trevor-lam.com/cases?industry=${entry.data.industry}`
+    },
+    {
+      '@type': 'ListItem',
+      position: 4,
       name: entry.data.title,
       item: `https://trevor-lam.com/cases/${entry.id}`
     }
@@ -62,10 +71,12 @@ const pageJsonLd = {
   '@type': 'Article',
   '@id': `https://trevor-lam.com/cases/${entry.id}#article`,
   headline: entry.data.title,
-  description: entry.data.problem,
+  description: `${entry.data.problem} ${entry.data.result}`,
   author: { '@id': 'https://trevor-lam.com/#person' },
   mainEntityOfPage: `https://trevor-lam.com/cases/${entry.id}`,
-  about: entry.data.industry
+  about: entry.data.industry,
+  dateModified: entry.data.lastUpdated?.toISOString(),
+  datePublished: entry.data.lastUpdated?.toISOString()
 };
 ---
 
@@ -75,46 +86,67 @@ const pageJsonLd = {
   ogType="article"
   jsonLd={[breadcrumbJsonLd, pageJsonLd]}
 >
-  <article class="max-w-4xl mx-auto px-6 py-12">
-    <CaseStudyHeader 
-      title={entry.data.title}
-      industry={entry.data.industry}
-    />
-    
-    <div class="mb-8">
-      <a 
-        href="#" 
-        class="inline-flex items-center gap-2 bg-surface text-text-body px-4 py-2 rounded border border-border hover:bg-accent hover:text-white transition-colors"
-        onclick="window.print()"
-      >
-        Download as PDF
-      </a>
-    </div>
-
-    <Content />
-
-    <nav class="mt-16 pt-8 border-t border-border">
-      <div class="flex justify-between items-center">
-        {previousCase && (
-          <a 
-            href={`/cases/${previousCase.id}`}
-            class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors"
-          >
-            ← Previous: {previousCase.data.title}
-          </a>
-        )}
+  <div class="flex">
+    <div class="flex-1 ml-64">
+      <div class="max-w-4xl mx-auto px-6 py-12">
+        <Breadcrumbs />
         
-        <div class="flex-1"></div>
-        
-        {nextCase && (
-          <a 
-            href={`/cases/${nextCase.id}`}
-            class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors text-right"
-          >
-            Next: {nextCase.data.title} →
-          </a>
-        )}
+        <article>
+          <CaseStudyHeader 
+            title={entry.data.title}
+            industry={entry.data.industry}
+          />
+          
+          <TrustCues 
+            lastUpdated={entry.data.lastUpdated}
+            verified={true}
+            slug={entry.id}
+          />
+
+          <Content />
+
+          {relatedCapabilities.length > 0 && (
+            <section class="mt-16 pt-8 border-t border-border">
+              <h2 class="text-2xl font-semibold mb-6">Related Capabilities</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {relatedCapabilities.map(capability => (
+                  <a 
+                    href={`/capabilities/${capability.data.slug}`}
+                    class="block p-4 border border-border rounded-lg hover:bg-accent hover:text-white transition-colors"
+                  >
+                    <h3 class="font-semibold mb-2">{capability.data.title}</h3>
+                    <p class="text-sm text-text-muted line-clamp-2">{capability.data.philosophie}</p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <nav class="mt-16 pt-8 border-t border-border">
+            <div class="flex justify-between items-center">
+              {previousCase && (
+                <a 
+                  href={`/cases/${previousCase.id}`}
+                  class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors"
+                >
+                  ← Previous: {previousCase.data.title}
+                </a>
+              )}
+              
+              <div class="flex-1"></div>
+              
+              {nextCase && (
+                <a 
+                  href={`/cases/${nextCase.id}`}
+                  class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors text-right"
+                >
+                  Next: {nextCase.data.title} →
+                </a>
+              )}
+            </div>
+          </nav>
+        </article>
       </div>
-    </nav>
-  </article>
+    </div>
+  </div>
 </BaseLayout>

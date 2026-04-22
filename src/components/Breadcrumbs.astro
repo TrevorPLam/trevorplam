@@ -52,7 +52,22 @@ function getBreadcrumbs(path: string): Array<{ name: string; href: string }> {
 }
 
 const breadcrumbs = getBreadcrumbs(currentPath);
+
+// Generate JSON-LD structured data for breadcrumbs
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': breadcrumbs.map((breadcrumb, index) => ({
+    '@type': 'ListItem',
+    'position': index + 1,
+    'name': breadcrumb.name,
+    'item': new URL(breadcrumb.href, Astro.site?.toString() || 'https://trevor-lam.com').toString()
+  }))
+};
 ---
+
+<!-- JSON-LD Breadcrumb Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
 <nav aria-label="Breadcrumb" class="py-2">
   <ol class="flex items-center space-x-2 text-sm text-text-body/70">

@@ -1,10 +1,26 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const capabilities = await getCollection('capabilities');
 ---
 
 <BaseLayout 
   title="Capabilities - Trevor Lam" 
   description="Core competencies and technical proficiencies I bring to operations, financial controls, and people leadership roles."
+  jsonLd={{
+    '@type': 'ItemList',
+    name: 'Core Capabilities',
+    description: 'Comprehensive overview of professional capabilities and expertise areas.',
+    numberOfItems: capabilities.length,
+    itemListElement: capabilities.map((capability, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: capability.data.title,
+      description: capability.data.philosophy,
+      url: `${new URL(Astro.url.origin)}/capabilities/${capability.data.slug}`
+    }))
+  }}
 >
   <div class="max-w-6xl mx-auto px-4 py-8">
     <!-- Header -->
@@ -17,183 +33,76 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </header>
 
-    <!-- Four Column Skills Grid -->
-    <section class="mb-20" aria-labelledby="skills-heading">
-      <h2 id="skills-heading" class="sr-only">Skills Inventory</h2>
+    <!-- Capabilities Grid -->
+    <section class="mb-20" aria-labelledby="capabilities-heading">
+      <h2 id="capabilities-heading" class="sr-only">Core Capabilities</h2>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <!-- Column 1: Operational Excellence -->
-        <div class="bg-surface border border-border rounded-lg p-6">
-          <h3 class="text-xl font-bold text-text-heading mb-6 pb-4 border-b border-border">
-            Operational Excellence & Process Optimization
-          </h3>
-          <ul class="space-y-3 text-text-body">
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Multi-Entity Operations Management</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Workflow Architecture & Paper-to-Digital Migration</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>KPI Management & P&L Ownership</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>SOP Development & Compliance Documentation</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Vendor Management (20+ providers)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Information Systems Design</span>
-            </li>
-          </ul>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {capabilities.map((capability) => (
+          <article class="bg-surface border border-border rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
+            <header class="mb-4">
+              <h3 class="text-xl font-bold text-text-heading mb-2">
+                <a 
+                  href={`/capabilities/${capability.data.slug}`}
+                  class="hover:text-accent transition-colors duration-200"
+                >
+                  {capability.data.title}
+                </a>
+              </h3>
+              <p class="text-sm text-text-body/70 line-clamp-3">
+                {capability.data.philosophy}
+              </p>
+            </header>
 
-        <!-- Column 2: Financial Controls -->
-        <div class="bg-surface border border-border rounded-lg p-6">
-          <h3 class="text-xl font-bold text-text-heading mb-6 pb-4 border-b border-border">
-            Financial Controls & Payroll Management
-          </h3>
-          <ul class="space-y-3 text-text-body">
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Payroll Processing (APEX, 315+ client accounts)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>QuickBooks Online (QBO) & Xero Bookkeeping</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Month-End Close & Financial Reporting</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Zero-Discrepancy Reconciliation & Audit Readiness</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Accounts Payable/Receivable & Collections</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Multi-Entity Accounting</span>
-            </li>
-          </ul>
-        </div>
+            <!-- KPIs Preview -->
+            <div class="mb-4">
+              <h4 class="text-sm font-semibold text-text-heading mb-2">Key Metrics</h4>
+              <div class="grid grid-cols-2 gap-2">
+                {capability.data.kpis.slice(0, 4).map((kpi) => (
+                  <div class="text-xs p-2 bg-surface/50 rounded border border-border">
+                    <div class="font-medium text-text-body/80">{kpi.name}</div>
+                    <div class="font-bold text-text-heading">{kpi.value}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        <!-- Column 3: People Operations -->
-        <div class="bg-surface border border-border rounded-lg p-6">
-          <h3 class="text-xl font-bold text-text-heading mb-6 pb-4 border-b border-border">
-            People Operations & Cross-Functional Leadership
-          </h3>
-          <ul class="space-y-3 text-text-body">
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Full-Cycle Recruiting & Onboarding</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Benefits Administration (Medical/Dental/Vision/Retirement)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>ERISA & ACA Compliance Familiarity</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Employee Retention Strategy</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Leadership Training & Development (AMLC Instructor)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Performance Management</span>
-            </li>
-          </ul>
-        </div>
+            <!-- Industries -->
+            {capability.data.industries.length > 0 && (
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold text-text-heading mb-2">Industries</h4>
+                <div class="flex flex-wrap gap-1">
+                  {capability.data.industries.map((industry) => (
+                    <span class="text-xs px-2 py-1 bg-accent/10 text-accent-text rounded border border-accent/20">
+                      {industry}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-        <!-- Column 4: Executive Support -->
-        <div class="bg-surface border border-border rounded-lg p-6">
-          <h3 class="text-xl font-bold text-text-heading mb-6 pb-4 border-b border-border">
-            Executive Support & Business Administration
-          </h3>
-          <ul class="space-y-3 text-text-body">
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Calendar & Inbox Management for Principals</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Client Onboarding & Relationship Management</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Independent AR Collections</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Marketing Operations (HubSpot, ActiveCampaign, Google Ads)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>AI Productivity Tools (ChatGPT, Claude, Perplexity, Gemini)</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-teal mt-1">•</span>
-              <span>Typing Speed: 80 WPM</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technical Proficiencies Footer -->
-    <section class="bg-surface/50 border border-border rounded-lg p-8" aria-labelledby="technical-heading">
-      <h2 id="technical-heading" class="text-2xl font-bold text-text-heading mb-6 text-center">
-        Technical Proficiencies
-      </h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Accounting & Payroll -->
-        <div>
-          <h4 class="font-semibold text-text-heading mb-3 text-accent">Accounting & Payroll</h4>
-          <p class="text-text-body text-sm">
-            QuickBooks Online, Xero, APEX Payroll, Thomson Reuters, SafeSend, Karbon
-          </p>
-        </div>
-
-        <!-- Office & Productivity -->
-        <div>
-          <h4 class="font-semibold text-text-heading mb-3 text-accent">Office & Productivity</h4>
-          <p class="text-text-body text-sm">
-            Microsoft Excel (Pivot Tables, VLOOKUPs), Outlook, Word, PowerPoint, Google Workspace, Teams, Zoom
-          </p>
-        </div>
-
-        <!-- Marketing & CRM -->
-        <div>
-          <h4 class="font-semibold text-text-heading mb-3 text-accent">Marketing & CRM</h4>
-          <p class="text-text-body text-sm">
-            HubSpot, ActiveCampaign, Google Ads, Google Business Profile, Google Search Console
-          </p>
-        </div>
-
-        <!-- Credentials -->
-        <div>
-          <h4 class="font-semibold text-text-heading mb-3 text-accent">Credentials</h4>
-          <p class="text-text-body text-sm">
-            Active Texas Notary Public
-          </p>
-        </div>
+            <!-- Call to Action -->
+            <div class="flex items-center justify-between">
+              <a 
+                href={`/capabilities/${capability.data.slug}`}
+                class="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium text-sm transition-colors duration-200"
+              >
+                Explore Capability
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+              
+              <time class="text-xs text-text-body/50" datetime={capability.data.lastUpdated.toISOString()}>
+                Updated: {capability.data.lastUpdated.toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'short', 
+                  day: 'numeric' 
+                })}
+              </time>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
 

@@ -50,8 +50,9 @@ export const navigationConfig = {
         { name: 'Skills Matrix', href: '/resources/skills-matrix' }
       ]
     },
+    { name: 'Search', href: '/search', slug: 'search' },
     { name: 'Archive', href: '/archive', slug: 'archive' }
-  ] as NavigationItem[]
+  ]
 };
 
 export type NavigationConfig = typeof navigationConfig;

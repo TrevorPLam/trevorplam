@@ -1,0 +1,94 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SidebarNavigation from '../../components/SidebarNavigation.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import KPICard from '../../components/KPICard.astro';
+
+export async function getStaticPaths() {
+  const capabilities = await getCollection('capabilities');
+  return capabilities.map((capability) => ({
+    params: { slug: capability.data.slug },
+    props: { capability },
+  }));
+}
+
+const { capability } = Astro.props;
+const { Content } = await render(capability);
+---
+
+<BaseLayout 
+  title={`${capability.data.title} - Capabilities - Trevor Lam`}
+  description={`${capability.data.philosophie} - Core capabilities and expertise in ${capability.data.title}.`}
+>
+  <div class="flex">
+    <SidebarNavigation />
+    <main class="flex-1 ml-64 p-6">
+      <Breadcrumbs />
+      <article class="max-w-4xl mx-auto">
+        <header class="mb-8">
+          <h1 class="text-4xl font-bold text-text-heading mb-4">{capability.data.title}</h1>
+          <p class="text-xl text-text-body leading-relaxed">{capability.data.philosophie}</p>
+          <div class="mt-4 flex items-center gap-4 text-sm text-text-body/70">
+            <time datetime={capability.data.lastUpdated.toISOString()}>
+              Updated: {capability.data.lastUpdated.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </time>
+            {capability.data.industries.length > 0 && (
+              <div class="mb-4">
+                <h4 class="text-sm font-semibold text-text-heading mb-2">Industries</h4>
+                <div class="flex flex-wrap gap-1">
+                  {capability.data.industries.map((industry: string) => (
+                    <span class="text-xs px-2 py-1 bg-accent/10 text-accent-text rounded border border-accent/20">
+                      {industry}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <section class="mb-12">
+          <h4 class="text-sm font-semibold text-text-heading mb-2">Key Metrics</h4>
+          <div class="grid grid-cols-2 gap-2">
+            {capability.data.kpis.slice(0, 4).map((kpi: any) => (
+              <div class="text-xs p-2 bg-surface/50 rounded border border-border">
+                <div class="font-medium text-text-body/80">{kpi.name}</div>
+                <div class="font-bold text-text-heading">{kpi.value}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="prose prose-lg max-w-none">
+          <Content />
+        </section>
+
+        {capability.data.relatedCases.length > 0 && (
+          <section class="mt-12 pt-8 border-t border-border">
+            <h2 class="text-2xl font-semibold mb-6 text-text-heading">Related Case Studies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {capability.data.relatedCases.map((caseSlug: string) => (
+                <a 
+                  href={`/cases/${caseSlug}`}
+                  class="block p-4 bg-surface border border-border rounded-lg hover:bg-accent/10 transition-colors"
+                >
+                  <h3 class="font-medium text-text-heading mb-2">
+                    {caseSlug.split('-').map((word: string) => 
+                      word.charAt(0).toUpperCase() + word.slice(1)
+                    ).join(' ')}
+                  </h3>
+                  <p class="text-sm text-text-body">View case study</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+    </main>
+  </div>
+</BaseLayout>

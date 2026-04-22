@@ -9,7 +9,9 @@ const caseStudies = defineCollection({
     problem: z.string(),
     result: z.string(),
     skills: z.array(z.string()),
-    metric: z.string().optional()
+    metric: z.string().optional(),
+    lastUpdated: z.coerce.date(),
+    relatedCases: z.array(z.string()).default([])
   })
 });
 
@@ -18,14 +20,15 @@ const capabilities = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
-    philosophy: z.string(),
+    philosophie: z.string(),
     kpis: z.array(z.object({
       name: z.string(),
       value: z.string(),
       context: z.string()
     })),
     industries: z.array(z.string()),
-    relatedCases: z.array(z.string())
+    relatedCases: z.array(z.string()),
+    lastUpdated: z.coerce.date()
   })
 });
 
