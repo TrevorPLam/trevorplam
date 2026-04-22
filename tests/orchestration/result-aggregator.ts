@@ -74,11 +74,18 @@ export class ResultAggregator extends EventEmitter {
   private isRunning: boolean = false;
   private metricsInterval: NodeJS.Timeout;
   private cleanupInterval: NodeJS.Timeout;
+  private options: {
+    port?: number;
+    metricsInterval?: number;
+    cleanupInterval?: number;
+    maxMetricsHistory?: number;
+    maxResultHistory?: number;
+  };
 
   constructor(
     redisUrl: string,
     postgresUrl: string,
-    private options: {
+    options: {
       port?: number;
       metricsInterval?: number;
       cleanupInterval?: number;
@@ -86,6 +93,7 @@ export class ResultAggregator extends EventEmitter {
       maxResultHistory?: number;
     } = {}
   ) {
+    this.options = options;
     super();
     this.redis = new Redis(redisUrl);
     this.db = new Pool({

@@ -6,7 +6,7 @@
  * malformed and unexpected inputs to test robustness.
  */
 
-import { fuzz } from '@jazzer.js/core';
+import { fuzz } from '@jazzer.js/fuzzer';
 import { 
   isValidEmail, 
   isValidUrl, 
@@ -19,7 +19,7 @@ import {
 
 describe('Fuzzing Tests - Input Validation', () => {
   
-  fuzz('isValidEmail handles malformed data', (data) => {
+  fuzz('isValidEmail handles malformed data', (data: Buffer) => {
     try {
       const input = data.toString();
       const result = isValidEmail(input);
@@ -34,7 +34,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('isValidUrl handles malformed data', (data) => {
+  fuzz('isValidUrl handles injection attempts', (data: Buffer) => {
     try {
       const input = data.toString();
       const result = isValidUrl(input);
@@ -49,7 +49,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('isNonEmptyString handles various data types', (data) => {
+  fuzz('isNonEmptyString handles edge cases', (data: Buffer) => {
     try {
       // Test with raw buffer data to simulate various input types
       const result = isNonEmptyString(data);
@@ -64,7 +64,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('isInRange handles numeric edge cases', (data) => {
+  fuzz('isInRange handles boundary values', (data: Buffer) => {
     try {
       // Convert buffer data to number in various ways to test edge cases
       const str = data.toString();
@@ -86,7 +86,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('all handles array corruption', (data) => {
+  fuzz('all handles array inputs', (data: Buffer) => {
     try {
       const str = data.toString();
       // Try to create arrays from the fuzzed data
@@ -111,7 +111,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('isValidDate handles malformed dates', (data) => {
+  fuzz('isValidDate handles various formats', (data: Buffer) => {
     try {
       const str = data.toString();
       // Test various date inputs
@@ -136,7 +136,7 @@ describe('Fuzzing Tests - Input Validation', () => {
     }
   });
 
-  fuzz('hasRequiredKeys handles object corruption', (data) => {
+  fuzz('hasRequiredKeys handles object structures', (data: Buffer) => {
     try {
       const str = data.toString();
       

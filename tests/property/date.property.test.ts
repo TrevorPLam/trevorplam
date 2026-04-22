@@ -206,7 +206,7 @@ describe('Property-Based Tests - Date Utilities', () => {
     test('always returns string', () => {
       fc.assert(
         fc.property(fc.date(), fc.option(fc.date()), (startDate, endDateOption) => {
-          const result = getYearRange(startDate, endDateOption);
+          const result = getYearRange(startDate, endDateOption ?? undefined);
           return typeof result === 'string';
         })
       );
@@ -266,8 +266,8 @@ describe('Property-Based Tests - Date Utilities', () => {
     test('is idempotent for same inputs', () => {
       fc.assert(
         fc.property(fc.date(), fc.option(fc.date()), (startDate, endDateOption) => {
-          const first = getYearRange(startDate, endDateOption);
-          const second = getYearRange(startDate, endDateOption);
+          const first = getYearRange(startDate, endDateOption ?? undefined);
+          const second = getYearRange(startDate, endDateOption ?? undefined);
           return first === second;
         })
       );

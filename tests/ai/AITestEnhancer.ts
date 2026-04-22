@@ -4,9 +4,12 @@
  * Enhanced with MCP integration and ML-based prioritization
  */
 
-import { MCPIntegration, MCPSnapshot, MCPCommand } from './MCPIntegration';
-import { MLTestPrioritizer, CodeChange, PrioritizationResult } from './MLTestPrioritizer';
-import { SelfHealingEngine, TestFailure, HealingResult } from './SelfHealingEngine';
+import { MCPIntegration } from './MCPIntegration';
+import type { MCPSnapshot, MCPCommand } from './MCPIntegration';
+import { MLTestPrioritizer } from './MLTestPrioritizer';
+import type { CodeChange, PrioritizationResult } from './MLTestPrioritizer';
+import { SelfHealingEngine } from './SelfHealingEngine';
+import type { TestFailure, HealingResult } from './SelfHealingEngine';
 
 export interface TestScenario {
   name: string;

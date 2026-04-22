@@ -5,8 +5,6 @@ import SearchBar from '../components/SearchBar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SidebarNavigation from '../components/SidebarNavigation.astro';
 
-// export const prerender = false; // Commented out for static build
-
 // Get query parameter from URL
 const query = Astro.url.searchParams.get('q') || '';
 const filter = Astro.url.searchParams.get('type') || '';
@@ -28,7 +26,7 @@ const allContent = [
 ];
 
 // Filter content by type if specified
-const filteredContent = filter 
+const filteredContent = filter
   ? allContent.filter(item => item.type === filter)
   : allContent;
 
@@ -39,8 +37,8 @@ const typeCounts = allContent.reduce((acc, item) => {
 }, {} as Record<string, number>);
 ---
 
-<BaseLayout 
-  title={query ? `Search: ${query} - Trevor Lam` : 'Search - Trevor Lam'} 
+<BaseLayout
+  title={query ? `Search: ${query} - Trevor Lam` : 'Search - Trevor Lam'}
   description="Search across capabilities, case studies, learning logs, projects, and resources"
 >
   <div class="flex">
@@ -48,40 +46,40 @@ const typeCounts = allContent.reduce((acc, item) => {
     <main class="flex-1 ml-64 p-6">
       <div class="max-w-4xl mx-auto">
         <Breadcrumbs />
-        
+
         <header class="mb-8">
           <h1 class="text-3xl font-bold text-text-heading mb-4">
             {query ? `Search Results: "${query}"` : 'Search'}
           </h1>
-          
+
           <!-- Search Input -->
           <div class="mb-6">
-            <SearchBar 
-              placeholder="Search all content..." 
+            <SearchBar
+              placeholder="Search all content..."
               autofocus={true}
               className="max-w-2xl"
             />
           </div>
-          
+
           <!-- Content Type Filters -->
           <nav class="flex flex-wrap gap-2" aria-label="Filter by content type">
             <a
               href="/search?q={encodeURIComponent(query)}"
               class={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                !filter 
-                  ? 'bg-accent text-accent-foreground' 
+                !filter
+                  ? 'bg-accent text-accent-foreground'
                   : 'bg-surface border border-border text-text-body hover:bg-accent/20'
               }`}
             >
               All ({allContent.length})
             </a>
-            
+
             {Object.entries(typeCounts).map(([type, count]) => (
               <a
                 href={`/search?q=${encodeURIComponent(query)}&type=${encodeURIComponent(type)}`}
                 class={`px-4 py-2 rounded-md text-sm font-medium transition-colors capitalize ${
-                  filter === type 
-                    ? 'bg-accent text-accent-foreground' 
+                  filter === type
+                    ? 'bg-accent text-accent-foreground'
                     : 'bg-surface border border-border text-text-body hover:bg-accent/20'
                 }`}
               >
@@ -93,26 +91,21 @@ const typeCounts = allContent.reduce((acc, item) => {
 
         <section>
           {query ? (
-            <div id="search-results">
-              <!-- Pagefind will populate this with search results -->
-              <div class="text-center py-8 text-text-body/50">
-                Loading search results...
-              </div>
-            </div>
+            <div id="search" class="pagefind-ui"></div>
           ) : (
             <div class="text-center py-12">
               <h2 class="text-xl font-semibold text-text-heading mb-4">
                 Search across all content
               </h2>
               <p class="text-text-body mb-8 max-w-2xl mx-auto">
-                Find capabilities, case studies, learning logs, projects, and resources. 
+                Find capabilities, case studies, learning logs, projects, and resources.
                 Use the search bar above or press ⌘K to quickly search from anywhere on the site.
               </p>
-              
+
               <!-- Quick access links -->
               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-                <a 
-                  href="/capabilities" 
+                <a
+                  href="/capabilities"
                   class="p-6 bg-surface border border-border rounded-lg hover:bg-accent/20 transition-colors"
                 >
                   <h3 class="font-semibold text-text-heading mb-2">Capabilities</h3>
@@ -120,9 +113,9 @@ const typeCounts = allContent.reduce((acc, item) => {
                     Explore operations, people, financial, and customer capabilities
                   </p>
                 </a>
-                
-                <a 
-                  href="/cases" 
+
+                <a
+                  href="/cases"
                   class="p-6 bg-surface border border-border rounded-lg hover:bg-accent/20 transition-colors"
                 >
                   <h3 class="font-semibold text-text-heading mb-2">Case Studies</h3>
@@ -130,9 +123,9 @@ const typeCounts = allContent.reduce((acc, item) => {
                     Real-world examples of problem-solving and impact
                   </p>
                 </a>
-                
-                <a 
-                  href="/lab" 
+
+                <a
+                  href="/lab"
                   class="p-6 bg-surface border border-border rounded-lg hover:bg-accent/20 transition-colors"
                 >
                   <h3 class="font-semibold text-text-heading mb-2">Lab</h3>
@@ -140,9 +133,9 @@ const typeCounts = allContent.reduce((acc, item) => {
                     Learning logs, projects, and technical experiments
                   </p>
                 </a>
-                
-                <a 
-                  href="/resources" 
+
+                <a
+                  href="/resources"
                   class="p-6 bg-surface border border-border rounded-lg hover:bg-accent/20 transition-colors"
                 >
                   <h3 class="font-semibold text-text-heading mb-2">Resources</h3>
@@ -160,20 +153,41 @@ const typeCounts = allContent.reduce((acc, item) => {
 </BaseLayout>
 
 <style>
-  #search-results {
+  #search {
     min-height: 400px;
   }
-  
+
   /* Pagefind search results styling */
+  .pagefind-ui__search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    background: var(--color-surface);
+    color: var(--color-text-heading);
+    font-size: 1rem;
+  }
+
+  .pagefind-ui__search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+
   .pagefind-ui__result {
     border-bottom: 1px solid var(--color-border);
     padding: 1.5rem 0;
+    transition: background-color 0.2s ease;
   }
-  
+
+  .pagefind-ui__result:hover {
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
   .pagefind-ui__result:last-child {
     border-bottom: none;
   }
-  
+
   .pagefind-ui__result-title {
     color: var(--color-text-heading);
     font-weight: 600;
@@ -181,64 +195,106 @@ const typeCounts = allContent.reduce((acc, item) => {
     margin-bottom: 0.5rem;
     text-decoration: none;
   }
-  
+
   .pagefind-ui__result-title:hover {
     color: var(--color-accent);
   }
-  
+
   .pagefind-ui__result-excerpt {
     color: var(--color-text-body);
     line-height: 1.6;
     margin-bottom: 0.5rem;
   }
-  
+
   .pagefind-ui__result-url {
     color: var(--color-text-body);
     opacity: 0.7;
     font-size: 0.875rem;
   }
-  
-  /* Content type badges in results */
-  .pagefind-ui__result::before {
-    content: attr(data-type);
-    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
-    color: var(--color-text-heading);
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 0.025em;
-    margin-right: 0.5rem;
+
+  /* Loading state */
+  .pagefind-ui__loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-body);
+  }
+
+  /* No results state */
+  .pagefind-ui__no-results {
+    text-align: center;
+    padding: 2rem;
+    color: var(--color-text-body);
   }
 </style>
 
-<script>
-  // Basic client-side search implementation
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchContainer = document.getElementById('search-results');
+<script is:inline>
+  // Initialize Pagefind search
+  document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
-    const filter = urlParams.get('type');
-    
-    if (query && searchContainer) {
-      // Simple search implementation - would need content indexing
-      searchContainer.innerHTML = `
+
+    if (query) {
+      const searchContainer = document.getElementById('search');
+
+      try {
+        // Load Pagefind script dynamically
+        const script = document.createElement('script');
+        script.src = '/pagefind/pagefind.js';
+        script.onload = async () => {
+          try {
+            // @ts-ignore - Pagefind is loaded dynamically
+            const { PagefindUI } = window;
+
+            new PagefindUI({
+              element: '#search',
+              showSubResults: true,
+              showImages: false,
+              translate: {
+                placeholder: 'Search...',
+                clear_search: 'Clear',
+                zero_results: 'No results found. Try different keywords or browse all content.',
+                alt_search: 'No results. Showing results for',
+                search_suggestion: 'Did you mean?',
+              }
+            });
+
+            // Pre-fill the search query
+            const searchInput = document.querySelector('.pagefind-ui__search-input');
+            if (searchInput) {
+              searchInput.value = query;
+              // Trigger search
+              searchInput.dispatchEvent(new Event('input'));
+            }
+          } catch (error) {
+            console.error('PagefindUI initialization failed:', error);
+            showSearchUnavailableMessage(searchContainer);
+          }
+        };
+        script.onerror = () => {
+          console.error('Failed to load Pagefind script');
+          showSearchUnavailableMessage(searchContainer);
+        };
+        document.head.appendChild(script);
+      } catch (error) {
+        console.error('Pagefind not available (development mode or first build):', error);
+        showSearchUnavailableMessage(searchContainer);
+      }
+    }
+  });
+
+  function showSearchUnavailableMessage(container) {
+    if (container) {
+      container.innerHTML = `
         <div class="text-center py-12">
-          <h3 class="text-xl font-semibold text-text-heading mb-4">
-            Search Results for "${query}"
-          </h3>
-          <p class="text-text-body mb-6">
-            Search functionality requires Pagefind integration. 
-            Please install astro-pagefind for full search capabilities.
+          <p class="text-text-body mb-4">
+            Search index is being generated. This happens after the first build.
+            In development, search is not available. Build the site with <code>npm run build</code> to enable search.
           </p>
-          <div class="mt-8">
-            <a href="/search" class="text-accent hover:underline">
-              Clear search and browse all content
-            </a>
-          </div>
+          <a href="/search" class="text-accent hover:underline">
+            Clear search and browse all content
+          </a>
         </div>
       `;
     }
-  });
+  }
 </script>

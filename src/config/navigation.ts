@@ -8,6 +8,7 @@ export interface NavigationItem {
 export const navigationConfig = {
   main: [
     { name: 'Dashboard', href: '/', slug: 'dashboard' },
+    { name: 'About', href: '/about', slug: 'about' },
     { 
       name: 'Capabilities', 
       href: '/capabilities', 
@@ -20,14 +21,14 @@ export const navigationConfig = {
         { name: 'Systems & Tooling', href: '/capabilities/systems-tooling' }
       ]
     },
-    { 
-      name: 'Case Studies', 
-      href: '/cases', 
+    {
+      name: 'Case Studies',
+      href: '/cases',
       slug: 'cases',
       children: [
-        { name: 'Quick Service Restaurant', href: '/cases/qsr' },
-        { name: 'Nail & Beauty Services', href: '/cases/salon' },
-        { name: 'Financial Services', href: '/cases/financial-services' }
+        { name: 'Quick Service Restaurant', href: '/cases/sonic' },
+        { name: 'Nail & Beauty Services', href: '/cases/grandlux' },
+        { name: 'Financial Services', href: '/cases/klw' }
       ]
     },
     { 

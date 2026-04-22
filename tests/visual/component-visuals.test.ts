@@ -1,5 +1,4 @@
-import { expect, test, describe } from 'vitest';
-import { page } from 'vitest/browser';
+import { test, describe } from 'vitest';
 import { BrowserTestHelper } from '../browser/browser-test-utils';
 
 describe('Component Visual Regression Tests', () => {

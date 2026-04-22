@@ -53,10 +53,15 @@ export interface Factory<T> {
  * Test data factory implementation
  */
 export class TestDataFactory<T> implements Factory<T> {
+  private readonly defaultData: T;
+  private readonly schema?: z.ZodSchema<T>;
   constructor(
-    private readonly defaultData: T,
-    private readonly schema?: z.ZodSchema<T>
-  ) {}
+    defaultData: T,
+    schema?: z.ZodSchema<T>
+  ) {
+    this.defaultData = defaultData;
+    this.schema = schema;
+  }
 
   build(overrides: Partial<T> = {}): T {
     const data = { ...this.defaultData, ...overrides };

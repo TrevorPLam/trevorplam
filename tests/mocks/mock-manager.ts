@@ -8,7 +8,8 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { randomUUID } from 'crypto';
-import { z, ZodSchema } from 'zod';
+import { z } from 'zod';
+import type { ZodSchema } from 'zod';
 
 export interface MockVersion {
   version: string;
@@ -315,7 +316,7 @@ export class MockManager {
       if (error instanceof z.ZodError) {
         return {
           valid: false,
-          errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+          errors: (error as z.ZodError).errors.map((e: z.ZodIssue) => `${e.path.join('.')}: ${e.message}`)
         };
       }
       return {
@@ -518,7 +519,7 @@ export class MockFactory {
         environment: 'testing'
       },
       validation: {
-        schema: z.record(z.any()),
+        schema: z.record(z.string(), z.any()),
         strict: true
       }
     };
@@ -548,7 +549,7 @@ export class MockFactory {
         environment: 'testing'
       },
       validation: {
-        schema: z.record(z.array(z.any())),
+        schema: z.record(z.string(), z.array(z.any())),
         strict: true
       }
     };
@@ -578,7 +579,7 @@ export class MockFactory {
         environment: 'testing'
       },
       validation: {
-        schema: z.record(z.function()),
+        schema: z.record(z.string(), z.function()),
         strict: false
       }
     };

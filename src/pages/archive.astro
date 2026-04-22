@@ -19,8 +19,8 @@ const allContent = [
   ...projects.map(item => ({ ...item, type: 'project', typeName: 'Project' })),
   ...resources.map(item => ({ ...item, type: 'resource', typeName: 'Resource' }))
 ].sort((a, b) => {
-  const dateA = a.data.lastUpdated || a.data.date || new Date(0);
-  const dateB = b.data.lastUpdated || b.data.date || new Date(0);
+  const dateA = a.data.lastUpdated || ('date' in a.data ? a.data.date : new Date(0));
+  const dateB = b.data.lastUpdated || ('date' in b.data ? b.data.date : new Date(0));
   return dateB.getTime() - dateA.getTime(); // Most recent first
 });
 
@@ -174,10 +174,10 @@ const pageJsonLd = {
                         {item.data.title}
                       </a>
                     </h3>
-                    {item.data.excerpt && (
+                    {'excerpt' in item.data && item.data.excerpt && (
                       <p class="text-text-muted text-sm mb-2">{item.data.excerpt}</p>
                     )}
-                    {item.data.description && (
+                    {'description' in item.data && item.data.description && (
                       <p class="text-text-muted text-sm mb-2">{item.data.description}</p>
                     )}
                   </div>
@@ -186,7 +186,7 @@ const pageJsonLd = {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric'
-                    }).format(item.data.lastUpdated || item.data.date)}
+                    }).format(item.data.lastUpdated || ('date' in item.data ? item.data.date : new Date()))}
                   </div>
                 </div>
               </article>

@@ -33,11 +33,10 @@ describe('formatDate', () => {
 });
 
 describe('getRelativeTime', () => {
-  let originalDate: Date;
+  
   
   beforeAll(() => {
     // Mock current date to 2024-01-15 12:00:00
-    originalDate = new Date();
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2024-01-15T12:00:00Z'));
   });
@@ -83,10 +82,7 @@ describe('getRelativeTime', () => {
 });
 
 describe('isPast', () => {
-  let originalDate: Date;
-  
   beforeAll(() => {
-    originalDate = new Date();
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2024-01-15T12:00:00Z'));
   });
@@ -112,10 +108,7 @@ describe('isPast', () => {
 });
 
 describe('isFuture', () => {
-  let originalDate: Date;
-  
   beforeAll(() => {
-    originalDate = new Date();
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2024-01-15T12:00:00Z'));
   });

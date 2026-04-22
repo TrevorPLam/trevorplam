@@ -95,7 +95,7 @@ const proficiencyCounts = allSkills.reduce((acc, skill) => {
         </h2>
         
         {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-          <div class="mb-12" key={category}>
+          <div class="mb-12">
             <h3 class="text-xl font-semibold text-text-heading mb-6">{category}</h3>
             <div class="bg-surface border border-border rounded-lg overflow-hidden">
               <div class="overflow-x-auto">
@@ -110,7 +110,7 @@ const proficiencyCounts = allSkills.reduce((acc, skill) => {
                   </thead>
                   <tbody>
                     {categorySkills.map((skill, index) => (
-                      <tr class={`border-b border-border ${index % 2 === 0 ? 'bg-surface/25' : ''}`} key={skill.name}>
+                      <tr class={`border-b border-border ${index % 2 === 0 ? 'bg-surface/25' : ''}`}>
                         <td class="px-6 py-4">
                           <div class="font-medium text-text-heading">{skill.name}</div>
                         </td>

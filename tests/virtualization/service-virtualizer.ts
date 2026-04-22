@@ -138,7 +138,7 @@ export class ServiceVirtualizer extends EventEmitter {
     
     if (filter?.timeRange) {
       filtered = filtered.filter(t => 
-        t.timestamp >= filter.timeRange.start && t.timestamp <= filter.timeRange.end
+        t.timestamp >= filter.timeRange!.start && t.timestamp <= filter.timeRange!.end
       );
     }
     
@@ -337,7 +337,7 @@ export class ServiceVirtualizer extends EventEmitter {
     this.healthCheckIntervals.set(config.name, interval);
   }
 
-  private async performHealthCheck(config: VirtualServiceConfig): Promise<Response> {
+  private async performHealthCheck(_config: VirtualServiceConfig): Promise<Response> {
     // Mock health check implementation
     return new Response('OK', { status: 200 });
   }
@@ -376,7 +376,7 @@ export class ServiceVirtualizer extends EventEmitter {
     return captures[0].response.body;
   }
 
-  private generateResponseFromTemplate(template: any, request?: any): any {
+  private generateResponseFromTemplate(template: any, _request?: any): any {
     // Simplified response generation - return template as-is
     // In a real implementation, this would handle dynamic values
     return typeof template === 'object' ? { ...template } : template;

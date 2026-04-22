@@ -1,0 +1,2182 @@
+
+> trevor-lam-portfolio@0.0.1 check
+> astro check
+
+[2m03:33:50[22m [34m[content][39m Syncing content
+[2m03:33:50[22m [34m[content][39m Synced content
+[2m03:33:50[22m [34m[types][39m Generated [2m557ms[22m
+[2m03:33:50[22m [34m[check][39m Getting diagnostics for Astro files in C:\Users\trevo\Desktop\trevorplam...
+[96mvitest.config.ts[0m:[93m69[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m69[0m         name: 'browser',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m62[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m62[0m         name: 'contract',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m55[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m55[0m         name: 'property',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m48[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m48[0m         name: 'integration',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m40[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m40[0m         name: 'components',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m33[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'name' does not exist in type 'TestProjectInlineConfiguration | Promise<UserWorkspaceConfig> | UserProjectConfigFn'.
+
+[7m33[0m         name: 'unit',
+[7m  [0m [91m        ~~~~[0m
+[96mvitest.config.ts[0m:[93m27[0m:[93m7[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'inline' does not exist in type 'DepsOptions'.
+
+[7m27[0m       inline: ['vitest/globals'] // Inline vitest globals to avoid import issues
+[7m  [0m [91m      ~~~~~~[0m
+[96mvitest.config.ts[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'defineConfig' is declared but its value is never read.
+
+[7m1[0m import { defineConfig } from 'vitest/config';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mscripts/collect-test-metrics.mjs[0m:[93m42[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'output' is declared but its value is never read.
+
+[7m42[0m     const output = execSync('npm test -- --reporter=json --reportFile=/tmp/test-results.json', {
+[7m  [0m [93m          ~~~~~~[0m
+
+[96mscripts/distributed-runner.mjs[0m:[93m510[0m:[93m61[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m510[0m     return `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+[7m   [0m [93m                                                            ~~~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m487[0m:[93m28[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m487[0m   async handleWorkerStatus(req, res) {
+[7m   [0m [93m                           ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m414[0m:[93m33[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m414[0m   async handleWorkerHealthCheck(req, res) {
+[7m   [0m [93m                                ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m395[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m395[0m   async handleGetStatus(req, res) {
+[7m   [0m [93m                        ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m339[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m339[0m   async handleListTasks(req, res) {
+[7m   [0m [93m                        ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m305[0m:[93m27[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m305[0m   async handleListWorkers(req, res) {
+[7m   [0m [93m                          ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m244[0m:[93m27[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m244[0m   async handleHealthCheck(req, res) {
+[7m   [0m [93m                          ~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m62[0m:[93m64[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m62[0m     return `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+[7m  [0m [93m                                                               ~~~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m43[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'eventBus' is declared but its value is never read.
+
+[7m43[0m const eventBus = new EventEmitter();
+[7m  [0m [93m      ~~~~~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m13[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m13[0m const __dirname = dirname(__filename);
+[7m  [0m [93m      ~~~~~~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m6[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m6[0m import { join, dirname } from 'path';
+[7m [0m [93m         ~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m5[0m:[93m1[0m - [93mwarning[0m[90m ts(6192): [0mAll imports in import declaration are unused.
+
+[7m5[0m import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mscripts/distributed-runner.mjs[0m:[93m4[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'createHttpsServer' is declared but its value is never read.
+
+[7m4[0m import { createServer as createHttpsServer } from 'https';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mscripts/generate-case-pdf.mjs[0m:[93m9[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m9[0m const __dirname = path.dirname(__filename);
+[7m [0m [93m      ~~~~~~~~~[0m
+
+[96mscripts/load-balancer.mjs[0m:[93m344[0m:[93m31[0m - [93mwarning[0m[90m ts(6133): [0m'balance' is declared but its value is never read.
+
+[7m344[0m   generateImplementationSteps(balance) {
+[7m   [0m [93m                              ~~~~~~~[0m
+[96mscripts/load-balancer.mjs[0m:[93m9[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m9[0m const __dirname = dirname(__filename);
+[7m [0m [93m      ~~~~~~~~~[0m
+
+[96mscripts/performance-monitor-simple.mjs[0m:[93m416[0m:[93m41[0m - [93mwarning[0m[90m ts(6133): [0m'metrics' is declared but its value is never read.
+
+[7m416[0m function generateHTMLDashboard(summary, metrics, regressions) {
+[7m   [0m [93m                                        ~~~~~~~[0m
+[96mscripts/performance-monitor-simple.mjs[0m:[93m57[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'output' is declared but its value is never read.
+
+[7m57[0m     const output = execSync('npm test -- --reporter=json --reportFile=/tmp/test-results.json --run', {
+[7m  [0m [93m          ~~~~~~[0m
+[96mscripts/performance-monitor-simple.mjs[0m:[93m8[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'args' is declared but its value is never read.
+
+[7m8[0m const args = process.argv.slice(3);
+[7m [0m [93m      ~~~~[0m
+[96mscripts/performance-monitor-simple.mjs[0m:[93m4[0m:[93m16[0m - [93mwarning[0m[90m ts(6133): [0m'dirname' is declared but its value is never read.
+
+[7m4[0m import { join, dirname } from 'path';
+[7m [0m [93m               ~~~~~~~[0m
+
+[96mscripts/result-aggregator.mjs[0m:[93m12[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'SHARD_RESULTS_PATH' is declared but its value is never read.
+
+[7m12[0m const SHARD_RESULTS_PATH = join(process.cwd(), 'data', 'shard-results');
+[7m  [0m [93m      ~~~~~~~~~~~~~~~~~~[0m
+[96mscripts/result-aggregator.mjs[0m:[93m9[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m9[0m const __dirname = dirname(__filename);
+[7m [0m [93m      ~~~~~~~~~[0m
+
+[96mscripts/run-mutation-tests.mjs[0m:[93m293[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'mutationSuccess' is declared but its value is never read.
+
+[7m293[0m     const mutationSuccess = runMutationTests();
+[7m   [0m [93m          ~~~~~~~~~~~~~~~[0m
+[96mscripts/run-mutation-tests.mjs[0m:[93m99[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'result' is declared but its value is never read.
+
+[7m99[0m     const result = execCommand('npm run test:coverage', 'Running coverage tests');
+[7m  [0m [93m          ~~~~~~[0m
+
+[96mscripts/test-orchestrator.mjs[0m:[93m487[0m:[93m25[0m - [91merror[0m[90m ts(1308): [0m'await' expressions are only allowed within async functions and at the top levels of modules.
+
+[7m487[0m         const results = await orchestrator.executeTestSuite(config);
+[7m   [0m [91m                        ~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m488[0m:[93m15[0m - [93mwarning[0m[90m ts(6133): [0m'report' is declared but its value is never read.
+
+[7m488[0m         const report = orchestrator.generateReport(results);
+[7m   [0m [93m              ~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m415[0m:[93m32[0m - [93mwarning[0m[90m ts(6133): [0m'results' is declared but its value is never read.
+
+[7m415[0m   calculateResourceUtilization(results) {
+[7m   [0m [93m                               ~~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m263[0m:[93m15[0m - [93mwarning[0m[90m ts(6133): [0m'resourceLimits' is declared but its value is never read.
+
+[7m263[0m         const resourceLimits = this.getResourceLimits(options.resourceLevel);
+[7m   [0m [93m              ~~~~~~~~~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m258[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'stderr' is declared but its value is never read.
+
+[7m258[0m       let stderr = '';
+[7m   [0m [93m          ~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m239[0m:[93m40[0m - [93mwarning[0m[90m ts(6133): [0m'config' is declared but its value is never read.
+
+[7m239[0m   buildTestCommand(testType, shardNum, config) {
+[7m   [0m [93m                                       ~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m30[0m:[93m64[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m30[0m     return `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+[7m  [0m [93m                                                               ~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m13[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'PERFORMANCE_DATA_PATH' is declared but its value is never read.
+
+[7m13[0m const PERFORMANCE_DATA_PATH = join(process.cwd(), 'data', 'performance-metrics.json');
+[7m  [0m [93m      ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mscripts/test-orchestrator.mjs[0m:[93m10[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m10[0m const __dirname = dirname(__filename);
+[7m  [0m [93m      ~~~~~~~~~[0m
+
+[96mscripts/timing-collector.mjs[0m:[93m212[0m:[93m17[0m - [93mwarning[0m[90m ts(6133): [0m'type' is declared but its value is never read.
+
+[7m212[0m     for (const [type, data] of Object.entries(distribution)) {
+[7m   [0m [93m                ~~~~[0m
+[96mscripts/timing-collector.mjs[0m:[93m100[0m:[93m22[0m - [93mwarning[0m[90m ts(6133): [0m'pattern' is declared but its value is never read.
+
+[7m100[0m   extractTestResults(pattern) {
+[7m   [0m [93m                     ~~~~~~~[0m
+[96mscripts/timing-collector.mjs[0m:[93m9[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'__dirname' is declared but its value is never read.
+
+[7m9[0m const __dirname = dirname(__filename);
+[7m [0m [93m      ~~~~~~~~~[0m
+
+[96msrc/content.config.ts[0m:[93m105[0m:[93m31[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m105[0m       certifications: z.array(z.string()).optional()
+[7m   [0m [93m                              ~[0m
+[96msrc/content.config.ts[0m:[93m105[0m:[93m23[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m105[0m       certifications: z.array(z.string()).optional()
+[7m   [0m [93m                      ~[0m
+[96msrc/content.config.ts[0m:[93m104[0m:[93m24[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m104[0m       yearsExperience: z.number(),
+[7m   [0m [93m                       ~[0m
+[96msrc/content.config.ts[0m:[93m103[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m103[0m       level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']),
+[7m   [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m102[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m102[0m       name: z.string(),
+[7m   [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m101[0m:[93m21[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m101[0m     skills: z.array(z.object({
+[7m   [0m [93m                    ~[0m
+[96msrc/content.config.ts[0m:[93m101[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m101[0m     skills: z.array(z.object({
+[7m   [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m100[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m100[0m     category: z.string(),
+[7m   [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m99[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m99[0m   schema: z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m93[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m93[0m     lastUpdated: z.date()
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m92[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m92[0m     gated: z.boolean().default(false),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m91[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m91[0m     downloadUrl: z.string().optional(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m90[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m90[0m     audience: z.string(),
+[7m  [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m89[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m89[0m     description: z.string(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m88[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m88[0m     type: z.enum(['playbook', 'template', 'guide', 'tool']),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m87[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m87[0m     slug: z.string(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m86[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m86[0m     title: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m85[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m85[0m   schema: z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m79[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m79[0m     lastUpdated: z.coerce.date()
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m78[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m78[0m     tags: z.array(z.string()),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m78[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m78[0m     tags: z.array(z.string()),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m77[0m:[93m27[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m77[0m     technologies: z.array(z.string()),
+[7m  [0m [93m                          ~[0m
+[96msrc/content.config.ts[0m:[93m77[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m77[0m     technologies: z.array(z.string()),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m76[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m76[0m     endDate: z.date().optional(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m75[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m75[0m     startDate: z.date(),
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m74[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m74[0m     status: z.enum(['active', 'completed', 'paused']),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m73[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m73[0m     description: z.string(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m72[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m72[0m     slug: z.string(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m71[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m71[0m     title: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m70[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m70[0m   schema: z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m64[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m64[0m     excerpt: z.string()
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m63[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m63[0m     tags: z.array(z.enum(['AI', 'Leadership', 'QSR', 'Dev-Log', 'Ops-Systems'])),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m63[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m63[0m     tags: z.array(z.enum(['AI', 'Leadership', 'QSR', 'Dev-Log', 'Ops-Systems'])),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m62[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m62[0m     lastUpdated: z.date(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m61[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m61[0m     date: z.date(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m60[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m60[0m     title: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m59[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m59[0m   schema: z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m52[0m:[93m20[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m52[0m       targetValue: z.string().optional()
+[7m  [0m [93m                   ~[0m
+[96msrc/content.config.ts[0m:[93m51[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m51[0m       trend: z.enum(['up', 'down', 'neutral', 'positive', 'negative']).optional(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m50[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m50[0m       category: z.string(),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m49[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m49[0m       context: z.string(),
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m48[0m:[93m22[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m48[0m       previousValue: z.string().optional(),
+[7m  [0m [93m                     ~[0m
+[96msrc/content.config.ts[0m:[93m47[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m47[0m       value: z.string(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m46[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m46[0m       type: z.enum(['percentage', 'currency', 'number', 'ratio', 'time', 'count']),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m45[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m45[0m       title: z.string(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m44[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m44[0m       id: z.string(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m43[0m:[93m22[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m43[0m     metrics: z.array(z.object({
+[7m  [0m [93m                     ~[0m
+[96msrc/content.config.ts[0m:[93m43[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m43[0m     metrics: z.array(z.object({
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m42[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m42[0m     lastUpdated: z.coerce.date(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m41[0m:[93m27[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m41[0m     relatedCases: z.array(z.string()),
+[7m  [0m [93m                          ~[0m
+[96msrc/content.config.ts[0m:[93m41[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m41[0m     relatedCases: z.array(z.string()),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m40[0m:[93m25[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m40[0m     industries: z.array(z.string()),
+[7m  [0m [93m                        ~[0m
+[96msrc/content.config.ts[0m:[93m40[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m40[0m     industries: z.array(z.string()),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m38[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m38[0m       context: z.string()
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m37[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m37[0m       value: z.string(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m36[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m36[0m       name: z.string(),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m35[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m35[0m     kpis: z.array(z.object({
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m35[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m35[0m     kpis: z.array(z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m34[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m34[0m     philosophy: z.string(),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m33[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m33[0m     slug: z.string(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m32[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m32[0m     title: z.string(),
+[7m  [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m31[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m31[0m   schema: z.object({
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m24[0m:[93m20[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m24[0m       targetValue: z.string().optional()
+[7m  [0m [93m                   ~[0m
+[96msrc/content.config.ts[0m:[93m23[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m23[0m       trend: z.enum(['up', 'down', 'neutral', 'positive', 'negative']).optional(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m22[0m:[93m17[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m22[0m       category: z.string(),
+[7m  [0m [93m                ~[0m
+[96msrc/content.config.ts[0m:[93m21[0m:[93m16[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m21[0m       context: z.string(),
+[7m  [0m [93m               ~[0m
+[96msrc/content.config.ts[0m:[93m20[0m:[93m22[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m20[0m       previousValue: z.string().optional(),
+[7m  [0m [93m                     ~[0m
+[96msrc/content.config.ts[0m:[93m19[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m19[0m       value: z.string(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m18[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m18[0m       type: z.enum(['percentage', 'currency', 'number', 'ratio', 'time', 'count']),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m17[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m17[0m       title: z.string(),
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m16[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m16[0m       id: z.string(),
+[7m  [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m15[0m:[93m22[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m15[0m     metrics: z.array(z.object({
+[7m  [0m [93m                     ~[0m
+[96msrc/content.config.ts[0m:[93m15[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m15[0m     metrics: z.array(z.object({
+[7m  [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m14[0m:[93m27[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m14[0m     relatedCases: z.array(z.string()).default([]),
+[7m  [0m [93m                          ~[0m
+[96msrc/content.config.ts[0m:[93m14[0m:[93m19[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m14[0m     relatedCases: z.array(z.string()).default([]),
+[7m  [0m [93m                  ~[0m
+[96msrc/content.config.ts[0m:[93m13[0m:[93m18[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m13[0m     lastUpdated: z.coerce.date(),
+[7m  [0m [93m                 ~[0m
+[96msrc/content.config.ts[0m:[93m12[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m12[0m     metric: z.string().optional(),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m11[0m:[93m21[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m11[0m     skills: z.array(z.string()),
+[7m  [0m [93m                    ~[0m
+[96msrc/content.config.ts[0m:[93m11[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m11[0m     skills: z.array(z.string()),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m10[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m10[0m     result: z.string(),
+[7m  [0m [93m            ~[0m
+[96msrc/content.config.ts[0m:[93m9[0m:[93m14[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m9[0m     problem: z.string(),
+[7m [0m [93m             ~[0m
+[96msrc/content.config.ts[0m:[93m8[0m:[93m15[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m8[0m     industry: z.enum(['QSR', 'Salon', 'CPA-Payroll']),
+[7m [0m [93m              ~[0m
+[96msrc/content.config.ts[0m:[93m7[0m:[93m12[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m7[0m     title: z.string(),
+[7m [0m [93m           ~[0m
+[96msrc/content.config.ts[0m:[93m6[0m:[93m11[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m6[0m   schema: z.object({
+[7m [0m [93m          ~[0m
+[96msrc/content.config.ts[0m:[93m1[0m:[93m28[0m - [93mwarning[0m[90m ts(6385): [0m'z' is deprecated.
+
+[7m1[0m import { defineCollection, z } from 'astro:content';
+[7m [0m [93m                           ~[0m
+
+[96msrc/components/Breadcrumbs.astro[0m:[93m70[0m:[93m9[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m70[0m <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+[7m  [0m [93m        ~~~~[0m
+
+[96msrc/components/Chart.astro[0m:[93m12[0m:[93m101[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m12[0m const { config, width = 400, height = 300, className = '', id = `chart-${Math.random().toString(36).substr(2, 9)}` } = Astro.props;
+[7m  [0m [93m                                                                                                    ~~~~~~[0m
+[96msrc/components/Chart.astro[0m:[93m2[0m:[93m28[0m - [93mwarning[0m[90m ts(6196): [0m'ChartData' is declared but never used.
+
+[7m2[0m import type { ChartConfig, ChartData } from '../utils/metrics';
+[7m [0m [93m                           ~~~~~~~~~[0m
+[96msrc/components/Chart.astro[0m:[93m33[0m:[93m44[0m - [93mwarning[0m[90m ts(2570): [0mCould not find name 'canvasId'. Did you mean 'canvas'?
+
+[7m33[0m     const canvas = document.getElementById(canvasId);
+[7m  [0m [93m                                           ~~~~~~~~[0m
+[96msrc/components/Chart.astro[0m:[93m27[0m:[93m9[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m27[0m <script define:vars={{ config, canvasId }}>
+[7m  [0m [93m        ~~~~~~~~~~~[0m
+
+[96msrc/components/DashboardWidgets.astro[0m:[93m10[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'calculatePercentageChange' is declared but its value is never read.
+
+[7m10[0m   calculatePercentageChange,
+[7m  [0m [93m  ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/QuickActions.astro[0m:[93m7[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'getActionIcon' is declared but its value is never read.
+
+[7m7[0m function getActionIcon(slug: string): string {
+[7m [0m [93m         ~~~~~~~~~~~~~[0m
+
+[96msrc/components/RecentActivity.astro[0m:[93m45[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'index' is declared but its value is never read.
+
+[7m45[0m       {recentActivity.map((item, index) => (
+[7m  [0m [93m                                 ~~~~~[0m
+[96msrc/components/RecentActivity.astro[0m:[93m10[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'getActivityIcon' is declared but its value is never read.
+
+[7m10[0m function getActivityIcon(type: string): string {
+[7m  [0m [93m         ~~~~~~~~~~~~~~~[0m
+
+[96msrc/components/SearchBar.astro[0m:[93m83[0m:[93m23[0m - [91merror[0m[90m ts(2339): [0mProperty 'select' does not exist on type 'Element'.
+
+[7m83[0m           searchInput.select();
+[7m  [0m [91m                      ~~~~~~[0m
+[96msrc/components/SearchBar.astro[0m:[93m82[0m:[93m23[0m - [91merror[0m[90m ts(2339): [0mProperty 'focus' does not exist on type 'Element'.
+
+[7m82[0m           searchInput.focus();
+[7m  [0m [91m                      ~~~~~[0m
+
+[96msrc/components/ToggleSwitch.astro[0m:[93m69[0m:[93m32[0m - [91merror[0m[90m ts(7006): [0mParameter 'value' implicitly has an 'any' type.
+
+[7m69[0m       window.setToggleState = (value) => {
+[7m  [0m [91m                               ~~~~~[0m
+[96msrc/components/ToggleSwitch.astro[0m:[93m69[0m:[93m14[0m - [91merror[0m[90m ts(2339): [0mProperty 'setToggleState' does not exist on type 'Window & typeof globalThis'.
+
+[7m69[0m       window.setToggleState = (value) => {
+[7m  [0m [91m             ~~~~~~~~~~~~~~[0m
+[96msrc/components/ToggleSwitch.astro[0m:[93m68[0m:[93m14[0m - [91merror[0m[90m ts(2339): [0mProperty 'getToggleState' does not exist on type 'Window & typeof globalThis'.
+
+[7m68[0m       window.getToggleState = () => isChecked;
+[7m  [0m [91m             ~~~~~~~~~~~~~~[0m
+[96msrc/components/ToggleSwitch.astro[0m:[93m54[0m:[93m16[0m - [91merror[0m[90m ts(2339): [0mProperty 'onToggleChange' does not exist on type 'Window & typeof globalThis'.
+
+[7m54[0m         window.onToggleChange(isChecked);
+[7m  [0m [91m               ~~~~~~~~~~~~~~[0m
+[96msrc/components/ToggleSwitch.astro[0m:[93m53[0m:[93m51[0m - [91merror[0m[90m ts(2339): [0mProperty 'onToggleChange' does not exist on type 'Window & typeof globalThis'.
+
+[7m53[0m       if (typeof window !== 'undefined' && window.onToggleChange) {
+[7m  [0m [91m                                                  ~~~~~~~~~~~~~~[0m
+
+[96msrc/components/TrustCues.astro[0m:[93m10[0m:[93m39[0m - [93mwarning[0m[90m ts(6133): [0m'downloadUrl' is declared but its value is never read.
+
+[7m10[0m const { lastUpdated, verified = true, downloadUrl, slug, className = '' } = Astro.props;
+[7m  [0m [93m                                      ~~~~~~~~~~~[0m
+[96msrc/components/TrustCues.astro[0m:[93m77[0m:[93m20[0m - [93mwarning[0m[90m ts(6133): [0m'generatePDF' is declared but its value is never read.
+
+[7m77[0m     async function generatePDF(slug: string) {
+[7m  [0m [93m                   ~~~~~~~~~~~[0m
+
+[96msrc/layouts/BaseLayout.astro[0m:[93m126[0m:[93m11[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m126[0m   <script defer>
+[7m   [0m [93m          ~~~~~[0m
+[96msrc/layouts/BaseLayout.astro[0m:[93m121[0m:[93m11[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m121[0m   <script defer>
+[7m   [0m [93m          ~~~~~[0m
+[96msrc/layouts/BaseLayout.astro[0m:[93m118[0m:[93m11[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m118[0m   <script defer data-domain="trevor-lam.com" src="https://plausible.io/js/script.js"></script>
+[7m   [0m [93m          ~~~~~[0m
+[96msrc/layouts/BaseLayout.astro[0m:[93m111[0m:[93m11[0m - [93mwarning[0m[90m astro(4000): [0mThis script will be treated as if it has the `is:inline` directive because it contains an attribute. Therefore, features that require processing (e.g. using TypeScript or npm packages in the script) are unavailable.
+
+See docs for more details: https://docs.astro.build/en/guides/client-side-scripts/#script-processing.
+
+Add the `is:inline` directive explicitly to silence this hint.
+
+[7m111[0m   <script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
+[7m   [0m [93m          ~~~~[0m
+
+[96msrc/pages/archive.astro[0m:[93m189[0m:[93m66[0m - [91merror[0m[90m ts(2339): [0mProperty 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m189[0m                     }).format(item.data.lastUpdated || item.data.date)}
+[7m   [0m [91m                                                                 ~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m181[0m:[93m74[0m - [91merror[0m[90m ts(2339): [0mProperty 'description' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'description' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m181[0m                       <p class="text-text-muted text-sm mb-2">{item.data.description}</p>
+[7m   [0m [91m                                                                         ~~~~~~~~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m180[0m:[93m32[0m - [91merror[0m[90m ts(2339): [0mProperty 'description' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'description' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m180[0m                     {item.data.description && (
+[7m   [0m [91m                               ~~~~~~~~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m178[0m:[93m74[0m - [91merror[0m[90m ts(2339): [0mProperty 'excerpt' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'excerpt' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m178[0m                       <p class="text-text-muted text-sm mb-2">{item.data.excerpt}</p>
+[7m   [0m [91m                                                                         ~~~~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m177[0m:[93m32[0m - [91merror[0m[90m ts(2339): [0mProperty 'excerpt' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'excerpt' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m177[0m                     {item.data.excerpt && (
+[7m   [0m [91m                               ~~~~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m23[0m:[93m46[0m - [91merror[0m[90m ts(2339): [0mProperty 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m23[0m   const dateB = b.data.lastUpdated || b.data.date || new Date(0);
+[7m  [0m [91m                                             ~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m22[0m:[93m46[0m - [91merror[0m[90m ts(2339): [0mProperty 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }'.
+  Property 'date' does not exist on type '{ title: string; industry: "QSR" | "Salon" | "CPA-Payroll"; problem: string; result: string; skills: string[]; lastUpdated: Date; relatedCases: string[]; metric?: string | undefined; metrics?: { ...; }[] | undefined; }'.
+
+[7m22[0m   const dateA = a.data.lastUpdated || a.data.date || new Date(0);
+[7m  [0m [91m                                             ~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m201[0m:[93m36[0m - [93mwarning[0m[90m ts(6133): [0m'index' is declared but its value is never read.
+
+[7m201[0m             {changelog.map((entry, index) => (
+[7m   [0m [93m                                   ~~~~~[0m
+[96msrc/pages/archive.astro[0m:[93m5[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'CollectionEntry' is declared but its value is never read.
+
+[7m5[0m import type { CollectionEntry } from 'astro:content';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/index.astro[0m:[93m3[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'SidebarNavigation' is declared but its value is never read.
+
+[7m3[0m import SidebarNavigation from '../components/SidebarNavigation.astro';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/search.astro[0m:[93m29[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'filteredContent' is declared but its value is never read.
+
+[7m29[0m const filteredContent = filter
+[7m  [0m [93m      ~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/api/generate-pdf.ts[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'execSync' is declared but its value is never read.
+
+[7m2[0m import { execSync } from 'child_process';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/capabilities/[slug].astro[0m:[93m8[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'calculateTrend' is declared but its value is never read.
+
+[7m8[0m   calculateTrend,
+[7m [0m [93m  ~~~~~~~~~~~~~~[0m
+[96msrc/pages/capabilities/[slug].astro[0m:[93m6[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'KPICard' is declared but its value is never read.
+
+[7m6[0m import KPICard from '../../components/KPICard.astro';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/cases/[slug].astro[0m:[93m118[0m:[93m86[0m - [91merror[0m[90m ts(2551): [0mProperty 'philosophie' does not exist on type '{ title: string; slug: string; philosophy: string; kpis: { name: string; value: string; context: string; }[]; industries: string[]; relatedCases: string[]; lastUpdated: Date; metrics?: { id: string; ... 7 more ...; targetValue?: string | undefined; }[] | undefined; }'. Did you mean 'philosophy'?
+
+[7m118[0m                     <p class="text-sm text-text-muted line-clamp-2">{capability.data.philosophie}</p>
+[7m   [0m [91m                                                                                     ~~~~~~~~~~~[0m
+[96msrc/pages/cases/[slug].astro[0m:[93m7[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'SkillTag' is declared but its value is never read.
+
+[7m7[0m import SkillTag from '../../components/SkillTag.astro';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/pages/cases/[slug].astro[0m:[93m6[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'InlineMetric' is declared but its value is never read.
+
+[7m6[0m import InlineMetric from '../../components/InlineMetric.astro';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/lab/index.astro[0m:[93m185[0m:[93m51[0m - [91merror[0m[90m ts(2339): [0mProperty 'slug' does not exist on type '{ id: string; body?: string | undefined; collection: "projects"; data: { title: string; slug: string; description: string; status: "active" | "completed" | "paused"; startDate: Date; technologies: string[]; tags: string[]; lastUpdated: Date; endDate?: Date | undefined; }; rendered?: RenderedContent | undefined; file...'.
+
+[7m185[0m                 <a href={`/lab/projects/${project.slug}`} class="hover:text-teal transition-colors">
+[7m   [0m [91m                                                  ~~~~[0m
+[96msrc/pages/lab/index.astro[0m:[93m125[0m:[93m51[0m - [91merror[0m[90m ts(2339): [0mProperty 'slug' does not exist on type '{ id: string; body?: string | undefined; collection: "learningLogs"; data: { title: string; date: Date; lastUpdated: Date; tags: ("QSR" | "AI" | "Leadership" | "Dev-Log" | "Ops-Systems")[]; excerpt: string; }; rendered?: RenderedContent | undefined; filePath?: string | undefined; }'.
+
+[7m125[0m                 <a href={`/lab/learning-log/${log.slug}`} class="hover:text-teal transition-colors">
+[7m   [0m [91m                                                  ~~~~[0m
+[96msrc/pages/lab/index.astro[0m:[93m4[0m:[93m22[0m - [91merror[0m[90m ts(2307): [0mCannot find module '../../components/LinkCard.astro' or its corresponding type declarations.
+
+[7m4[0m import LinkCard from '../../components/LinkCard.astro';
+[7m [0m [91m                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96msrc/pages/lab/index.astro[0m:[93m4[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'LinkCard' is declared but its value is never read.
+
+[7m4[0m import LinkCard from '../../components/LinkCard.astro';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/lab/learning-log/index.astro[0m:[93m2[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'CollectionEntry' is declared but its value is never read.
+
+[7m2[0m import { getCollection, type CollectionEntry } from 'astro:content';
+[7m [0m [93m                             ~~~~~~~~~~~~~~~[0m
+
+[96msrc/pages/resources/index.astro[0m:[93m13[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'tools' is declared but its value is never read.
+
+[7m13[0m const tools = resources.filter(r => r.data.type === 'tool');
+[7m  [0m [93m      ~~~~~[0m
+[96msrc/pages/resources/index.astro[0m:[93m12[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'guides' is declared but its value is never read.
+
+[7m12[0m const guides = resources.filter(r => r.data.type === 'guide');
+[7m  [0m [93m      ~~~~~~[0m
+
+[96msrc/pages/resources/skills-matrix.astro[0m:[93m113[0m:[93m102[0m - [91merror[0m[90m ts(2322): [0mType '{ children: any[]; class: string; key: any; }' is not assignable to type 'HTMLAttributes'.
+  Property 'key' does not exist on type 'HTMLAttributes'.
+
+[7m113[0m                       <tr class={`border-b border-border ${index % 2 === 0 ? 'bg-surface/25' : ''}`} key={skill.name}>
+[7m   [0m [91m                                                                                                     ~~~[0m
+[96msrc/pages/resources/skills-matrix.astro[0m:[93m98[0m:[93m30[0m - [91merror[0m[90m ts(2322): [0mType '{ children: any[]; class: string; key: string; }' is not assignable to type 'HTMLAttributes'.
+  Property 'key' does not exist on type 'HTMLAttributes'.
+
+[7m98[0m           <div class="mb-12" key={category}>
+[7m  [0m [91m                             ~~~[0m
+
+[96msrc/utils/error-monitoring.ts[0m:[93m368[0m:[93m5[0m - [91merror[0m[90m ts(2717): [0mSubsequent property declarations must have the same type.  Property 'plausible' must be of type '((event: string, options?: { props?: Record<string, unknown> | undefined; } | undefined) => void) | undefined', but here has type '((event: string, options?: { props?: Record<string, any> | undefined; } | undefined) => void) | undefined'.
+
+[7m368[0m     plausible?: (event: string, options?: { props?: Record<string, any> }) => void;
+[7m   [0m [91m    ~~~~~~~~~[0m
+[96msrc/utils/error-monitoring.ts[0m:[93m297[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'errorReport' is declared but its value is never read.
+
+[7m297[0m   private showUserError(errorReport: ErrorReport) {
+[7m   [0m [93m                        ~~~~~~~~~~~[0m
+[96msrc/utils/error-monitoring.ts[0m:[93m283[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'errorReport' is declared but its value is never read.
+
+[7m283[0m   private sendToErrorService(errorReport: ErrorReport) {
+[7m   [0m [93m                             ~~~~~~~~~~~[0m
+[96msrc/utils/error-monitoring.ts[0m:[93m216[0m:[93m62[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m216[0m     return `error_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+[7m   [0m [93m                                                             ~~~~~~[0m
+
+[96msrc/utils/metrics.ts[0m:[93m142[0m:[93m3[0m - [93mwarning[0m[90m ts(6133): [0m'unit' is declared but its value is never read.
+
+[7m142[0m   unit?: string,
+[7m   [0m [93m  ~~~~[0m
+
+[96msrc/utils/rum-monitoring.ts[0m:[93m388[0m:[93m28[0m - [93mwarning[0m[90m ts(6133): [0m'event' is declared but its value is never read.
+
+[7m388[0m   private sendToRUMService(event: RUMEvent): void {
+[7m   [0m [93m                           ~~~~~[0m
+[96msrc/utils/rum-monitoring.ts[0m:[93m79[0m:[93m64[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m79[0m     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+[7m  [0m [93m                                                               ~~~~~~[0m
+[96msrc/utils/rum-monitoring.ts[0m:[93m68[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'isTracking' is declared but its value is never read.
+
+[7m68[0m   private isTracking = false;
+[7m  [0m [93m          ~~~~~~~~~~[0m
+
+[96mtests/a11y/comprehensive-a11y.spec.ts[0m:[93m67[0m:[93m30[0m - [93mwarning[0m[90m ts(80007): [0m'await' has no effect on the type of this expression.
+
+[7m67[0m       const focusedElement = await page.locator(':focus');
+[7m  [0m [93m                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/AITestEnhancer.ts[0m:[93m1027[0m:[93m14[0m - [91merror[0m[90m ts(2339): [0mProperty 'insights' does not exist on type '{ success: boolean; result: { scenario: TestScenario; executionTime: number; aiGenerated: boolean | undefined; mcpEnhanced: boolean | undefined; selfHealing: boolean | undefined; }; }'.
+
+[7m1027[0m       result.insights = insights;
+[7m    [0m [91m             ~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m807[0m:[93m35[0m - [91merror[0m[90m ts(2339): [0mProperty 'scenario' does not exist on type 'TestImpact'.
+
+[7m807[0m       const scenario = testImpact.scenario;
+[7m   [0m [91m                                  ~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m780[0m:[93m82[0m - [91merror[0m[90m ts(2339): [0mProperty 'scenario' does not exist on type 'TestImpact'.
+
+[7m780[0m         scenario: prioritizedScenarios.find(s => s.name === test.testId) || test.scenario
+[7m   [0m [91m                                                                                 ~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m9[0m:[93m42[0m - [91merror[0m[90m ts(1484): [0m'HealingResult' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m9[0m import { SelfHealingEngine, TestFailure, HealingResult } from './SelfHealingEngine';
+[7m [0m [91m                                         ~~~~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m9[0m:[93m29[0m - [91merror[0m[90m ts(1484): [0m'TestFailure' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m9[0m import { SelfHealingEngine, TestFailure, HealingResult } from './SelfHealingEngine';
+[7m [0m [91m                            ~~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m8[0m:[93m41[0m - [91merror[0m[90m ts(1484): [0m'PrioritizationResult' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m8[0m import { MLTestPrioritizer, CodeChange, PrioritizationResult } from './MLTestPrioritizer';
+[7m [0m [91m                                        ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m8[0m:[93m29[0m - [91merror[0m[90m ts(1484): [0m'CodeChange' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m8[0m import { MLTestPrioritizer, CodeChange, PrioritizationResult } from './MLTestPrioritizer';
+[7m [0m [91m                            ~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m7[0m:[93m39[0m - [91merror[0m[90m ts(1484): [0m'MCPCommand' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m7[0m import { MCPIntegration, MCPSnapshot, MCPCommand } from './MCPIntegration';
+[7m [0m [91m                                      ~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m7[0m:[93m26[0m - [91merror[0m[90m ts(1484): [0m'MCPSnapshot' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m7[0m import { MCPIntegration, MCPSnapshot, MCPCommand } from './MCPIntegration';
+[7m [0m [91m                         ~~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m608[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'componentName' is declared but its value is never read.
+
+[7m608[0m     const componentName = componentPath.split('/').pop()?.replace('.astro', '') || 'Component';
+[7m   [0m [93m          ~~~~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m7[0m:[93m39[0m - [93mwarning[0m[90m ts(6133): [0m'MCPCommand' is declared but its value is never read.
+
+[7m7[0m import { MCPIntegration, MCPSnapshot, MCPCommand } from './MCPIntegration';
+[7m [0m [93m                                      ~~~~~~~~~~[0m
+[96mtests/ai/AITestEnhancer.ts[0m:[93m7[0m:[93m26[0m - [93mwarning[0m[90m ts(6133): [0m'MCPSnapshot' is declared but its value is never read.
+
+[7m7[0m import { MCPIntegration, MCPSnapshot, MCPCommand } from './MCPIntegration';
+[7m [0m [93m                         ~~~~~~~~~~~[0m
+
+[96mtests/ai/MCPIntegration.ts[0m:[93m288[0m:[93m69[0m - [91merror[0m[90m ts(2339): [0mProperty 'accessibilitySnapshot' does not exist on type 'Locator'.
+
+[7m288[0m     const accessibilityResults = await session.page.locator('body').accessibilitySnapshot();
+[7m   [0m [91m                                                                    ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m270[0m:[93m37[0m - [91merror[0m[90m ts(2339): [0mProperty 'accessibility' does not exist on type 'Page'.
+
+[7m270[0m       accessibilityTree: await page.accessibility.snapshot(),
+[7m   [0m [91m                                    ~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m7[0m:[93m24[0m - [91merror[0m[90m ts(1484): [0m'QualityInsight' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m7[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [91m                       ~~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m7[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'TestScenario' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m7[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [91m         ~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m6[0m:[93m25[0m - [91merror[0m[90m ts(1484): [0m'BrowserContext' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { Page, Browser, BrowserContext } from '@playwright/test';
+[7m [0m [91m                        ~~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m6[0m:[93m16[0m - [91merror[0m[90m ts(1484): [0m'Browser' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { Page, Browser, BrowserContext } from '@playwright/test';
+[7m [0m [91m               ~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m6[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'Page' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { Page, Browser, BrowserContext } from '@playwright/test';
+[7m [0m [91m         ~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m385[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'hasInteractiveElements' is declared but its value is never read.
+
+[7m385[0m     const hasInteractiveElements = snapshot.domSnapshot.includes('button') || snapshot.domSnapshot.includes('input');
+[7m   [0m [93m          ~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m384[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'hasNavigation' is declared but its value is never read.
+
+[7m384[0m     const hasNavigation = snapshot.domSnapshot.includes('<nav');
+[7m   [0m [93m          ~~~~~~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m383[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'hasForms' is declared but its value is never read.
+
+[7m383[0m     const hasForms = snapshot.domSnapshot.includes('<form');
+[7m   [0m [93m          ~~~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m283[0m:[93m68[0m - [93mwarning[0m[90m ts(6133): [0m'rules' is declared but its value is never read.
+
+[7m283[0m   private static async validateAccessibility(level: string = 'AA', rules: string[] = []): Promise<any> {
+[7m   [0m [93m                                                                   ~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m240[0m:[93m26[0m - [93mwarning[0m[90m ts(6387): [0mThe signature '(selector: string, text: string, options?: { delay?: number | undefined; noWaitAfter?: boolean | undefined; strict?: boolean | undefined; timeout?: number | undefined; } | undefined): Promise<...>' of 'session.page.type' is deprecated.
+
+[7m240[0m       await session.page.type(selector, text);
+[7m   [0m [93m                         ~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m63[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'config' is declared but its value is never read.
+
+[7m63[0m   private static config: MCPServerConfig;
+[7m  [0m [93m                 ~~~~~~[0m
+[96mtests/ai/MCPIntegration.ts[0m:[93m7[0m:[93m24[0m - [93mwarning[0m[90m ts(6133): [0m'QualityInsight' is declared but its value is never read.
+
+[7m7[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [93m                       ~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1753[0m:[93m59[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'ResourceRequirements'.
+
+[7m1753[0m   private static calculateResourceIntensity(requirements: ResourceRequirements): number {
+[7m    [0m [91m                                                          ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1414[0m:[93m60[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'ResourceRequirements'.
+
+[7m1414[0m   private static calculateResourceEfficiency(requirements: ResourceRequirements): number {
+[7m    [0m [91m                                                           ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m6[0m:[93m24[0m - [91merror[0m[90m ts(1484): [0m'QualityInsight' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [91m                       ~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m6[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'TestScenario' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [91m         ~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1168[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'calculateConfidence' is declared but its value is never read.
+
+[7m1168[0m   private static calculateConfidence(scenario: TestScenario, changes: CodeChange[]): number {
+[7m    [0m [93m                 ~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1127[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'analyzeCoverage' is declared but its value is never read.
+
+[7m1127[0m   private static analyzeCoverage(scenario: TestScenario): { score: number; reasoning: string[] } {
+[7m    [0m [93m                 ~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1095[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'analyzeRisk' is declared but its value is never read.
+
+[7m1095[0m   private static analyzeRisk(scenario: TestScenario): { score: number; reasoning: string[] } {
+[7m    [0m [93m                 ~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1056[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'analyzeHistoricalFailures' is declared but its value is never read.
+
+[7m1056[0m   private static analyzeHistoricalFailures(scenario: TestScenario): { score: number; reasoning: string[] } {
+[7m    [0m [93m                 ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m1019[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'analyzeChangeImpact' is declared but its value is never read.
+
+[7m1019[0m   private static analyzeChangeImpact(scenario: TestScenario, changes: CodeChange[]): { score: number; reasoning: string[] } {
+[7m    [0m [93m                 ~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m983[0m:[93m5[0m - [93mwarning[0m[90m ts(6133): [0m'ensemblePrediction' is declared but its value is never read.
+
+[7m983[0m     ensemblePrediction: any
+[7m   [0m [93m    ~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m947[0m:[93m68[0m - [93mwarning[0m[90m ts(6133): [0m'changes' is declared but its value is never read.
+
+[7m947[0m   private static analyzePipelineEfficiency(scenario: TestScenario, changes: CodeChange[]): { score: number; reasoning: string[] } {
+[7m   [0m [93m                                                                   ~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m618[0m:[93m5[0m - [93mwarning[0m[90m ts(6133): [0m'strategy' is declared but its value is never read.
+
+[7m618[0m     strategy: string
+[7m   [0m [93m    ~~~~~~~~[0m
+[96mtests/ai/MLTestPrioritizer.ts[0m:[93m6[0m:[93m24[0m - [93mwarning[0m[90m ts(6133): [0m'QualityInsight' is declared but its value is never read.
+
+[7m6[0m import { TestScenario, QualityInsight } from './AITestEnhancer';
+[7m [0m [93m                       ~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m1265[0m:[93m25[0m - [91merror[0m[90m ts(2339): [0mProperty 'method' does not exist on type 'SelectorHealing'.
+
+[7m1265[0m         method: healing.method,
+[7m    [0m [91m                        ~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m512[0m:[93m46[0m - [91merror[0m[90m ts(2339): [0mProperty 'method' does not exist on type 'SelectorHealing'.
+
+[7m512[0m       stats[healing.method] = (stats[healing.method] || 0) + 1;
+[7m   [0m [91m                                             ~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m512[0m:[93m21[0m - [91merror[0m[90m ts(2339): [0mProperty 'method' does not exist on type 'SelectorHealing'.
+
+[7m512[0m       stats[healing.method] = (stats[healing.method] || 0) + 1;
+[7m   [0m [91m                    ~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m469[0m:[93m9[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'method' does not exist in type 'SelectorHealing'.
+
+[7m469[0m         method,
+[7m   [0m [91m        ~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m6[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'Page' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { Page } from '@playwright/test';
+[7m [0m [91m         ~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m1239[0m:[93m63[0m - [93mwarning[0m[90m ts(6133): [0m'failure' is declared but its value is never read.
+
+[7m1239[0m   private static getHistoricalRelevance(element: ElementInfo, failure: TestFailure): number {
+[7m    [0m [93m                                                              ~~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m1213[0m:[93m17[0m - [93mwarning[0m[90m ts(6133): [0m'attrName' is declared but its value is never read.
+
+[7m1213[0m     for (const [attrName, attrValue] of Object.entries(attributes)) {
+[7m    [0m [93m                ~~~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m1065[0m:[93m82[0m - [93mwarning[0m[90m ts(6133): [0m'context' is declared but its value is never read.
+
+[7m1065[0m   private static calculateAttributeRelevance(attributes: Record<string, string>, context: any): number {
+[7m    [0m [93m                                                                                 ~~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m1022[0m:[93m70[0m - [93mwarning[0m[90m ts(6133): [0m'failure' is declared but its value is never read.
+
+[7m1022[0m   private static calculateContextualConfidence(element: ElementInfo, failure: TestFailure, context: any): number {
+[7m    [0m [93m                                                                     ~~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m688[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'calculateSemanticSimilarity' is declared but its value is never read.
+
+[7m688[0m   private static calculateSemanticSimilarity(text1: string, text2: string): number {
+[7m   [0m [93m                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/SelfHealingEngine.ts[0m:[93m424[0m:[93m18[0m - [93mwarning[0m[90m ts(6133): [0m'generateAISuggestion' is declared but its value is never read.
+
+[7m424[0m   private static generateAISuggestion(failure: TestFailure, analysis: PageAnalysis): HealingSuggestion | null {
+[7m   [0m [93m                 ~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/collect-ai-metrics.mjs[0m:[93m383[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'metrics' is declared but its value is never read.
+
+[7m383[0m collectAIMetrics().then(metrics => {
+[7m   [0m [93m                        ~~~~~~~[0m
+
+[96mtests/ai/mcp-global-setup.ts[0m:[93m38[0m:[93m48[0m - [91merror[0m[90m ts(2339): [0mProperty 'browserContext' does not exist on type 'Browser'.
+
+[7m38[0m     process.env.MCP_BROWSER_ENDPOINT = browser.browserContext().browser().wsEndpoint();
+[7m  [0m [91m                                               ~~~~~~~~~~~~~~[0m
+[96mtests/ai/mcp-global-setup.ts[0m:[93m6[0m:[93m20[0m - [91merror[0m[90m ts(1484): [0m'FullConfig' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { chromium, FullConfig } from '@playwright/test';
+[7m [0m [91m                   ~~~~~~~~~~[0m
+[96mtests/ai/mcp-global-setup.ts[0m:[93m12[0m:[93m28[0m - [93mwarning[0m[90m ts(6133): [0m'config' is declared but its value is never read.
+
+[7m12[0m async function globalSetup(config: FullConfig) {
+[7m  [0m [93m                           ~~~~~~[0m
+[96mtests/ai/mcp-global-setup.ts[0m:[93m9[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'SelfHealingEngine' is declared but its value is never read.
+
+[7m9[0m import { SelfHealingEngine } from './SelfHealingEngine';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/mcp-global-setup.ts[0m:[93m8[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'MLTestPrioritizer' is declared but its value is never read.
+
+[7m8[0m import { MLTestPrioritizer } from './MLTestPrioritizer';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/mcp-global-teardown.ts[0m:[93m6[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'FullConfig' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m6[0m import { FullConfig } from '@playwright/test';
+[7m [0m [91m         ~~~~~~~~~~[0m
+[96mtests/ai/mcp-global-teardown.ts[0m:[93m10[0m:[93m31[0m - [93mwarning[0m[90m ts(6133): [0m'config' is declared but its value is never read.
+
+[7m10[0m async function globalTeardown(config: FullConfig) {
+[7m  [0m [93m                              ~~~~~~[0m
+
+[96mtests/ai/run-mcp-tests.mjs[0m:[93m56[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'session' is declared but its value is never read.
+
+[7m56[0m     const session = await MCPIntegration.createSession(sessionId, mockBrowser);
+[7m  [0m [93m          ~~~~~~~[0m
+[96mtests/ai/run-mcp-tests.mjs[0m:[93m49[0m:[93m28[0m - [93mwarning[0m[90m ts(6133): [0m'fn' is declared but its value is never read.
+
+[7m49[0m           evaluate: async (fn) => ({ url: 'http://localhost:4173', title: 'Test Page' })
+[7m  [0m [93m                           ~~[0m
+
+[96mtests/ai/run-self-healing-tests.mjs[0m:[93m58[0m:[93m13[0m - [93mwarning[0m[90m ts(6133): [0m'mockPageAnalysis' is declared but its value is never read.
+
+[7m58[0m       const mockPageAnalysis = {
+[7m  [0m [93m            ~~~~~~~~~~~~~~~~[0m
+
+[96mtests/ai/validate-ai-enhanced-system.mjs[0m:[93m204[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'mockPageAnalysis' is declared but its value is never read.
+
+[7m204[0m     const mockPageAnalysis = {
+[7m   [0m [93m          ~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/validate-ai-enhanced-system.mjs[0m:[93m8[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m8[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/ai/validate-ai-enhanced-system.mjs[0m:[93m7[0m:[93m1[0m - [93mwarning[0m[90m ts(6192): [0mAll imports in import declaration are unused.
+
+[7m7[0m import { readFileSync, existsSync } from 'fs';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/browser/MetricCard.browser.test.ts[0m:[93m223[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m223[0m     page.setViewportSize({ width: 1280, height: 720 });
+[7m   [0m [91m         ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/MetricCard.browser.test.ts[0m:[93m195[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m195[0m     page.setViewportSize({ width: 375, height: 667 });
+[7m   [0m [91m         ~~~~~~~~~~~~~~~[0m
+
+[96mtests/browser/browser-test-utils.ts[0m:[93m347[0m:[93m12[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m347[0m       page.setViewportSize({ width: viewport.width, height: 720 });
+[7m   [0m [91m           ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m86[0m:[93m39[0m - [91merror[0m[90m ts(2554): [0mExpected 0 arguments, but got 1.
+
+[7m86[0m     await expect(element).toBeVisible({ timeout });
+[7m  [0m [91m                                      ~~~~~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m85[0m:[93m26[0m - [91merror[0m[90m ts(2339): [0mProperty 'locator' does not exist on type 'BrowserPage'.
+
+[7m85[0m     const element = page.locator(selector);
+[7m  [0m [91m                         ~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m75[0m:[93m55[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ name: string; }' is not assignable to parameter of type 'string'.
+
+[7m75[0m       await expect.element(element).toMatchScreenshot({ name });
+[7m  [0m [91m                                                      ~~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m67[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m67[0m     page.setViewportSize({ width: 1280, height: 720 });
+[7m  [0m [91m         ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m36[0m:[93m12[0m - [91merror[0m[90m ts(2339): [0mProperty 'setDefaultTimeout' does not exist on type 'BrowserPage'.
+
+[7m36[0m       page.setDefaultTimeout(opts.timeout);
+[7m  [0m [91m           ~~~~~~~~~~~~~~~~~[0m
+[96mtests/browser/browser-test-utils.ts[0m:[93m31[0m:[93m12[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m31[0m       page.setViewportSize(opts.viewport);
+[7m  [0m [91m           ~~~~~~~~~~~~~~~[0m
+
+[96mtests/browser/performance.test.ts[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'page' is declared but its value is never read.
+
+[7m2[0m import { page } from 'vitest/browser';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/browser/simple-browser.test.ts[0m:[93m36[0m:[93m27[0m - [91merror[0m[90m ts(2551): [0mProperty 'viewportSize' does not exist on type 'BrowserPage'. Did you mean 'viewport'?
+
+[7m36[0m     const viewport = page.viewportSize();
+[7m  [0m [91m                          ~~~~~~~~~~~~[0m
+[96mtests/browser/simple-browser.test.ts[0m:[93m33[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m33[0m     page.setViewportSize({ width: 800, height: 600 });
+[7m  [0m [91m         ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/simple-browser.test.ts[0m:[93m27[0m:[93m24[0m - [91merror[0m[90m ts(2339): [0mProperty 'title' does not exist on type 'BrowserPage'.
+
+[7m27[0m     const title = page.title();
+[7m  [0m [91m                       ~~~~~[0m
+
+[96mtests/browser/visual-regression.test.ts[0m:[93m217[0m:[93m50[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m217[0m     await expect.element(form).toMatchScreenshot({
+[7m   [0m [91m                                                 ~[0m
+[7m218[0m       threshold: 0.2,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+[7m219[0m       maxDiffPixels: 100
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m220[0m     });
+[7m   [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m186[0m:[93m52[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m186[0m     await expect.element(footer).toMatchScreenshot({
+[7m   [0m [91m                                                   ~[0m
+[7m187[0m       threshold: 0.25,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m188[0m       maxDiffPixels: 150
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m189[0m     });
+[7m   [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m143[0m:[93m49[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m143[0m     await expect.element(nav).toMatchScreenshot({
+[7m   [0m [91m                                                ~[0m
+[7m144[0m       threshold: 0.2,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+[7m145[0m       maxDiffPixels: 100
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m146[0m     });
+[7m   [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m141[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m141[0m     page.setViewportSize({ width: 375, height: 667 });
+[7m   [0m [91m         ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m135[0m:[93m49[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m135[0m     await expect.element(nav).toMatchScreenshot({
+[7m   [0m [91m                                                ~[0m
+[7m136[0m       threshold: 0.2,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+[7m137[0m       maxDiffPixels: 100
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m138[0m     });
+[7m   [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m111[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'setViewportSize' does not exist on type 'BrowserPage'.
+
+[7m111[0m     page.setViewportSize({ width: 1280, height: 720 });
+[7m   [0m [91m         ~~~~~~~~~~~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m103[0m:[93m54[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m103[0m     await expect.element(timeline).toMatchScreenshot({
+[7m   [0m [91m                                                     ~[0m
+[7m104[0m       threshold: 0.2,
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+[7m105[0m       maxDiffPixels: 80
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m106[0m     });
+[7m   [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m67[0m:[93m59[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m67[0m     await expect.element(tagsContainer).toMatchScreenshot({
+[7m  [0m [91m                                                          ~[0m
+[7m68[0m       threshold: 0.15,
+[7m  [0m [91m~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m69[0m       maxDiffPixels: 50
+[7m  [0m [91m~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m70[0m     });
+[7m  [0m [91m~~~~~[0m
+[96mtests/browser/visual-regression.test.ts[0m:[93m44[0m:[93m50[0m - [91merror[0m[90m ts(2345): [0mArgument of type '{ threshold: number; maxDiffPixels: number; }' is not assignable to parameter of type 'string'.
+
+[7m44[0m     await expect.element(card).toMatchScreenshot({
+[7m  [0m [91m                                                 ~[0m
+[7m45[0m       threshold: 0.2,
+[7m  [0m [91m~~~~~~~~~~~~~~~~~~~~~[0m
+[7m46[0m       maxDiffPixels: 100
+[7m  [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m47[0m     });
+[7m  [0m [91m~~~~~[0m
+
+[96mtests/components/Footer.test.ts[0m:[93m10[0m:[93m5[0m - [91merror[0m[90m ts(2740): [0mType 'TestContainer' is missing the following properties from type 'experimental_AstroContainer': #private, addServerRenderer, addClientRenderer, renderToString, and 2 more.
+
+[7m10[0m     container = await createTestContainer();
+[7m  [0m [91m    ~~~~~~~~~[0m
+[96mtests/components/Footer.test.ts[0m:[93m7[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'container' is declared but its value is never read.
+
+[7m7[0m   let container: Awaited<ReturnType<typeof AstroContainer.create>>;
+[7m [0m [93m      ~~~~~~~~~[0m
+
+[96mtests/components/MetricCard.behavior.test.ts[0m:[93m102[0m:[93m14[0m - [93mwarning[0m[90m ts(6133): [0m'metricData' is declared but its value is never read.
+
+[7m102[0m       async (metricData) => {
+[7m   [0m [93m             ~~~~~~~~~~[0m
+[96mtests/components/MetricCard.behavior.test.ts[0m:[93m58[0m:[93m14[0m - [93mwarning[0m[90m ts(6133): [0m'metricData' is declared but its value is never read.
+
+[7m58[0m       async (metricData) => {
+[7m  [0m [93m             ~~~~~~~~~~[0m
+[96mtests/components/MetricCard.behavior.test.ts[0m:[93m35[0m:[93m14[0m - [93mwarning[0m[90m ts(6133): [0m'metricData' is declared but its value is never read.
+
+[7m35[0m       async (metricData) => {
+[7m  [0m [93m             ~~~~~~~~~~[0m
+[96mtests/components/MetricCard.behavior.test.ts[0m:[93m10[0m:[93m14[0m - [93mwarning[0m[90m ts(6133): [0m'metricData' is declared but its value is never read.
+
+[7m10[0m       async (metricData) => {
+[7m  [0m [93m             ~~~~~~~~~~[0m
+
+[96mtests/components/MetricCard.test.ts[0m:[93m89[0m:[93m65[0m - [91merror[0m[90m ts(2559): [0mType '{ title: string; before: string; after: string; context?: string | undefined; skillTag?: string | undefined; caseStudySlug?: string | undefined; }' has no properties in common with type 'ContainerRenderOptions'.
+
+[7m89[0m       const result = await container.renderToString(MetricCard, metricData);
+[7m  [0m [91m                                                                ~~~~~~~~~~[0m
+
+[96mtests/components/Navigation.behavior.test.ts[0m:[93m2[0m:[93m67[0m - [93mwarning[0m[90m ts(6133): [0m'waitFor' is declared but its value is never read.
+
+[7m2[0m import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
+[7m [0m [93m                                                                  ~~~~~~~[0m
+[96mtests/components/Navigation.behavior.test.ts[0m:[93m2[0m:[93m48[0m - [93mwarning[0m[90m ts(6133): [0m'createMockElement' is declared but its value is never read.
+
+[7m2[0m import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
+[7m [0m [93m                                               ~~~~~~~~~~~~~~~~~[0m
+[96mtests/components/Navigation.behavior.test.ts[0m:[93m2[0m:[93m10[0m - [93mwarning[0m[90m ts(6133): [0m'createTestContainer' is declared but its value is never read.
+
+[7m2[0m import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
+[7m [0m [93m         ~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/components/Navigation.test.ts[0m:[93m5[0m:[93m7[0m - [93mwarning[0m[90m ts(6133): [0m'container' is declared but its value is never read.
+
+[7m5[0m   let container: any;
+[7m [0m [93m      ~~~~~~~~~[0m
+[96mtests/components/Navigation.test.ts[0m:[93m2[0m:[93m67[0m - [93mwarning[0m[90m ts(6133): [0m'waitFor' is declared but its value is never read.
+
+[7m2[0m import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
+[7m [0m [93m                                                                  ~~~~~~~[0m
+[96mtests/components/Navigation.test.ts[0m:[93m2[0m:[93m48[0m - [93mwarning[0m[90m ts(6133): [0m'createMockElement' is declared but its value is never read.
+
+[7m2[0m import { createTestContainer, renderComponent, createMockElement, waitFor } from '../utils/test-helpers';
+[7m [0m [93m                                               ~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/contract/content-contract-simple.test.ts[0m:[93m20[0m:[93m5[0m - [93mwarning[0m[90m ts(80007): [0m'await' has no effect on the type of this expression.
+
+[7m20[0m     await provider.setup();
+[7m  [0m [93m    ~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/contract/content-contract.test.ts[0m:[93m344[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m344[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m278[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m278[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m221[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m221[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m165[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m165[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m111[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m111[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m52[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m52[0m         .executeTest(async (mockserver) => {
+[7m  [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/content-contract.test.ts[0m:[93m19[0m:[93m5[0m - [93mwarning[0m[90m ts(80007): [0m'await' has no effect on the type of this expression.
+
+[7m19[0m     await provider.setup();
+[7m  [0m [93m    ~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/contract/content-schema-contract.test.ts[0m:[93m3[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'CollectionEntry' is declared but its value is never read.
+
+[7m3[0m import type { CollectionEntry } from 'astro:content';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m309[0m:[93m46[0m - [91merror[0m[90m ts(2341): [0mProperty 'getRandomElement' is private and only accessible within class 'CaseStudyScenarioGenerator'.
+
+[7m309[0m     const title = CaseStudyScenarioGenerator.getRandomElement(this.TITLES);
+[7m   [0m [91m                                             ~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m308[0m:[93m53[0m - [91merror[0m[90m ts(2341): [0mProperty 'getRandomElement' is private and only accessible within class 'CaseStudyScenarioGenerator'.
+
+[7m308[0m     const organization = CaseStudyScenarioGenerator.getRandomElement(this.ORGANIZATIONS);
+[7m   [0m [91m                                                    ~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m250[0m:[93m54[0m - [91merror[0m[90m ts(2341): [0mProperty 'getRandomElement' is private and only accessible within class 'CaseStudyScenarioGenerator'.
+
+[7m250[0m     const skillCategory = CaseStudyScenarioGenerator.getRandomElement(this.SKILL_CATEGORIES);
+[7m   [0m [91m                                                     ~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m249[0m:[93m53[0m - [91merror[0m[90m ts(2341): [0mProperty 'getRandomElement' is private and only accessible within class 'CaseStudyScenarioGenerator'.
+
+[7m249[0m     const impactMetric = CaseStudyScenarioGenerator.getRandomElement(this.IMPACT_METRICS);
+[7m   [0m [91m                                                    ~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m248[0m:[93m53[0m - [91merror[0m[90m ts(2341): [0mProperty 'getRandomElement' is private and only accessible within class 'CaseStudyScenarioGenerator'.
+
+[7m248[0m     const careerMetric = CaseStudyScenarioGenerator.getRandomElement(this.CAREER_METRICS);
+[7m   [0m [91m                                                    ~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m12[0m:[93m52[0m - [93mwarning[0m[90m ts(6133): [0m'datetime' is declared but its value is never read.
+
+[7m12[0m const { eachLike, string, regex, integer, boolean, datetime } = Matchers;
+[7m  [0m [93m                                                   ~~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m12[0m:[93m43[0m - [93mwarning[0m[90m ts(6133): [0m'boolean' is declared but its value is never read.
+
+[7m12[0m const { eachLike, string, regex, integer, boolean, datetime } = Matchers;
+[7m  [0m [93m                                          ~~~~~~~[0m
+[96mtests/contract/dynamic-scenario-generator.ts[0m:[93m12[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'integer' is declared but its value is never read.
+
+[7m12[0m const { eachLike, string, regex, integer, boolean, datetime } = Matchers;
+[7m  [0m [93m                                 ~~~~~~~[0m
+
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m491[0m:[93m40[0m - [91merror[0m[90m ts(18046): [0m'user' is of type 'unknown'.
+
+[7m491[0m         expect(response!.body.id).toBe(user.id);
+[7m   [0m [91m                                       ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m445[0m:[93m14[0m - [91merror[0m[90m ts(18046): [0m'user' is of type 'unknown'.
+
+[7m445[0m       expect(user.lastName).toBe('User');
+[7m   [0m [91m             ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m444[0m:[93m14[0m - [91merror[0m[90m ts(18046): [0m'user' is of type 'unknown'.
+
+[7m444[0m       expect(user.firstName).toBe('Test');
+[7m   [0m [91m             ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m443[0m:[93m14[0m - [91merror[0m[90m ts(18046): [0m'user' is of type 'unknown'.
+
+[7m443[0m       expect(user.status).toBe('active');
+[7m   [0m [91m             ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m442[0m:[93m14[0m - [91merror[0m[90m ts(18046): [0m'user' is of type 'unknown'.
+
+[7m442[0m       expect(user.role).toBe('admin');
+[7m   [0m [91m             ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m210[0m:[93m29[0m - [91merror[0m[90m ts(7006): [0mParameter 'mockserver' implicitly has an 'any' type.
+
+[7m210[0m         .executeTest(async (mockserver) => {
+[7m   [0m [91m                            ~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m203[0m:[93m32[0m - [91merror[0m[90m ts(7006): [0mParameter 'builder' implicitly has an 'any' type.
+
+[7m203[0m         .willRespondWith(201, (builder) => {
+[7m   [0m [91m                               ~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m198[0m:[93m10[0m - [91merror[0m[90m ts(2339): [0mProperty 'withHeaders' does not exist on type 'V4InteractionWithRequest'.
+
+[7m198[0m         .withHeaders({
+[7m   [0m [91m         ~~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m497[0m:[93m26[0m - [93mwarning[0m[90m ts(6133): [0m'user' is declared but its value is never read.
+
+[7m497[0m       testUsers.forEach((user, index) => {
+[7m   [0m [93m                         ~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m210[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m210[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m141[0m:[93m29[0m - [93mwarning[0m[90m ts(6133): [0m'mockserver' is declared but its value is never read.
+
+[7m141[0m         .executeTest(async (mockserver) => {
+[7m   [0m [93m                            ~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m60[0m:[93m9[0m - [93mwarning[0m[90m ts(6133): [0m'userMockId' is declared but its value is never read.
+
+[7m60[0m     let userMockId: string;
+[7m  [0m [93m        ~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m28[0m:[93m5[0m - [93mwarning[0m[90m ts(80007): [0m'await' has no effect on the type of this expression.
+
+[7m28[0m     await provider.setup();
+[7m  [0m [93m    ~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m16[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'integer' is declared but its value is never read.
+
+[7m16[0m const { eachLike, string, regex, integer, boolean, datetime } = Matchers;
+[7m  [0m [93m                                 ~~~~~~~[0m
+[96mtests/contract/mock-service-contract.test.ts[0m:[93m16[0m:[93m9[0m - [93mwarning[0m[90m ts(6133): [0m'eachLike' is declared but its value is never read.
+
+[7m16[0m const { eachLike, string, regex, integer, boolean, datetime } = Matchers;
+[7m  [0m [93m        ~~~~~~~~[0m
+
+[96mtests/factories/data-factory.ts[0m:[93m90[0m:[93m36[0m - [91merror[0m[90m ts(7006): [0mParameter 'e' implicitly has an 'any' type.
+
+[7m90[0m           errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+[7m  [0m [91m                                   ~[0m
+[96mtests/factories/data-factory.ts[0m:[93m90[0m:[93m25[0m - [91merror[0m[90m ts(2339): [0mProperty 'errors' does not exist on type 'ZodError<unknown>'.
+
+[7m90[0m           errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+[7m  [0m [91m                        ~~~~~~[0m
+[96mtests/factories/data-factory.ts[0m:[93m9[0m:[93m13[0m - [91merror[0m[90m ts(1485): [0m'ZodSchema' resolves to a type-only declaration and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m9[0m import { z, ZodSchema } from 'zod';
+[7m [0m [91m            ~~~~~~~~~[0m
+[96mtests/factories/data-factory.ts[0m:[93m9[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'ZodSchema' is deprecated.
+
+[7m9[0m import { z, ZodSchema } from 'zod';
+[7m [0m [93m            ~~~~~~~~~[0m
+
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m188[0m:[93m63[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m188[0m   fuzz('toTitleCase handles unicode and special characters', (data) => {
+[7m   [0m [91m                                                              ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m142[0m:[93m54[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m142[0m   fuzz('truncate handles buffer overflow attempts', (data) => {
+[7m   [0m [91m                                                     ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m108[0m:[93m47[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m108[0m   fuzz('slugify handles injection attempts', (data) => {
+[7m   [0m [91m                                              ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m80[0m:[93m53[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m80[0m   fuzz('formatCompactNumber handles large inputs', (data) => {
+[7m  [0m [91m                                                    ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m51[0m:[93m56[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m51[0m   fuzz('formatPercentage handles decimal edge cases', (data) => {
+[7m  [0m [91m                                                       ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m22[0m:[93m51[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m22[0m   fuzz('formatCurrency handles extreme numbers', (data) => {
+[7m  [0m [91m                                                  ~~~~[0m
+[96mtests/fuzzing/formatter-security.fuzz.test.ts[0m:[93m10[0m:[93m10[0m - [91merror[0m[90m ts(2305): [0mModule '"@jazzer.js/core"' has no exported member 'fuzz'.
+
+[7m10[0m import { fuzz } from '@jazzer.js/core';
+[7m  [0m [91m         ~~~~[0m
+
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m154[0m:[93m46[0m - [91merror[0m[90m ts(2352): [0mConversion of type 'any[]' to type 'string | number | symbol' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+
+[7m154[0m         const result2 = hasRequiredKeys(obj, [str] as keyof typeof obj);
+[7m   [0m [91m                                             ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m154[0m:[93m46[0m - [91merror[0m[90m ts(2345): [0mArgument of type 'string | number | symbol' is not assignable to parameter of type '(string | number | symbol)[]'.
+  Type 'string' is not assignable to type '(string | number | symbol)[]'.
+
+[7m154[0m         const result2 = hasRequiredKeys(obj, [str] as keyof typeof obj);
+[7m   [0m [91m                                             ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m139[0m:[93m54[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m139[0m   fuzz('hasRequiredKeys handles object corruption', (data) => {
+[7m   [0m [91m                                                     ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m114[0m:[93m48[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m114[0m   fuzz('isValidDate handles malformed dates', (data) => {
+[7m   [0m [91m                                               ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m89[0m:[93m41[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m89[0m   fuzz('all handles array corruption', (data) => {
+[7m  [0m [91m                                        ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m67[0m:[93m49[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m67[0m   fuzz('isInRange handles numeric edge cases', (data) => {
+[7m  [0m [91m                                                ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m52[0m:[93m56[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m52[0m   fuzz('isNonEmptyString handles various data types', (data) => {
+[7m  [0m [91m                                                       ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m37[0m:[93m46[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m37[0m   fuzz('isValidUrl handles malformed data', (data) => {
+[7m  [0m [91m                                             ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m22[0m:[93m48[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m22[0m   fuzz('isValidEmail handles malformed data', (data) => {
+[7m  [0m [91m                                               ~~~~[0m
+[96mtests/fuzzing/input-validation.fuzz.test.ts[0m:[93m9[0m:[93m10[0m - [91merror[0m[90m ts(2305): [0mModule '"@jazzer.js/core"' has no exported member 'fuzz'.
+
+[7m9[0m import { fuzz } from '@jazzer.js/core';
+[7m [0m [91m         ~~~~[0m
+
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m231[0m:[93m46[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m231[0m   fuzz('comprehensive security validation', (data) => {
+[7m   [0m [91m                                             ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m195[0m:[93m58[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m195[0m   fuzz('object validation handles prototype pollution', (data) => {
+[7m   [0m [91m                                                         ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m175[0m:[93m10[0m - [91merror[0m[90m ts(7053): [0mElement implicitly has an 'any' type because expression of type 'any' can't be used to index type '{}'.
+
+[7m175[0m         [{}[], input, () => {}], // Objects and functions
+[7m   [0m [91m         ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m165[0m:[93m54[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m165[0m   fuzz('array validation handles malicious arrays', (data) => {
+[7m   [0m [91m                                                     ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m129[0m:[93m52[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m129[0m   fuzz('range validation handles extreme values', (data) => {
+[7m   [0m [91m                                                   ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m101[0m:[93m54[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m101[0m   fuzz('string validation handles buffer overflow', (data) => {
+[7m   [0m [91m                                                     ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m60[0m:[93m55[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m60[0m   fuzz('URL validation prevents protocol injection', (data) => {
+[7m  [0m [91m                                                      ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m20[0m:[93m56[0m - [91merror[0m[90m ts(7006): [0mParameter 'data' implicitly has an 'any' type.
+
+[7m20[0m   fuzz('email validation handles injection attempts', (data) => {
+[7m  [0m [91m                                                       ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m8[0m:[93m10[0m - [91merror[0m[90m ts(2305): [0mModule '"@jazzer.js/core"' has no exported member 'fuzz'.
+
+[7m8[0m import { fuzz } from '@jazzer.js/core';
+[7m [0m [91m         ~~~~[0m
+[96mtests/fuzzing/security.fuzz.test.ts[0m:[93m175[0m:[93m13[0m - [91merror[0m[90m ts(1011): [0mAn element access expression should take an argument.
+
+[7m175[0m         [{}[], input, () => {}], // Objects and functions
+[7m   [0m [91m            [0m
+
+[96mtests/integration/basic-component.test.ts[0m:[93m11[0m:[93m57[0m - [91merror[0m[90m ts(2345): [0mArgument of type '() => string' is not assignable to parameter of type 'AstroComponentFactory'.
+  Type 'string' is not assignable to type 'AstroFactoryReturnValue | Promise<AstroFactoryReturnValue>'.
+
+[7m11[0m     const renderedHTML = await container.renderToString(TestComponent);
+[7m  [0m [91m                                                        ~~~~~~~~~~~~~[0m
+
+[96mtests/mocks/mock-manager.ts[0m:[93m581[0m:[93m19[0m - [91merror[0m[90m ts(2554): [0mExpected 2-3 arguments, but got 1.
+
+[7m581[0m         schema: z.record(z.function()),
+[7m   [0m [91m                  ~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m551[0m:[93m19[0m - [91merror[0m[90m ts(2554): [0mExpected 2-3 arguments, but got 1.
+
+[7m551[0m         schema: z.record(z.array(z.any())),
+[7m   [0m [91m                  ~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m521[0m:[93m19[0m - [91merror[0m[90m ts(2554): [0mExpected 2-3 arguments, but got 1.
+
+[7m521[0m         schema: z.record(z.any()),
+[7m   [0m [91m                  ~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m448[0m:[93m21[0m - [91merror[0m[90m ts(7006): [0mParameter 'file' implicitly has an 'any' type.
+
+[7m448[0m       files.forEach(file => {
+[7m   [0m [91m                    ~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m388[0m:[93m12[0m - [91merror[0m[90m ts(2339): [0mProperty 'instances' does not exist on type '{ mocks: MockDefinition[]; exportedAt: string; }'.
+
+[7m388[0m       data.instances = Array.from(this.instances.values());
+[7m   [0m [91m           ~~~~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m318[0m:[93m36[0m - [91merror[0m[90m ts(7006): [0mParameter 'e' implicitly has an 'any' type.
+
+[7m318[0m           errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+[7m   [0m [91m                                   ~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m318[0m:[93m25[0m - [91merror[0m[90m ts(2339): [0mProperty 'errors' does not exist on type 'ZodError<unknown>'.
+
+[7m318[0m           errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+[7m   [0m [91m                        ~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m11[0m:[93m13[0m - [91merror[0m[90m ts(1485): [0m'ZodSchema' resolves to a type-only declaration and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m11[0m import { z, ZodSchema } from 'zod';
+[7m  [0m [91m            ~~~~~~~~~[0m
+[96mtests/mocks/mock-manager.ts[0m:[93m11[0m:[93m13[0m - [93mwarning[0m[90m ts(6385): [0m'ZodSchema' is deprecated.
+
+[7m11[0m import { z, ZodSchema } from 'zod';
+[7m  [0m [93m            ~~~~~~~~~[0m
+
+[96mtests/monitoring/alerting-system.ts[0m:[93m848[0m:[93m7[0m - [91merror[0m[90m ts(2322): [0mType '"dashboard"' is not assignable to type '"email" | "log" | "console" | "webhook" | "slack"'.
+
+[7m848[0m       type: 'dashboard',
+[7m   [0m [91m      ~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m296[0m:[93m50[0m - [91merror[0m[90m ts(2367): [0mThis comparison appears to be unintentional because the types '"dashboard" | "email" | "log" | "console" | "webhook" | "slack"' and '"auto-resolve"' have no overlap.
+
+[7m296[0m         autoResolve: rule.actions.some(action => action.type === 'auto-resolve'),
+[7m   [0m [91m                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m3[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m641[0m:[93m32[0m - [93mwarning[0m[90m ts(6133): [0m'rule' is declared but its value is never read.
+
+[7m641[0m   private generateAlertMessage(rule: AlertRule, condition: AlertCondition, event: RealtimeEvent): string {
+[7m   [0m [93m                               ~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m636[0m:[93m74[0m - [93mwarning[0m[90m ts(6133): [0m'event' is declared but its value is never read.
+
+[7m636[0m   private generateAlertTitle(rule: AlertRule, condition: AlertCondition, event: RealtimeEvent): string {
+[7m   [0m [93m                                                                         ~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m636[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'rule' is declared but its value is never read.
+
+[7m636[0m   private generateAlertTitle(rule: AlertRule, condition: AlertCondition, event: RealtimeEvent): string {
+[7m   [0m [93m                             ~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m611[0m:[93m62[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m611[0m     return `alert_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+[7m   [0m [93m                                                             ~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m484[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'webhook' is declared but its value is never read.
+
+[7m484[0m     const webhook = config.webhook;
+[7m   [0m [93m          ~~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m428[0m:[93m13[0m - [93mwarning[0m[90m ts(6133): [0m'logFile' is declared but its value is never read.
+
+[7m428[0m       const logFile = 'tests/metrics/alerts.log';
+[7m   [0m [93m            ~~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m2[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/alerting-system.ts[0m:[93m1[0m:[93m1[0m - [93mwarning[0m[90m ts(6192): [0mAll imports in import declaration are unused.
+
+[7m1[0m import { writeFileSync, existsSync } from 'fs';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/monitoring/health-scoring.ts[0m:[93m3[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'Alert' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { Alert } from './alerting-system';
+[7m [0m [91m         ~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m2[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m2[0m import { RealtimeEvent } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m1[0m:[93m23[0m - [91merror[0m[90m ts(1484): [0m'TestCategory' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { TestMetrics, TestCategory } from '../performance/performance-monitor';
+[7m [0m [91m                      ~~~~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m1[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'TestMetrics' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { TestMetrics, TestCategory } from '../performance/performance-monitor';
+[7m [0m [91m         ~~~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m909[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'now' is declared but its value is never read.
+
+[7m909[0m     const now = new Date();
+[7m   [0m [93m          ~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m662[0m:[93m65[0m - [93mwarning[0m[90m ts(6133): [0m'metrics' is declared but its value is never read.
+
+[7m662[0m   private calculateMaintainabilityTrend(category: TestCategory, metrics: TestMetrics[]): 'improving' | 'stable' | 'degrading' {
+[7m   [0m [93m                                                                ~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m662[0m:[93m41[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m662[0m   private calculateMaintainabilityTrend(category: TestCategory, metrics: TestMetrics[]): 'improving' | 'stable' | 'degrading' {
+[7m   [0m [93m                                        ~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m645[0m:[93m37[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m645[0m   private calculateReliabilityTrend(category: TestCategory, metrics: TestMetrics[]): 'improving' | 'stable' | 'degrading' {
+[7m   [0m [93m                                    ~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m627[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m627[0m   private calculateDurationTrend(category: TestCategory, metrics: TestMetrics[]): 'improving' | 'stable' | 'degrading' {
+[7m   [0m [93m                                 ~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m353[0m:[93m35[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m353[0m   private calculateSecurityFactor(category: TestCategory, metrics: TestMetrics[]): HealthFactor {
+[7m   [0m [93m                                  ~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m252[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'maxDuration' is declared but its value is never read.
+
+[7m252[0m     const maxDuration = Math.max(...durations);
+[7m   [0m [93m          ~~~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m147[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'timestamp' is declared but its value is never read.
+
+[7m147[0m     const timestamp = new Date().toISOString();
+[7m   [0m [93m          ~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m3[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'Alert' is declared but its value is never read.
+
+[7m3[0m import { Alert } from './alerting-system';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/health-scoring.ts[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'RealtimeEvent' is declared but its value is never read.
+
+[7m2[0m import { RealtimeEvent } from './realtime-server';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/monitoring/realtime-client.ts[0m:[93m1[0m:[93m25[0m - [91merror[0m[90m ts(1484): [0m'TestProgress' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m                        ~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-client.ts[0m:[93m1[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m988[0m:[93m5[0m - [91merror[0m[90m ts(2353): [0mObject literal may only specify known properties, and 'autoStartDemo' does not exist in type 'RealtimeDashboardConfig'.
+
+[7m988[0m     autoStartDemo: true,
+[7m   [0m [91m    ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m3[0m:[93m25[0m - [91merror[0m[90m ts(1484): [0m'TestProgress' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m                        ~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m3[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m5[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m5[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m4[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'existsSync' is declared but its value is never read.
+
+[7m4[0m import { writeFileSync, existsSync } from 'fs';
+[7m [0m [93m                        ~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-dashboard.ts[0m:[93m2[0m:[93m36[0m - [93mwarning[0m[90m ts(6133): [0m'BrowserRealtimeClient' is declared but its value is never read.
+
+[7m2[0m import { RealtimeMonitoringClient, BrowserRealtimeClient } from './realtime-client';
+[7m [0m [93m                                   ~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/monitoring/realtime-manager.ts[0m:[93m3[0m:[93m25[0m - [91merror[0m[90m ts(1484): [0m'TestProgress' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m                        ~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-manager.ts[0m:[93m3[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-manager.ts[0m:[93m41[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'startTime' is declared but its value is never read.
+
+[7m41[0m   private startTime: number;
+[7m  [0m [93m          ~~~~~~~~~[0m
+[96mtests/monitoring/realtime-manager.ts[0m:[93m5[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m5[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-manager.ts[0m:[93m4[0m:[93m25[0m - [93mwarning[0m[90m ts(6133): [0m'existsSync' is declared but its value is never read.
+
+[7m4[0m import { writeFileSync, existsSync } from 'fs';
+[7m [0m [93m                        ~~~~~~~~~~[0m
+
+[96mtests/monitoring/realtime-server.ts[0m:[93m142[0m:[93m11[0m - [91merror[0m[90m ts(2322): [0mType '"pong"' is not assignable to type '"test_failure" | "test_start" | "test_progress" | "test_complete" | "metrics_update"'.
+
+[7m142[0m           type: 'pong',
+[7m   [0m [91m          ~~~~[0m
+[96mtests/monitoring/realtime-server.ts[0m:[93m5[0m:[93m30[0m - [91merror[0m[90m ts(1484): [0m'TestMetrics' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m5[0m import { PerformanceMonitor, TestMetrics } from '../performance/performance-monitor';
+[7m [0m [91m                             ~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-server.ts[0m:[93m5[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'TestMetrics' is declared but its value is never read.
+
+[7m5[0m import { PerformanceMonitor, TestMetrics } from '../performance/performance-monitor';
+[7m [0m [93m                             ~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-server.ts[0m:[93m4[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m4[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/monitoring/realtime-server.ts[0m:[93m3[0m:[93m1[0m - [93mwarning[0m[90m ts(6192): [0mAll imports in import declaration are unused.
+
+[7m3[0m import { readFileSync, writeFileSync, existsSync } from 'fs';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/monitoring/sse-server.ts[0m:[93m302[0m:[93m13[0m - [91merror[0m[90m ts(2322): [0mType '"ping"' is not assignable to type '"test_failure" | "test_start" | "test_progress" | "test_complete" | "metrics_update"'.
+
+[7m302[0m             type: 'ping',
+[7m   [0m [91m            ~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m108[0m:[93m7[0m - [91merror[0m[90m ts(2322): [0mType '"connected"' is not assignable to type '"test_failure" | "test_start" | "test_progress" | "test_complete" | "metrics_update"'.
+
+[7m108[0m       type: 'connected',
+[7m   [0m [91m      ~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m3[0m:[93m25[0m - [91merror[0m[90m ts(1484): [0m'TestProgress' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m                        ~~~~~~~~~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m3[0m:[93m10[0m - [91merror[0m[90m ts(1484): [0m'RealtimeEvent' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m3[0m import { RealtimeEvent, TestProgress } from './realtime-server';
+[7m [0m [91m         ~~~~~~~~~~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m2[0m:[93m30[0m - [91merror[0m[90m ts(1484): [0m'TestMetrics' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m2[0m import { PerformanceMonitor, TestMetrics } from '../performance/performance-monitor';
+[7m [0m [91m                             ~~~~~~~~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m329[0m:[93m60[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m329[0m     return `sse_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+[7m   [0m [93m                                                           ~~~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m178[0m:[93m27[0m - [93mwarning[0m[90m ts(6133): [0m'client' is declared but its value is never read.
+
+[7m178[0m     this.clients.forEach((client, clientId) => {
+[7m   [0m [93m                          ~~~~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m147[0m:[93m31[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m147[0m   private handleHealthRequest(req: any, res: any): void {
+[7m   [0m [93m                              ~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m134[0m:[93m31[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m134[0m   private handleStatusRequest(req: any, res: any): void {
+[7m   [0m [93m                              ~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m84[0m:[93m31[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m84[0m   private handleSSEConnection(req: any, res: any): void {
+[7m  [0m [93m                              ~~~[0m
+[96mtests/monitoring/sse-server.ts[0m:[93m2[0m:[93m30[0m - [93mwarning[0m[90m ts(6133): [0m'TestMetrics' is declared but its value is never read.
+
+[7m2[0m import { PerformanceMonitor, TestMetrics } from '../performance/performance-monitor';
+[7m [0m [93m                             ~~~~~~~~~~~[0m
+
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m449[0m:[93m21[0m - [91merror[0m[90m ts(2341): [0mProperty 'onSuccess' is private and only accessible within class 'HealthChecker'.
+
+[7m449[0m       healthChecker.onSuccess();
+[7m   [0m [91m                    ~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m443[0m:[93m22[0m - [91merror[0m[90m ts(2341): [0mProperty 'onSuccess' is private and only accessible within class 'CircuitBreaker'.
+
+[7m443[0m       circuitBreaker.onSuccess();
+[7m   [0m [91m                     ~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m424[0m:[93m21[0m - [91merror[0m[90m ts(2341): [0mProperty 'onFailure' is private and only accessible within class 'HealthChecker'.
+
+[7m424[0m       healthChecker.onFailure();
+[7m   [0m [91m                    ~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m419[0m:[93m20[0m - [91merror[0m[90m ts(2341): [0mProperty 'onFailure' is private and only accessible within class 'CircuitBreaker'.
+
+[7m419[0m     circuitBreaker.onFailure();
+[7m   [0m [91m                   ~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m271[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m271[0m     private config: FaultToleranceConfig
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m270[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m270[0m     private db: Pool,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m269[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m269[0m     private redis: Redis,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m266[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'healthCheckInterval' has no initializer and is not definitely assigned in the constructor.
+
+[7m266[0m   private healthCheckInterval: NodeJS.Timeout;
+[7m   [0m [91m          ~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m198[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m198[0m     private healthCheckFn: () => Promise<boolean>
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m197[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m197[0m     private eventEmitter: EventEmitter,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m196[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m196[0m     private config: HealthCheckConfig,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m195[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m195[0m     private name: string,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m130[0m:[93m24[0m - [91merror[0m[90m ts(2454): [0mVariable 'lastError' is used before being assigned.
+
+[7m130[0m             lastError: lastError?.message,
+[7m   [0m [91m                       ~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m112[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m112[0m     private eventEmitter: EventEmitter
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m111[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m111[0m     private policy: RetryPolicy,
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m52[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m52[0m     private eventEmitter: EventEmitter
+[7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m51[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m51[0m     private config: CircuitBreakerConfig,
+[7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m50[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m50[0m     private name: string,
+[7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m36[0m:[93m13[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m36[0m export enum CircuitBreakerState {
+[7m  [0m [91m            ~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m3[0m:[93m22[0m - [91merror[0m[90m ts(7016): [0mCould not find a declaration file for module 'pg'. 'C:/Users/trevo/Desktop/trevorplam/node_modules/pg/esm/index.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/pg` if it exists or add a new declaration (.d.ts) file containing `declare module 'pg';`
+
+[7m3[0m import { Pool } from 'pg';
+[7m [0m [91m                     ~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m526[0m:[93m15[0m - [93mwarning[0m[90m ts(6133): [0m'breaker' is declared but its value is never read.
+
+[7m526[0m         const breaker = this.getCircuitBreaker(name);
+[7m   [0m [93m              ~~~~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m525[0m:[93m15[0m - [93mwarning[0m[90m ts(6133): [0m'data' is declared but its value is never read.
+
+[7m525[0m         const data = JSON.parse(state);
+[7m   [0m [93m              ~~~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m270[0m:[93m13[0m - [93mwarning[0m[90m ts(6138): [0mProperty 'db' is declared but its value is never read.
+
+[7m270[0m     private db: Pool,
+[7m   [0m [93m            ~~[0m
+[96mtests/orchestration/fault-tolerance.ts[0m:[93m45[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'lastFailureTime' is declared but its value is never read.
+
+[7m45[0m   private lastFailureTime: number = 0;
+[7m  [0m [93m          ~~~~~~~~~~~~~~~[0m
+
+[96mtests/orchestration/result-aggregator.ts[0m:[93m738[0m:[93m22[0m - [91merror[0m[90m ts(7006): [0mParameter 'chunk' implicitly has an 'any' type.
+
+[7m738[0m       req.on('data', chunk => body += chunk);
+[7m   [0m [91m                     ~~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m81[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m 81[0m     private options: {
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~[0m
+[7m 82[0m       port?: number;
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 86[0m       maxResultHistory?: number;
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m 87[0m     } = {}
+[7m   [0m [91m~~~~~~~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m76[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'cleanupInterval' has no initializer and is not definitely assigned in the constructor.
+
+[7m76[0m   private cleanupInterval: NodeJS.Timeout;
+[7m  [0m [91m          ~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m75[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'metricsInterval' has no initializer and is not definitely assigned in the constructor.
+
+[7m75[0m   private metricsInterval: NodeJS.Timeout;
+[7m  [0m [91m          ~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m70[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'io' has no initializer and is not definitely assigned in the constructor.
+
+[7m70[0m   private io: SocketIOServer;
+[7m  [0m [91m          ~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m69[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'wsServer' has no initializer and is not definitely assigned in the constructor.
+
+[7m69[0m   private wsServer: WebSocketServer;
+[7m  [0m [91m          ~~~~~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m5[0m:[93m22[0m - [91merror[0m[90m ts(7016): [0mCould not find a declaration file for module 'pg'. 'C:/Users/trevo/Desktop/trevorplam/node_modules/pg/esm/index.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/pg` if it exists or add a new declaration (.d.ts) file containing `declare module 'pg';`
+
+[7m5[0m import { Pool } from 'pg';
+[7m [0m [91m                     ~~~~[0m
+[96mtests/orchestration/result-aggregator.ts[0m:[93m337[0m:[93m41[0m - [93mwarning[0m[90m ts(6133): [0m'req' is declared but its value is never read.
+
+[7m337[0m     this.wsServer.on('connection', (ws, req) => {
+[7m   [0m [93m                                        ~~~[0m
+
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m461[0m:[93m12[0m - [91merror[0m[90m ts(7053): [0mElement implicitly has an 'any' type because expression of type 'string' can't be used to index type '{ unit: string[]; integration: string[]; e2e: string[]; performance: string[]; }'.
+  No index signature with a parameter of type 'string' was found on type '{ unit: string[]; integration: string[]; e2e: string[]; performance: string[]; }'.
+
+[7m461[0m     return testFiles[testType] || [];
+[7m   [0m [91m           ~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m62[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m 62[0m     private options: {
+[7m   [0m [91m    ~~~~~~~~~~~~~~~~~~[0m
+[7m 63[0m       heartbeatInterval?: number;
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m...[0m 
+[7m 66[0m       retryDelay?: number;
+[7m   [0m [91m~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[7m 67[0m     } = {}
+[7m   [0m [91m~~~~~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m56[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'rebalanceInterval' has no initializer and is not definitely assigned in the constructor.
+
+[7m56[0m   private rebalanceInterval: NodeJS.Timeout;
+[7m  [0m [91m          ~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m55[0m:[93m11[0m - [91merror[0m[90m ts(2564): [0mProperty 'heartbeatInterval' has no initializer and is not definitely assigned in the constructor.
+
+[7m55[0m   private heartbeatInterval: NodeJS.Timeout;
+[7m  [0m [91m          ~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m5[0m:[93m22[0m - [91merror[0m[90m ts(7016): [0mCould not find a declaration file for module 'pg'. 'C:/Users/trevo/Desktop/trevorplam/node_modules/pg/esm/index.mjs' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/pg` if it exists or add a new declaration (.d.ts) file containing `declare module 'pg';`
+
+[7m5[0m import { Pool } from 'pg';
+[7m [0m [91m                     ~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m490[0m:[93m62[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m490[0m     return `shard-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+[7m   [0m [93m                                                             ~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m3[0m:[93m1[0m - [93mwarning[0m[90m ts(6133): [0m'join' is declared but its value is never read.
+
+[7m3[0m import { join } from 'path';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/orchestration/shard-orchestrator.ts[0m:[93m2[0m:[93m1[0m - [93mwarning[0m[90m ts(6192): [0mAll imports in import declaration are unused.
+
+[7m2[0m import { readFileSync, writeFileSync, existsSync } from 'fs';
+[7m [0m [93m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+[96mtests/performance/dashboard.ts[0m:[93m451[0m:[93m37[0m - [91merror[0m[90m ts(2339): [0mProperty 'getThresholds' does not exist on type 'PerformanceMonitor'.
+
+[7m451[0m     const thresholds = this.monitor.getThresholds();
+[7m   [0m [91m                                    ~~~~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m313[0m:[93m38[0m - [91merror[0m[90m ts(2339): [0mProperty 'getThresholds' does not exist on type 'PerformanceMonitor'.
+
+[7m313[0m       const threshold = this.monitor.getThresholds()[metric.category];
+[7m   [0m [91m                                     ~~~~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m247[0m:[93m36[0m - [91merror[0m[90m ts(2345): [0mArgument of type 'DashboardData' is not assignable to parameter of type 'PerformanceDashboard'.
+  Type 'DashboardData' is missing the following properties from type 'PerformanceDashboard': config, data, lastUpdate
+
+[7m247[0m         ${this.generateDashboardJS(dashboard)}
+[7m   [0m [91m                                   ~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m238[0m:[93m82[0m - [91merror[0m[90m ts(7006): [0mParameter 'alert' implicitly has an 'any' type.
+
+[7m238[0m                     ${dashboard.data.alerts.filter(alert => !alert.resolved).map(alert =>
+[7m   [0m [91m                                                                                 ~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m238[0m:[93m52[0m - [91merror[0m[90m ts(7006): [0mParameter 'alert' implicitly has an 'any' type.
+
+[7m238[0m                     ${dashboard.data.alerts.filter(alert => !alert.resolved).map(alert =>
+[7m   [0m [91m                                                   ~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m238[0m:[93m33[0m - [91merror[0m[90m ts(2339): [0mProperty 'data' does not exist on type 'DashboardData'.
+
+[7m238[0m                     ${dashboard.data.alerts.filter(alert => !alert.resolved).map(alert =>
+[7m   [0m [91m                                ~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m230[0m:[93m53[0m - [91merror[0m[90m ts(7006): [0mParameter 'rec' implicitly has an 'any' type.
+
+[7m230[0m                     ${dashboard.data.scheduling.map(rec => this.generateSchedulingCard(rec)).join('')}
+[7m   [0m [91m                                                    ~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m230[0m:[93m33[0m - [91merror[0m[90m ts(2339): [0mProperty 'data' does not exist on type 'DashboardData'.
+
+[7m230[0m                     ${dashboard.data.scheduling.map(rec => this.generateSchedulingCard(rec)).join('')}
+[7m   [0m [91m                                ~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m220[0m:[93m85[0m - [91merror[0m[90m ts(7006): [0mParameter 'regression' implicitly has an 'any' type.
+
+[7m220[0m                     ${dashboard.data.regressions.currentRegressions.slice(0, 5).map(regression =>
+[7m   [0m [91m                                                                                    ~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m220[0m:[93m33[0m - [91merror[0m[90m ts(2339): [0mProperty 'data' does not exist on type 'DashboardData'.
+
+[7m220[0m                     ${dashboard.data.regressions.currentRegressions.slice(0, 5).map(regression =>
+[7m   [0m [91m                                ~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m212[0m:[93m49[0m - [91merror[0m[90m ts(7006): [0mParameter 'trend' implicitly has an 'any' type.
+
+[7m212[0m                     ${dashboard.data.trends.map(trend => this.generateTrendChart(trend)).join('')}
+[7m   [0m [91m                                                ~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m212[0m:[93m33[0m - [91merror[0m[90m ts(2339): [0mProperty 'data' does not exist on type 'DashboardData'.
+
+[7m212[0m                     ${dashboard.data.trends.map(trend => this.generateTrendChart(trend)).join('')}
+[7m   [0m [91m                                ~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m205[0m:[93m55[0m - [91merror[0m[90m ts(2339): [0mProperty 'data' does not exist on type 'DashboardData'.
+
+[7m205[0m                 ${this.generateSummaryCards(dashboard.data.summary)}
+[7m   [0m [91m                                                      ~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m199[0m:[93m65[0m - [91merror[0m[90m ts(2339): [0mProperty 'lastUpdate' does not exist on type 'DashboardData'.
+
+[7m199[0m             <div class="last-updated">Last Updated: ${dashboard.lastUpdate}</div>
+[7m   [0m [91m                                                                ~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m135[0m:[93m52[0m - [91merror[0m[90m ts(18046): [0m'error' is of type 'unknown'.
+
+[7m135[0m         console.error('Error updating dashboard:', error.message);
+[7m   [0m [91m                                                   ~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m2[0m:[93m30[0m - [91merror[0m[90m ts(1484): [0m'RegressionAnalysisResult' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m2[0m import { RegressionDetector, RegressionAnalysisResult } from './regression-detector';
+[7m [0m [91m                             ~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m1[0m:[93m43[0m - [91merror[0m[90m ts(1484): [0m'SchedulingRecommendation' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { PerformanceMonitor, TestMetrics, SchedulingRecommendation } from './performance-monitor';
+[7m [0m [91m                                          ~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/dashboard.ts[0m:[93m1[0m:[93m30[0m - [91merror[0m[90m ts(1484): [0m'TestMetrics' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+
+[7m1[0m import { PerformanceMonitor, TestMetrics, SchedulingRecommendation } from './performance-monitor';
+[7m [0m [91m                             ~~~~~~~~~~~[0m
+
+[96mtests/performance/performance-monitor.ts[0m:[93m581[0m:[93m25[0m - [91merror[0m[90m ts(7053): [0mElement implicitly has an 'any' type because expression of type 'TestCategory' can't be used to index type 'PerformanceThresholds'.
+  Property 'property' does not exist on type 'PerformanceThresholds'.
+
+[7m581[0m       const threshold = this.thresholds[category as TestCategory];
+[7m   [0m [91m                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m465[0m:[93m25[0m - [91merror[0m[90m ts(7053): [0mElement implicitly has an 'any' type because expression of type 'TestCategory' can't be used to index type 'PerformanceThresholds'.
+  Property 'property' does not exist on type 'PerformanceThresholds'.
+
+[7m465[0m       const threshold = this.thresholds[category as TestCategory];
+[7m   [0m [91m                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m141[0m:[93m55[0m - [91merror[0m[90m ts(18046): [0m'error' is of type 'unknown'.
+
+[7m141[0m       console.error('Error collecting test metrics:', error.message);
+[7m   [0m [91m                                                      ~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m113[0m:[93m38[0m - [91merror[0m[90m ts(7006): [0mParameter 'testFile' implicitly has an 'any' type.
+
+[7m113[0m       testResults.testFiles?.forEach(testFile => {
+[7m   [0m [91m                                     ~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m69[0m:[93m5[0m - [91merror[0m[90m ts(1294): [0mThis syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+
+[7m69[0m     private readonly environment: 'ci' | 'local' = process.env.CI ? 'ci' : 'local'
+[7m  [0m [91m    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m45[0m:[93m3[0m - [91merror[0m[90m ts(7061): [0mA mapped type may not declare properties or methods.
+
+[7m45[0m   [key in TestCategory]: {
+[7m  [0m [91m  ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m591[0m:[93m82[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m591[0m   private generateScheduleReasoning(avgDuration: number, flakinessScore: number, category: TestCategory): string {
+[7m   [0m [93m                                                                                 ~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m360[0m:[93m58[0m - [93mwarning[0m[90m ts(6133): [0m'regression' is declared but its value is never read.
+
+[7m360[0m   private getRegressionThreshold(category: TestCategory, regression: number): number {
+[7m   [0m [93m                                                         ~~~~~~~~~~[0m
+[96mtests/performance/performance-monitor.ts[0m:[93m233[0m:[93m11[0m - [93mwarning[0m[90m ts(6133): [0m'baseline' is declared but its value is never read.
+
+[7m233[0m     const baseline = this.loadBaseline();
+[7m   [0m [93m          ~~~~~~~~[0m
+
+[96mtests/performance/regression-detector.ts[0m:[93m543[0m:[93m30[0m - [91merror[0m[90m ts(2304): [0mCannot find name 'dirname'.
+
+[7m543[0m     const resultsFile = join(dirname(this.patternsFile), 'regression-analysis.json');
+[7m   [0m [91m                             ~~~~~~~[0m
+[96mtests/performance/regression-detector.ts[0m:[93m295[0m:[93m37[0m - [91merror[0m[90m ts(2341): [0mProperty 'categorizeTest' is private and only accessible within class 'PerformanceMonitor'.
+
+[7m295[0m       const category = this.monitor.categorizeTest(testFile);
+[7m   [0m [91m                                    ~~~~~~~~~~~~~~[0m
+[96mtests/performance/regression-detector.ts[0m:[93m219[0m:[93m37[0m - [91merror[0m[90m ts(2341): [0mProperty 'categorizeTest' is private and only accessible within class 'PerformanceMonitor'.
+
+[7m219[0m       const category = this.monitor.categorizeTest(testFile);
+[7m   [0m [91m                                    ~~~~~~~~~~~~~~[0m
+[96mtests/performance/regression-detector.ts[0m:[93m129[0m:[93m76[0m - [91merror[0m[90m ts(2341): [0mProperty 'categorizeTest' is private and only accessible within class 'PerformanceMonitor'.
+
+[7m129[0m       const pattern = this.detectPattern(trendData, testFile, this.monitor.categorizeTest(testFile));
+[7m   [0m [91m                                                                           ~~~~~~~~~~~~~~[0m
+[96mtests/performance/regression-detector.ts[0m:[93m411[0m:[93m82[0m - [93mwarning[0m[90m ts(6133): [0m'category' is declared but its value is never read.
+
+[7m411[0m   private generateRecommendation(riskScore: number, predictedRegression: number, category: TestCategory): string {
+[7m   [0m [93m                                                                                 ~~~~~~~~[0m
+[96mtests/performance/regression-detector.ts[0m:[93m60[0m:[93m20[0m - [93mwarning[0m[90m ts(6133): [0m'predictionsFile' is declared but its value is never read.
+
+[7m60[0m   private readonly predictionsFile: string;
+[7m  [0m [93m                   ~~~~~~~~~~~~~~~[0m
+
+[96mtests/performance/test-scheduler.ts[0m:[93m555[0m:[93m24[0m - [91merror[0m[90m ts(18046): [0m'error' is of type 'unknown'.
+
+[7m555[0m           description: error.message,
+[7m   [0m [91m                       ~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m374[0m:[93m9[0m - [91merror[0m[90m ts(18048): [0m'prediction.riskScore' is possibly 'undefined'.
+
+[7m374[0m     if (prediction?.riskScore > 0.5) {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m360[0m:[93m9[0m - [91merror[0m[90m ts(18048): [0m'prediction.riskScore' is possibly 'undefined'.
+
+[7m360[0m     if (prediction?.riskScore > 0.2 || ['accessibility', 'contract'].includes(metric.category)) {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m355[0m:[93m9[0m - [91merror[0m[90m ts(18048): [0m'prediction.riskScore' is possibly 'undefined'.
+
+[7m355[0m     if (prediction?.riskScore > 0.5 || ['components', 'integration'].includes(metric.category)) {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m350[0m:[93m9[0m - [91merror[0m[90m ts(18048): [0m'prediction.riskScore' is possibly 'undefined'.
+
+[7m350[0m     if (prediction?.riskScore > 0.8 || metric.category === 'unit') {
+[7m   [0m [91m        ~~~~~~~~~~~~~~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m252[0m:[93m51[0m - [91merror[0m[90m ts(18046): [0m'error' is of type 'unknown'.
+
+[7m252[0m       console.error('Schedule execution failed:', error.message);
+[7m   [0m [91m                                                  ~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m787[0m:[93m39[0m - [93mwarning[0m[90m ts(6385): [0m'(from: number, length?: number | undefined): string' is deprecated.
+
+[7m787[0m     return Math.random().toString(36).substr(2, 9);
+[7m   [0m [93m                                      ~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m695[0m:[93m71[0m - [93mwarning[0m[90m ts(6133): [0m'executions' is declared but its value is never read.
+
+[7m695[0m   private generateOptimizationRecommendations(schedule: TestSchedule, executions: ScheduleExecution[]): OptimizationRecommendation[] {
+[7m   [0m [93m                                                                      ~~~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m630[0m:[93m34[0m - [93mwarning[0m[90m ts(6133): [0m'schedule' is declared but its value is never read.
+
+[7m630[0m   private calculateAccuracyScore(schedule: TestSchedule, executions: ScheduleExecution[]): number {
+[7m   [0m [93m                                 ~~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m614[0m:[93m40[0m - [93mwarning[0m[90m ts(6133): [0m'results' is declared but its value is never read.
+
+[7m614[0m   private calculateResourceUtilization(results: PhaseExecutionResult[]): number {
+[7m   [0m [93m                                       ~~~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m574[0m:[93m33[0m - [93mwarning[0m[90m ts(6133): [0m'phase' is declared but its value is never read.
+
+[7m574[0m   private simulateResourceUsage(phase: SchedulePhase): ResourceUsage {
+[7m   [0m [93m                                ~~~~~[0m
+[96mtests/performance/test-scheduler.ts[0m:[93m514[0m:[93m52[0m - [93mwarning[0m[90m ts(6133): [0m'config' is declared but its value is never read.
+
+[7m514[0m   private async executePhase(phase: SchedulePhase, config: ScheduleOptimization): Promise<PhaseExecutionResult> {
+[7m   [0m [93m                                                   ~~~~~~[0m
+
+Result (159 files): 
+- 219 errors
+- 0 warnings
+- 279 hints
+

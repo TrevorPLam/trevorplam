@@ -6,7 +6,8 @@
  */
 
 import { faker } from '@faker-js/faker';
-import { z, ZodSchema } from 'zod';
+import { z } from 'zod';
+import type { ZodSchema } from 'zod';
 import { randomUUID } from 'crypto';
 
 // Configure faker for deterministic testing
@@ -87,7 +88,7 @@ export abstract class BaseFactory<T> {
       if (error instanceof z.ZodError) {
         return {
           valid: false,
-          errors: error.errors.map(e => `${e.path.join('.')}: ${e.message}`)
+          errors: (error as z.ZodError).errors.map((e: z.ZodIssue) => `${e.path.join('.')}: ${e.message}`)
         };
       }
       return {

@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import LinkCard from '../../components/LinkCard.astro';
 
 // Get learning logs and projects for display
 const learningLogs = await getCollection('learningLogs');
@@ -122,7 +121,7 @@ const recentProjects = sortedProjects.slice(0, 3);
                 )}
               </div>
               <h3 class="text-lg font-semibold text-text-heading mb-3">
-                <a href={`/lab/learning-log/${log.slug}`} class="hover:text-teal transition-colors">
+                <a href={`/lab/learning-log/${log.id}`} class="hover:text-teal transition-colors">
                   {log.data.title}
                 </a>
               </h3>
@@ -182,7 +181,7 @@ const recentProjects = sortedProjects.slice(0, 3);
                 </time>
               </div>
               <h3 class="text-lg font-semibold text-text-heading mb-3">
-                <a href={`/lab/projects/${project.slug}`} class="hover:text-teal transition-colors">
+                <a href={`/lab/projects/${project.data.slug}`} class="hover:text-teal transition-colors">
                   {project.data.title}
                 </a>
               </h3>

@@ -1,6 +1,6 @@
 import { writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import { RealtimeEvent } from './realtime-server';
+import type { RealtimeEvent } from './realtime-server';
 
 export interface Alert {
   id: string;

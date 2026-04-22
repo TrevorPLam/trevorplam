@@ -3,8 +3,8 @@
  * Provides direct AI browser interaction through Model Context Protocol
  */
 
-import { Page, Browser, BrowserContext } from '@playwright/test';
-import { TestScenario, QualityInsight } from './AITestEnhancer';
+import type { Page, Browser, BrowserContext } from '@playwright/test';
+import type { TestScenario, QualityInsight } from './AITestEnhancer';
 
 export interface MCPServerConfig {
   endpoint: string;

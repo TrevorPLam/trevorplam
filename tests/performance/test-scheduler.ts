@@ -1,5 +1,7 @@
-import { PerformanceMonitor, TestMetrics, TestCategory, SchedulingRecommendation } from './performance-monitor';
-import { RegressionDetector, RegressionPrediction } from './regression-detector';
+import { PerformanceMonitor } from './performance-monitor';
+import type { TestMetrics, TestCategory, SchedulingRecommendation } from './performance-monitor';
+import { RegressionDetector } from './regression-detector';
+import type { RegressionPrediction } from './regression-detector';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
 
@@ -369,7 +371,7 @@ export class IntelligentTestScheduler {
       tags.push('flaky');
     }
     
-    if (prediction?.riskScore > 0.5) {
+    if (prediction?.riskScore && prediction.riskScore > 0.5) {
       tags.push('high-risk');
     }
     
@@ -550,7 +552,7 @@ export class IntelligentTestScheduler {
           type: 'infrastructure',
           severity: 'critical',
           testFile: '',
-          description: error.message,
+          description: (error as Error).message,
           timestamp: new Date().toISOString(),
           resolved: false
         }]

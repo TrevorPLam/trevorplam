@@ -41,12 +41,7 @@ export type TestCategory =
   | 'security' 
   | 'fuzzing';
 
-export interface PerformanceThresholds {
-  [key in TestCategory]: {
-    warning: number;
-    critical: number;
-  };
-}
+export interface PerformanceThresholds extends Record<TestCategory, { warning: number; critical: number }> {}
 
 export interface RegressionAlert {
   testFile: string;
@@ -63,11 +58,13 @@ export class PerformanceMonitor {
   private readonly baselineFile: string;
   private readonly alertsFile: string;
   private readonly thresholds: PerformanceThresholds;
+  private environment: 'ci' | 'local';
 
   constructor(
     metricsDir: string = 'tests/metrics',
-    private readonly environment: 'ci' | 'local' = process.env.CI ? 'ci' : 'local'
+    environment: 'ci' | 'local' = process.env.CI ? 'ci' : 'local'
   ) {
+    this.environment = environment;
     this.metricsFile = join(metricsDir, 'performance-metrics.json');
     this.baselineFile = join(metricsDir, 'performance-baseline.json');
     this.alertsFile = join(metricsDir, 'performance-alerts.json');
@@ -110,7 +107,7 @@ export class PerformanceMonitor {
       const testResults = JSON.parse(readFileSync('/tmp/test-results.json', 'utf8'));
       const metrics: TestMetrics[] = [];
       
-      testResults.testFiles?.forEach(testFile => {
+      testResults.testFiles?.forEach((testFile: string) => {
         const filePath = testFile.file;
         const duration = testFile.duration || 0;
         const category = this.categorizeTest(filePath);
@@ -138,7 +135,7 @@ export class PerformanceMonitor {
       return metrics;
       
     } catch (error) {
-      console.error('Error collecting test metrics:', error.message);
+      console.error('Error collecting test metrics:', (error as Error).message);
       throw error;
     }
   }
@@ -296,7 +293,7 @@ export class PerformanceMonitor {
 
   // Private helper methods
 
-  private categorizeTest(filePath: string): TestCategory {
+  protected categorizeTest(filePath: string): TestCategory {
     if (filePath.includes('unit/')) return 'unit';
     if (filePath.includes('components/')) return 'components';
     if (filePath.includes('integration/')) return 'integration';
@@ -462,7 +459,7 @@ export class PerformanceMonitor {
       const avgDuration = durations.reduce((sum, d) => sum + d, 0) / durations.length;
       const maxDuration = Math.max(...durations);
       const minDuration = Math.min(...durations);
-      const threshold = this.thresholds[category as TestCategory];
+      const threshold = this.thresholds[category];
       
       const warningCount = durations.filter(d => d >= threshold.warning).length;
       const criticalCount = durations.filter(d => d >= threshold.critical).length;
@@ -578,7 +575,7 @@ export class PerformanceMonitor {
     const categoryGroups = this.groupMetricsByCategory(metrics);
     Object.entries(categoryGroups).forEach(([category, categoryMetrics]) => {
       const avgDuration = categoryMetrics.reduce((sum, m) => sum + m.duration, 0) / categoryMetrics.length;
-      const threshold = this.thresholds[category as TestCategory];
+      const threshold = this.thresholds[category];
       
       if (avgDuration > threshold.warning) {
         recommendations.push(`Optimize ${category} tests - average duration (${Math.round(avgDuration)}ms) exceeds warning threshold (${threshold.warning}ms)`);

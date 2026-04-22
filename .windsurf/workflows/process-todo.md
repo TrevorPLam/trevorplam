@@ -1,0 +1,237 @@
+---
+description: Work through TODO.md tasks following the structured 6-step sequence with production-quality changes
+---
+
+# Process TODO Task Workflow
+
+This workflow guides you through working through TODO.md tasks following the structured sequence defined in prompt.md. Work on one task at a time with production-quality changes.
+
+## Prerequisites
+
+- Read `prompt.md` in full before using this workflow
+- Read `TODO.md` to understand the task list
+- Read `AGENTS.md` for project-specific guidance
+- Repository must be in clean state (no uncommitted changes)
+
+## Step 1: Read TODO.md in Full
+
+Read the complete TODO.md file to understand all tasks and identify the first task marked `pending`.
+
+### Action
+```bash
+# Read TODO.md to identify first pending task
+```
+
+### Output Required
+- Task title
+- Task description
+- Acceptance criteria
+- Related files
+- Dependencies
+- Anti-patterns to avoid
+
+## Step 2: Initial Codebase Analysis (READ-ONLY)
+
+Before thinking about solutions, understand the current state. DO NOT create, edit, or modify any files yet.
+
+### Targeted Analysis
+Read all files explicitly mentioned in the task's "Related Files" section.
+
+### Relational Analysis
+Identify and read any files that are directly imported by or have a direct dependency on the targeted files. Understand the side effects of potential changes.
+
+### Note Existing Patterns
+Document the current implementation, relevant patterns, and any immediate constraints you observe.
+
+### Output Required
+- Current implementation summary
+- Relevant patterns observed
+- Immediate constraints
+- Dependency relationships
+- Potential side effects of changes
+
+## Step 3: Targeted Online Research (Current as of 04/2026)
+
+Inform your understanding with external best practices.
+
+### Task-Specific Research
+Conduct up-to-date research specifically on the topics and technologies involved in the task.
+
+### Focus Areas
+Your research should cover:
+- Best practices and modern patterns
+- Enterprise solutions and architectural standards
+- Advanced coding patterns relevant to the task
+- Anti-patterns to avoid
+- Security, accessibility, SEO, and performance implications
+
+### Prioritize Official Sources
+- Official documentation
+- Changelogs
+- Gold-standard reference implementations
+- Secondary articles or tutorials (only if official sources are insufficient)
+
+### Output Required
+- Research findings with sources
+- Best practices identified
+- Anti-patterns to avoid
+- Security/accessibility/performance implications
+- Conflicts with existing codebase
+
+## Step 4: Reassessment & Planning (STILL READ-ONLY)
+
+Combine internal and external research to form a plan. DO NOT create, edit, or modify any files yet.
+
+### Synthesize
+Re-evaluate the targeted files and related files in light of your research. Would the original approach be improved by the new knowledge?
+
+### Identify Conflicts
+Note any discrepancies between the existing codebase and the best practices you've just researched.
+
+### Formulate a Plan
+Determine the exact, step-by-step changes you will make.
+
+### Output Required
+- Revised approach based on research
+- Conflicts identified
+- Step-by-step implementation plan
+- Rationale for each step
+
+## Step 5: Determine Scope
+
+Based on your plan, classify the change.
+
+### Local / Safe Change
+A focused fix or implementation within the existing architecture.
+- Examples: creating a single component, updating a CSS variable, adding a new data file
+- **Action**: Proceed immediately to implement
+
+### Significant Change
+Alters architecture, package boundaries, shared contracts, routing strategy, build tooling, deployment, authentication, or requires broad, cross-repo refactors.
+- **Action**: STOP. DO NOT IMPLEMENT. Present findings and plan for approval.
+
+### Output Required
+- Scope classification (Local/Safe or Significant)
+- Justification for classification
+
+## Step 6: Execution Phase
+
+### If Local / Safe Change
+Proceed immediately to implement the changes according to the plan formulated in Step 4.
+
+### If Significant Change
+STOP. DO NOT IMPLEMENT. Present your findings and plan for approval.
+
+### Approval Presentation Format (for Significant Changes)
+Your explanation must include:
+
+#### Issue
+What is the core problem?
+
+#### Proposed Solution
+What do you plan to change, and how?
+
+#### Rationale
+Why is this the best approach, citing your research from Step 3?
+
+#### Affected Areas
+Which files, packages, or systems will likely be touched?
+
+#### Risks & Tradeoffs
+What could go wrong, and what are the downsides of this approach?
+
+#### Validation Strategy
+How will you verify the change is correct and safe?
+
+**Wait for explicit approval before creating or modifying any files.**
+
+## Step 7: Implementation (After Approval if Significant)
+
+Follow the plan from Step 4.
+
+### Change Standards
+- Prefer the smallest high-quality change that fully solves the task
+- Do not make speculative rewrites
+- Do not introduce new dependencies unless clearly justified
+- Preserve existing conventions unless they are part of the problem
+- Keep the code production-grade, readable, and maintainable
+- Consider edge cases, error handling, accessibility, responsiveness, performance, SEO, and security
+
+### Scope Control
+- Work on one task at a time
+- Do not silently expand scope
+- If you notice related low-risk problems, either fix them only if clearly part of the same task, or add them to TODO.md as follow-up items
+
+## Step 8: Validation
+
+Before marking a task complete, run the most relevant checks for the changed area.
+
+### Validation Options
+- Tests: `npm test` or specific test suite
+- Lint: `npm run lint`
+- Typecheck: `npm run check`
+- Build: `npm run build`
+- Framework-specific validation
+
+### Fix Issues
+Fix any issues introduced by your changes.
+
+### Document Limitations
+If full validation is not possible, state exactly what you could and could not verify.
+
+## Step 9: Update TODO.md
+
+Only mark a task complete in TODO.md after:
+1. The implementation is finished
+2. Relevant validation has been run
+3. Any limitations are explicitly documented
+
+### Update Actions
+- Update TODO.md if the current description is wrong or incomplete
+- Mark the task complete (change `pending` to `completed`)
+- Add a short completion note that includes:
+  - What was changed
+  - Key files touched
+  - Validation performed
+  - Follow-up tasks discovered, if any
+
+## Step 10: Move to Next Task
+
+Repeat the workflow for the next pending task in TODO.md.
+
+## Source-of-Truth Order
+
+When deciding what to do, prioritize in this order:
+
+1. The current codebase and actual implementation
+2. TODO.md (the task specification)
+3. Official documentation for Astro 6.x, Tailwind v4, and dependencies in package.json
+4. Strong reference implementations or gold-standard repositories
+5. Secondary articles or tutorials (only if official sources are insufficient)
+
+If TODO.md conflicts with current best practices, security guidance, official docs, or the actual architecture of the repo, follow the best-supported approach and briefly explain the conflict.
+
+## Response Style
+
+- Be concise but clear
+- Explain technical decisions in plain English
+- For significant changes, ask before implementing
+- For local fixes, implement first, then summarize what changed and why
+- Never ignore the repository docs, but never assume they are correct without verification
+
+## Notes
+
+- The user is not a software developer - communicate clearly, avoid unnecessary jargon
+- Treat TODO.md and AGENTS.md as important context, not unquestioned truth
+- They may occasionally be outdated, but represent the primary specification
+- Always verify information against the actual codebase
+
+## Error Handling
+
+If you encounter issues:
+
+1. Re-read the task description in TODO.md
+2. Re-analyze the codebase with fresh perspective
+3. Conduct additional research if needed
+4. Adjust the plan and present for approval if scope changes
+5. Document any blockers or dependencies discovered

@@ -47,6 +47,7 @@
     "@csstools/css-tokenizer": "^4.0.0",
     "@tailwindcss/vite": "^4.2.3",
     "astro": "^6.1.8",
+    "astro-pagefind": "^1.8.6",
     "chart.js": "^4.5.1",
     "get-tsconfig": "^4.14.0",
     "puppeteer": "^24.42.0",

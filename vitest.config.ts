@@ -23,21 +23,16 @@ export default getViteConfig({
       'src/**/*.astro' // Exclude Astro components from direct parsing
     ],
     setupFiles: ['./tests/setup.ts'],
-    deps: {
-      inline: ['vitest/globals'] // Inline vitest globals to avoid import issues
-    },
     bail: 1,
     fileParallelism: true,
     projects: [
       { 
-        name: 'unit', 
         isolate: false, 
         include: ['tests/unit/**'],
         testTimeout: 2000, // 2026: Faster unit tests
         hookTimeout: 2000
       },
       { 
-        name: 'components', 
         isolate: true, 
         include: ['tests/components/**'],
         testTimeout: 3000, // 2026: Optimized component tests
@@ -45,28 +40,24 @@ export default getViteConfig({
         environment: 'browser' // Override for real browser testing
       },
       { 
-        name: 'integration', 
         isolate: true, 
         include: ['tests/integration/**'],
         testTimeout: 5000, // 2026: Reduced integration test timeout
         hookTimeout: 5000
       },
       {
-        name: 'property',
         isolate: true,
         include: ['tests/property/**'],
         testTimeout: 15000,
         hookTimeout: 5000
       },
       {
-        name: 'contract',
         isolate: true,
         include: ['tests/contract/**'],
         testTimeout: 10000,
         hookTimeout: 5000
       },
       {
-        name: 'browser',
         isolate: true,
         include: ['tests/browser/**/*.{test,spec}.ts', 'tests/**/*.browser.{test,spec}.ts'],
         testTimeout: 15000,

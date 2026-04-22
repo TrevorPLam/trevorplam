@@ -1,5 +1,7 @@
-import { PerformanceMonitor, TestMetrics, SchedulingRecommendation } from './performance-monitor';
-import { RegressionDetector, RegressionAnalysisResult } from './regression-detector';
+import { PerformanceMonitor } from './performance-monitor';
+import type { TestMetrics, SchedulingRecommendation } from './performance-monitor';
+import { RegressionDetector } from './regression-detector';
+import type { RegressionAnalysisResult } from './regression-detector';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { join } from 'path';
 

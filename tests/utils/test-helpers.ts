@@ -1,5 +1,5 @@
-import { experimental_AstroContainer as AstroContainer } from 'astro/container';
-import { TestContainer, TestContainerFactory, withTestContainer } from './test-container';
+
+import { TestContainerFactory, withTestContainer } from './test-container';
 
 /**
  * Creates a test container for Astro component testing
@@ -348,7 +348,7 @@ export const IsolationStrategies = {
     // Register API cleanup
     CleanupManager.registerCleanup(testId, async () => {
       // Restore any mocked APIs
-      global.fetch = undefined;
+      global.fetch = undefined as any;
       await container.cleanup();
     });
     
@@ -386,7 +386,7 @@ export const withIsolationStrategy = async <T>(
 ): Promise<T> => {
   const context = strategy === 'e2e' && browser 
     ? await IsolationStrategies[strategy](browser)
-    : await IsolationStrategies[strategy]();
+    : await IsolationStrategies[strategy]({} as any);
   
   try {
     return await testFn(context);

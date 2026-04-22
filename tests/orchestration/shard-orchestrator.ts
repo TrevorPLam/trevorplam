@@ -55,17 +55,24 @@ export class ShardOrchestrator extends EventEmitter {
   private heartbeatInterval: NodeJS.Timeout;
   private rebalanceInterval: NodeJS.Timeout;
   private isRunning: boolean = false;
+  private options: {
+    heartbeatInterval?: number;
+    rebalanceInterval?: number;
+    maxConcurrentShards?: number;
+    retryDelay?: number;
+  };
 
   constructor(
     redisUrl: string,
     postgresUrl: string,
-    private options: {
+    options: {
       heartbeatInterval?: number;
       rebalanceInterval?: number;
       maxConcurrentShards?: number;
       retryDelay?: number;
     } = {}
   ) {
+    this.options = options;
     super();
     this.redis = new Redis(redisUrl);
     this.db = new Pool({

@@ -86,7 +86,7 @@ describe('MetricCard Component', () => {
     );
     
     try {
-      const result = await container.renderToString(MetricCard, metricData);
+      const result = await container.renderToString(MetricCard, { props: metricData });
 
       // Test that isolated data renders correctly
       expect(result).toContain(metricData.title);

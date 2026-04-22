@@ -1,6 +1,6 @@
-import { TestMetrics, TestCategory } from '../performance/performance-monitor';
-import { RealtimeEvent } from './realtime-server';
-import { Alert } from './alerting-system';
+import type { TestMetrics, TestCategory } from '../performance/performance-monitor';
+import type { RealtimeEvent } from './realtime-server';
+import type { Alert } from './alerting-system';
 
 export interface HealthMetrics {
   overall: HealthScore;

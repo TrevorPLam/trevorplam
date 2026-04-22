@@ -3,7 +3,7 @@
  * Implements machine learning algorithms for intelligent test selection and prioritization
  */
 
-import { TestScenario, QualityInsight } from './AITestEnhancer';
+import type { TestScenario, QualityInsight } from './AITestEnhancer';
 
 export interface CodeChange {
   file: string;

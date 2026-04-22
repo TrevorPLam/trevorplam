@@ -5,7 +5,7 @@
  * in validation, authentication, and data handling functions.
  */
 
-import { fuzz } from '@jazzer.js/core';
+import { fuzz } from '@jazzer.js/fuzzer';
 import { 
   isValidEmail, 
   isValidUrl, 
@@ -17,7 +17,7 @@ import {
 
 describe('Security Fuzzing Tests', () => {
   
-  fuzz('email validation handles injection attempts', (data) => {
+  fuzz('email validation handles injection attempts', (data: Buffer) => {
     try {
       const input = data.toString();
       
@@ -98,7 +98,7 @@ describe('Security Fuzzing Tests', () => {
     }
   });
 
-  fuzz('string validation handles buffer overflow', (data) => {
+  fuzz('string validation handles buffer overflow', (data: Buffer) => {
     try {
       const input = data.toString();
       
@@ -126,7 +126,7 @@ describe('Security Fuzzing Tests', () => {
     }
   });
 
-  fuzz('range validation handles extreme values', (data) => {
+  fuzz('range validation handles extreme values', (data: Buffer) => {
     try {
       const str = data.toString();
       const num = parseFloat(str) || parseInt(str, 10) || 0;
@@ -162,7 +162,7 @@ describe('Security Fuzzing Tests', () => {
     }
   });
 
-  fuzz('array validation handles malicious arrays', (data) => {
+  fuzz('all validation handles array attacks', (data: Buffer) => {
     try {
       const input = data.toString();
       
@@ -192,7 +192,7 @@ describe('Security Fuzzing Tests', () => {
     }
   });
 
-  fuzz('object validation handles prototype pollution', (data) => {
+  fuzz('object validation handles prototype pollution', (data: Buffer) => {
     try {
       const input = data.toString();
       

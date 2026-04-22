@@ -4,7 +4,7 @@ import { createTestContainer, renderComponent } from '../utils/test-helpers';
 import Footer from '../../src/components/Footer.astro';
 
 describe('Footer Component', () => {
-  let container: Awaited<ReturnType<typeof AstroContainer.create>>;
+  let container: Awaited<ReturnType<typeof experimental_AstroContainer.create>>;
 
   beforeEach(async () => {
     container = await createTestContainer();

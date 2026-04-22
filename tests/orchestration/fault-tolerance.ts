@@ -33,24 +33,30 @@ export interface FaultToleranceConfig {
   timeoutMs: number;
 }
 
-export enum CircuitBreakerState {
-  CLOSED = 'closed',
-  OPEN = 'open',
-  HALF_OPEN = 'half_open'
-}
+export const CircuitBreakerState = {
+  CLOSED: 'closed',
+  OPEN: 'open',
+  HALF_OPEN: 'half_open'
+} as const;
+
+export type CircuitBreakerState = typeof CircuitBreakerState[keyof typeof CircuitBreakerState];
 
 export class CircuitBreaker {
-  private state: CircuitBreakerState = CircuitBreakerState.CLOSED;
-  private failureCount: number = 0;
-  private lastFailureTime: number = 0;
-  private successCount: number = 0;
-  private nextAttempt: number = 0;
+  private state = CircuitBreakerState.CLOSED;
+  private failureCount = 0;
+  private lastFailureTime = 0;
+  private successCount = 0;
+  private nextAttempt = 0;
 
   constructor(
-    private name: string,
-    private config: CircuitBreakerConfig,
-    private eventEmitter: EventEmitter
-  ) {}
+    name: string,
+    config: CircuitBreakerConfig,
+    eventEmitter: EventEmitter
+  ) {
+    this.name = name;
+    this.config = config;
+    this.eventEmitter = eventEmitter;
+  }
 
   async execute<T>(operation: () => Promise<T>): Promise<T> {
     if (this.state === CircuitBreakerState.OPEN) {

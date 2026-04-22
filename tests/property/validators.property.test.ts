@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test } from 'vitest';
 import * as fc from 'fast-check';
 import {
   isValidEmail,
@@ -163,13 +163,12 @@ describe('Property-Based Tests - Validators', () => {
       fc.assert(
         fc.property(
           fc.oneof(
-            fc.number(),
+            fc.float(),
             fc.boolean(),
             fc.object(),
-            fc.array(),
-            fc.null(),
-            fc.undefined(),
-            fc.symbol()
+            fc.array(fc.anything()),
+            fc.constantFrom(null),
+            fc.constantFrom(undefined)
           ),
           (nonStringValue) => {
             return !isNonEmptyString(nonStringValue);
@@ -193,7 +192,7 @@ describe('Property-Based Tests - Validators', () => {
   describe('isInRange', () => {
     test('always returns boolean', () => {
       fc.assert(
-        fc.property(fc.number(), fc.integer(), fc.integer(), (value, min, max) => {
+        fc.property(fc.float(), fc.integer(), fc.integer(), (value, min, max) => {
           const result = isInRange(value, Math.min(min, max), Math.max(min, max));
           return typeof result === 'boolean';
         })
@@ -349,12 +348,12 @@ describe('Property-Based Tests - Validators', () => {
         fc.property(
           fc.oneof(
             fc.string(),
-            fc.number(),
+            fc.float(),
             fc.boolean(),
             fc.object(),
-            fc.array(),
-            fc.null(),
-            fc.undefined()
+            fc.array(fc.anything()),
+            fc.constantFrom(null),
+            fc.constantFrom(undefined)
           ),
           (nonDateValue) => {
             return !isValidDate(nonDateValue);
@@ -391,7 +390,7 @@ describe('Property-Based Tests - Validators', () => {
     test('always returns boolean', () => {
       fc.assert(
         fc.property(
-          fc.record(fc.string(), fc.anything()),
+          fc.dictionary(fc.string(), fc.anything()),
           fc.array(fc.string()),
           (obj, keys) => {
             const result = hasRequiredKeys(obj, keys as (keyof typeof obj)[]);
@@ -423,7 +422,7 @@ describe('Property-Based Tests - Validators', () => {
             name: fc.string()
           }),
           (obj) => {
-            return !hasRequiredKeys(obj, ['name', 'email', 'age']);
+            return !hasRequiredKeys(obj, ['name'] as (keyof typeof obj)[]);
           }
         )
       );
@@ -446,7 +445,7 @@ describe('Property-Based Tests - Validators', () => {
 
     test('empty required keys array returns true', () => {
       fc.assert(
-        fc.property(fc.record(fc.string(), fc.anything()), (obj) => {
+        fc.property(fc.dictionary(fc.string(), fc.anything()), (obj) => {
           return hasRequiredKeys(obj, []);
         })
       );
@@ -461,7 +460,7 @@ describe('Property-Based Tests - Validators', () => {
               profile: fc.record({
                 name: fc.string(),
                 settings: fc.record({
-                  theme: fc.oneof(['light', 'dark']),
+                  theme: fc.constantFrom('light', 'dark'),
                   notifications: fc.boolean()
                 })
               })

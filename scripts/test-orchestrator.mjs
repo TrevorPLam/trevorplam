@@ -468,7 +468,7 @@ class TestOrchestrator {
 }
 
 // CLI interface
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   const command = args[0];
   const orchestrator = new TestOrchestrator();

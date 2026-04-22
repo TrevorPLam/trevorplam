@@ -41,10 +41,7 @@ describe('Visual Regression Tests', () => {
     `;
 
     const card = container.querySelector('.metric-card') as HTMLElement;
-    await expect.element(card).toMatchScreenshot({
-      threshold: 0.2,
-      maxDiffPixels: 100
-    });
+    await expect.element(card).toMatchScreenshot('metric-card-visual');
   });
 
   test('SkillTag visual appearance', async () => {
@@ -64,10 +61,7 @@ describe('Visual Regression Tests', () => {
     `;
 
     const tagsContainer = container.querySelector('.skill-tags-container') as HTMLElement;
-    await expect.element(tagsContainer).toMatchScreenshot({
-      threshold: 0.15,
-      maxDiffPixels: 50
-    });
+    await expect.element(tagsContainer).toMatchScreenshot('skill-tags-visual');
   });
 
   test('Timeline component visual layout', async () => {

@@ -1,6 +1,7 @@
-import { PerformanceMonitor, TestMetrics, RegressionAlert, TestCategory } from './performance-monitor';
+import { PerformanceMonitor } from './performance-monitor';
+import type { TestMetrics, RegressionAlert, TestCategory } from './performance-monitor';
 import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
 
 export interface RegressionPattern {
   testFile: string;

@@ -3,7 +3,7 @@
  * Automatically adapts selectors and maintains test stability through AI analysis
  */
 
-import { Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 export interface SelectorHealing {
   originalSelector: string;

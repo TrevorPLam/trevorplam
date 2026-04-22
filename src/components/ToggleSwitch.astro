@@ -25,6 +25,15 @@ const { label, checked: initialChecked = false } = Astro.props;
 </button>
 
 <script>
+  // Extend Window interface for toggle functions
+  declare global {
+    interface Window {
+      onToggleChange?: (isChecked: boolean) => void;
+      getToggleState?: () => boolean;
+      setToggleState?: (value: boolean) => void;
+    }
+  }
+
   // Find the toggle button and initialize if found
   const button = document.querySelector('[data-toggle-switch]') as HTMLButtonElement | null;
   if (button) {
@@ -66,7 +75,7 @@ const { label, checked: initialChecked = false } = Astro.props;
     // Expose current state
     if (typeof window !== 'undefined') {
       window.getToggleState = () => isChecked;
-      window.setToggleState = (value) => {
+      window.setToggleState = (value: boolean) => {
         isChecked = value;
         button.setAttribute('aria-checked', isChecked.toString());
         const span = button.querySelector('span:last-child');

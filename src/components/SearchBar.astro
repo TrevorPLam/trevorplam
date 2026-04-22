@@ -5,8 +5,8 @@ interface Props {
   autofocus?: boolean;
 }
 
-const { 
-  placeholder = "Search...", 
+const {
+  placeholder = "Search...",
   className = "",
   autofocus = false
 } = Astro.props;
@@ -22,102 +22,50 @@ const {
       placeholder={placeholder}
       autofocus={autofocus}
       value={Astro.url.searchParams.get('q') || ''}
+      aria-label="Search site"
     />
-    <button 
-      type="submit" 
-      class="sr-only" 
+    <button
+      type="submit"
+      class="sr-only"
       aria-label="Submit search"
     >
       Search
     </button>
   </form>
-  
+
   <!-- Search Icon -->
-  <svg 
-    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-body/50 pointer-events-none" 
-    fill="none" 
-    stroke="currentColor" 
+  <svg
+    class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-text-body/50 pointer-events-none"
+    fill="none"
+    stroke="currentColor"
     viewBox="0 0 24 24"
+    aria-hidden="true"
   >
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
   </svg>
-  
+
   <!-- Keyboard shortcut hint -->
-  <div class="keyboard-hint">⌘K</div>
+  <div class="keyboard-hint" aria-hidden="true">⌘K</div>
 </div>
 
 <style>
-  /* Custom Pagefind UI styling to match design system */
-  #site-search__input {
-    padding-left: 2.5rem !important;
-  }
-  
-  #site-search__results {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 0.375rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    max-height: 20rem;
-    overflow-y: auto;
-  }
-  
-  #site-search__result {
-    border-bottom: 1px solid var(--color-border);
-    transition: background-color 0.2s ease;
-    position: relative;
-  }
-  
-  #site-search__result:hover {
-    background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
-  }
-  
-  #site-search__result:last-child {
-    border-bottom: none;
-  }
-  
-  #site-search__result-title {
-    color: var(--color-text-heading);
-    font-weight: 500;
-  }
-  
-  #site-search__result-excerpt {
-    color: var(--color-text-body);
-    opacity: 0.7;
-  }
-  
-  /* Custom content type badges */
-  #site-search__result::after {
-    content: attr(data-meta);
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
-    color: var(--color-text-heading);
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    letter-spacing: 0.025em;
-  }
-  
   /* Keyboard shortcut hint */
   .keyboard-hint {
     position: absolute;
     right: 0.5rem;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--color-gray-200);
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: 0.25rem;
     padding: 0.125rem 0.375rem;
     font-size: 0.75rem;
-    color: var(--color-gray-950);
+    color: var(--color-text-body);
     opacity: 0.7;
     pointer-events: none;
   }
-  
-  #site-search__input:focus ~ .keyboard-hint {
+
+  #site-search:focus ~ .keyboard-hint {
     opacity: 0;
   }
 </style>
@@ -129,18 +77,10 @@ const {
       // Check for Cmd+K (Mac) or Ctrl+K (Windows/Linux)
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
         event.preventDefault();
-        const searchInput = document.querySelector('#site-search__input') as HTMLInputElement;
-        if (searchInput) {
+        const searchInput = document.querySelector('#site-search');
+        if (searchInput && searchInput instanceof HTMLInputElement) {
           searchInput.focus();
           searchInput.select();
-        }
-      }
-      
-      // Jump to first result with Enter when search is focused
-      if (event.key === 'Enter' && document.activeElement?.id === 'site-search__input') {
-        const firstResult = document.querySelector('#site-search__result:first-child a') as HTMLAnchorElement;
-        if (firstResult) {
-          window.location.href = firstResult.href;
         }
       }
     });

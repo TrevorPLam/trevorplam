@@ -75,7 +75,7 @@ export class TestContainer {
   /**
    * Get mock objects
    */
-  get mocks(): TestMocks {
+  getMocks(): TestMocks {
     return this.mocks;
   }
 

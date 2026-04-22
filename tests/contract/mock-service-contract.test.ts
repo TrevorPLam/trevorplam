@@ -195,19 +195,19 @@ describe('Mock Service Contract Tests', () => {
         .given('user service is available')
         .uponReceiving('a request to create a new user')
         .withRequest('POST', '/api/users')
-        .withHeaders({
+        .withRequestHeaders({
           'Content-Type': 'application/json',
           'X-Request-ID': string('uuid')
         })
         .withJsonBody(userCreationRequest)
-        .willRespondWith(201, (builder) => {
-          builder.headers({
+        .willRespondWith(201, (builder: any) => {
+          builder.withHeaders({
             'Content-Type': 'application/json',
             'Location': string('url')
           });
-          builder.jsonBody(userCreationResponse);
+          builder.withJsonBody(userCreationResponse);
         })
-        .executeTest(async (mockserver) => {
+        .executeTest(async (mockserver: any) => {
           // Test virtual service simulation for creation
           const newUserData = factoryManager.generate('user');
           const response = serviceVirtualizer.simulateResponse('user-service', 'POST', '/api/users', newUserData);
@@ -439,10 +439,10 @@ describe('Mock Service Contract Tests', () => {
         }
       });
       
-      expect(user.role).toBe('admin');
-      expect(user.status).toBe('active');
-      expect(user.firstName).toBe('Test');
-      expect(user.lastName).toBe('User');
+      expect((user as any).role).toBe('admin');
+      expect((user as any).status).toBe('active');
+      expect((user as any).firstName).toBe('Test');
+      expect((user as any).lastName).toBe('User');
     });
   });
 
@@ -488,7 +488,7 @@ describe('Mock Service Contract Tests', () => {
         
         expect(response).toBeDefined();
         expect(response!.status).toBe(200);
-        expect(response!.body.id).toBe(user.id);
+        expect((response!.body as any).id).toBe((user as any).id);
       });
       
       // 5. Capture traffic and generate insights

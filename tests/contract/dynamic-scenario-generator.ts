@@ -193,7 +193,7 @@ export class CaseStudyScenarioGenerator {
     return `${adjective}-${noun}-${randomUUID().slice(0, 8)}`;
   }
 
-  private static getRandomElement<T>(array: T[]): T {
+  protected static getRandomElement<T>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)];
   }
 

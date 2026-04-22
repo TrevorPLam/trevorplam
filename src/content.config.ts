@@ -12,6 +12,7 @@ const caseStudies = defineCollection({
     metric: z.string().optional(),
     lastUpdated: z.coerce.date(),
     relatedCases: z.array(z.string()).default([]),
+    pdfUrl: z.string().optional(),
     metrics: z.array(z.object({
       id: z.string(),
       title: z.string(),

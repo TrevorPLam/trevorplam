@@ -7,7 +7,7 @@
  * buffer overflows, and other security issues.
  */
 
-import { fuzz } from '@jazzer.js/core';
+import { fuzz } from '@jazzer.js/fuzzer';
 import { 
   formatCurrency, 
   formatPercentage, 
@@ -19,7 +19,7 @@ import {
 
 describe('Fuzzing Tests - Formatter Security', () => {
   
-  fuzz('formatCurrency handles extreme numbers', (data) => {
+  fuzz('formatCurrency handles extreme numbers', (data: Buffer) => {
     try {
       // Convert buffer to various number representations
       const str = data.toString();
@@ -48,7 +48,7 @@ describe('Fuzzing Tests - Formatter Security', () => {
     }
   });
 
-  fuzz('formatPercentage handles decimal edge cases', (data) => {
+  fuzz('formatPercentage handles decimal edge cases', (data: Buffer) => {
     try {
       const str = data.toString();
       const num = parseFloat(str) || parseInt(str, 10) || 0;
@@ -77,7 +77,7 @@ describe('Fuzzing Tests - Formatter Security', () => {
     }
   });
 
-  fuzz('formatCompactNumber handles large inputs', (data) => {
+  fuzz('formatCompactNumber handles large inputs', (data: Buffer) => {
     try {
       const str = data.toString();
       const num = parseFloat(str) || parseInt(str, 10) || 0;
@@ -105,7 +105,7 @@ describe('Fuzzing Tests - Formatter Security', () => {
     }
   });
 
-  fuzz('slugify handles injection attempts', (data) => {
+  fuzz('slugify handles injection attempts', (data: Buffer) => {
     try {
       const input = data.toString();
       
@@ -139,7 +139,7 @@ describe('Fuzzing Tests - Formatter Security', () => {
     }
   });
 
-  fuzz('truncate handles buffer overflow attempts', (data) => {
+  fuzz('truncate handles buffer overflow attempts', (data: Buffer) => {
     try {
       const input = data.toString();
       const extremeLengths = [
@@ -185,7 +185,7 @@ describe('Fuzzing Tests - Formatter Security', () => {
     }
   });
 
-  fuzz('toTitleCase handles unicode and special characters', (data) => {
+  fuzz('toTitleCase handles unicode and special characters', (data: Buffer) => {
     try {
       const input = data.toString();
       

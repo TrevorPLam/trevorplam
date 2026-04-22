@@ -127,15 +127,15 @@ export class MockTransaction implements Transaction {
     return this.rolledBack;
   }
 
-  private mockSelect(sql: string, params: any[]): any[] {
+  private mockSelect(_sql: string, _params: any[]): any[] {
     // Simple mock implementation for SELECT queries
-    if (sql.includes('users')) {
+    if (_sql.includes('users')) {
       return [
         { id: 1, name: 'Test User', email: 'test@example.com' },
         { id: 2, name: 'Another User', email: 'another@example.com' }
       ];
     }
-    if (sql.includes('posts')) {
+    if (_sql.includes('posts')) {
       return [
         { id: 1, title: 'Test Post', user_id: 1 },
         { id: 2, title: 'Another Post', user_id: 2 }
@@ -144,15 +144,15 @@ export class MockTransaction implements Transaction {
     return [];
   }
 
-  private mockInsert(sql: string, params: any[]): { insertId: number; affectedRows: number } {
+  private mockInsert(_sql: string, _params: any[]): { insertId: number; affectedRows: number } {
     return { insertId: Math.floor(Math.random() * 1000), affectedRows: 1 };
   }
 
-  private mockUpdate(sql: string, params: any[]): { affectedRows: number } {
+  private mockUpdate(_sql: string, _params: any[]): { affectedRows: number } {
     return { affectedRows: 1 };
   }
 
-  private mockDelete(sql: string, params: any[]): { affectedRows: number } {
+  private mockDelete(_sql: string, _params: any[]): { affectedRows: number } {
     return { affectedRows: 1 };
   }
 }
@@ -213,7 +213,7 @@ export class DefaultTransactionManager implements TransactionManager {
   private connections: DatabaseConnection[] = [];
   private transactions: Transaction[] = [];
 
-  async createTransaction(options: TransactionOptions = {}): Promise<Transaction> {
+  async createTransaction(_options: TransactionOptions = {}): Promise<Transaction> {
     const connection = new MockDatabaseConnection();
     this.connections.push(connection);
     
@@ -266,7 +266,7 @@ export class IsolationStrategies {
    */
   static readCommitted(): TransactionOptions {
     return {
-      isolationLevel: 'READ_COMMITMITTED',
+      isolationLevel: 'READ_COMMITTED',
       timeout: 30000,
       readOnly: false,
       savepoints: true

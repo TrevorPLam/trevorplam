@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const siteUrl = 'https://trevor-lam.com';
+
+const personJsonLd = {
+  '@type': 'Person',
+  '@id': `${siteUrl}#person`,
+  name: 'Trevor Lam',
+  url: siteUrl,
+  sameAs: ['https://linkedin.com/in/trevor-lam'],
+  jobTitle: 'Operations & Financial Controls Leader',
+  description: 'Operations leader specializing in scalable systems, financial controls, and people operations for multi-unit and professional services businesses.',
+  knowsAbout: [
+    'Operations Management',
+    'Chief of Staff',
+    'HR/Payroll Systems',
+    'Business Process Optimization',
+    'Information Architecture',
+    'Financial Controls'
+  ]
+};
+---
+
+<BaseLayout 
+  title="About - Trevor Lam" 
+  description="Learn about Trevor Lam, an Operations Integrator and Chief of Staff professional with expertise in multi-unit operations, financial controls, and process optimization."
+  jsonLd={personJsonLd}
+>
+  <div class="max-w-4xl mx-auto px-4 py-16">
+    <!-- Header -->
+    <header class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-text-heading mb-6">
+        About Trevor Lam
+      </h1>
+      <p class="text-xl text-text-body mb-8 max-w-2xl mx-auto">
+        Operations Integrator transforming chaotic operations into scalable, predictable systems across QSR, professional services, and commission-based environments.
+      </p>
+    </header>
+
+    <!-- Professional Summary -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-text-heading mb-6">
+        Professional Summary
+      </h2>
+      <div class="bg-surface border border-border rounded-lg p-8">
+        <p class="text-text-body leading-relaxed mb-4">
+          I specialize in stabilizing operations and building systems that scale. With 12+ years across three distinct industries—quick service restaurants, CPA/payroll firms, and commission-based service businesses—I've developed a pattern recognition ability that lets me diagnose operational friction points quickly and implement systematic fixes.
+        </p>
+        <p class="text-text-body leading-relaxed mb-4">
+          My approach is consistent: arrive, diagnose, optimize, repeat. I don't rely on industry-specific knowledge—I rely on fundamental operational principles that apply everywhere: financial controls, process documentation, people operations, and systematic measurement.
+        </p>
+        <p class="text-text-body leading-relaxed">
+          Currently based in the Dallas-Fort Worth area, I'm seeking opportunities where I can help organizations stabilize operations, implement scalable systems, and drive strategic initiatives as an Operations Manager, Chief of Staff, or HR/Payroll leader.
+        </p>
+      </div>
+    </section>
+
+    <!-- Career Approach -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-text-heading mb-6">
+        My Approach
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-surface border border-border rounded-lg p-6">
+          <h3 class="text-text-heading font-semibold mb-3">Diagnose First</h3>
+          <p class="text-text-body text-sm">
+            Ground-level observation before making changes. I spend time understanding the actual state of operations, not the assumed state.
+          </p>
+        </div>
+        <div class="bg-surface border border-border rounded-lg p-6">
+          <h3 class="text-text-heading font-semibold mb-3">Build Systems, Not Fixes</h3>
+          <p class="text-text-body text-sm">
+            Temporary fixes create recurring work. I build documented systems that prevent problems from recurring.
+          </p>
+        </div>
+        <div class="bg-surface border border-border rounded-lg p-6">
+          <h3 class="text-text-heading font-semibold mb-3">Measure Everything</h3>
+          <p class="text-text-body text-sm">
+            If you can't measure it, you can't improve it. I establish clear KPIs and track them consistently.
+          </p>
+        </div>
+        <div class="bg-surface border border-border rounded-lg p-6">
+          <h3 class="text-text-heading font-semibold mb-3">Earn Trust Through Results</h3>
+          <p class="text-text-body text-sm">
+            I don't ask for responsibility—I demonstrate capacity and earn it. Same promotion mechanism at every level.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-text-heading mb-6">
+        What I Bring
+      </h2>
+      <div class="space-y-4">
+        <div class="flex items-start gap-4">
+          <div class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-text-heading font-semibold mb-1">Cross-Industry Pattern Recognition</h3>
+            <p class="text-text-body text-sm">
+              Applied the same operational principles across QSR, CPA/payroll, and commission-based businesses with consistent results.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-text-heading font-semibold mb-1">Zero-Discrepancy Financial Controls</h3>
+            <p class="text-text-body text-sm">
+              Perfect cash reconciliations across three different careers. I build systems that prevent errors before they happen.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-text-heading font-semibold mb-1">Fast Trust Compression</h3>
+            <p class="text-text-body text-sm">
+              60-day promotion at a skeptical CPA firm. I earn trust quickly by delivering results and asking for more responsibility.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="bg-accent text-white rounded-full w-8 h-8 flex items-center justify-center shrink-0 mt-1">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-text-heading font-semibold mb-1">Organizational Change Leadership</h3>
+            <p class="text-text-body text-sm">
+              Led paper-to-digital transitions across three legally distinct entities. I manage change by involving stakeholders and sustaining adoption.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="text-center">
+      <div class="bg-surface border border-border rounded-lg p-8 max-w-2xl mx-auto">
+        <h2 class="text-2xl font-bold text-text-heading mb-6">
+          Let's Work Together
+        </h2>
+        <p class="text-text-body mb-8">
+          I'm currently seeking opportunities in Operations, Chief of Staff, and HR/Payroll roles. If your organization needs operational stability and systematic improvement, let's connect.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/connect" 
+            class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors min-h-[44px]"
+          >
+            Get in Touch
+          </a>
+          
+          <a 
+            href="/TrevorLam-Resume-2026.pdf" 
+            download
+            class="inline-flex items-center justify-center px-6 py-3 bg-surface hover:bg-surface/80 border-2 border-accent text-accent font-medium rounded-lg transition-colors min-h-[44px]"
+          >
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
