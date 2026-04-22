@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T12:08:07.788Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "468463e9-f97b-42fb-acef-10cd5208f4a4",
+        "email": "Kristina26@gmail.com",
+        "firstName": "Scot",
+        "lastName": "Harvey",
+        "role": "admin",
+        "status": "suspended",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/14.jpg",
+        "createdAt": "2025-12-03T08:07:16.532Z",
+        "updatedAt": "2026-04-21T16:22:36.757Z",
+        "lastLoginAt": "2026-04-21T15:50:30.838Z",
+        "preferences": {
+          "theme": "auto",
+          "language": "de",
+          "notifications": true
+        },
+        "metadata": {
+          "ipAddress": "51.18.94.103",
+          "userAgent": "Mozilla/5.0 (compatible; MSIE 6.0; Windows NT 6.0; Trident/5.0)",
+          "location": {
+            "country": "Denmark",
+            "city": "Klockoberg",
+            "timezone": "America/Denver"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "bb30e71b-112d-479e-82c7-2c8d0a013f15"
+}

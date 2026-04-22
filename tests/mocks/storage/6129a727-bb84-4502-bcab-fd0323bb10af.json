@@ -1,0 +1,56 @@
+{
+  "name": "user-api-response",
+  "type": "api",
+  "category": "user",
+  "currentVersion": "1.0.0",
+  "versions": [
+    {
+      "version": "1.0.0",
+      "createdAt": "2026-04-22T12:08:07.760Z",
+      "description": "User API response mock",
+      "changes": [
+        "Initial version"
+      ],
+      "schema": {
+        "id": "fb9deacd-ed26-47b2-a51e-a64e32509e55",
+        "email": "Macey.Gottlieb5@yahoo.com",
+        "firstName": "Grayce",
+        "lastName": "Mueller",
+        "role": "guest",
+        "status": "pending",
+        "avatar": "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/77.jpg",
+        "createdAt": "2025-10-31T21:58:37.611Z",
+        "updatedAt": "2026-04-22T03:29:13.451Z",
+        "lastLoginAt": "2026-04-21T13:11:21.237Z",
+        "preferences": {
+          "theme": "auto",
+          "language": "de",
+          "notifications": false
+        },
+        "metadata": {
+          "ipAddress": "67.69.217.228",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/587.57.74 (KHTML, like Gecko) Version/16.1 Safari/543.89.22",
+          "location": {
+            "country": "Germany",
+            "city": "West Rosemary",
+            "timezone": "America/Puerto_Rico"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "author": "test-suite",
+    "tags": [
+      "user",
+      "api"
+    ],
+    "dependencies": [],
+    "environment": "testing"
+  },
+  "validation": {
+    "schema": "[object Object]",
+    "strict": true
+  },
+  "id": "6129a727-bb84-4502-bcab-fd0323bb10af"
+}
