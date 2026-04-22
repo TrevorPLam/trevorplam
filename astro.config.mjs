@@ -4,11 +4,18 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import pagefind from 'astro-pagefind';
 import { visualizer } from 'rollup-plugin-visualizer';
+import rehypeExternalLinks from './rehype-external-links.js';
 
 export default defineConfig({
   output: 'static',
   site: 'https://trevor-lam.com',
-  integrations: [mdx(), sitemap(), pagefind()],
+  integrations: [
+    mdx({
+      rehypePlugins: [rehypeExternalLinks]
+    }),
+    sitemap(),
+    pagefind()
+  ],
   vite: {
     plugins: [
       tailwindcss(),

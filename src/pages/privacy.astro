@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout 
+	title="Privacy Policy - Trevor Lam" 
+	description="Learn how Trevor Lam's portfolio site collects and uses data through privacy-friendly analytics and contact forms."
+	excludeAnalytics={true}
+>
+	<div class="max-w-3xl mx-auto">
+		<Breadcrumbs />
+		<h1 class="text-4xl font-bold text-text-heading mb-8">Privacy Policy</h1>
+		
+		<p class="text-text-body mb-6">
+			Last updated: April 22, 2026
+		</p>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Overview</h2>
+			<p class="text-text-body mb-4">
+				This privacy policy describes how Trevor Lam's portfolio site ("the Site") collects and uses data. 
+				This Site is designed to be privacy-first and uses minimal data collection to provide a better user experience.
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Analytics</h2>
+			<p class="text-text-body mb-4">
+				This Site uses <a href="https://plausible.io" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Plausible Analytics</a>, 
+				a privacy-friendly analytics service that does not use cookies and does not collect personal data.
+			</p>
+			<p class="text-text-body mb-4">
+				Plausible Analytics collects the following information:
+			</p>
+			<ul class="list-disc list-inside text-text-body mb-4 space-y-2">
+				li>Pages visited on this Site</li>
+				<li>Referring website (how you arrived here)</li>
+				<li>Browser type and device type</li>
+				<li>Approximate geographic location (country level only)</li>
+			</ul>
+			<p class="text-text-body mb-4">
+				Plausible does not collect personal data such as names, email addresses, or IP addresses. 
+				All data is aggregated and anonymized. For more details, see the <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Plausible Data Policy</a>.
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Contact Form</h2>
+			<p class="text-text-body mb-4">
+				When you submit the contact form on this Site, the following information is collected:
+			</p>
+			<ul class="list-disc list-inside text-text-body mb-4 space-y-2">
+				<li>Name (as provided)</li>
+				<li>Email address (as provided)</li>
+				<li>Message content (as provided)</li>
+			</ul>
+			<p class="text-text-body mb-4">
+				This information is processed by <a href="https://formspree.io" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">Formspree</a>, 
+				a form processing service. Your information is used solely to respond to your inquiry and is not shared with third parties.
+			</p>
+			<p class="text-text-body mb-4">
+				You may request deletion of your contact form data by emailing trevor@trevor-lam.com.
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Cookies</h2>
+			<p class="text-text-body mb-4">
+				This Site does not use tracking cookies. Plausible Analytics does not use cookies for tracking purposes.
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Third-Party Services</h2>
+			<p class="text-text-body mb-4">
+				This Site uses the following third-party services:
+			</p>
+			<ul class="list-disc list-inside text-text-body mb-4 space-y-2">
+				<li><strong>Plausible Analytics</strong> - For site analytics (privacy-first, no cookies)</li>
+				<li><strong>Formspree</strong> - For contact form processing</li>
+				<li><strong>Vercel</strong> - For website hosting and delivery</li>
+			</ul>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Data Security</h2>
+			<p class="text-text-body mb-4">
+				This Site uses industry-standard security measures to protect your information. 
+				However, no method of transmission over the Internet is 100% secure.
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Your Rights</h2>
+			<p class="text-text-body mb-4">
+				You have the right to:
+			</p>
+			<ul class="list-disc list-inside text-text-body mb-4 space-y-2">
+				<li>Know what data is collected about you</li>
+				<li>Request deletion of your contact form data</li>
+				<li>Opt out of analytics by using a browser extension or contacting the site owner</li>
+			</ul>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Contact</h2>
+			<p class="text-text-body mb-4">
+				If you have questions about this privacy policy or your data, please contact:
+			</p>
+			<p class="text-text-body mb-4">
+				Email: <a href="mailto:trevor@trevor-lam.com" class="text-accent hover:underline">trevor@trevor-lam.com</a>
+			</p>
+		</section>
+
+		<section class="mb-8">
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Changes to This Policy</h2>
+			<p class="text-text-body mb-4">
+				This privacy policy may be updated from time to time. The "Last updated" date at the top of this page indicates when it was last revised.
+			</p>
+		</section>
+	</div>
+</BaseLayout>

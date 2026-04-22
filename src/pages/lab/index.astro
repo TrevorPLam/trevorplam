@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 
 // Get learning logs and projects for display
 const learningLogs = await getCollection('learningLogs');
@@ -25,6 +26,7 @@ const recentProjects = sortedProjects.slice(0, 3);
   description="Active thinking, work in progress, and learning experiments from my operations and systems work."
 >
   <div class="max-w-6xl mx-auto px-4 py-8">
+    <Breadcrumbs />
     <!-- Header -->
     <header class="text-center mb-16">
       <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">

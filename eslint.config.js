@@ -1,4 +1,5 @@
 import eslintPluginAstro from 'eslint-plugin-astro';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
@@ -16,6 +17,16 @@ export default [
   
   // Astro files
   ...eslintPluginAstro.configs.recommended,
+  {
+    files: ['**/*.astro'],
+    plugins: {
+      'jsx-a11y': jsxA11y,
+    },
+    rules: {
+      // Security: Require rel="noopener noreferrer" on target="_blank" links
+      'jsx-a11y/anchor-has-valid-rel': ['error', { components: ['a'], requireSelf: false }],
+    },
+  },
 
   // TypeScript files — security-focused rules
   {

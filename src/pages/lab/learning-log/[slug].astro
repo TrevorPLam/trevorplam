@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('learningLogs');
@@ -21,37 +22,6 @@ const relatedPosts = allPosts
   .filter(p => p.id !== post.id && p.data.tags.some(tag => post.data.tags.includes(tag)))
   .slice(0, 3);
 
-// BreadcrumbList schema for this learning log
-const breadcrumbJsonLd = {
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Home',
-      item: 'https://trevor-lam.com/'
-    },
-    {
-      '@type': 'ListItem',
-      position: 2,
-      name: 'Lab',
-      item: 'https://trevor-lam.com/lab'
-    },
-    {
-      '@type': 'ListItem',
-      position: 3,
-      name: 'Learning Log',
-      item: 'https://trevor-lam.com/lab/learning-log'
-    },
-    {
-      '@type': 'ListItem',
-      position: 4,
-      name: post.data.title,
-      item: `https://trevor-lam.com/lab/learning-log/${post.id}`
-    }
-  ]
-};
-
 const pageJsonLd = {
   '@type': 'Article',
   '@id': `https://trevor-lam.com/lab/learning-log/${post.id}#article`,
@@ -68,35 +38,10 @@ const pageJsonLd = {
 <BaseLayout 
   title={post.data.title}
   description={post.data.excerpt}
-  jsonLd={[breadcrumbJsonLd, pageJsonLd]}
+  jsonLd={pageJsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 py-8">
-    <!-- Breadcrumb -->
-    <nav class="mb-8" aria-label="Breadcrumb">
-      <ol class="flex items-center space-x-2 text-sm text-text-muted">
-        <li>
-          <a href="/" class="hover:text-text-heading">Home</a>
-        </li>
-        <li>
-          <span class="mx-2">/</span>
-        </li>
-        <li>
-          <a href="/lab" class="hover:text-text-heading">Lab</a>
-        </li>
-        <li>
-          <span class="mx-2">/</span>
-        </li>
-        <li>
-          <a href="/lab/learning-log" class="hover:text-text-heading">Learning Logs</a>
-        </li>
-        <li>
-          <span class="mx-2">/</span>
-        </li>
-        <li class="text-text-heading" aria-current="page">
-          {post.data.title}
-        </li>
-      </ol>
-    </nav>
+    <Breadcrumbs />
 
     <!-- Article Header -->
     <header class="mb-12">

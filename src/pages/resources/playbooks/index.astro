@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Pagination from '../../../components/Pagination.astro';
 
 // Get all playbook resources
 const resources = await getCollection('resources');
@@ -10,6 +11,17 @@ const playbooks = resources.filter(r => r.data.type === 'playbook');
 const sortedPlaybooks = playbooks.sort((a, b) => 
   new Date(b.data.lastUpdated).getTime() - new Date(a.data.lastUpdated).getTime()
 );
+
+// Manual pagination (5 items per page)
+const pageSize = 5;
+const currentPage = parseInt(Astro.url.searchParams.get('page') || '1', 10);
+const totalPages = Math.ceil(sortedPlaybooks.length / pageSize);
+const paginatedPlaybooks = sortedPlaybooks.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+// Calculate prev/next URLs
+const baseUrl = '/resources/playbooks';
+const prevUrl = currentPage > 1 ? `${baseUrl}?page=${currentPage - 1}` : null;
+const nextUrl = currentPage < totalPages ? `${baseUrl}?page=${currentPage + 1}` : null;
 ---
 
 <BaseLayout 
@@ -47,12 +59,12 @@ const sortedPlaybooks = playbooks.sort((a, b) =>
     </header>
 
     <!-- Playbooks Grid -->
-    {sortedPlaybooks.length > 0 ? (
+    {paginatedPlaybooks.length > 0 ? (
       <section class="mb-16" aria-labelledby="playbooks-heading">
         <h2 id="playbooks-heading" class="sr-only">All Playbooks</h2>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sortedPlaybooks.map((playbook) => (
+          {paginatedPlaybooks.map((playbook) => (
             <article class="bg-surface border border-border rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
               <header class="mb-4">
                 <div class="flex items-center justify-between mb-3">
@@ -104,6 +116,12 @@ const sortedPlaybooks = playbooks.sort((a, b) =>
             </article>
           ))}
         </div>
+        <Pagination 
+          currentPage={currentPage}
+          totalPages={totalPages}
+          prevUrl={prevUrl}
+          nextUrl={nextUrl}
+        />
       </section>
     ) : (
       <section class="text-center py-16">

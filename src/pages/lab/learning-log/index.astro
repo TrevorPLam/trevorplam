@@ -1,8 +1,9 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SidebarNavigation from '../../../components/SidebarNavigation.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Pagination from '../../../components/Pagination.astro';
 
 // Get all learning logs
 const learningLogs = await getCollection('learningLogs');
@@ -18,6 +19,17 @@ const selectedTag = Astro.url.searchParams.get('tag') as 'AI' | 'Leadership' | '
 const filteredLogs = selectedTag 
   ? sortedLearningLogs.filter(log => log.data.tags.includes(selectedTag))
   : sortedLearningLogs;
+
+// Manual pagination (5 items per page)
+const pageSize = 5;
+const currentPage = parseInt(Astro.url.searchParams.get('page') || '1', 10);
+const totalPages = Math.ceil(filteredLogs.length / pageSize);
+const paginatedLogs = filteredLogs.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+// Calculate prev/next URLs preserving tag filter
+const baseUrl = selectedTag ? `/lab/learning-log?tag=${selectedTag}` : '/lab/learning-log';
+const prevUrl = currentPage > 1 ? `${baseUrl}&page=${currentPage - 1}` : null;
+const nextUrl = currentPage < totalPages ? `${baseUrl}&page=${currentPage + 1}` : null;
 ---
 
 <BaseLayout 
@@ -67,10 +79,10 @@ const filteredLogs = selectedTag
         )}
 
         <!-- Learning Logs Grid -->
-        {filteredLogs.length > 0 ? (
+        {paginatedLogs.length > 0 ? (
           <section>
             <div class="grid gap-6">
-              {filteredLogs.map((log) => (
+              {paginatedLogs.map((log) => (
                 <article class="bg-surface border border-border rounded-lg p-6 hover:bg-accent/5 transition-colors">
                   <div class="flex items-start justify-between mb-4">
                     <div class="flex-1">
@@ -122,6 +134,12 @@ const filteredLogs = selectedTag
                 </article>
               ))}
             </div>
+            <Pagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              prevUrl={prevUrl}
+              nextUrl={nextUrl}
+            />
           </section>
         ) : (
           <section class="text-center py-16">

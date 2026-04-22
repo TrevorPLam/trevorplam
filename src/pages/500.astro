@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Server Error - Trevor Lam" description="Something went wrong on our end. Please try again or contact us if the problem persists.">
+	<div class="min-h-screen flex items-center justify-center px-4">
+		<div class="text-center max-w-2xl mx-auto">
+			<h1 class="text-6xl font-bold text-text-heading mb-6">500</h1>
+			<h2 class="text-2xl font-semibold text-text-heading mb-4">Server Error</h2>
+			<p class="text-lg text-text-body mb-8">
+				Something went wrong on our end. We're working to fix it.
+			</p>
+			
+			<div class="space-y-4">
+				<a 
+					href="/" 
+					class="inline-flex items-center justify-center px-6 py-3 bg-accent text-white font-medium rounded-lg hover:bg-accent/90 transition-colors min-h-[44px]"
+				>
+					Go Back Home
+				</a>
+				
+				<div class="pt-4">
+					<a 
+						href="/connect"
+						class="text-text-body hover:text-text-heading transition-colors underline"
+					>
+						Contact Us
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 ---
 
 <BaseLayout 
@@ -7,6 +8,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   description="Tools, technologies, and systems I use to build and optimize operations. Always evolving as I discover better solutions."
 >
   <div class="max-w-6xl mx-auto px-4 py-8">
+    <Breadcrumbs />
     <!-- Header -->
     <header class="text-center mb-16">
       <h1 class="text-4xl lg:text-5xl font-bold text-text-heading mb-6">

@@ -1,0 +1,95 @@
+---
+// Analytics toggle component for opting out of tracking
+---
+
+<div class="flex items-center gap-3">
+  <button
+    id="analytics-toggle"
+    type="button"
+    role="switch"
+    aria-checked="false"
+    aria-label="Toggle analytics tracking"
+    class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 min-h-[44px] min-w-[44px]"
+    onclick="toggleAnalytics()"
+  >
+    <span
+      aria-hidden="true"
+      id="analytics-toggle-slider"
+      class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out translate-x-0"
+    ></span>
+  </button>
+  <label for="analytics-toggle" class="text-sm text-text-body cursor-pointer">
+    Analytics
+  </label>
+</div>
+
+<script is:inline>
+  // Analytics opt-out toggle
+  const OPT_OUT_KEY = 'plausible_optout';
+
+  function toggleAnalytics() {
+    const toggle = document.getElementById('analytics-toggle');
+    const slider = document.getElementById('analytics-toggle-slider');
+    
+    try {
+      const currentOptOut = localStorage.getItem(OPT_OUT_KEY) === 'true';
+      const newOptOut = !currentOptOut;
+      
+      localStorage.setItem(OPT_OUT_KEY, newOptOut ? 'true' : 'false');
+      
+      if (toggle) {
+        toggle.setAttribute('aria-checked', String(!newOptOut));
+      }
+      
+      if (slider) {
+        if (newOptOut) {
+          slider.classList.add('translate-x-5');
+          slider.classList.remove('translate-x-0');
+        } else {
+          slider.classList.add('translate-x-0');
+          slider.classList.remove('translate-x-5');
+        }
+      }
+      
+      // Reload page to apply changes
+      window.location.reload();
+    } catch (error) {
+      console.warn('Failed to toggle analytics:', error);
+    }
+  }
+
+  function initializeToggle() {
+    const toggle = document.getElementById('analytics-toggle');
+    const slider = document.getElementById('analytics-toggle-slider');
+    
+    try {
+      const isOptedOut = localStorage.getItem(OPT_OUT_KEY) === 'true';
+      
+      if (toggle) {
+        toggle.setAttribute('aria-checked', String(!isOptedOut));
+      }
+      
+      if (slider) {
+        if (isOptedOut) {
+          slider.classList.add('translate-x-5');
+          slider.classList.remove('translate-x-0');
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to initialize analytics toggle:', error);
+    }
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', initializeToggle);
+</script>
+
+<style>
+  #analytics-toggle[aria-checked='true'] {
+    background-color: rgb(var(--color-accent));
+  }
+  
+  #analytics-toggle[aria-checked='false'] {
+    background-color: rgb(var(--color-border));
+  }
+</style>

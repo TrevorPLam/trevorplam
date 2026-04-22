@@ -1,5 +1,7 @@
 ---
 // Footer component with copyright and availability statement
+import AnalyticsToggle from './AnalyticsToggle.astro';
+import ThemeToggle from './ThemeToggle.astro';
 ---
 
 <footer role="contentinfo" class="bg-surface border-t border-border mt-auto">
@@ -28,6 +30,26 @@
         >
           Email
         </a>
+      </div>
+      <div class="mt-4 flex justify-center space-x-6 text-sm">
+        <a 
+          href="/privacy" 
+          class="text-text-body hover:text-text-heading transition-colors"
+          aria-label="Privacy Policy"
+        >
+          Privacy Policy
+        </a>
+        <a 
+          href="/terms" 
+          class="text-text-body hover:text-text-heading transition-colors"
+          aria-label="Terms of Use"
+        >
+          Terms of Use
+        </a>
+      </div>
+      <div class="mt-6 flex justify-center gap-4">
+        <ThemeToggle />
+        <AnalyticsToggle />
       </div>
     </div>
   </div>

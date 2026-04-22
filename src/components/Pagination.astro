@@ -1,0 +1,68 @@
+---
+export interface Props {
+  currentPage: number;
+  totalPages: number;
+  prevUrl: string | null;
+  nextUrl: string | null;
+}
+
+const { currentPage, totalPages, prevUrl, nextUrl } = Astro.props;
+---
+
+<nav aria-label="Pagination" class="flex items-center justify-between mt-8">
+  <div class="flex-1 flex justify-between sm:hidden">
+    {prevUrl && (
+      <a
+        href={prevUrl}
+        class="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-text-heading bg-surface hover:bg-accent/5 min-h-[44px]"
+      >
+        Previous
+      </a>
+    )}
+    {nextUrl && (
+      <a
+        href={nextUrl}
+        class="ml-3 relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-text-heading bg-surface hover:bg-accent/5 min-h-[44px]"
+      >
+        Next
+      </a>
+    )}
+  </div>
+  <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm text-text-body">
+        Page <span class="font-medium text-text-heading">{currentPage}</span> of{' '}
+        <span class="font-medium text-text-heading">{totalPages}</span>
+      </p>
+    </div>
+    <div>
+      <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+        {prevUrl && (
+          <a
+            href={prevUrl}
+            class="relative inline-flex items-center px-3 py-2 border border-border rounded-l-md text-sm font-medium text-text-heading bg-surface hover:bg-accent/5 min-h-[44px]"
+            aria-label="Previous page"
+          >
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
+        )}
+        <span class="relative inline-flex items-center px-4 py-2 border border-border text-sm font-medium text-text-heading bg-surface">
+          {currentPage}
+        </span>
+        {nextUrl && (
+          <a
+            href={nextUrl}
+            class="relative inline-flex items-center px-3 py-2 border border-border rounded-r-md text-sm font-medium text-text-heading bg-surface hover:bg-accent/5 min-h-[44px]"
+            aria-label="Next page"
+          >
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        )}
+      </nav>
+    </div>
+  </div>
+</nav>

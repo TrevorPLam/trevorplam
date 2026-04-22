@@ -14,9 +14,10 @@ export interface Props {
 	ogImage?: string;
 	ogType?: string;
 	jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+	excludeAnalytics?: boolean;
 }
 
-const { title, description, ogImage = '/images/og-image.svg', ogType = 'website', jsonLd } = Astro.props;
+const { title, description, ogImage = '/images/og-image.svg', ogType = 'website', jsonLd, excludeAnalytics = false } = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 const siteUrl = Astro.site?.toString() || 'https://trevor-lam.com';
 
@@ -59,13 +60,37 @@ const finalJsonLd = jsonLd
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="alternate icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+		<!-- PWA Manifest -->
+		<link rel="manifest" href="/manifest.webmanifest" />
+
+		<!-- RSS Feed Auto-Discovery -->
+		<link rel="alternate" type="application/rss+xml" title="Trevor Lam - Learning Log" href="/rss.xml" />
+
+		<!-- Speculation Rules API for Instant Navigation -->
+		<script type="speculationrules">
+			{
+				"prerender": [
+					{
+						"where": {
+							"and": [
+								{ "href_matches": "/*" },
+								{ "not": { "href_matches": "/*.{pdf,zip,doc,docx}" } },
+								{ "not": { "selector_matches": "[download]" } }
+							]
+						},
+						"eagerness": "moderate"
+					}
+				]
+			}
+		</script>
 
 		<!-- Primary SEO Meta Tags -->
 		<title>{title}</title>
@@ -110,22 +135,103 @@ const finalJsonLd = jsonLd
 		<!-- JSON-LD Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(finalJsonLd)} />
 
-		<!-- Resource Hints for Third-Party Domains -->
-		<link rel="dns-prefetch" href="https://plausible.io" />
-		<link rel="preconnect" href="https://plausible.io" crossorigin />
+		<!-- Theme Initialization - Must run before page renders to prevent FOUC -->
+		<script is:inline>
+			(function() {
+				try {
+					const savedTheme = localStorage.getItem('theme');
+					if (savedTheme === 'light' || savedTheme === 'dark') {
+						document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+					} else {
+						// Respect system preference
+						const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+						document.documentElement.classList.toggle('dark', prefersDark);
+					}
+				} catch {
+					// Storage unavailable - use system preference
+					const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+					document.documentElement.classList.toggle('dark', prefersDark);
+				}
+			})();
+		</script>
 
-		<!-- Analytics: Plausible (Privacy-First) - Deferred for performance -->
-		<script defer data-domain="trevor-lam.com" src="https://plausible.io/js/script.js"></script>
+		<!-- Analytics Opt-Out Check - Must run before analytics load -->
+		<script is:inline>
+			(function() {
+				try {
+					const isOptedOut = localStorage.getItem('plausible_optout') === 'true';
+					if (isOptedOut) {
+						window.plausibleOptOut = true;
+					}
+				} catch (e) {
+					// Storage unavailable - default to analytics enabled
+					console.warn('Failed to check analytics opt-out:', e);
+				}
+			})();
+		</script>
+	</head>
+	<body class="bg-background text-text-body antialiased min-h-screen flex flex-col">
+		<!-- Service Worker Registration -->
+		<script is:inline>
+			(function() {
+				if ('serviceWorker' in navigator) {
+					window.addEventListener('load', () => {
+						navigator.serviceWorker.register('/sw.js').then((registration) => {
+							console.log('Service Worker registered:', registration);
+						}).catch((error) => {
+							console.warn('Service Worker registration failed:', error);
+						});
+					});
+				}
+			})();
+		</script>
+
+		<!-- Resource Hints for Third-Party Domains -->
+		{!excludeAnalytics && (
+			<>
+				<link rel="dns-prefetch" href="https://plausible.io" />
+				<link rel="preconnect" href="https://plausible.io" crossorigin />
+			</>
+		)}
+
+		<!-- Analytics: Plausible (Privacy-First) - Conditionally loaded based on opt-out -->
+		{!excludeAnalytics && (
+			<script defer>
+				(function() {
+					try {
+						const isOptedOut = localStorage.getItem('plausible_optout') === 'true';
+						if (!isOptedOut) {
+							const script = document.createElement('script');
+							script.defer = true;
+							script.dataset.domain = 'trevor-lam.com';
+							script.src = 'https://plausible.io/js/script.js';
+							document.head.appendChild(script);
+						}
+					} catch (e) {
+						// Storage unavailable - load analytics by default
+						const script = document.createElement('script');
+						script.defer = true;
+						script.dataset.domain = 'trevor-lam.com';
+						script.src = 'https://plausible.io/js/script.js';
+						document.head.appendChild(script);
+					}
+				})();
+			</script>
+		)}
 
 		<!-- Error Monitoring - Deferred to not block rendering -->
-		<script defer>
-			import '../utils/error-monitoring';
-		</script>
+		{!excludeAnalytics && (
+			<script defer>
+				import '../utils/error-monitoring';
+			</script>
+		)}
 
 		<!-- Real User Monitoring - Deferred to not block rendering -->
-		<script defer>
-			import '../utils/rum-monitoring';
-		</script>
+		{!excludeAnalytics && (
+			<script defer>
+				import '../utils/rum-monitoring';
+			</script>
+		)}
 
 		<ClientRouter />
 		<Font cssVariable="--font-sans" preload />

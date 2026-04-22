@@ -57,36 +57,71 @@ const topMetrics = metricsData.slice(0, 6).map(convertLegacyMetric);
   <h2 class="text-2xl font-bold text-text-heading mb-6">Key Performance Indicators</h2>
   <div class="metrics-grid-container" style="container-type: inline-size;">
     {topMetrics.map((metric) => (
-      <div class="metric-card">
-        <div class="metric-header">
-          <h3 class="metric-title">{metric.title}</h3>
-          <div class="metric-trend">
-            <span class={`trend-icon ${getTrendColor(metric.trend)}`}>
-              {getTrendIcon(metric.trend)}
-            </span>
-            <span class={`trend-value ${getTrendColor(metric.trend)}`}>
-              {metric.previousValue && metric.value ? calculatePercentageChange(metric.value, metric.previousValue) : ''}
-            </span>
-          </div>
-        </div>
-        
-        <div class="metric-content">
-          <div class="metric-values">
-            {metric.previousValue && (
-              <span class="previous-value">{formatMetricValue(metric.previousValue, metric.type)}</span>
-            )}
-            <span class="current-value">{formatMetricValue(metric.value, metric.type)}</span>
-          </div>
-          
-          <p class="metric-context">{metric.context}</p>
-          
-          {metric.skillTag && (
-            <div class="metric-tag">
-              <span class="tag">{metric.skillTag}</span>
+      metric.caseStudySlug ? (
+        <a href={`/cases/${metric.caseStudySlug}`} class="metric-card-link" aria-label={`View case study for ${metric.title}: ${metric.context}`} rel="noopener noreferrer">
+          <div class="metric-card">
+            <div class="metric-header">
+              <h3 class="metric-title">{metric.title}</h3>
+              <div class="metric-trend">
+                <span class={`trend-icon ${getTrendColor(metric.trend)}`}>
+                  {getTrendIcon(metric.trend)}
+                </span>
+                <span class={`trend-value ${getTrendColor(metric.trend)}`}>
+                  {metric.previousValue && metric.value ? calculatePercentageChange(metric.value, metric.previousValue) : ''}
+                </span>
+              </div>
             </div>
-          )}
+            
+            <div class="metric-content">
+              <div class="metric-values">
+                {metric.previousValue && (
+                  <span class="previous-value">{formatMetricValue(metric.previousValue, metric.type)}</span>
+                )}
+                <span class="current-value">{formatMetricValue(metric.value, metric.type)}</span>
+              </div>
+              
+              <p class="metric-context">{metric.context}</p>
+              
+              {metric.skillTag && (
+                <div class="metric-tag">
+                  <span class="tag">{metric.skillTag}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </a>
+      ) : (
+        <div class="metric-card">
+          <div class="metric-header">
+            <h3 class="metric-title">{metric.title}</h3>
+            <div class="metric-trend">
+              <span class={`trend-icon ${getTrendColor(metric.trend)}`}>
+                {getTrendIcon(metric.trend)}
+              </span>
+              <span class={`trend-value ${getTrendColor(metric.trend)}`}>
+                {metric.previousValue && metric.value ? calculatePercentageChange(metric.value, metric.previousValue) : ''}
+              </span>
+            </div>
+          </div>
+          
+          <div class="metric-content">
+            <div class="metric-values">
+              {metric.previousValue && (
+                <span class="previous-value">{formatMetricValue(metric.previousValue, metric.type)}</span>
+              )}
+              <span class="current-value">{formatMetricValue(metric.value, metric.type)}</span>
+            </div>
+            
+            <p class="metric-context">{metric.context}</p>
+            
+            {metric.skillTag && (
+              <div class="metric-tag">
+                <span class="tag">{metric.skillTag}</span>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )
     ))}
   </div>
 </section>
@@ -98,16 +133,22 @@ const topMetrics = metricsData.slice(0, 6).map(convertLegacyMetric);
     gap: 1.5rem;
   }
   
+  .metric-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .metric-card-link:hover .metric-card {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
   .metric-card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: 0.5rem;
     padding: 1.5rem;
     transition: all 0.2s ease;
-  }
-  
-  .metric-card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   .metric-header {

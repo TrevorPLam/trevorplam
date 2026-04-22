@@ -363,6 +363,17 @@ class RUMMonitoring {
   }
 
   private sendEvent(event: RUMEvent): void {
+    // Check if analytics are opted out
+    try {
+      const isOptedOut = localStorage.getItem('plausible_optout') === 'true' || 
+                        (window as any).plausibleOptOut === true;
+      if (isOptedOut) {
+        return;
+      }
+    } catch {
+      // Storage unavailable - proceed with analytics
+    }
+
     // Send to Plausible if available
     if (window.plausible) {
       window.plausible(`RUM: ${event.type}`, {
