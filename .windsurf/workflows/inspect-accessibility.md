@@ -255,39 +255,152 @@ Verify screen reader compatibility:
 
 ## Step 13: Generate Accessibility Report
 
-Compile all findings into a comprehensive accessibility report:
+Generate a comprehensive accessibility report summarizing all findings:
 
 ### Report Structure
+
+1. **Executive Summary**
+   - Overall accessibility score
+   - Number of critical issues
+   - Number of high priority issues
+   - Number of medium priority issues
+   - Number of low priority issues
+
+2. **Critical Issues**
+   - List all critical accessibility violations
+   - Impact on users
+   - Recommended fixes
+
+3. **High Priority Issues**
+   - List all high priority violations
+   - Impact on users
+   - Recommended fixes
+
+4. **Medium Priority Issues**
+   - List all medium priority violations
+   - Impact on users
+   - Recommended fixes
+
+5. **Low Priority Issues**
+   - List all low priority violations
+   - Impact on users
+   - Recommended fixes
+
+6. **WCAG 2.2 AA Compliance Status**
+   - Overall compliance percentage
+   - Specific guidelines not met
+   - Recommendations for achieving full compliance
+
+## Step 14: Create TODO.md Tasks from Findings
+
+Convert the accessibility inspection findings into TODO.md tasks using the comprehensive task format. This ensures accessibility issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority accessibility issue identified in the report, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if additional WCAG guidance needed)
+   - Related Files (affected components from inspection)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include WCAG success criteria)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include accessibility testing)
+   - Validation Steps (specific to the accessibility issue)
+   - Strict Rules (from AGENTS.md accessibility rules)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
 ```markdown
-# Accessibility Inspection Report
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Accessibility Issue Title]
 
-## Critical Issues
-- WCAG violations: [list with details]
-- Zero axe-core violations required
+  **Priority / Urgency**
+  Critical - Blocks keyboard navigation for screen reader users
 
-## High Priority Issues
-- Missing ARIA labels: [list]
-- Color contrast: [list]
+  **Research / Investigation**
+  None required (or specific WCAG 2.2 guidance needed)
 
-## Medium Priority Issues
-- Focus management: [list]
-- Keyboard navigation: [list]
+  **Related Files**
+  - [component path]
+  - [page path]
 
-## Low Priority Issues
-- Minor improvements: [list]
+  **Definition of Done**
+  Accessibility issue resolved and verified with axe-core
 
-## Test Results
-- Automated tests: [results]
-- Manual tests: [results]
+  **Acceptance Criteria**
+  - [WCAG success criteria met]
+  - [specific accessibility requirement]
+  - Zero axe-core violations for this issue
 
-## Recommendations
-1. [Priority recommendation 1]
-2. [Priority recommendation 2]
-3. [Other recommendations]
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - axe-core validation
+  - Keyboard navigation test
+  - Screen reader test
+
+  **Validation Steps**
+  - Run npm run test:a11y
+  - Verify zero violations for this issue
+  - Manual keyboard navigation test
+
+  **Strict Rules**
+  - Touch targets ≥44x44px (AGENTS.md)
+  - ARIA labels for icon-only buttons
+  - Semantic HTML elements
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced accessibility patterns)
+
+  **Anti-Patterns**
+  - Using div instead of semantic HTML
+  - Missing ARIA labels on icon buttons
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from accessibility inspection
+
+- Added [number] tasks for critical/high-priority accessibility issues
+- WCAG 2.2 AA compliance: [summary]
+- Critical issues: [number]
+- High priority issues: [number]
+
+Generated from /inspect-accessibility workflow"
 ```
 
 ## Notes
-
 - Zero axe-core violations required (WCAG 2.2 AA compliance)
 - All interactive elements must have touch targets ≥44x44px
 - Focus must not be obscured by fixed headers (add scroll-padding-top: 80px)

@@ -73,6 +73,36 @@ Add a case study showcasing [specific achievement/role]
 
 **Why this matters**: A clear spec forces you and the AI onto the same page, preventing wasted cycles and ensuring the content aligns with goals.
 
+## Step 1.5: Targeted Online Research (Current as of 04/2026)
+
+Inform your understanding with external best practices before creating content. This ensures content follows current best practices for tone, structure, and SEO.
+
+### Task-Specific Research
+Conduct up-to-date research specifically on the content type and topic you're creating.
+
+### Focus Areas
+Your research should cover:
+- Best practices for the content type (case studies, capabilities, learning logs, etc.)
+- Current SEO guidelines for content structure
+- Tone and voice best practices for professional portfolios
+- Accessibility guidelines for content (WCAG 2.2 AA)
+- Modern content formatting and organization patterns
+
+### Prioritize Official Sources
+- Official documentation for content management systems
+- SEO best practice guides (Google, Moz, etc.)
+- Accessibility guidelines (WCAG 2.2)
+- Content strategy resources
+- Industry-specific writing standards
+
+### Output Required
+- Research findings with sources
+- Best practices for the content type
+- SEO recommendations
+- Accessibility considerations
+- Tone and voice guidelines
+- Content structure recommendations
+
 ## Step 2: Repository Impact Mapping (Harness Engineering)
 
 Before creating files, have the AI scan the codebase and produce a repository impact map. This grounds the work in the actual codebase structure.

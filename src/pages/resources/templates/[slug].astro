@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import SidebarNavigation from '../../../components/SidebarNavigation.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Timestamp from '../../../components/Timestamp.astro';
 
 export async function getStaticPaths() {
   const resources = await getCollection('resources');
@@ -77,13 +78,7 @@ const pageJsonLd = {
             <span class="text-sm px-3 py-1 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 rounded font-medium">
               Template
             </span>
-            <time class="text-sm text-text-body/70" datetime={template.data.lastUpdated.toISOString()}>
-              Updated: {template.data.lastUpdated.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </time>
+            Updated: <Timestamp date={template.data.lastUpdated} format="medium" showIcon={false} />
             {template.data.gated && (
               <span class="text-sm px-3 py-1 bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 rounded font-medium">
                 Gated Content

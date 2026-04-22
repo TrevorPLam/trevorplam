@@ -696,3 +696,8 @@ nav a:focus-visible {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
+
+/* Disabled state pattern for interactive elements */
+/* Use: disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none */
+/* Example: <button disabled class="bg-accent disabled:opacity-50 disabled:cursor-not-allowed"> */
+/* Disabled elements should not be focusable (add disabled:focus-none if needed) */

@@ -56,10 +56,14 @@ const typeCounts = allContent.reduce((acc, item) => {
           <!-- Search Input -->
           <div class="mb-6">
             <SearchBar
-              placeholder="Search all content..."
+              placeholder="Search case studies, learning logs, and resources…"
               autofocus={true}
               className="max-w-2xl"
             />
+            <!-- Search limitations note -->
+            <p class="text-sm text-text-body/70 mt-2">
+              Note: PDF content is not searchable. Only MDX content is indexed.
+            </p>
           </div>
 
           <!-- Content Type Filters -->
@@ -92,7 +96,11 @@ const typeCounts = allContent.reduce((acc, item) => {
 
         <section>
           {query ? (
-            <div id="search" class="pagefind-ui"></div>
+            <div>
+              <!-- ARIA live region for screen reader announcements -->
+              <div id="search-status" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+              <div id="search" class="pagefind-ui"></div>
+            </div>
           ) : (
             <div class="text-center py-12">
               <h2 class="text-xl font-semibold text-text-heading mb-4">
@@ -256,7 +264,7 @@ const typeCounts = allContent.reduce((acc, item) => {
               translate: {
                 placeholder: 'Search...',
                 clear_search: 'Clear',
-                zero_results: 'No results found. Try different keywords or browse all content.',
+                zero_results: 'No results found.',
                 alt_search: 'No results. Showing results for',
                 search_suggestion: 'Did you mean?',
               }
@@ -268,6 +276,36 @@ const typeCounts = allContent.reduce((acc, item) => {
               searchInput.value = query;
               // Trigger search
               searchInput.dispatchEvent(new Event('input'));
+            }
+
+            // Listen for search results updates to announce via ARIA
+            const searchContainer = document.getElementById('search');
+            if (searchContainer) {
+              const observer = new MutationObserver(() => {
+                const results = searchContainer.querySelectorAll('.pagefind-ui__result');
+                const statusElement = document.getElementById('search-status');
+                if (statusElement) {
+                  statusElement.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} found.`;
+                }
+
+                // Check for no-results state and add actionable links
+                const noResultsElement = searchContainer.querySelector('.pagefind-ui__no-results');
+                if (noResultsElement && !noResultsElement.dataset.enhanced) {
+                  noResultsElement.dataset.enhanced = 'true';
+                  noResultsElement.innerHTML = `
+                    <div class="text-center py-12">
+                      <p class="text-text-body mb-4 text-lg">No results found for "${query}"</p>
+                      <p class="text-text-body/70 mb-6">Try different keywords or browse our content:</p>
+                      <div class="flex flex-wrap justify-center gap-3">
+                        <a href="/cases" class="px-4 py-2 bg-accent text-accent-foreground rounded-md hover:bg-accent/80 transition-colors">Browse Case Studies</a>
+                        <a href="/capabilities" class="px-4 py-2 bg-surface border border-border text-text-body rounded-md hover:bg-accent/20 transition-colors">View Capabilities</a>
+                        <a href="/lab" class="px-4 py-2 bg-surface border border-border text-text-body rounded-md hover:bg-accent/20 transition-colors">Explore Lab</a>
+                      </div>
+                    </div>
+                  `;
+                }
+              });
+              observer.observe(searchContainer, { childList: true, subtree: true });
             }
           } catch (error) {
             console.error('PagefindUI initialization failed:', error);

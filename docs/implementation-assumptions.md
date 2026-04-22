@@ -4,6 +4,31 @@ This document documents non-obvious design decisions and architectural choices f
 
 ## Content Architecture
 
+### Timeline Data as JSON (Not Content Collection)
+
+**Decision:** Keep timeline data as a static JSON file (`/data/timeline.json`) rather than migrating to an Astro content collection.
+
+**Rationale:**
+- Timeline data has simple, flat structure (year, title, description, type) - no need for MDX rich text
+- Career timeline is relatively stable and doesn't change frequently
+- No querying or filtering requirements (timeline displays all entries in order)
+- Simpler maintenance: single JSON file vs 11 individual MDX files
+- Current type assertion in Timeline.astro works adequately for the use case
+- Content collections are designed for rich content with frontmatter and body content, which timeline doesn't need
+
+**Trade-offs:**
+- No type safety at build time (mitigated by type assertion in component)
+- No schema validation (acceptable for simple, stable data)
+- Not consistent with other content types (case studies, learning logs) - but timeline is reference data, not content pages
+
+**Implementation:**
+- Timeline data remains in `/data/timeline.json`
+- `Timeline.astro` imports JSON directly: `import timeline from '../../data/timeline.json'`
+- Type assertion: `type={node.type as 'role' | 'award' | 'degree' | 'constraint' | 'future'}`
+- Decision documented in this file for future reference
+
+**Future Consideration:** If timeline entries require rich text descriptions, querying/filtering, or frequent updates, reconsider migration to content collection.
+
 ### Company-Based Case Study Slugs
 
 **Decision:** Case study URLs use company names (`/cases/sonic`, `/cases/grandlux`, `/cases/klw`) rather than industry-based slugs (`/cases/qsr`, `/cases/salon`, `/cases/financial-services`).

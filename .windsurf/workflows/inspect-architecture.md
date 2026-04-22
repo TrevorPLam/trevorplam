@@ -250,6 +250,118 @@ Compile all findings into a comprehensive architecture report:
 3. [Other recommendations]
 ```
 
+## Step 13: Create TODO.md Tasks from Findings
+
+Convert the architecture inspection findings into TODO.md tasks using the comprehensive task format. This ensures architectural issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority architectural issue identified in the report, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if architectural patterns need research)
+   - Related Files (affected modules/components from inspection)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include architectural principles)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include regression tests for refactoring)
+   - Validation Steps (specific to the architectural issue)
+   - Strict Rules (from AGENTS.md architectural guidelines)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
+```markdown
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Architectural Issue Title]
+
+  **Priority / Urgency**
+  Critical - Circular dependency prevents proper module initialization
+
+  **Research / Investigation**
+  None required (or specific architectural pattern research needed)
+
+  **Related Files**
+  - [module path]
+  - [dependent module path]
+
+  **Definition of Done**
+  Architectural issue resolved and dependency graph validated
+
+  **Acceptance Criteria**
+  - [architectural principle met]
+  - [specific requirement]
+  - Zero circular dependencies for this module
+  - Dependency graph shows clean structure
+
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - Regression tests for refactored code
+  - Dependency validation tests
+  - Integration tests
+
+  **Validation Steps**
+  - Manual dependency graph review
+  - Verify no circular imports
+  - Test module initialization
+
+  **Strict Rules**
+  - Utils should not depend on components
+  - Pages should use shared components
+  - Content should be independent
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced architectural patterns)
+
+  **Anti-Patterns**
+  - Circular dependencies
+  - Boundary violations
+  - God components
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from architecture inspection
+
+- Added [number] tasks for critical/high-priority architectural issues
+- Circular dependencies: [number] tasks
+- Boundary violations: [number] tasks
+- God components: [number] tasks
+- High coupling: [number] tasks
+
+Generated from /inspect-architecture workflow"
+```
+
 ## Notes
 
 - DashboardWidgets.astro is large (9,309 bytes) - review for god component patterns

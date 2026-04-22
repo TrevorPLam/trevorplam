@@ -273,6 +273,118 @@ Compile all findings into a comprehensive code quality report:
 3. [Other recommendations]
 ```
 
+## Step 13: Create TODO.md Tasks from Findings
+
+Convert the code quality inspection findings into TODO.md tasks using the comprehensive task format. This ensures code quality issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority code quality issue identified in the report, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if code quality patterns need research)
+   - Related Files (affected files from inspection)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include code quality standards)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include regression tests for refactoring)
+   - Validation Steps (specific to the code quality issue)
+   - Strict Rules (from AGENTS.md code quality guidelines)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
+```markdown
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Code Quality Issue Title]
+
+  **Priority / Urgency**
+  Critical - Dead code increases bundle size and maintenance burden
+
+  **Research / Investigation**
+  None required (or specific code quality pattern research needed)
+
+  **Related Files**
+  - [file path with dead code]
+  - [dependent files]
+
+  **Definition of Done**
+  Code quality issue resolved and validated with automated checks
+
+  **Acceptance Criteria**
+  - [code quality standard met]
+  - [specific requirement]
+  - Zero dead code for this module
+  - TypeScript strict mode compliant
+
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - Regression tests for refactored code
+  - TypeScript type validation
+  - ESLint validation
+
+  **Validation Steps**
+  - Run npm run check
+  - Run npx knip
+  - Verify zero violations for this issue
+
+  **Strict Rules**
+  - No implicit any types
+  - No console.log in production code
+  - Proper error handling required
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced code quality patterns)
+
+  **Anti-Patterns**
+  - Dead code
+  - Magic numbers
+  - Excessive nesting
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from code quality inspection
+
+- Added [number] tasks for critical/high-priority code quality issues
+- Dead code: [number] tasks
+- TypeScript violations: [number] tasks
+- Code smells: [number] tasks
+- Unused imports: [number] tasks
+
+Generated from /inspect-code-quality workflow"
+```
+
 ## Notes
 
 - Use knip for comprehensive dead code detection in TypeScript/JavaScript

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  date: Date;
+  date: Date | string;
   format?: 'short' | 'medium' | 'long' | 'relative';
   showIcon?: boolean;
   className?: string;
@@ -8,9 +8,12 @@ interface Props {
 
 const { date, format = 'medium', showIcon = true, className = '' } = Astro.props;
 
+// Convert string date to Date object if needed
+const dateObj = typeof date === 'string' ? new Date(date) : date;
+
 function formatDate(date: Date, formatType: string): string {
   const options: Intl.DateTimeFormatOptions = {};
-  
+
   switch (formatType) {
     case 'short':
       options.month = 'short';
@@ -34,7 +37,7 @@ function formatDate(date: Date, formatType: string): string {
       const now = new Date();
       const diffMs = now.getTime() - date.getTime();
       const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-      
+
       if (diffDays === 0) return 'Today';
       if (diffDays === 1) return 'Yesterday';
       if (diffDays < 7) return `${diffDays} days ago`;
@@ -42,18 +45,18 @@ function formatDate(date: Date, formatType: string): string {
       if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
       return `${Math.floor(diffDays / 365)} years ago`;
   }
-  
+
   return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
-const formattedDate = formatDate(date, format);
-const isoDate = date.toISOString();
+const formattedDate = formatDate(dateObj, format);
+const isoDate = dateObj.toISOString();
 ---
 
-<time 
-  datetime={isoDate} 
-  class={`timestamp ${className}`}
-  title={`${format !== 'relative' ? formattedDate : formatDate(date, 'medium')}`}
+<time
+  datetime={isoDate}
+  class={`text-sm text-text-muted flex items-center hover:text-text-body ${className}`}
+  title={`${format !== 'relative' ? formattedDate : formatDate(dateObj, 'medium')}`}
 >
   {showIcon && (
     <svg class="w-4 h-4 inline mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -62,13 +65,3 @@ const isoDate = date.toISOString();
   )}
   <span>{formattedDate}</span>
 </time>
-
-<style>
-  .timestamp {
-    @apply text-sm text-text-muted flex items-center;
-  }
-  
-  .timestamp:hover {
-    @apply text-text-body;
-  }
-</style>

@@ -115,9 +115,9 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
               ></textarea>
             </div>
             
-            <button 
+            <button
               type="submit"
-              class="w-full bg-teal hover:bg-teal/90 text-white font-semibold py-4 px-6 rounded-lg min-h-[48px] transition-colors"
+              class="w-full bg-teal hover:bg-teal/90 hover:-translate-y-0.5 hover:shadow-lg active:scale-95 focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-bg text-white font-semibold py-4 px-6 rounded-lg min-h-[48px] transition-all"
             >
               Send Message
             </button>
@@ -126,10 +126,12 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 
         <!-- Resume Download -->
         <div class="text-center mb-8">
-          <a 
-            href="/TrevorLam-Resume-2026.pdf" 
+          <a
+            href="/TrevorLam-Resume-2026.pdf"
             download
-            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface hover:bg-surface/80 border-2 border-teal text-teal font-semibold rounded-lg transition-colors min-h-[48px]"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-surface hover:bg-surface/80 hover:-translate-y-0.5 hover:shadow-md active:scale-95 focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-bg border-2 border-teal text-teal font-semibold rounded-lg transition-all min-h-[48px]"
             aria-label="Download Resume PDF"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +147,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
             href="https://linkedin.com/in/trevor-lam" 
             target="_blank" 
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center w-full bg-accent hover:bg-accent/90 text-white font-semibold py-4 px-6 rounded-lg min-h-[48px] transition-colors"
+            class="inline-flex items-center justify-center w-full bg-accent hover:bg-accent/90 hover:-translate-y-0.5 hover:shadow-lg active:scale-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg text-white font-semibold py-4 px-6 rounded-lg min-h-[48px] transition-all"
             aria-label="Connect with Trevor Lam on LinkedIn"
           >
             <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -160,7 +162,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
           <p class="text-text-body mb-2">Or send a direct message:</p>
           <a 
             href="mailto:trevor@trevor-lam.com" 
-            class="text-accent hover:text-accent/80 font-medium transition-colors"
+            class="text-accent hover:text-accent/80 hover:underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded font-medium transition-colors"
             aria-label="Send email to trevor@trevor-lam.com"
           >
             trevor@trevor-lam.com

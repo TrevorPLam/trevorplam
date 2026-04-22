@@ -103,7 +103,7 @@ const pageJsonLd = {
                 href={entry.data.pdfUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/90 transition-colors min-h-[44px] min-w-[44px]"
+                class="inline-flex items-center gap-2 bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/90 active:scale-95 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg transition-all min-h-[44px] min-w-[44px]"
                 aria-label="Download PDF version of this case study"
               >
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -142,9 +142,9 @@ const pageJsonLd = {
           <nav class="mt-16 pt-8 border-t border-border">
             <div class="flex justify-between items-center">
               {previousCase && (
-                <a 
+                <a
                   href={`/cases/${previousCase.id}`}
-                  class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors"
+                  class="flex items-center gap-2 text-accent hover:text-text-heading hover:underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded transition-colors"
                 >
                   ← Previous: {previousCase.data.title}
                 </a>
@@ -153,9 +153,9 @@ const pageJsonLd = {
               <div class="flex-1"></div>
               
               {nextCase && (
-                <a 
+                <a
                   href={`/cases/${nextCase.id}`}
-                  class="flex items-center gap-2 text-accent hover:text-text-heading transition-colors text-right"
+                  class="flex items-center gap-2 text-accent hover:text-text-heading hover:underline underline-offset-4 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg rounded transition-colors text-right"
                 >
                   Next: {nextCase.data.title} →
                 </a>

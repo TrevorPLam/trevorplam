@@ -206,6 +206,119 @@ The CI/CD pipeline includes a dedicated security job that runs:
 - Contract tests
 - Trivy container scanning (if using Docker)
 
+## Step 10: Create TODO.md Tasks from Critical/High-Priority Vulnerabilities
+
+Convert critical and high-priority security vulnerabilities found during the scan into TODO.md tasks using the comprehensive task format. This ensures security issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority security vulnerability identified during the scan, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if vulnerability fix needs research)
+   - Related Files (affected files/packages from scan)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include security requirements)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include security validation)
+   - Validation Steps (specific to the vulnerability)
+   - Strict Rules (from AGENTS.md security guidelines)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
+```markdown
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Security Vulnerability Title]
+
+  **Priority / Urgency**
+  Critical - CVE-XXXX-XXXX in [package name] with known exploit
+
+  **Research / Investigation**
+  None required (or specific vulnerability fix research needed)
+
+  **Related Files**
+  - package.json (affected dependency)
+  - [file using the vulnerable package]
+
+  **Definition of Done**
+  Security vulnerability resolved and validated with security scan
+
+  **Acceptance Criteria**
+  - Vulnerability fixed (package updated or overridden)
+  - npm run security:scan passes with zero vulnerabilities
+  - No breaking changes introduced
+  - Tests pass after dependency update
+
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - Security vulnerability scan (npm run security:scan)
+  - Regression tests for affected functionality
+  - ESLint security rules validation
+
+  **Validation Steps**
+  - Run npm run security:scan
+  - Verify zero vulnerabilities for this CVE
+  - Run full test suite to ensure no regressions
+
+  **Strict Rules**
+  - No known CVEs in dependencies
+  - ESLint security rules must pass
+  - CSP must be enabled
+  - No hardcoded secrets
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced security patterns)
+
+  **Anti-Patterns**
+  - Ignoring CVE warnings
+  - Using vulnerable packages
+  - Disabling security checks
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from security scan
+
+- Added [number] tasks for critical/high-priority security vulnerabilities
+- Dependency CVEs: [number] tasks
+- ESLint security violations: [number] tasks
+- CSP configuration: [number] tasks
+- Hardcoded secrets: [number] tasks
+
+Generated from /security-scan workflow"
+```
+
 ## Notes
 
 - Node version must be >=22.12.0 for security patches

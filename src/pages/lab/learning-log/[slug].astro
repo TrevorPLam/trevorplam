@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Timestamp from '../../../components/Timestamp.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('learningLogs');
@@ -46,31 +47,13 @@ const pageJsonLd = {
     <!-- Article Header -->
     <header class="mb-12">
       <div class="flex items-center gap-4 mb-6">
-        <time 
-          class="text-sm text-text-muted" 
-          datetime={post.data.date.toISOString()}
-        >
-          {post.data.date.toLocaleDateString('en-US', { 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
-        </time>
+        <Timestamp date={post.data.date} format="medium" showIcon={false} className="text-sm text-text-muted" />
         {post.data.lastUpdated > post.data.date && (
           <div class="flex items-center gap-2">
             <span class="text-xs text-teal bg-teal/10 px-2 py-1 rounded">
               Updated
             </span>
-            <time 
-              class="text-xs text-text-muted" 
-              datetime={post.data.lastUpdated.toISOString()}
-            >
-              {post.data.lastUpdated.toLocaleDateString('en-US', { 
-                month: 'short', 
-                day: 'numeric',
-                year: 'numeric'
-              })}
-            </time>
+            <Timestamp date={post.data.lastUpdated} format="short" showIcon={false} className="text-xs text-text-muted" />
           </div>
         )}
       </div>

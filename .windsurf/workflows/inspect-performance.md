@@ -291,6 +291,119 @@ Compile all findings into a comprehensive performance report:
 3. [Other recommendations]
 ```
 
+## Step 13: Create TODO.md Tasks from Findings
+
+Convert the performance inspection findings into TODO.md tasks using the comprehensive task format. This ensures performance issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority performance issue identified in the report, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if performance patterns need research)
+   - Related Files (affected files from inspection)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include performance thresholds)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include Lighthouse CI validation)
+   - Validation Steps (specific to the performance issue)
+   - Strict Rules (from AGENTS.md performance guidelines)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
+```markdown
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Performance Issue Title]
+
+  **Priority / Urgency**
+  Critical - LCP >2.5s impacts user experience and SEO
+
+  **Research / Investigation**
+  None required (or specific performance pattern research needed)
+
+  **Related Files**
+  - [file path with performance issue]
+  - [configuration files if applicable]
+
+  **Definition of Done**
+  Performance issue resolved and validated with Lighthouse CI
+
+  **Acceptance Criteria**
+  - [performance threshold met]
+  - [specific requirement]
+  - LCP <2.5s
+  - Lighthouse Performance score ≥90
+
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - Lighthouse CI validation
+  - Core Web Vitals measurement
+  - Bundle size verification
+
+  **Validation Steps**
+  - Run npm run lighthouse
+  - Verify Core Web Vitals thresholds met
+  - Check bundle size reduction
+
+  **Strict Rules**
+  - LCP <2.5s required
+  - INP <200ms required
+  - CLS <0.1 required
+  - Lighthouse scores ≥90 required
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced performance patterns)
+
+  **Anti-Patterns**
+  - Images in /public/
+  - Missing code splitting
+  - Large bundle sizes
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from performance inspection
+
+- Added [number] tasks for critical/high-priority performance issues
+- Bundle size: [number] tasks
+- Core Web Vitals: [number] tasks
+- Image optimization: [number] tasks
+- Asset loading: [number] tasks
+
+Generated from /inspect-performance workflow"
+```
+
 ## Notes
 
 - Current image optimization is well-configured (Sharp + AVIF)

@@ -32,6 +32,37 @@ Core Web Vitals:
 - INP (Interaction to Next Paint): [time]
 - CLS (Cumulative Layout Shift): [time]
 
+## Step 1.5: Targeted Online Research (Current as of 04/2026)
+
+Inform your understanding with external best practices before optimizing performance. This ensures you use modern optimization techniques and current best practices.
+
+### Task-Specific Research
+Conduct up-to-date research specifically on performance optimization techniques relevant to the identified issues.
+
+### Focus Areas
+Your research should cover:
+- Modern bundling strategies (code splitting, tree shaking, lazy loading)
+- Latest image optimization techniques (formats, loading strategies)
+- Core Web Vitals optimization strategies (LCP, INP, CLS)
+- Modern CSS optimization techniques
+- JavaScript optimization patterns
+- Browser performance APIs and measurement tools
+- Performance budgets and measurement strategies
+
+### Prioritize Official Sources
+- Web.dev performance guides
+- Chrome DevTools documentation
+- MDN Web Docs performance section
+- Lighthouse documentation
+- Performance optimization blogs (Google Web Vitals, web.dev)
+
+### Output Required
+- Research findings with sources
+- Modern optimization techniques identified
+- Recommended approaches for each performance issue
+- Tool recommendations for performance measurement
+- Best practices for the specific performance issues identified
+
 ## Step 2: Bundle Analysis
 
 Analyze bundle size to identify large dependencies:

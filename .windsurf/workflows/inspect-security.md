@@ -298,6 +298,120 @@ Compile all findings into a comprehensive security report:
 4. [Other recommendations]
 ```
 
+## Step 13: Create TODO.md Tasks from Findings
+
+Convert the security inspection findings into TODO.md tasks using the comprehensive task format. This ensures security issues are systematically addressed.
+
+### Task Creation Process
+
+For each critical and high-priority security issue identified in the report, create a TODO.md task following the format defined in create-todo.md:
+
+1. **Assign Task ID**: Use the next available TASK-[###] format
+2. **Set Priority**: Based on severity (🔴 Critical = High, 🟡 High = High, 🟢 Medium = Medium)
+3. **Set Status**: 🟡 Pending
+4. **Populate All 14 Required Sections**:
+   - Priority / Urgency
+   - Research / Investigation (if security patterns need research)
+   - Related Files (affected files from inspection)
+   - Definition of Done
+   - Acceptance Criteria (bulleted list, include security standards)
+   - Out of Scope
+   - Dependencies
+   - Estimated Effort
+   - Testing Requirements (include security validation)
+   - Validation Steps (specific to the security issue)
+   - Strict Rules (from AGENTS.md security guidelines)
+   - Existing Code Patterns
+   - Advanced Code Patterns
+   - Anti-Patterns (what to avoid)
+
+### Example Task Template
+
+```markdown
+- [ ] 🔴 High 🟡 Pending TASK-[###]: [Security Issue Title]
+
+  **Priority / Urgency**
+  Critical - CSP disabled exposes site to XSS attacks
+
+  **Research / Investigation**
+  None required (or specific security pattern research needed)
+
+  **Related Files**
+  - [file path with security issue]
+  - [configuration files if applicable]
+
+  **Definition of Done**
+  Security issue resolved and validated with security scan
+
+  **Acceptance Criteria**
+  - [security standard met]
+  - [specific requirement]
+  - CSP enabled and properly configured
+  - Zero security vulnerabilities
+
+  **Out of Scope**
+  [What is not included in this task]
+
+  **Dependencies**
+  None (or list dependencies)
+
+  **Estimated Effort**
+  [time estimate]
+
+  **Testing Requirements**
+  - Security vulnerability scan (npm run security:scan)
+  - CSP validation
+  - XSS testing
+
+  **Validation Steps**
+  - Run npm run security:scan
+  - Verify CSP is enabled
+  - Test for XSS vulnerabilities
+
+  **Strict Rules**
+  - No innerHTML without sanitization
+  - No eval() or Function() usage
+  - No hardcoded secrets
+  - CSP must be enabled
+
+  **Existing Code Patterns**
+  - [pattern to follow]
+
+  **Advanced Code Patterns**
+  N/A (or advanced security patterns)
+
+  **Anti-Patterns**
+  - innerHTML usage
+  - eval() usage
+  - Hardcoded secrets
+  - Disabled CSP
+
+  - [ ] TASK-[###]-01: [Subtask 1]
+  - [ ] TASK-[###]-02: [Subtask 2]
+```
+
+### Update TODO.md
+
+After creating tasks, update TODO.md:
+1. If TODO.md doesn't exist, create it using /create-todo
+2. If TODO.md exists, use /update-todo to add the new tasks
+3. Commit the updated TODO.md with a descriptive commit message
+
+### Commit Message
+
+```bash
+git add TODO.md
+git commit -m "chore: add TODO.md tasks from security inspection
+
+- Added [number] tasks for critical/high-priority security issues
+- CSP configuration: [number] tasks
+- Unsafe patterns: [number] tasks
+- Dependency vulnerabilities: [number] tasks
+- Hardcoded secrets: [number] tasks
+
+Generated from /inspect-security workflow"
+```
+
 ## Notes
 
 - CSP is currently disabled - this is a critical security issue
