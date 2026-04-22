@@ -4,153 +4,217 @@ A modern, performant personal portfolio website built with Astro 6, featuring en
 
 ## Overview
 
-This is Trevor Lam's professional portfolio showcasing case studies, skills, and professional experience. The site demonstrates modern web development practices with a focus on performance, accessibility, and maintainability.
+This is Trevor Lam's professional portfolio showcasing case studies, skills, and professional experience for operations leadership, Chief of Staff, and HR/payroll roles. The site demonstrates modern web development practices with a focus on performance, accessibility, and maintainability.
 
 ## Tech Stack
 
 ### Core Framework
 
-- **Astro 6.1.8** - Static site generator with island architecture
+- **Astro 6.1.8** - Static site generator with Content Layer API and ClientRouter
 - **TypeScript 5.9.3** - Type-safe development with strict mode
-- **Tailwind CSS 4.2.3** - Utility-first styling with Vite integration
+- **Tailwind CSS 4.2.3** - Utility-first styling with `@tailwindcss/vite` plugin
 - **Vite 7.3.2** - Build tool and development server
 
 ### Content & SEO
 
-- **MDX Integration** - Rich content authoring with React components
-- **Sitemap Generation** - Automated SEO optimization
-- **Google Fonts** - Inter (sans-serif) and JetBrains Mono (mono)
+- **MDX Integration** - Rich content authoring via `@astrojs/mdx`
+- **Sitemap Generation** - Automated SEO optimization via `@astrojs/sitemap`
+- **Fontsource Fonts** - Inter (400, 600, 700) and JetBrains Mono (400, 500) via `astro:fonts`
+- **Content Collections** - Zod v4.3.6 schemas with `getCollection()` API
+- **Prefetch** - Link prefetching with hover strategy for instant navigation
 
 ### Testing & Quality
 
-- **Vitest 4.1.5** - Unit and component testing with coverage (80% threshold)
-- **Playwright 1.51.0** - End-to-end testing across browsers (Chrome, Firefox, Safari)
-- **Axe Core 4.11.2** - Accessibility compliance testing
-- **ESLint 10.2.1** - Code quality and security linting with browser security plugins
+- **Vitest 4.1.5** - Unit and component testing with tiered coverage thresholds
+- **Playwright 1.51.0** - E2E testing across Chrome, Firefox, and Mobile Safari
+- **Axe Core 4.11.2** - Accessibility compliance testing via `@axe-core/playwright`
+- **ESLint 10.2.1** - Flat config with security plugins (no eval, prototype pollution prevention)
 - **Contract Testing** - Consumer-driven contract tests with Pact 16.3.0
-- **AI Test Enhancement** - Automated test generation and validation
-- **Stryker Mutation Testing** - Mutation testing for code quality validation
-- **Lighthouse CI** - Performance monitoring and regression testing
+- **Stryker 9.6.1** - Mutation testing with 80% threshold
+- **Lighthouse CI** - Performance regression detection (90+ score requirements)
+- **Fuzzing** - Security vulnerability detection with Jazzer 4.0.0
+- **Property-based Testing** - Robust validation with fast-check 4.7.0
 
 ## Project Structure
 
 ```text
 trevorplam/
-|-- public/                 # Static assets (favicons, images, robots.txt)
+|-- public/                 # Static assets (favicons, images, robots.txt, PDFs)
 |-- src/
 |   |-- assets/            # Optimized images and assets (headshot.svg)
-|   |-- components/        # Reusable Astro components (11 total)
-|   |   |-- Navigation.astro      # Responsive navigation with mobile menu
-|   |   |-- Footer.astro          # Site footer with contact info
-|   |   |-- MetricCard.astro      # Quantified achievement displays
-|   |   |-- Timeline.astro        # Interactive career timeline
-|   |   |-- TimelineNode.astro    # Individual timeline nodes
-|   |   |-- SkillTag.astro        # Categorized expertise indicators
-|   |   |-- ToggleSwitch.astro    # View switching functionality
-|   |   |-- CaseStudyHeader.astro # Case study page headers
-|   |   |-- InlineMetric.astro    # Inline metric displays
-|   |   |-- OptimizedImage.astro  # Optimized image component
-|   |   |-- ErrorBoundary.astro   # Error boundary handling
-|   |-- content/           # MDX content collections
-|   |   |-- cases/               # Case study content (3 cases)
-|   |       |-- sonic.mdx        # Sonic Drive-in case study
-|   |       |-- klw.mdx          # KLW Salon Group case study
-|   |       |-- grandlux.mdx     # GrandLux CPA case study
-|   |-- content.config.ts   # Content collection schema with Zod validation
-|   |-- layouts/           # Page layouts
-|   |   |-- BaseLayout.astro    # Base layout with SEO, analytics, error monitoring
-|   |-- pages/             # Astro pages (8 total)
-|   |   |-- index.astro          # Homepage
-|   |   |-- about.astro          # About page
-|   |   |-- approach.astro       # Methodology approach
-|   |   |-- capabilities.astro   # Skills and capabilities
-|   |   |-- impact.astro         # Impact and results
+|   |-- components/        # Reusable Astro components (24 total)
+|   |   |-- Breadcrumbs.astro         # Navigation breadcrumbs
+|   |   |-- CaseStudyHeader.astro    # Case study page headers
+|   |   |-- Chart.astro              # Interactive Chart.js components
+|   |   |-- DashboardWidgets.astro   # Dashboard widget components
+|   |   |-- ErrorBoundary.astro      # Error boundary handling
+|   |   |-- Footer.astro             # Site footer with contact info
+|   |   |-- InlineMetric.astro       # Inline metric displays
+|   |   |-- KPICard.astro            # KPI display cards
+|   |   |-- MetricCard.astro         # Quantified achievement displays
+|   |   |-- MetricsGrid.astro        # Metrics dashboard grid
+|   |   |-- OptimizedImage.astro     # Optimized image component
+|   |   |-- QuickActions.astro       # Quick action buttons
+|   |   |-- RecentActivity.astro     # Activity feed component
+|   |   |-- SearchBar.astro          # Site search functionality
+|   |   |-- SidebarNavigation.astro  # Main navigation sidebar
+|   |   |-- SkillTag.astro           # Categorized expertise indicators
+|   |   |-- Timeline.astro           # Interactive career timeline
+|   |   |-- TimelineNode.astro       # Individual timeline nodes
+|   |   |-- Timestamp.astro          # Time display component
+|   |   |-- ToggleSwitch.astro       # View switching functionality
+|   |   |-- TrustCues.astro          # Trust and verification badges
+|   |   |-- ui/                      # UI component library (3 items)
+|   |       |-- ComparisonTable.astro
+|   |       |-- MetricCard.astro
+|   |       |-- TrendIndicator.astro
+|   |-- config/
+|   |   |-- edge-config.ts           # Edge runtime configuration
+|   |   |-- navigation.ts            # Centralized navigation structure
+|   |-- content/           # MDX/JSON content collections with Zod validation
+|   |   |-- capabilities/         # 5 capability pages (operations, hr, financial, customer, systems)
+|   |   |-- cases/                # 3 case studies (sonic, klw, grandlux)
+|   |   |-- learning-logs/        # 6 learning log entries
+|   |   |-- projects/             # 3 project showcases
+|   |   |-- resources/            # 8 resources (playbooks, templates, guides)
+|   |   |-- skills/               # 4 skills category files
+|   |-- content.config.ts  # Content collection schemas with Zod v4
+|   |-- layouts/
+|   |   |-- BaseLayout.astro    # Base layout with SEO, CSP, analytics
+|   |-- pages/             # Astro pages with dynamic routing
+|   |   |-- index.astro          # Homepage dashboard
+|   |   |-- archive.astro        # Comprehensive content archive
+|   |   |-- capabilities.astro   # Capabilities overview
 |   |   |-- connect.astro        # Contact and opportunities
-|   |   |-- 404.astro             # Custom 404 page
-|   |   |-- cases/               # Dynamic case study pages
-|   |       |-- [slug].astro     # Dynamic case study routing
-|   |-- sections/          # Page sections (9 total)
-|   |-- styles/            # Global CSS and Tailwind
-|   |-- utils/             # Utility functions (5 total)
-|       |-- error-monitoring.ts  # Error monitoring setup
-|       |-- rum-monitoring.ts    # Real User Monitoring
-|       |-- [other utilities]     # Additional utility functions
-|-- data/                  # Static data files
-|   |-- metrics.json       # Performance metrics
-|   |-- skills.json        # Skills and expertise data
-|   |-- timeline.json      # Career timeline data
-|-- tests/                 # Comprehensive test suite
+|   |   |-- search.astro         # Site-wide search with Cmd+K
+|   |   |-- 404.astro            # Custom 404 page
+|   |   |-- api/
+|   |   |   |-- generate-pdf.ts  # PDF generation endpoint
+|   |   |-- capabilities/
+|   |   |   |-- [slug].astro    # Dynamic capability pages
+|   |   |-- cases/
+|   |   |   |-- [slug].astro    # Dynamic case study pages
+|   |   |-- lab/
+|   |   |   |-- index.astro      # Lab overview
+|   |   |   |-- learning-log/
+|   |   |   |   |-- index.astro
+|   |   |   |   |-- [slug].astro  # Individual learning logs
+|   |   |   |-- projects/
+|   |   |   |   |-- index.astro
+|   |   |   |   |-- [slug].astro  # Individual project pages
+|   |   |   |-- tech-stack.astro   # Technology stack documentation
+|   |   |-- resources/
+|   |   |   |-- index.astro        # Resources overview
+|   |   |   |-- playbooks/
+|   |   |   |   |-- [slug].astro  # Individual playbooks
+|   |   |   |-- templates/
+|   |   |   |   |-- [slug].astro  # Individual templates
+|   |   |   |-- skills-matrix.astro # Interactive skills matrix
+|   |-- utils/             # Utility functions
+|       |-- chart-utils.ts        # Chart.js utility functions
+|       |-- date.ts               # Date formatting utilities
+|       |-- error-monitoring.ts   # Error monitoring utilities
+|       |-- formatters.ts         # Data formatting utilities
+|       |-- metrics.ts            # Metrics calculation utilities
+|       |-- rum-monitoring.ts     # Real User Monitoring
+|       |-- validators.ts         # Data validation utilities
+|-- data/                  # Static data files (JSON)
+|   |-- metrics.json       # 9 quantified achievement metrics
+|   |-- skills.json        # 5 skill categories (operations, hr_payroll, financial, technical, credentials)
+|   |-- timeline.json      # 11 career progression entries
+|-- tests/                 # Enterprise-grade test suite
 |   |-- TESTING.md         # Comprehensive testing documentation
 |   |-- a11y/              # Accessibility tests (2 files)
-|   |-- ai/                # AI test enhancement utilities (1 file)
+|   |-- ai/                # AI test utilities (16 files)
+|   |-- browser/           # Browser-based tests (5 files)
 |   |-- components/        # Component tests (8 files)
-|   |-- contract/          # Contract tests (4 files)
-|   |-- e2e/               # End-to-end tests (6 files)
+|   |-- contract/          # Contract tests (6 files)
+|   |-- e2e/               # End-to-end tests (7 files)
+|   |-- fuzzing/           # Security fuzzing tests (4 files)
+|   |-- integration/       # Integration tests (2 files)
+|   |-- mocks/             # Test mocks and factories (199 items)
+|   |-- monitoring/        # Test monitoring utilities (7 files)
+|   |-- performance/       # Performance tests (4 files)
+|   |-- property/          # Property-based tests (3 files)
 |   |-- unit/              # Unit tests (3 files)
-|   |-- utils/             # Test helpers and factories (2 files)
-|   |-- data/              # Test data fixtures (1 file)
-|   |-- quality/           # Quality assurance (1 file)
-|   |-- reports/           # Test reports (5 directories)
-|-- scripts/               # Build and utility scripts
-|   |-- security-scan.mjs  # Security scanning script
-|   |-- serve-dist.mjs     # Distribution server script
-|-- docs/                  # Project documentation (2 files)
-|-- .github/workflows/     # CI/CD pipelines (5 workflows)
-|   |-- ci.yml             # Main CI/CD pipeline
-|   |-- test.yml           # Testing workflow
-|   |-- security-scan.yml  # Security scanning workflow
-|   |-- contract-testing.yml # Contract testing workflow
-|   |-- test-quality.yml   # Test quality workflow
-```
+|   |-- utils/             # Test helpers and factories (5 files)
+|   |-- virtualization/    # Test virtualization (2 files)
+|   |-- visual/            # Visual regression tests (1 file)
+|   |-- reports/           # Test reports (5 items)
+|-- scripts/               # Build and utility scripts (12 files)
+|   |-- collect-test-metrics.mjs     # Test metrics collection
+|   |-- distributed-runner.mjs       # Distributed test runner
+|   |-- generate-case-pdf.mjs        # PDF generation for case studies
+|   |-- load-balancer.mjs            # Test load balancing
+|   |-- performance-monitor-simple.mjs # Performance monitoring
+|   |-- performance-monitor.mjs      # Advanced performance monitoring
+|   |-- result-aggregator.mjs        # Test result aggregation
+|   |-- run-mutation-tests.mjs       # Stryker mutation test runner
+|   |-- security-scan.mjs            # Security scanning script
+|   |-- serve-dist.mjs               # Distribution server
+|   |-- test-orchestrator.mjs        # Test orchestration
+|   |-- timing-collector.mjs         # Test timing collection
+|-- monitoring/            # Performance monitoring configuration
+|-- docker/                # Docker configuration for testing
+|-- .github/workflows/     # CI/CD pipelines
+|-- vercel.json            # Security headers configuration
 
 ## Key Features
 
 ### Performance Optimization
 
-- Static site generation for optimal loading
-- Optimized image handling with Astro assets and Font preloading
-- CSS optimization with Tailwind CSS 4.2.3 and Vite integration
-- Bundle size monitoring with rollup-plugin-visualizer
-- Lighthouse CI for performance regression detection
-- Font optimization: Inter (400, 600, 700) and JetBrains Mono (400, 500)
+- **Static site generation** with `output: 'static'` for optimal loading
+- **Image optimization** via Sharp service with AVIF format (75% quality)
+- **Font optimization** via Fontsource (Inter, JetBrains Mono) with `font-display: swap`
+- **Bundle optimization** with manual chunking (vendor, UI, analytics)
+- **Prefetching** with hover strategy for instant navigation
+- **Lighthouse CI** with 90+ score requirements for Core Web Vitals
+- **Build optimization**: ES2022 target, esbuild minification, sourcemaps in dev only
 
-### Accessibility
+### Accessibility (WCAG 2.2 AA)
 
-- WCAG 2.1 AA compliance
-- Semantic HTML structure
-- Keyboard navigation support
-- Screen reader optimization
-- Automated accessibility testing
+- **Semantic HTML**: `<header>`, `<nav>`, `<main>`, `<footer>` structure
+- **Keyboard navigation**: Full support with visible focus indicators
+- **Screen reader support**: ARIA labels, proper heading hierarchy
+- **Touch targets**: Minimum 44x44px for interactive elements
+- **Color contrast**: 4.5:1 minimum ratio
+- **Skip links**: Direct navigation to main content
+- **Axe Core testing**: Zero violations across all pages
 
 ### Testing Infrastructure
 
-- **Multi-layered testing approach**: Unit, Component, Integration, E2E, Accessibility
-- **Contract testing** for API integration with Pact framework
-- **Mutation testing** with Stryker for code quality validation
-- **Visual regression testing** with Playwright screenshot comparison
-- **Accessibility testing** with Axe Core 4.11.2 across multiple browsers
-- **Coverage reporting** with tiered thresholds (80% global, 90% utils, 70% components)
-- **AI-powered test enhancement** for automated generation and validation
-- **Lighthouse CI** for performance monitoring and regression detection
-- **Cross-browser testing** on Chrome, Firefox, and Mobile Safari
+| Layer | Tool | Files | Description |
+|-------|------|-------|-------------|
+| Unit | Vitest | 3 | Utility function testing |
+| Component | Vitest + happy-dom | 8 | Astro component rendering |
+| Integration | Vitest | 2 | Component interaction tests |
+| E2E | Playwright | 7 | Cross-browser functional tests |
+| Accessibility | Playwright + Axe | 2 | WCAG 2.2 AA compliance |
+| Contract | Pact | 6 | API contract validation |
+| Mutation | Stryker | - | 80% threshold for code quality |
+| Fuzzing | Jazzer | 4 | Security vulnerability detection |
+| Property | fast-check | 3 | Generative testing |
+| Browser | Vitest Browser Mode | 5 | Real browser component tests |
+| Visual | Playwright | 1 | Screenshot comparison |
+| Mocks | Factory pattern | 199 | Comprehensive test data |
+| AI Utils | Custom | 16 | Automated test generation |
 
 ### Development Experience
 
-- TypeScript strict mode with Astro type checking
-- ESLint with browser security and secure coding plugins
-- Hot module replacement in development with Vite
-- Comprehensive test documentation (18k+ testing guide)
-- Automated quality gates with CI/CD enforcement
-- Bundle analysis with rollup-plugin-visualizer
-- Error monitoring and Real User Monitoring integration
-- Security scanning with Trivy vulnerability scanner
+- **TypeScript strict mode** with no implicit any
+- **ESLint flat config** with security plugins (no eval, prototype pollution prevention)
+- **Vite HMR** for fast development
+- **Bundle analysis** via `ANALYZE=true npm run build`
+- **Error monitoring** with comprehensive utilities
+- **RUM (Real User Monitoring)** integration
+- **Security scanning** via `npm run security:scan`
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js >= 22.12.0
-- npm or yarn package manager
+- **Node.js >= 22.12.0** (enforced via `engines` in `package.json`)
+- **npm** package manager
 
 ### Installation
 
@@ -162,312 +226,214 @@ cd trevorplam
 # Install dependencies
 npm install
 
-# Start development server
-npm run dev
-```
-
-### Development
-
-```bash
 # Start development server at localhost:4321
 npm run dev
-
-# Run type checking
-npm run check
-
-# Run linting
-npm run lint
-
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm test -- --coverage
-
-# Run E2E tests
-npm run test:e2e
-
-# Run accessibility tests
-npm run test:a11y
-npm run test:a11y:full
-npm run test:a11y:homepage
-
-# Run contract tests
-npm run test:contract
-npm run test:contract:publish
-npm run test:contract:verify
-
-# Run mutation testing
-npm run test:mutation
-
-# Security scanning
-npm run security:scan
-
-# Bundle analysis
-npm run analyze:bundle
-
-# Lighthouse testing
-npm run lighthouse
-npm run lighthouse:healthcheck
-
-# Preview production build
-npm run preview
-npm run preview:test
 ```
 
-### Build & Deploy
+### Essential Commands
 
-```bash
-# Build for production
-npm run build
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Production build to `/dist` |
+| `npm run preview` | Preview production build |
+| `npm run lint` | ESLint on all files |
+| `npm run check` | `astro check` (TypeScript + diagnostics) |
+| `npm test` | Run all Vitest tests |
+| `npm run test:coverage` | Run tests with coverage report |
+| `npm run test:e2e` | Playwright E2E tests |
+| `npm run test:a11y` | Accessibility tests (Axe Core) |
+| `npm run test:unit` | Unit tests only |
+| `npm run test:browser` | Browser-based tests |
+| `npm run test:contract` | Pact contract tests |
+| `npm run test:mutation` | Stryker mutation testing |
+| `npm run test:property` | Property-based tests |
+| `npm run test:fuzz` | Fuzzing tests (Jazzer) |
+| `npm run test:full` | Full test suite (unit + e2e + a11y) |
+| `npm run lighthouse` | Lighthouse CI |
+| `npm run security:scan` | Security vulnerability scan |
+| `npm run analyze:bundle` | Bundle size analysis |
 
-# Preview production build
-npm run preview
-```
 
 ## Testing
 
-This project features enterprise-grade testing infrastructure. See [tests/TESTING.md](./tests/TESTING.md) for comprehensive testing documentation.
-
-### Quick Test Commands
-
-```bash
-# Run all tests
-npm test
-
-# Run with coverage
-npm test -- --coverage
-
-# Run E2E tests
-npm run test:e2e
-
-# Run accessibility tests
-npm run test:a11y
-npm run test:a11y:full
-npm run test:a11y:homepage
-
-# Run contract tests
-npm run test:contract
-npm run test:contract:publish
-npm run test:contract:verify
-
-# Run mutation testing
-npm run test:mutation
-
-# Run Lighthouse CI
-npm run lighthouse
-npm run lighthouse:healthcheck
-
-# Security scanning
-npm run security:scan
-
-# Bundle analysis
-npm run analyze:bundle
-```
+This project features enterprise-grade testing infrastructure. See [tests/TESTING.md](./tests/TESTING.md) for comprehensive testing documentation (18K+ words).
 
 ### Test Architecture
 
-```text
-E2E Tests (Playwright)     - Cross-browser functional + accessibility (Chrome, Firefox, Safari)
-Component Tests (Vitest)   - Astro component rendering + logic with happy-dom
-Unit Tests (Vitest)        - Utility functions + business logic
-Visual Regression          - Screenshot comparison tests with 0.2 threshold
-Contract Tests             - Consumer-driven contract testing with Pact
-Mutation Tests             - Code quality validation with Stryker
-Accessibility Tests        - Axe Core compliance testing
-Performance Tests          - Lighthouse CI performance monitoring
+```
+┌─────────────────────────────────────────────────────────────┐
+│  E2E (Playwright)        - Cross-browser functional tests   │
+│  Component (Vitest)    - Astro component rendering       │
+│  Unit (Vitest)         - Utility functions               │
+│  Integration (Vitest)  - Component interactions         │
+├─────────────────────────────────────────────────────────────┤
+│  Accessibility         - Axe Core WCAG 2.2 AA             │
+│  Contract              - Pact API validation              │
+│  Mutation              - Stryker 80% threshold            │
+│  Fuzzing               - Jazzer security tests            │
+│  Property              - fast-check generative tests    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-## Website & Application Overview
+### Coverage Thresholds
 
-This portfolio website showcases Trevor Lam's professional expertise as an Operations & Financial Controls Leader and Chief of Staff professional, featuring comprehensive case studies, methodology documentation, and career trajectory.
+- **Global**: 80% (branches, functions, lines, statements)
+- **Utils**: 90% (stricter threshold for utility functions)
 
-### Site Architecture
+### CI/CD Test Matrix
 
-The website follows a modern multi-page application structure with the following pages:
+| Shard | Test Type | Resource Level |
+|-------|-----------|----------------|
+| 1 | Unit | Standard |
+| 2 | Components | Standard |
+| 3 | Integration | Enhanced |
+| 4 | Accessibility | Enhanced |
+| 5 | E2E | High |
+| 6 | Performance | High |
+| 7 | Security | Standard |
+| 8 | Contract | Standard |
 
-#### **Homepage (`/`)**
+## Site Architecture
 
-**Purpose**: Professional introduction and value proposition overview
+Trevor Lam's portfolio showcases professional expertise as an Operations Leader and Chief of Staff, featuring case studies, methodology documentation, and career trajectory.
 
-#### **About Page (`/about`)**
+### Page Structure
 
-**Purpose**: Professional background and experience overview
+| Route | Purpose | Key Features |
+|-------|---------|--------------|
+| `/` | Homepage dashboard | Metrics grid, recent activity, quick actions |
+| `/capabilities` | Skills overview | 5 capability categories with KPIs |
+| `/capabilities/[slug]` | Individual capability | KPI cards, metrics, related cases |
+| `/cases` | Case studies index | 3 operational transformation stories |
+| `/cases/[slug]` | Individual case study | PDF download, trust cues, related capabilities |
+| `/connect` | Contact & opportunities | Form, LinkedIn, resume download |
+| `/lab` | Learning & experiments | Projects, learning logs, tech stack |
+| `/lab/learning-log` | Knowledge sharing | 6 entries with tags |
+| `/lab/projects` | Work showcase | 3 active/completed projects |
+| `/lab/tech-stack` | Technology documentation | Current tools and rationale |
+| `/resources` | Practical resources | Playbooks, templates, skills matrix |
+| `/resources/playbooks` | Operational guides | Step-by-step processes |
+| `/resources/templates` | Downloadable assets | Project templates |
+| `/resources/skills-matrix` | Skills visualization | Interactive proficiency table |
+| `/search` | Site-wide search | Cmd+K shortcut, content filtering |
+| `/archive` | Complete index | Changelog, chronological content |
+| `/404` | Error page | Helpful navigation |
 
-#### **Approach Page (`/approach`)**
+### Content Collections
 
-**Purpose**: Methodology and systematic approach to operational excellence
+| Collection | Count | Schema Key |
+|------------|-------|------------|
+| `caseStudies` | 3 | `title`, `industry`, `problem`, `result`, `skills[]`, `metrics[]` |
+| `capabilities` | 5 | `title`, `philosophy`, `kpis[]`, `industries[]` |
+| `learningLogs` | 6 | `title`, `date`, `tags[]`, `excerpt` |
+| `projects` | 3 | `title`, `status`, `technologies[]`, `tags[]` |
+| `resources` | 8 | `title`, `type`, `audience`, `gated` |
+| `skills` | 4 | `category`, `skills[]` with `level` and `yearsExperience` |
 
-#### **Capabilities Page (`/capabilities`)**
+### Case Studies
 
-**Purpose**: Skills, expertise, and service offerings
+| Case | Industry | Key Metrics |
+|------|----------|-------------|
+| **Sonic Drive-in** | QSR | $1.4M → $1.7M revenue, food cost 2.7% → 0.75%, turnover 175%+ → <80% |
+| **KLW Salon Group** | Salon | 280-315+ payroll accounts, 3 entities, 60 days to promotion |
+| **GrandLux CPA** | CPA-Payroll | Zero cash discrepancies, proactive reputation management |
 
-#### **Impact Page (`/impact`)**
+### Data Files
 
-**Purpose**: Quantified results and case study validation
+- **`/data/metrics.json`**: 9 quantified achievement metrics
+- **`/data/skills.json`**: 5 skill categories with proficiency levels
+- **`/data/timeline.json`**: 11 career progression entries
 
-#### **Connect Page (`/connect`)**
-
-**Purpose**: Professional engagement and opportunity outreach
-
-**Sections**:
-
-- **Professional Identity**: Operations & Financial Controls Leader · Active Texas Notary · DFW/Remote
-- **Target Opportunities**:
-  - Operations roles
-  - Chief of Staff positions
-  - HR/Payroll expertise
-  - Firm Administration
-  - Trust & Estate Paralegal work
-- **Contact Methods**: LinkedIn integration and direct email
-- **Response Expectations**: Communication timeline and process
-
-#### **Case Studies (`/cases/[slug]`)**
-
-**Purpose**: Detailed documentation of operational transformation projects
-
-**Available Cases**:
-
-- **Sonic Drive-in** (`/cases/sonic`)
-  - Industry: QSR (Quick Service Restaurant)
-  - Focus: Payroll accuracy improvement (87% to 99.8%)
-  - Skills: Multi-state payroll compliance, process redesign
-
-- **KLW Salon Group** (`/cases/klw`)
-  - Industry: Salon
-  - Focus: Inventory management stabilization (95% accuracy, 73% stockout reduction)
-  - Skills: Inventory systems, staffing optimization
-
-- **GrandLux CPA** (`/cases/grandlux`)
-  - Industry: CPA-Payroll
-  - Focus: Client processing automation (65% time reduction)
-  - Skills: Workflow automation, compliance optimization
-
-**Case Study Features**:
-
-- Dynamic routing with `[slug].astro`
-- Industry categorization with Zod validation
-- Skills tagging system
-- Problem-solution-result structure
-- MDX content with rich components
-
-### Content Management System
-
-#### **Content Collections**
-
-- **Case Studies**: Managed through Astro content collections with glob loader
-- **Schema Validation**: Zod 4.3.6 schemas for content type safety
-- **Dynamic Routing**: Automatic page generation from MDX files
-- **Component Integration**: Custom components for content rendering
-
-#### **Content Structure**
+### Navigation Structure
 
 ```typescript
-// Case Study Schema (<https://github.com/TrevorPLam/trevorplam/blob/main/src/content.config.ts>)
-{
-  title: string,
-  industry: 'QSR' | 'Salon' | 'CPA-Payroll',
-  problem: string,
-  result: string,
-  skills: string[],
-  metric?: string
-}
+// src/config/navigation.ts
+[
+  { name: 'Dashboard', href: '/' },
+  { name: 'Capabilities', href: '/capabilities', children: [...5 items] },
+  { name: 'Case Studies', href: '/cases', children: [...3 items] },
+  { name: 'Lab', href: '/lab', children: [...3 items] },
+  { name: 'Resources', href: '/resources', children: [...3 items] },
+  { name: 'Search', href: '/search' },
+  { name: 'Archive', href: '/archive' }
+]
 ```
-
-#### **Data Files**
-
-- **metrics.json**: Performance metrics and achievements
-- **skills.json**: Skills and expertise categorization
-- **timeline.json**: Career progression data
-
-### User Experience Features
-
-#### **Navigation**
-
-- **Responsive Design**: Mobile-first approach with desktop optimization
-- **Semantic Navigation**: ARIA-compliant menu structure
-- **Keyboard Navigation**: Full keyboard accessibility support
-- **Skip Links**: Direct navigation to main content
-
-#### **Interactive Elements**
-
-- **Toggle Switches**: View switching functionality
-- **Timeline Components**: Interactive career progression
-- **Metric Cards**: Quantified achievement displays
-- **Skill Tags**: Categorized expertise indicators
-
-#### **Accessibility Features**
-
-- **WCAG 2.1 AA Compliance**: Full accessibility standards
-- **Screen Reader Support**: Comprehensive semantic markup
-- **Focus Management**: Logical tab order and focus indicators
-- **Color Contrast**: Optimized for readability
-
-### Technical Implementation
-
-#### **Performance Optimization**
-
-- **Static Site Generation**: Optimal loading performance
-- **Image Optimization**: Astro asset management
-- **Font Preloading**: Inter and JetBrains Mono fonts
-- **Bundle Optimization**: Minimal JavaScript footprint
-
-#### **SEO Features**
-
-- **Structured Data**: JSON-LD with Person and WebSite schemas
-- **Meta Tags**: Comprehensive page metadata with Open Graph and Twitter Cards
-- **Sitemap Generation**: Automated XML sitemap with @astrojs/sitemap
-- **Semantic HTML**: Search engine optimization with proper heading hierarchy
-- **Plausible Analytics**: Privacy-first analytics integration
-
-#### **Content Architecture**
-
-- **Component-Based Design**: Reusable Astro components
-- **MDX Integration**: Rich content authoring capabilities
-- **Type Safety**: TypeScript throughout the application
-- **Modular Structure**: Maintainable code organization
 
 ## Configuration
 
 ### Environment Variables
+
 Create a `.env` file for local development:
 
 ```env
 # Site configuration
 SITE_URL=https://trevor-lam.com
+EDGE_RUNTIME=false
+ANALYZE=true  # Enable bundle analyzer
 ```
 
-### Build Configuration
-- **Output**: Static site generation (`output: 'static'`)
-- **Site URL**: https://trevor-lam.com
-- **Node Version**: >= 22.12.0 (engines enforced)
-- **Security**: CSP headers enabled with Astro security configuration
-- **Bundle Analysis**: Conditional bundle analyzer with ANALYZE environment variable
+### Build Configuration (`astro.config.mjs`)
+
+| Setting | Value | Notes |
+|---------|-------|-------|
+| `output` | `static` | Static site generation |
+| `site` | `https://trevor-lam.com` | Production URL |
+| `target` | `es2022` | Modern browser support |
+| `minify` | `esbuild` | Fast minification |
+| `image.service` | `sharp` | Sharp processing with AVIF |
+| `image.defaultQuality` | `75` | Optimized for performance |
+| `prefetch` | `hover` | Link prefetching strategy |
+| `security.csp.enabled` | `true` | Hash-based CSP (no unsafe-inline) |
+
+### Redirects
+
+| From | To | Reason |
+|------|----|--------|
+| `/about` | `/capabilities` | Consolidated content |
+| `/approach` | `/cases` | Renamed section |
+| `/impact` | `/lab` | Reorganized navigation |
+
+### Vercel Security Headers (`vercel.json`)
+
+- `Strict-Transport-Security`: HSTS with preload
+- `X-Frame-Options`: DENY
+- `X-Content-Type-Options`: nosniff
+- `Referrer-Policy`: strict-origin-when-cross-origin
+- `Cross-Origin-Opener-Policy`: same-origin
+- `Cross-Origin-Resource-Policy`: same-site
+- `Permissions-Policy`: camera=(), microphone=(), geolocation=()
 
 ## Deployment
 
 ### Production Deployment
-The site is configured for static deployment and can be hosted on:
-- Vercel (recommended)
-- Netlify
-- Cloudflare Pages
-- Any static hosting service
 
-### CI/CD Pipeline
-Automated workflows include:
-- **Testing**: Unit, E2E, accessibility, contract tests with artifact upload
-- **Quality Gates**: Coverage thresholds, linting, type checking
-- **Performance**: Lighthouse CI with performance monitoring
-- **Security**: Trivy vulnerability scanning with SARIF reporting
-- **Deployment**: Automated Vercel deployment on merge to main
+The site is configured for static deployment and optimized for Vercel:
 
-#### **Security Features**
+```bash
+# Deploy to Vercel
+vercel --prod
+```
 
-- **CSP Headers**: Content Security Policy with strict settings
-- **Security Headers**: HSTS, X-Frame-Options, X-Content-Type-Options
-- **Vulnerability Scanning**: Trivy integration with GitHub Security tab
-- **Dependency Security**: npm overrides for known vulnerabilities
-- **Security Linting**: ESLint plugins for browser security and secure coding
+### CI/CD Pipeline (`.github/workflows/ci.yml`)
+
+| Job | Purpose |
+|-----|---------|
+| `lint` | ESLint + Astro type checking |
+| `test` | 8-shard test matrix (unit, component, integration, accessibility, e2e, performance, security, contract) |
+| `lighthouse` | Performance auditing |
+| `fuzzing` | Security fuzzing with resource limits |
+| `mutation-testing` | Stryker mutation testing |
+| `security-scan` | Trivy vulnerability scanning |
+| `deploy` | Automated Vercel deployment on `main` |
+
+### Security Features
+
+- **CSP**: Hash-based approach via `astro.config.mjs` (auto-generates script hashes)
+- **Security Headers**: Via `vercel.json` (HSTS, COOP, CORP, Permissions-Policy)
+- **No COEP**: Intentionally omitted to avoid breaking third-party analytics
+- **Dependency Security**: npm overrides for `yaml@^2.8.3` and `tmp@^0.2.3`
+- **Linting**: ESLint plugins for browser security and secure coding
 
 ## Contributing
 
@@ -484,4 +450,4 @@ This project is private and proprietary.
 - Built with [Astro](https://astro.build)
 - Styled with [Tailwind CSS](https://tailwindcss.com)
 - Tested with [Vitest](https://vitest.dev) and [Playwright](https://playwright.dev)
-- Fonts from [Google Fonts](https://fonts.google.com)
+- Fonts from [Fontsource](https://fontsource.org) via `astro:fonts`

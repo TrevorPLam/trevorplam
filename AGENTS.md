@@ -55,6 +55,11 @@ This file gives AI coding agents project‑specific guidance for the Trevor Lam 
 ## Content & Data
 
 - **Case studies**: MDX in `/src/content/cases/` – use `getCollection('caseStudies')` + `await render(entry, { components })`
+- **Capabilities**: MDX in `/src/content/capabilities/` – 5 capability categories with KPIs
+- **Learning logs**: MDX in `/src/content/learning-logs/` – 6 entries with tagging
+- **Projects**: MDX in `/src/content/projects/` – 3 project showcases
+- **Resources**: MDX in `/src/content/resources/` – 8 playbooks, templates, guides
+- **Skills**: JSON in `/src/content/skills/` – 4 category files with proficiency levels
 - **JSON data** (metrics, skills, timeline) – import directly from `/data/` (e.g. `import metrics from '../../data/metrics.json'`)
 - **Images**: place in `/src/assets/` (not `/public/`). Use `OptimizedImage` component. LCP image (headshot) needs `loading="eager"` and `fetchpriority="high"`.
 
@@ -63,7 +68,10 @@ This file gives AI coding agents project‑specific guidance for the Trevor Lam 
 - **No `waitForTimeout()`** – use web‑first assertions (`expect().toBeVisible()`, `expect().toHaveURL()`)
 - **Accessibility**: zero axe‑core violations (Playwright + `@axe-core/playwright`)
 - **Contract tests**: Pact for any API endpoints
-- **Mutation testing**: Stryker (target 80% score – see `TASKS.md`)
+- **Mutation testing**: Stryker (target 80% score)
+- **Fuzzing**: Jazzer for security vulnerability detection
+- **Property-based**: fast-check for generative testing
+- **Browser tests**: Vitest browser mode for real browser component testing
 
 ## Security & Headers
 

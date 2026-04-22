@@ -5,8 +5,8 @@ import { playwright } from '@vitest/browser-playwright';
 export default getViteConfig({
   test: {
     environment: 'happy-dom',
-    testTimeout: 5000,
-    hookTimeout: 5000,
+    testTimeout: 3000, // 2026: Optimized from 5000ms for faster feedback
+    hookTimeout: 3000,  // 2026: Optimized from 5000ms for faster feedback
     isolate: true,
     pool: 'threads',
     maxConcurrency: process.env.CI ? 4 : undefined,
@@ -33,23 +33,23 @@ export default getViteConfig({
         name: 'unit', 
         isolate: false, 
         include: ['tests/unit/**'],
-        testTimeout: 3000,
-        hookTimeout: 3000
+        testTimeout: 2000, // 2026: Faster unit tests
+        hookTimeout: 2000
       },
       { 
         name: 'components', 
         isolate: true, 
         include: ['tests/components/**'],
-        testTimeout: 5000,
-        hookTimeout: 5000,
+        testTimeout: 3000, // 2026: Optimized component tests
+        hookTimeout: 3000,
         environment: 'browser' // Override for real browser testing
       },
       { 
         name: 'integration', 
         isolate: true, 
         include: ['tests/integration/**'],
-        testTimeout: 10000,
-        hookTimeout: 10000
+        testTimeout: 5000, // 2026: Reduced integration test timeout
+        hookTimeout: 5000
       },
       {
         name: 'property',
